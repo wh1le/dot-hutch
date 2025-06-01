@@ -308,3 +308,8 @@ function git_history() {
     fi
   done
 }
+
+function watch() {
+  nodemon --exec python3 $1
+}
+

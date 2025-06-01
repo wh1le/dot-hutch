@@ -6,5 +6,10 @@
 	"solargraph.diagnostics": true,
   "solargraph.autoformat": true,
   "solargraph.formatting": true,
-  "solargraph.hover": true
+  "solargraph.hover": true,
+  "pyright.enable": true,
+  "python.linting.enabled": true,
+  "tsserver.tsconfigPath": "app/javascript/tsconfig.json",
+  "eslint.run": "onSave",
+  "eslint.autoFixOnSave": true
 }
