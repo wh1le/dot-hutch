@@ -269,7 +269,12 @@ function -maybe-show-vcs-info() {
       ;;
   esac
 }
+
 add-zsh-hook precmd -maybe-show-vcs-info
+
+alias song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
+alias video="yt-dlp"
+
 
 
 if which rbenv > /dev/null; then 
@@ -282,6 +287,18 @@ fi
 
 export TERM="xterm-256color"
 
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+#   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+#   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+#
+# nvm use 18.17
+
+# S=${1:-10}
+
+# while true
+# do
+#     pbcopy < /dev/null
+#     sleep $S
+# done
+
+# /usr/local/bin/clear_buffer 120 &
