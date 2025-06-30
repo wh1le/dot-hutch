@@ -136,7 +136,6 @@ setopt SHARE_HISTORY           # share history across shells
 # Bindings
 #
 
-bindkey -e # emacs bindings, set to -v for vi bindings
 
 # Use "cbt" capability ("back_tab", as per `man terminfo`), if we have it:
 if tput cbt &> /dev/null; then
@@ -247,7 +246,8 @@ function -auto-ls-after-cd() {
   if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
     # pwd
     # tree -L 1
-    l
+    #
+    echo -e "\n📂 $(pwd)\n" && gls --color=always | sed "s/^/  /" && echo
   fi
 }
 add-zsh-hook chpwd -auto-ls-after-cd
@@ -302,3 +302,95 @@ export TERM="xterm-256color"
 # done
 
 # /usr/local/bin/clear_buffer 120 &
+#
+alias chatgpt="/Users/nikitamiloserdov/code/bin/chatgpt.sh"
+
+
+export CLICOLOR=1
+# export LSCOLORS=gxfxcxdxbxegedabagacad
+eval "$(gdircolors -b ~/.dir_colors)"
+# alias ls='echo -e "\n📂 $(pwd)\n" && gls --color=always | sed "s/^/  /" && echo'
+ls() {
+  echo -e "\n📂 $(pwd)\n"
+  gls --color=always "$@" | sed 's/^/  /'
+  echo
+}
+
+# pytest_wrapper() {
+#   PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+#   PY_COLORS=0 \
+#   pytest --color=no "$@"
+# }
+# alias pytest='pytest'
+#
+# pytest() {
+#   PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+#   PY_COLORS=0 \
+#   PYGMENTS_NO_COLOR=1 \
+#   NO_COLOR=1 \
+#   FORCE_COLOR=0 \
+#   command pytest --color=no "$@"
+# }
+
+# export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+# export PY_COLORS=0
+# export PYGMENTS_NO_COLOR=1
+# export NO_COLOR=1
+export FORCE_COLOR=0
+
+nocolor() {
+  NO_COLOR=1 \
+  PY_COLORS=0 \
+  PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  PYGMENTS_NO_COLOR=1 \
+  RICH_NO_COLOR=1 \
+  FORCE_COLOR=0 \
+  TERM=dumb \
+  command "$@"
+}
+alias pytest='nocolor pytest'
+
+alias yt="/Users/nikitamiloserdov/code/assistant/youtube/bin/transcript.sh"
+alias yd="/Users/nikitamiloserdov/code/assistant/youtube/bin/download.sh"
+alias ymd="/Users/nikitamiloserdov/code/assistant/youtube/bin/music.sh"
+
+[ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
+
+# Enable VIM mode
+bindkey -v
+export PATH="$PATH:/Users/nikitamiloserdov/code/bin/android"
+export PATH="$PATH:/Users/nikitamiloserdov/code/bin/scrcpy"
+
+# Show -- NORMAL -- or -- INSERT -- in prompt
+function zle-keymap-select {
+  case $KEYMAP in
+    vicmd) RPROMPT="-- NORMAL --" ;;
+    main|viins) RPROMPT="-- INSERT --" ;;
+  esac
+  zle reset-prompt
+}
+zle-line-init() { zle vi-insert }
+zle -N zle-line-init
+
+function edit_obsidian() {
+  cd ~/code/obsidian_vaults/self_architect
+  nvim
+}
+
+function mancopy() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: mancopy <command>"
+    return 1
+  fi
+
+  man "$1" | col -bx | pbcopy
+  echo "Copied man page for '$1' to clipboard ✅"
+}
+
+# Python
+# source ~/venvs/algos/bin/activate
+
+eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+pyenv global 🐍local

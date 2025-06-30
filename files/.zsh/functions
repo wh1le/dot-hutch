@@ -310,6 +310,10 @@ function git_history() {
 }
 
 function watch() {
-  nodemon --exec python3 $1
+  # PYTHONWARNINGS="ignore" nodemon --quiet --exec "python3 -m friendly" $1
+  nodemon --quiet --exec 'clear; echo "[reloaded]"; python3 -m friendly' "$1"
 }
 
+function python_repl {
+  python3 -i -c "import friendly; friendly.set_formatter('plain'); friendly.install()"
+}

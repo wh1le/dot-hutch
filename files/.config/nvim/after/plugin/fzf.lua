@@ -1,0 +1,68 @@
+-- FZF environment config
+
+-- Search files
+vim.env.FZF_DEFAULT_COMMAND = "ag -g '' --path-to-ignore ~/.config/nvim/fzfignore"
+
+local function get_hex(group, key)
+  local hl = vim.api.nvim_get_hl(0, { name = group })[key]
+  if not hl then return nil end
+  return string.format("#%06x", hl)
+end
+
+local main = get_hex("Cursor", "bg")
+local bg = "#8499f0"
+local fg = "#5f5fff"-- get_hex("LineNr", "bg")
+local prompt = "#ff5f00"
+local query = "#00afff"
+local marker = "#1e1e1e"
+local border = "#1e1e1e"
+
+local colors = {
+  "fg:" .. fg,
+  "bg:" .. bg,
+  "prompt:" .. prompt,
+  "query:" .. query,
+  "marker:" .. marker,
+  "border:" .. border,
+}
+
+vim.env.FZF_DEFAULT_OPTS = table.concat({
+  "--height=100%",
+  "--layout=reverse",
+  "--ansi",
+  "--no-info",
+  "--border=rounded",
+  "--color=" .. table.concat(colors, ",")
+}, " ")
+--
+
+-- FZF keymap
+vim.keymap.set('n', '<C-p>', ':FZF<CR>', { noremap = true, silent = true })
+
+-- Floating window for FZF
+_G.FloatingFZF = function()
+
+  local width = math.floor(vim.o.columns * 0.5) -- smaller width (50% of screen)
+  local height = math.floor(vim.o.lines * 0.25) -- shorter height (25% of screen)
+
+  local row_offset = 2
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_option(buf, 'signcolumn', 'no')
+
+  local opts = {
+    relative = 'editor',
+    row = row_offset,
+    col = math.floor((vim.o.columns - width) / 2),     -- centered horizontally
+    width = width,
+    height = height,
+    style = 'minimal',
+    -- border = 'rounded'                                 -- clean border back in
+  }
+  vim.api.nvim_open_win(buf, true, opts)
+end
+
+-- Link FZF to floating window
+vim.g.fzf_layout = {
+  window = 'call v:lua.FloatingFZF()'
+}

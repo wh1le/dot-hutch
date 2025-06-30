@@ -1,0 +1,15 @@
+{
+  "your_action_name": {
+    "type": "chat",
+    "opts": {
+      "template": "Explain:\n{{input}}",
+      "strategy": "display",
+      "popup_layout": {
+        "center": "80%"
+      },
+      "params": {
+        "model": "gpt-4"
+      }
+    }
+  }
+}

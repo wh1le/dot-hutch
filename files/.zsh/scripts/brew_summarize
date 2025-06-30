@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+# 📦 Output file
+OUTFILE=~/brew_apps_table.md
+
+# 🧹 Start fresh
+echo '| Name | Description |' > $OUTFILE
+echo '|------|-------------|' >> $OUTFILE
+
+# 🔧 Add CLI tools (formulas)
+brew list --formula | while read -r app; do
+  desc=$(brew info --formula --json=v2 "$app" | jq -r '.formulae[0].desc // "No description"')
+  echo "| $app | $desc |" >> $OUTFILE
+done
+
+# 🖥️ Add GUI apps (casks)
+brew list --cask | while read -r app; do
+  desc=$(brew info --cask --json=v2 "$app" | jq -r '.casks[0].desc // "No description"')
+  echo "| $app | $desc |" >> $OUTFILE
+done

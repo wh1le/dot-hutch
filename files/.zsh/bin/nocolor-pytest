@@ -1,0 +1,9 @@
+# ~/.zsh/bin/nocolor-pytest
+#!/bin/zsh
+NO_COLOR=1 \
+PY_COLORS=0 \
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYGMENTS_NO_COLOR=1 \
+RICH_NO_COLOR=1 \
+FORCE_COLOR=0 \
+pytest "$@"
