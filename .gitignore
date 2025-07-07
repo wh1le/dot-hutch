@@ -1,4 +1,4 @@
 *.DS_Store
 files/.config/nvim/plugged/**
 files/.tmux/plugins/*
-files/!.tmux/plugins/tpm
+!files/.tmux/plugins/tpm
