@@ -1,0 +1,12 @@
+.
+├── bin
+└── files
+    ├── fonts
+    │   ├── Fanasque Sans Mono
+    │   ├── Fira Code
+    │   ├── JetBrainsMono
+    │   ├── PragmataPro
+    │   └── Ubuntu Mono
+    └── windows
+
+9 directories

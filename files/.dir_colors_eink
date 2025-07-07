@@ -1,0 +1,27 @@
+# E-Ink Black-on-White LS_COLORS (save as ~/.dir_colors_eink)
+COLOR tty
+EIGHTBIT 1
+
+# ── CORE ──
+NORMAL 00
+FILE   00                       # plain file
+DIR    01                       # bold  → folders
+LINK   04                       # underline → symlinks
+EXEC   03                       # italic → runnable
+ORPHAN 01;04                    # bold+underline → broken link
+MISSING 01;04
+
+# ── EDITABLE SOURCE ── (italic)
+*.c    03  *.cpp 03  *.h 03  *.py 03  *.sh 03  *.zsh 03  
+*.go   03  *.js 03  *.ts 03  *.rs 03  *.md 03  *.txt 03  
+
+# ── LOGS / DUMPS ── (bold)
+*.log  01  *.err 01  *.core 01  *.bak 01  
+
+# ── ARCHIVES ── (italic + underline)
+*.gz   03;04  *.bz2 03;04  *.xz 03;04  *.zip 03;04  
+*.7z   03;04  *.tar 03;04 *.rar 03;04  
+
+# ── MEDIA & DOCS ── (plain)
+*.png  00  *.jpg 00  *.jpeg 00  *.gif 00  *.pdf 00  
+*.mp3  00  *.mp4 00
