@@ -8,6 +8,9 @@ export LANG=en_US.UTF-8
 
 typeset -A __NIKITA
 
+autoload -U colors
+colors
+
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
@@ -133,7 +136,6 @@ setopt SHARE_HISTORY           # share history across shells
 # Bindings
 #
 
-bindkey -e # emacs bindings, set to -v for vi bindings
 
 # Use "cbt" capability ("back_tab", as per `man terminfo`), if we have it:
 if tput cbt &> /dev/null; then
@@ -171,6 +173,7 @@ function fg-bg() {
 zle -N fg-bg
 bindkey '^Z' fg-bg
 
+source $HOME/.zsh/colors
 source $HOME/.zsh/aliases
 source $HOME/.zsh/path
 source $HOME/.zsh/exports
@@ -243,7 +246,8 @@ function -auto-ls-after-cd() {
   if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
     # pwd
     # tree -L 1
-    l
+    #
+    echo -e "\n📂 $(pwd)\n" && ls --color=always | sed "s/^/  /" && echo
   fi
 }
 add-zsh-hook chpwd -auto-ls-after-cd
@@ -265,7 +269,12 @@ function -maybe-show-vcs-info() {
       ;;
   esac
 }
+
 add-zsh-hook precmd -maybe-show-vcs-info
+
+alias song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
+alias video="yt-dlp"
+
 
 
 if which rbenv > /dev/null; then 
@@ -276,6 +285,132 @@ if [ "$BENCHMARK" = true ]; then
   zprof
 fi
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export TERM="xterm-256color"
 
-# export TERM="xterm-kitty"
+# export NVM_DIR="$HOME/.nvm"
+#   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+#   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+#
+# nvm use 18.17
+
+# S=${1:-10}
+
+# while true
+# do
+#     pbcopy < /dev/null
+#     sleep $S
+# done
+
+# /usr/local/bin/clear_buffer 120 &
+#
+alias chatgpt="/Users/nikitamiloserdov/code/bin/chatgpt.sh"
+
+
+export CLICOLOR=1
+# export LSCOLORS=gxfxcxdxbxegedabagacad
+# eval "$(gdircolors -b ~/.dir_colors)"
+eval "$(dircolors -b ~/.dir_colors_eink)"
+# alias ls='echo -e "\n📂 $(pwd)\n" && ls --color=always | sed "s/^/  /" && echo'
+
+# pytest_wrapper() {
+#   PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+#   PY_COLORS=0 \
+#   pytest --color=no "$@"
+# }
+# alias pytest='pytest'
+#
+# pytest() {
+#   PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+#   PY_COLORS=0 \
+#   PYGMENTS_NO_COLOR=1 \
+#   NO_COLOR=1 \
+#   FORCE_COLOR=0 \
+#   command pytest --color=no "$@"
+# }
+
+# export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+# export PY_COLORS=0
+# export PYGMENTS_NO_COLOR=1
+# export NO_COLOR=1
+export FORCE_COLOR=0
+
+nocolor() {
+  NO_COLOR=1 \
+  PY_COLORS=0 \
+  PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  PYGMENTS_NO_COLOR=1 \
+  RICH_NO_COLOR=1 \
+  FORCE_COLOR=0 \
+  TERM=dumb \
+  command "$@"
+}
+alias pytest='nocolor pytest'
+
+alias yt="/Users/nikitamiloserdov/code/babulia/youtube/bin/transcript.sh"
+alias yd="/Users/nikitamiloserdov/code/babulia/youtube/bin/download_video.sh"
+alias ymd="/Users/nikitamiloserdov/code/babulia/youtube/bin/download_music.sh"
+
+[ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
+
+# Enable VIM mode
+bindkey -v
+export PATH="$PATH:/Users/nikitamiloserdov/code/bin/android"
+export PATH="$PATH:/Users/nikitamiloserdov/code/bin/scrcpy"
+
+# Show -- NORMAL -- or -- INSERT -- in prompt
+function zle-keymap-select {
+  case $KEYMAP in
+    vicmd) RPROMPT="-- NORMAL --" ;;
+    main|viins) RPROMPT="-- INSERT --" ;;
+  esac
+  zle reset-prompt
+}
+zle-line-init() { zle vi-insert }
+zle -N zle-line-init
+
+function edit_obsidian() {
+  cd ~/code/obsidian_vaults/self_architect
+  nvim
+}
+
+function mancopy() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: mancopy <command>"
+    return 1
+  fi
+
+  man "$1" | col -bx | pbcopy
+  echo "Copied man page for '$1' to clipboard ✅"
+}
+
+copy() {
+  if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+    clip.exe
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    pbcopy
+  else
+    echo "❌ Unsupported OS for copy()" >&2
+    return 1
+  fi
+}
+
+opend() {
+  if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+    /mnt/c/Program\ Files/Double\ Commander/doublecmd.exe .
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    open
+  else
+    echo "❌ Unsupported OS for copy()" >&2
+    return 1
+  fi
+}
+
+# Move to seprate WSL file
+
+function edith() {
+  cd /mnt/c/Users/nmilo/Documents/AutoHotKey
+  vim default.ahk
+}
+
+# Disable WezTerm version output inside tmux
+[[ -n "$TMUX" ]] && export WEZTERM_DISABLE_VERSION_OUTPUT=1

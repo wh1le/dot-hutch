@@ -94,3 +94,19 @@ vim.keymap.set('n', '<leader>d', ':bd<CR>')
 vim.keymap.set('n', '<leader>tt', '<Plug>VimwikiToggleListItem')
 vim.keymap.set('n', '<leader>wf', '<Plug>VimwikiFollowLink')
 vim.keymap.set('n', '<leader>wq', '<Plug>VimwikiVSplitLink')
+
+-- copy to clipboard (normal + visual)
+vim.keymap.set({'n', 'v'}, '<leader>y', [["+y]], {
+  noremap = true,
+  silent  = true,
+  desc    = 'Yank to system clipboard',
+})
+--
+-- vim.g.clipboard = {
+--   name = "win32yank-wsl",
+--   copy  = {["+"] = "win32yank.exe -i --crlf",
+--            ["*"] = "win32yank.exe -i --crlf"},
+--   paste = {["+"] = "win32yank.exe -o --lf",
+--            ["*"] = "win32yank.exe -o --lf"},
+--   cache_enabled = true,
+-- }

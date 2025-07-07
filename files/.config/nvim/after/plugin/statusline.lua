@@ -46,11 +46,11 @@ end
 function _G.ModeHighlight()
   local m = vim.fn.mode()
   if m == 'n' then
-    vim.cmd('hi StatusLine guibg=#1e1e2e guifg=#c5c8c6')
+    vim.cmd('hi StatusLine guibg=black guifg=white')
   elseif m == 'i' then
-    vim.cmd('hi StatusLine guibg=#1e1e2e guifg=#a6e3a1')
+    vim.cmd('hi StatusLine guibg=black guifg=white')
   elseif m == 'v' then
-    vim.cmd('hi StatusLine guibg=#1e1e2e guifg=#f5c2e7')
+    vim.cmd('hi StatusLine guibg=black guifg=white')
   end
 end
 
@@ -78,4 +78,12 @@ vim.o.statusline = table.concat({
   "%{v:lua.CocStatus()}",
   " %l:%c",
   " %p%% ",
-}, "")
+},
+"")
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "NvimTree", -- not "NvimTree_1"
+  callback = function()
+    vim.opt_local.statusline = " " -- overrides global
+  end,
+})

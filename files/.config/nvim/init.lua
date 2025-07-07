@@ -1,6 +1,7 @@
 require("config.core")
 require("config.helpers")
 require("config.hotkeys")
+require("config.copypaste")
 
 require("lazy_setup")
 
@@ -31,12 +32,31 @@ vim.env.TERM = "tmux-256color"
 --   command = 'call zip#Browse(expand("<amatch>"))',
 -- })
 
--- Colorscheme
-vim.cmd('colorscheme kindlight_relax')
-
 -- General settings
 vim.o.showmode = false
 vim.o.cursorline = false
 vim.o.number = true
 vim.o.relativenumber = false
 vim.o.autoread = true
+
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.swapfile = false
+
+-- Colorscheme
+vim.cmd('colorscheme e-ink')
+vim.o.termguicolors = true
+vim.o.background = "light"
+
+vim.cmd('highlight Normal guibg=NONE')
+
+vim.opt.lazyredraw = true
+vim.opt.ruler = false
+vim.opt.showcmd = false
+vim.opt.visualbell = false
+vim.opt.relativenumber = false
+vim.opt.cursorcolumn = false
+vim.opt.cursorline = false
+-- vim.opt.ttyscroll = 3
+vim.opt.scrolloff = 0
+vim.opt.incsearch = false
