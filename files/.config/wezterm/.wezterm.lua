@@ -7,16 +7,29 @@ wezterm.on('gui-startup', function(cmd)
   window:gui_window():maximize()
 end)
 
-config.default_prog = {
-  "wsl.exe",
-  "--distribution", "Ubuntu",
-  "--exec",
-  "zsh"
-}
+if wezterm.target_triple:find("windows") then
+  config.default_prog = {
+    "wsl.exe",
+    "--distribution", "Ubuntu",
+    "--exec",
+    "zsh"
+  }
+end
 
 -- GUI
 
-config.font = wezterm.font("JetBrains Mono")
+config.font = wezterm.font("JetBrains Mono", { weight = "Regular" })
+config.font_rules = {
+  {
+    intensity = "Bold",
+    font = wezterm.font("JetBrains Mono", { weight = "ExtraBold" }),
+  },
+  {
+    intensity = "Half",
+    font = wezterm.font("JetBrains Mono", { weight = "DemiBold" }),
+  },
+}
+
 config.freetype_render_target = "HorizontalLcd"
 config.freetype_load_target = "Light"
 
@@ -38,22 +51,18 @@ config.text_background_opacity = 1.0
 
 -- COLORS
 config.color_scheme = 'Builtin Simple'
--- if wezterm.target_triple:find("windows") then
---   config.colors = {
---     background = "#ffffff",
---     foreground = "#000000",
---   } 
--- else
---    config.colors = {
---     background = "#e1e3ec",
---     foreground = "#000000",
---   } 
--- end
 
-config.colors = {
-  background = "#ffffff",
-  foreground = "#000000",
-}
+if wezterm.target_triple:find("windows") then
+  config.colors = {
+    background = "#ffffff",
+    foreground = "#000000",
+  } 
+else
+   config.colors = {
+    background = "#e1e3ec",
+    foreground = "#000000",
+  } 
+end
 
 config.bold_brightens_ansi_colors = true
 

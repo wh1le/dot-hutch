@@ -418,3 +418,13 @@ function edith() {
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
   eval "$(ssh-agent -s)"
 fi
+
+# Python
+# source ~/venvs/algos/bin/activate
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  eval "$(pyenv virtualenv-init -)"
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+  pyenv global 🐍local
+fi

@@ -23,4 +23,17 @@ return {
     },
     auto_install = true,
   },
+  config = function(_, opts)
+    require("nvim-treesitter.configs").setup(opts)
+
+    -- 🧠 Boldify function names in Treesitter + Aerial
+    local hl = vim.api.nvim_set_hl
+    hl(0, "@function", { bold = true })
+    hl(0, "@method", { bold = true })
+    hl(0, "@lsp.type.function", { link = "Function", bold = true })
+    hl(0, "@lsp.type.method", { link = "Function", bold = true })
+
+    hl(0, "AerialFunction", { bold = true })
+    hl(0, "AerialMethod", { bold = true })
+  end,
 }

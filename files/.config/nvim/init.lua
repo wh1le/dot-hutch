@@ -60,3 +60,40 @@ vim.opt.cursorline = false
 -- vim.opt.ttyscroll = 3
 vim.opt.scrolloff = 0
 vim.opt.incsearch = false
+
+local hl = vim.api.nvim_set_hl
+
+-- ✨ FOR TREESITTER (functions & methods)
+hl(0, "@function", { bold = true })
+hl(0, "@method", { bold = true })
+hl(0, "@lsp.type.function", { bold = true })
+hl(0, "@lsp.type.method", { bold = true })
+
+-- 🏫 CLASSES / TYPES
+hl(0, "@type", { bold = true })
+hl(0, "@class", { bold = true })
+hl(0, "@lsp.type.class", { bold = true })
+
+-- 🧪 CONSTRUCTORS
+hl(0, "@constructor", { bold = true })
+hl(0, "@lsp.type.constructor", { bold = true })
+
+-- ✨ FOR AERIAL (if using)
+hl(0, "AerialFunction", { bold = true })
+hl(0, "AerialMethod", { bold = true })
+
+-- 🧬 STRUCTS / ENUMS / INTERFACES
+hl(0, "@struct", { bold = true })
+hl(0, "@enum", { bold = true })
+hl(0, "@interface", { bold = true })
+
+-- 📦 AERIAL
+hl(0, "AerialFunction", { bold = true })
+hl(0, "AerialMethod", { bold = true })
+hl(0, "AerialClass", { bold = true })
+hl(0, "AerialConstructor", { bold = true })
+
+-- 📁 NVIM-TREE
+hl(0, "NvimTreeFolderName", { bold = true })
+hl(0, "NvimTreeOpenedFolderName", { bold = true })
+hl(0, "NvimTreeFolderIcon", { bold = true })
