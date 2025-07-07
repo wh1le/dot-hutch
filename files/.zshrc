@@ -414,3 +414,7 @@ function edith() {
 
 # Disable WezTerm version output inside tmux
 [[ -n "$TMUX" ]] && export WEZTERM_DISABLE_VERSION_OUTPUT=1
+
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+  eval "$(ssh-agent -s)"
+fi
