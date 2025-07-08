@@ -35,3 +35,10 @@ vim.api.nvim_create_autocmd("FileType", {
     hl(0, "@constant", { fg = "#9ca0b0", italic = true })
   end,
 })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { ".pryrc", "Guardfile" },
+  callback = function()
+    vim.bo.filetype = "ruby"
+  end,
+})

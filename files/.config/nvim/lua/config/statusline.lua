@@ -65,25 +65,73 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 
 -- ─── Statusline Setup ─────────────────────────────────────────
 
-vim.o.statusline = table.concat({
-  "%#StatusLine#",
-  "%{%v:lua.StatuslineMode()%}",
-  "%{%v:lua.ReadOnly()%}",
-  "%{%v:lua.PasteForStatusline()%}",
-  " %y",
-  " %{v:lua.GitBranch()}",
-  "%{v:lua.TruncFile()}",
-  "%m",
-  "%=",
-  "%{v:lua.CocStatus()}",
-  " %l:%c",
-  " %p%% ",
-},
-"")
+function _G.MyStatus()
+  local ft = vim.bo.filetype
+  if ft == "NvimTree" or ft == "aerial" then
+    return ""        -- show nothing in those panes
+  end
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "NvimTree", -- not "NvimTree_1"
+  -- ⬇️ everything you had before, verbatim ⬇️
+  return table.concat({
+    _G.StatuslineMode(),
+    _G.ReadOnly(),
+    _G.PasteForStatusline(),
+    " " .. vim.bo.filetype,
+    " " .. _G.GitBranch(),
+    " " .. _G.TruncFile(),
+    "%m",
+    "%=",
+    _G.CocStatus(),
+    " %l:%c",
+    " %p%% ",
+  }, "")
+end
+
+-- vim.o.statusline = table.concat({
+--   "%#StatusLine#",
+--   "%{%v:lua.StatuslineMode()%}",
+--   "%{%v:lua.ReadOnly()%}",
+--   "%{%v:lua.PasteForStatusline()%}",
+--   " %y",
+--   " %{v:lua.GitBranch()}",
+--   "%{v:lua.TruncFile()}",
+--   "%m",
+--   "%=",
+--   "%{v:lua.CocStatus()}",
+--   " %l:%c",
+--   " %p%% ",
+-- },
+-- "")
+
+vim.o.statusline = "%{%v:lua.MyStatus()%}"
+
+vim.o.laststatus = 2
+
+-- after the statusline definition:
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+  pattern = { "NvimTree", "aerial" },
   callback = function()
-    vim.opt_local.statusline = " " -- overrides global
+    -- run *after* the plugins set their own statusline
+    vim.opt_local.statusline = ""
+    vim.opt_local.winbar     = ""
   end,
 })
+
+local function black_bar_white_text()
+  vim.cmd([[
+    hi! StatusLine   guibg=#000000 guifg=#FFFFFF gui=NONE ctermfg=15 ctermbg=0
+    hi! StatusLineNC guibg=#000000 guifg=#FFFFFF gui=NONE ctermfg=15 ctermbg=0
+  ]])
+end
+
+black_bar_white_text()  -- run now
+vim.api.nvim_create_autocmd("ColorScheme", { callback = black_bar_white_text })
+
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = { 'NvimTree', 'aerial' },
+--   callback = function()
+--     vim.opt_local.statusline = ''   -- hide
+--     vim.opt_local.winbar     = ''   -- hide if you use winbar
+--   end,
+-- })
+

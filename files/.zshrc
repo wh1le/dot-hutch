@@ -8,8 +8,8 @@ export LANG=en_US.UTF-8
 
 typeset -A __NIKITA
 
-autoload -U colors
-colors
+# autoload -U colors
+# colors
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
@@ -173,7 +173,7 @@ function fg-bg() {
 zle -N fg-bg
 bindkey '^Z' fg-bg
 
-source $HOME/.zsh/colors
+# source $HOME/.zsh/colors
 source $HOME/.zsh/aliases
 source $HOME/.zsh/path
 source $HOME/.zsh/exports
@@ -239,17 +239,19 @@ function -update-window-title-preexec() {
 }
 add-zsh-hook preexec -update-window-title-preexec
 
+alias ls='ls -a --color=auto --group-directories-first'
+
 function -auto-ls-after-cd() {
   emulate -L zsh
-  # Only in response to a user-initiated `cd`, not indirectly (eg. via another
-  # function).
-  if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-    # pwd
-    # tree -L 1
-    #
-    echo -e "\n📂 $(pwd)\n" && ls --color=always | sed "s/^/  /" && echo
+  if [[ "$ZSH_EVAL_CONTEXT" == "toplevel:shfunc" ]]; then
+    echo -e "\n📂 $(pwd)\n"
+    while IFS= read -r line; do
+      printf '  %s\n' "$line"
+    done < <(ls -a --color=always --group-directories-first)
+    echo
   fi
 }
+
 add-zsh-hook chpwd -auto-ls-after-cd
 
 function -maybe-show-vcs-info() {
@@ -305,34 +307,14 @@ export TERM="xterm-256color"
 #
 alias chatgpt="/Users/nikitamiloserdov/code/bin/chatgpt.sh"
 
-
 export CLICOLOR=1
-# export LSCOLORS=gxfxcxdxbxegedabagacad
-# eval "$(gdircolors -b ~/.dir_colors)"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+fi
+
 eval "$(dircolors -b ~/.dir_colors_eink)"
-# alias ls='echo -e "\n📂 $(pwd)\n" && ls --color=always | sed "s/^/  /" && echo'
-
-# pytest_wrapper() {
-#   PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
-#   PY_COLORS=0 \
-#   pytest --color=no "$@"
-# }
-# alias pytest='pytest'
-#
-# pytest() {
-#   PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
-#   PY_COLORS=0 \
-#   PYGMENTS_NO_COLOR=1 \
-#   NO_COLOR=1 \
-#   FORCE_COLOR=0 \
-#   command pytest --color=no "$@"
-# }
-
-# export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
-# export PY_COLORS=0
-# export PYGMENTS_NO_COLOR=1
-# export NO_COLOR=1
-export FORCE_COLOR=0
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 nocolor() {
   NO_COLOR=1 \
@@ -428,3 +410,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   eval "$(pyenv init -)"
   pyenv global 🐍local
 fi
+
+print -n '\e]4;2;#6e6e6e\a'

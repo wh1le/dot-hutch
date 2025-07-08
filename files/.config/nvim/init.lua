@@ -2,6 +2,8 @@ require("config.core")
 require("config.helpers")
 require("config.hotkeys")
 require("config.copypaste")
+require("config.fzf")
+require("config.statusline")
 
 require("lazy_setup")
 
@@ -44,7 +46,8 @@ vim.o.writebackup = false
 vim.o.swapfile = false
 
 -- Colorscheme
-vim.cmd('colorscheme e-ink')
+-- vim.cmd('colorscheme yang')
+-- vim.cmd('colorscheme yang')
 vim.o.termguicolors = true
 vim.o.background = "light"
 
@@ -60,6 +63,11 @@ vim.opt.cursorline = false
 -- vim.opt.ttyscroll = 3
 vim.opt.scrolloff = 0
 vim.opt.incsearch = false
+
+vim.cmd("highlight clear")
+vim.api.nvim_set_hl(0, "Normal", { fg = "#000000", bg = "NONE" })
+
+-- require("config/kill_green")
 
 local hl = vim.api.nvim_set_hl
 
@@ -97,3 +105,21 @@ hl(0, "AerialConstructor", { bold = true })
 hl(0, "NvimTreeFolderName", { bold = true })
 hl(0, "NvimTreeOpenedFolderName", { bold = true })
 hl(0, "NvimTreeFolderIcon", { bold = true })
+
+local function set_sl_palette()
+  local fg, bg = "#FFFFFF", "#000000"
+
+  -- core groups
+  vim.cmd(("hi! StatusLine   guifg=%s guibg=%s gui=NONE"):format(fg, bg))
+  vim.cmd(("hi! StatusLineNC guifg=%s guibg=%s gui=NONE"):format(fg, bg))
+
+  -- nvim-tree overrides its own groups → relink
+  vim.cmd [[
+    hi! link NvimTreeStatusLine    StatusLine
+    hi! link NvimTreeStatusLineNC  StatusLineNC
+  ]]
+
+  -- aerial uses normal StatusLine; nothing extra
+end
+
+set_sl_palette()  -- run once at startup
