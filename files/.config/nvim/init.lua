@@ -7,12 +7,18 @@ require("config.statusline")
 
 require("lazy_setup")
 
+local is_wsl = vim.fn.has("wsl") == 1
+
 -- vim.opt.completeopt = "menu,menuone,noselect"
 
 vim.g.perl_host_prog = '/usr/local/bin/perl'
 vim.g.python_host_prog = '/usr/bin/python2'
-vim.g.python3_host_prog = '/Users/nikitamiloserdov/.venvs/nvim/bin/python3'
-vim.g.ruby_host_prog = vim.fn.expand('~/.rbenv/versions/3.3.0/bin/ruby')
+if is_wsl then
+  vim.g.python3_host_prog = '/usr/bin/python3'
+else
+  vim.g.python3_host_prog = '/Users/nikitamiloserdov/.venvs/nvim/bin/python3'
+end
+vim.g.ruby_host_prog = vim.fn.expand('~/.rbenv/versions/3.3.1/bin/ruby')
 vim.g.loaded_perl_provider = 0
 
 vim.o.termguicolors = true
@@ -40,7 +46,6 @@ vim.o.cursorline = false
 vim.o.number = true
 vim.o.relativenumber = false
 vim.o.autoread = true
-
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
@@ -122,4 +127,5 @@ local function set_sl_palette()
   -- aerial uses normal StatusLine; nothing extra
 end
 
-set_sl_palette()  -- run once at startup
+set_sl_palette() -- run once at startup
+

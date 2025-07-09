@@ -412,3 +412,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 print -n '\e]4;2;#6e6e6e\a'
+
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+  export PATH=$HOME/.local/npm-global/bin:$PATH
+  export PATH="$HOME/.local/bin:$PATH"
+fi

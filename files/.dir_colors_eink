@@ -5,11 +5,12 @@ EIGHTBIT 1
 # ── CORE ──
 NORMAL 00
 FILE   00                       # plain file
-DIR    01                       # bold  → folders
+DIR 01;04                       # bold  → folders
 LINK   04                       # underline → symlinks
 EXEC   03                       # italic → runnable
 ORPHAN 01;04                    # bold+underline → broken link
 MISSING 01;04
+OTHER_WRITABLE 01;04
 
 # ── EDITABLE SOURCE ── (italic)
 *.c 03
