@@ -1,5 +1,5 @@
 return {
-  'nvim-treesitter/nvim-treesitter',
+  "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   opts = {
     ensure_installed = {
@@ -56,6 +56,15 @@ return {
           },
         },
       },
+    })
+    vim.o.foldmethod = "expr"
+    vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+    vim.o.foldlevel = 99
+
+    -- auto open
+    vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
+      pattern = "*",
+      command = "normal zR",
     })
 
     -- 🧠 Boldify function names in Treesitter + Aerial

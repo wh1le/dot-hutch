@@ -11,14 +11,14 @@ local is_wsl = vim.fn.has("wsl") == 1
 
 -- vim.opt.completeopt = "menu,menuone,noselect"
 
-vim.g.perl_host_prog = '/usr/local/bin/perl'
-vim.g.python_host_prog = '/usr/bin/python2'
+vim.g.perl_host_prog = "/usr/local/bin/perl"
+vim.g.python_host_prog = "/usr/bin/python2"
 if is_wsl then
-  vim.g.python3_host_prog = '/usr/bin/python3'
+	vim.g.python3_host_prog = "/usr/bin/python3"
 else
-  vim.g.python3_host_prog = '/Users/nikitamiloserdov/.venvs/nvim/bin/python3'
+	vim.g.python3_host_prog = "/Users/nikitamiloserdov/.venvs/nvim/bin/python3"
 end
-vim.g.ruby_host_prog = vim.fn.expand('~/.rbenv/versions/3.3.1/bin/ruby')
+vim.g.ruby_host_prog = vim.fn.expand("~/.rbenv/versions/3.3.1/bin/ruby")
 vim.g.loaded_perl_provider = 0
 
 vim.o.termguicolors = true
@@ -56,7 +56,7 @@ vim.o.swapfile = false
 vim.o.termguicolors = true
 vim.o.background = "light"
 
-vim.cmd('highlight Normal guibg=NONE')
+vim.cmd("highlight Normal guibg=NONE")
 
 vim.opt.lazyredraw = true
 vim.opt.ruler = false
@@ -112,20 +112,35 @@ hl(0, "NvimTreeOpenedFolderName", { bold = true })
 hl(0, "NvimTreeFolderIcon", { bold = true })
 
 local function set_sl_palette()
-  local fg, bg = "#FFFFFF", "#000000"
+	local fg, bg = "#FFFFFF", "#000000"
 
-  -- core groups
-  vim.cmd(("hi! StatusLine   guifg=%s guibg=%s gui=NONE"):format(fg, bg))
-  vim.cmd(("hi! StatusLineNC guifg=%s guibg=%s gui=NONE"):format(fg, bg))
+	-- core groups
+	vim.cmd(("hi! StatusLine   guifg=%s guibg=%s gui=NONE"):format(fg, bg))
+	vim.cmd(("hi! StatusLineNC guifg=%s guibg=%s gui=NONE"):format(fg, bg))
 
-  -- nvim-tree overrides its own groups → relink
-  vim.cmd [[
+	-- nvim-tree overrides its own groups → relink
+	vim.cmd([[
     hi! link NvimTreeStatusLine    StatusLine
     hi! link NvimTreeStatusLineNC  StatusLineNC
-  ]]
+  ]])
 
-  -- aerial uses normal StatusLine; nothing extra
+	-- aerial uses normal StatusLine; nothing extra
 end
 
 set_sl_palette() -- run once at startup
 
+vim.api.nvim_set_hl(0, "Pmenu", { bg = "#ffffff", fg = "#000000" }) -- popup bg white, text black
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#e0e0e0", fg = "#000000" }) -- selection: light gray bg
+vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#d0d0d0" }) -- scrollbar bg
+vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#000000" }) -- scrollbar thumb (black)
+
+-- Optional: for nvim-cmp item kinds
+vim.api.nvim_set_hl(0, "CmpItemAbbr", { fg = "#000000" }) -- main text
+vim.api.nvim_set_hl(0, "CmpItemKind", { fg = "#333333" }) -- kind (method, class etc)
+vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#666666" }) -- source (buffer, lsp)
+
+-- Popup border (used by cmp, lsp, etc)
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#000000", bg = "#ffffff" }) -- thin black border
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#ffffff" }) -- background matches popup
+
+vim.api.nvim_set_hl(0, 'PmenuSel', { bg = '#333333', fg = '#ffffff', bold = true })
