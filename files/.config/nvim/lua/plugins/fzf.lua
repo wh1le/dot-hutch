@@ -1,1 +1,4 @@
-return { "junegunn/fzf" }
+return {
+	"junegunn/fzf",
+	enabled = false,
+}

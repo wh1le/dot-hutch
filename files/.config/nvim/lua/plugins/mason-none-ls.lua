@@ -8,7 +8,6 @@ return {
 
 	config = function()
 		require("mason-null-ls").setup({
-			-- everything Mason should auto-download for null-ls
 			ensure_installed = {
 				-- "black", -- formatter
 				-- "isort", -- import-sorter / formatter
@@ -25,15 +24,16 @@ return {
 				"shellcheck", -- diagnostics
 
 				"jq",
+				-- "codespell",
 			},
-
-			-- auto-install anything listed above when you open a file that needs it
 			automatic_installation = true,
 		})
 
 		-- register the sources with none-ls
 		local null_ls = require("null-ls")
+
 		null_ls.setup({
+			diagnostics_format = "#{m}",
 			sources = {
 				-- 🔧 formatters
 				null_ls.builtins.formatting.black,
@@ -47,6 +47,11 @@ return {
 
 				null_ls.builtins.code_actions.eslint_d,
 				null_ls.builtins.code_actions.ruff,
+
+				-- null_ls.builtins.diagnostics.codespell,
+
+				-- null_ls.builtins.formatting.trim_newlines,
+				-- null_ls.builtins.formatting.trim_whitespace,
 			},
 		})
 	end,

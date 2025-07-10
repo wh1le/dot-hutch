@@ -43,9 +43,9 @@ vim.env.TERM = "tmux-256color"
 -- General settings
 vim.o.showmode = false
 vim.o.cursorline = false
-vim.o.number = true
 vim.o.relativenumber = false
 vim.o.autoread = true
+vim.o.number = true
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
@@ -143,4 +143,4 @@ vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#666666" }) -- source (buffer, lsp
 vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#000000", bg = "#ffffff" }) -- thin black border
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#ffffff" }) -- background matches popup
 
-vim.api.nvim_set_hl(0, 'PmenuSel', { bg = '#333333', fg = '#ffffff', bold = true })
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#333333", fg = "#ffffff", bold = true })

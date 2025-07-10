@@ -4,7 +4,7 @@ return {
   lazy = false, -- or event = "BufReadPost"
   config = function()
     require("treesitter-context").setup({
-      -- enable = true,
+      enable = false,
       -- multiwindow = false,
       -- max_lines = 0,
       -- min_window_height = 0,

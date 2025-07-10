@@ -14,7 +14,9 @@ return {
       "ruby_lsp",
       "rubocop",
       "eslint",
-      "ruff"
+      "ruff",
+
+      -- "cspell_ls",
     },
     automatic_enable = true,
     handlers = {
@@ -24,8 +26,15 @@ return {
           capabilities = capabilities,
         }
 
+        -- if server == "cspell-ls" then
+        --   opts.init_options = {
+        --     configFile = vim.fn.expand("~/.config/.cspell.json"),
+        --   }
+        --   opts.filetypes = { "*" }
+        -- end
+
         require("lspconfig")[server].setup(opts)
       end,
-    }
+    },
   },
 }

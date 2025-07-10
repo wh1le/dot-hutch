@@ -1,5 +1,6 @@
 return {
   'stevearc/aerial.nvim',
+  "folke/which-key.nvim",
   opts = {
     keymaps = {
     },
