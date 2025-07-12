@@ -28,6 +28,10 @@ config.font_rules = {
     intensity = "Half",
     font = wezterm.font("JetBrains Mono", { weight = "DemiBold" }),
   },
+  {
+    intensity = "Italic",
+    font = wezterm.font("JetBrains Mono", { weight = "ExtraLight Italic" }),
+  },
 }
 
 config.freetype_render_target = "HorizontalLcd"

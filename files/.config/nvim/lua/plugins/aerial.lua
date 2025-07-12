@@ -1,23 +1,23 @@
 return {
-  'stevearc/aerial.nvim',
-  "folke/which-key.nvim",
-  opts = {
-    keymaps = {
-    },
-      layout = {
-      default_direction = "left",
-    },
-  },
-  -- Optional dependencies
-  dependencies = {
-     "nvim-treesitter/nvim-treesitter",
-  },
-  config = function(_, opts)
-    require("aerial").setup(opts)
-
-    -- ✅ Define toggle mapping globally
-    vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", {
-      desc = "Toggle Aerial outline"
-    })
-  end,
+	"stevearc/aerial.nvim",
+	dependencies = {
+		"nvim-treesitter/nvim-treesitter",
+	},
+	event = "VeryLazy",
+	keys = {
+		{
+			"<leader>a",
+			function()
+				require("aerial").toggle()
+			end,
+			desc = "Aerial - toggle",
+		},
+	},
+	opts = {
+		backends = { "lsp", "markdown", "treesitter" },
+		-- open_automatic = true,
+		layout = {
+			default_direction = "left",
+		},
+	},
 }
