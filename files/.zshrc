@@ -416,4 +416,14 @@ print -n '\e]4;2;#6e6e6e\a'
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
   export PATH=$HOME/.local/npm-global/bin:$PATH
   export PATH="$HOME/.local/bin:$PATH"
+  export PATH="/snap/bin:$PATH"
 fi
+
+
+# pnpm
+export PNPM_HOME="/home/nick/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

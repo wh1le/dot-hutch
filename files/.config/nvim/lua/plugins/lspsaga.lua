@@ -30,28 +30,68 @@ return {
 			mode = "n",
 			silent = true,
 		},
-		{ "<leader>cr", "<cmd>Lspsaga rename ++project<CR>", desc = "Saga: rename symbol" },
+		-- 1️⃣  Saga default float
+		-- { "<leader>cr", "<cmd>Lspsaga lsp_rename<CR>", desc = "Saga: default lsp_rename" },
+
+		-- 2️⃣  Saga float, cursor jumps to INSERT
+		-- { "<leader>cr", "<cmd>Lspsaga lsp_rename mode=i<CR>", desc = "Saga: rename (mode=i)" },
+
+		-- 3️⃣  Saga float, SELECT word (visual-style)
+		-- { "<leader>cr", "<cmd>Lspsaga lsp_rename mode=s<CR>", desc = "Saga: rename (mode=s)" },
+
+		-- 4️⃣  Saga float + ripgrep sweep for leftovers
+		-- { "<leader>cr", "<cmd>Lspsaga lsp_rename ++project<CR>", desc = "Saga: rename ++project" },
+
+		-- 5️⃣  Saga, SELECT mode **and** RG sweep
+		-- { "<leader>cr", "<cmd>Lspsaga lsp_rename mode=s ++project<CR>", desc = "Saga: rename s + project" },
+
+		-- this one works with file rename!!!!
+		-- 6️⃣  Plain Neovim LSP (no Saga UI)
+		-- {
+		-- 	"<leader>cr",
+		-- 	function()
+		-- 		vim.lsp.buf.rename()
+		-- 	end,
+		-- 	desc = "Built-in: vim.lsp.buf.rename()",
+		-- },
+
+		-- Attemps to fix replace
+		-- {
+		-- 	"<leader>cx",
+		-- 	function()
+		-- 		local params = vim.lsp.util.make_position_params()
+		-- 		params.newName = vim.fn.input("New name: ")
+		-- 		vim.lsp.buf_request(0, "textDocument/rename", params, vim.lsp.util.apply_workspace_edit)
+		-- 	end,
+		-- },
+		-- vim.lsp.buf_request_sync(0, "textDocument/rename", params)
+		-- {
+		-- 	"<leader>cr",
+		-- 	-- "<cmd>Lspsaga rename ++project<CR>",
+		-- 	"<cmd>Lspsaga lsp_rename ++project<CR>",
+		-- 	desc = "Saga: rename symbol",
+		-- },
 		-- pure RG search & replace (good for strings / paths)
-		{
-			"<leader>rN",
-			function()
-				vim.lsp.buf.rename()
-			end,
-			desc = "LSP: rename symbol (vanilla)",
-		},
-		-- { "<leader>cR", "<cmd>Lspsaga project_replace<CR>", desc = "Saga: project replace" },
-		{
-			"<leader>cR",
-			function()
-				local old = vim.fn.expand("<cword>")
-				vim.ui.input({ prompt = "replace " .. old .. " with → " }, function(new)
-					if new and #new > 0 then
-						vim.cmd(("Lspsaga project_replace %s %s"):format(old, new))
-					end
-				end)
-			end,
-			desc = "Saga: project replace word",
-		},
+		-- {
+		-- 	"<leader>rN",
+		-- 	function()
+		-- 		vim.lsp.buf.rename()
+		-- 	end,
+		-- 	desc = "LSP: rename symbol (vanilla)",
+		-- },
+		-- -- { "<leader>cR", "<cmd>Lspsaga project_replace<CR>", desc = "Saga: project replace" },
+		-- {
+		-- 	"<leader>cR",
+		-- 	function()
+		-- 		local old = vim.fn.expand("<cword>")
+		-- 		vim.ui.input({ prompt = "replace " .. old .. " with → " }, function(new)
+		-- 			if new and #new > 0 then
+		-- 				vim.cmd(("Lspsaga project_replace %s %s"):format(old, new))
+		-- 			end
+		-- 		end)
+		-- 	end,
+		-- 	desc = "Saga: project replace word",
+		-- },
 	},
 	config = function()
 		require("lspsaga").setup({
@@ -63,7 +103,7 @@ return {
 				in_select = true, -- text pre-selected in prompt
 				auto_save = true, -- write buffers after rename
 				keys = {
-					-- exec = "<C-s>", -- this replaces broken <C-CR>
+					exec = "<CR>",
 				},
 			},
 			lightbulb = {
