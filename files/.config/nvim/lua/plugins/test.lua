@@ -14,13 +14,13 @@ return {
 	end,
 	keys = {
 		-- Run nearest test
-		{ "<leader>tn", "<cmd>TestNearest<CR>", desc = "Test: Nearest" },
+		{ "<leader>ts", "<cmd>TestNearest<CR>", desc = "Test: Nearest" },
 		-- Run file tests
 		{ "<leader>tf", "<cmd>TestFile<CR>", desc = "Test: File" },
 		-- Run last test
 		{ "<leader>tl", "<cmd>TestLast<CR>", desc = "Test: Last" },
 		-- Run all test suite
-		{ "<leader>ts", "<cmd>TestSuite<CR>", desc = "Test: Suite" },
+		{ "<leader>tr", "<cmd>TestSuite<CR>", desc = "Test: Suite" },
 		-- Visit test output
 		{ "<leader>to", "<cmd>TestVisit<CR>", desc = "Test: Visit output" },
 	},

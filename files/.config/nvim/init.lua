@@ -40,3 +40,41 @@ if open_cmd then
 else
 	vim.notify("No system opener found for gx", vim.log.levels.ERROR)
 end
+
+-- Move to separate file
+local M = {}
+
+local function in_spec(path)
+	return path:match("^spec/")
+end
+
+local M = {}
+
+function M.toggle()
+	local abs = vim.api.nvim_buf_get_name(0)
+	if abs == "" then
+		return
+	end
+
+	-- path relative to the cwd (assumed repo root)
+	local rel = vim.fn.fnamemodify(abs, ":.")
+
+	local target
+	if in_spec(rel) then
+		target = rel:gsub("^spec/", ""):gsub("_spec%.rb$", ".rb")
+		-- everything except lib/ lives in app/
+		if not target:match("^lib/") then
+			target = "app/" .. target
+		end
+	else
+		-- strip optional app/ prefix before building the spec path
+		target = rel:gsub("^app/", ""):gsub("%.rb$", "_spec.rb")
+		target = "spec/" .. target
+	end
+
+	vim.cmd.edit(target)
+end
+
+-- init.lua (or any file sourced at startup)
+vim.keymap.set("n", "<leader>ta", M.toggle, { desc = "Toggle source ⇄ spec", silent = true })
+-- Move to separate file
