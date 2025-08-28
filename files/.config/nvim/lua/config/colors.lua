@@ -129,3 +129,6 @@ vim.api.nvim_set_hl(0, "ErrorMsg",  { fg = "#000000", bg = "#FFFFFF", bold = tru
 vim.api.nvim_set_hl(0, "WarningMsg",{ fg = "#000000", bg = "#FFF1A8" })
 vim.api.nvim_set_hl(0, "MoreMsg",   { fg = "#000000" })
 vim.api.nvim_set_hl(0, "MsgArea",   { fg = "#000000", bg = "#FFFFFF" }) -- optional
+
+vim.api.nvim_set_hl(0, "WsOnly", { bg = "#F2F2F2" })
+vim.fn.matchadd("WsOnly", [[^\s\+$]], 10)

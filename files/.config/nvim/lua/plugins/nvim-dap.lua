@@ -10,29 +10,6 @@ return {
 		local dap = require("dap")
 		local dapui = require("dap-view")
 
-    local function dapview_open_and_focus()
-      vim.cmd("DapViewOpen")  -- command provided by nvim-dap-view
-      vim.schedule(function()
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-          local buf = vim.api.nvim_win_get_buf(win)
-          local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
-          if ft == "dap-view" then                   -- prefer the main view, not the terminal
-            vim.api.nvim_set_current_win(win)
-            return
-          end
-        end
-        -- fallback: focus the REPL/terminal if only that exists
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-          local buf = vim.api.nvim_win_get_buf(win)
-          local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
-          if ft == "dap-view-term" or ft == "dap-repl" then
-            vim.api.nvim_set_current_win(win)
-            return
-          end
-        end
-      end)
-    end
-
 		dapui.setup({
 			winbar = {
 				sections = {
@@ -47,34 +24,55 @@ return {
 				default_section = "scopes",
 			},
 		})
-
-		vim.g.__dap_view_open = false
-
-		local function dapui_toggle()
-			if vim.g.__dap_view_open then
-				dapui.close()
-			else
-        dapview_open_and_focus()
-        vim.g.__dap_view_open = true
-			end
-			vim.g.__dap_view_open = not vim.g.__dap_view_open
-		end
-
-    dap.listeners.after.event_initialized["dapview-open-focus"] = function()
-			vim.g.__dap_view_open = true
-      dapview_open_and_focus()
+    
+    -- Open dap-view and focus its main window
+    local function dapview_open_and_focus()
+      vim.cmd("DapViewOpen") -- provided by nvim-dap-view
+      vim.schedule(function()
+        -- prefer the main view; fall back to repl/term
+        local ft_priority = { "dap-view", "dap-repl", "dap-view-term" }
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          local buf = vim.api.nvim_win_get_buf(win)
+          local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
+          for _, want in ipairs(ft_priority) do
+            if ft == want then
+              vim.api.nvim_set_current_win(win)
+              return
+            end
+          end
+        end
+      end)
     end
 
-		dap.listeners.before.event_terminated["dapui_config"] = function()
-			dapui.close()
-			vim.g.__dap_view_open = true
-		end
+		vim.g.__dap_view_open = false
+    local function dapview_toggle()
+      if vim.g.__dap_view_open then
+        vim.cmd("DapViewClose")
+        vim.g.__dap_view_open = false
+      else
+        dapview_open_and_focus()
+        vim.g.__dap_view_open = true
+      end
+    end
+       
+    -- auto-open + focus when a session starts; auto-close on end
+    dap.listeners.after.event_initialized["dapview-open-focus"] = function()
+      dapview_open_and_focus()
+      vim.g.__dap_view_open = true
+    end
+    
 
-		dap.listeners.before.event_exited["dapui_config"] = function()
-			dapui.close()
-			vim.g.__dap_view_open = true
-		end
+    dap.listeners.before.event_terminated["dapview-close"] = function()
+      vim.cmd("DapViewClose")
+      vim.g.__dap_view_open = false
+    end
 
+    dap.listeners.before.event_exited["dapview-close"] = function()
+      vim.cmd("DapViewClose")
+      vim.g.__dap_view_open = false
+    end
+
+    -- keys
 		vim.keymap.set("n", "<leader>dc", function() dap.continue()  end, { desc = "DAP Continue" })
 		vim.keymap.set("n", "<leader>dq", function() dap.terminate() end, { desc = "DAP Quit" })
 		vim.keymap.set("n", "<leader>dn", function() dap.step_over() end, { desc = "DAP Step Over" })
@@ -85,7 +83,7 @@ return {
 		vim.keymap.set("n", "<leader>du", function() dapui_toggle() end, { desc = "DAP UI Toggle" })
 
 
-		-- update icons
+    -- signs
 		vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DiagnosticSignError", numhl = "" })
 		vim.fn.sign_define("DapBreakpointCondition", { text = "◆", texthl = "DiagnosticSignWarn", numhl = "" })
 		vim.fn.sign_define("DapStopped", { text = "➜", texthl = "DiagnosticSignInfo", numhl = "" })
@@ -93,12 +91,9 @@ return {
     -- virtual text
 		require("nvim-dap-virtual-text").setup({
 			enabled = true,
-			all_references = false, -- show on every reference (so when you land on it)
+			all_references = false,
 			only_first_definition = true,
-			virt_text_pos = "eol", -- stick to end-of-line
-			-- or pin to a fixed column on the right:
-			-- virt_text_pos = "virt_text_win_col",
-			-- virt_text_win_col = 100,
+			virt_text_pos = "eol",
 			highlight_changed_variables = true,
 			commented = true,
 		})

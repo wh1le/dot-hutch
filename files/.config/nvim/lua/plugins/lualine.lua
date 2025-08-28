@@ -97,7 +97,7 @@ return {
 			end
 			local w = vim.fn.winwidth(0)
 			local parent = vim.fn.fnamemodify(vim.fn.expand("%:h"), ":t")
-			local file = vim.fn.expand("%:t:r")
+			local file = vim.fn.expand("%:t")
 			local name = (w > 80) and (parent .. "/" .. file) or file
 			local mod = vim.bo.modified and "+" or ""
 			return name .. mod
@@ -125,8 +125,6 @@ return {
 		opts.sections = {
 			lualine_a = {
 				{ "mode", fmt = mode, color = { fg = "#ffffff", bg = "#000000", gui = "bold" } },
-				{ branch_text, color = { fg = "White", bg = "Black" } },
-				{ "filetype", color = { fg = "White", bg = "LightGray" } },
 			},
 			lualine_b = {},
 			lualine_c = {
@@ -138,13 +136,16 @@ return {
 			lualine_y = {
 				{
 					diag_summary,
-          color = { fg = "black", bg = "white", gui = "bold" },
+          color = { fg = "Black", bg = "White", gui = "bold" },
 					cond = function()
 						return vim.fn.winwidth(0) > 60
 					end,
 				},
 			},
-			lualine_z = { cursor_progress },
+			lualine_z = {
+				{ branch_text, color = { fg = "White", bg = "Black" } },
+        { cursor_progress },
+      } ,
 		}
 
 
@@ -153,7 +154,12 @@ return {
 			lualine_a = {},
 			lualine_b = {},
 			lualine_c = {
-				{ file_name, color = { fg = "Black", bg = "white", gui = "bold" } },
+				{
+          function()
+            return "   " .. file_name()
+          end,
+          color = { fg = "Black", bg = "white", gui = "bold" } 
+        },
 			},
 			lualine_x = {},
 			lualine_y = {},
