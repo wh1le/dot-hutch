@@ -1,5 +1,6 @@
 return {
 	"janko/vim-test",
+  enabled  = false,
 	init = function()
 		vim.g["test#custom_strategies"] = {
 			pytest_s = function(cmd)

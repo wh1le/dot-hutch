@@ -1,4 +1,6 @@
-local function hl(grp, spec) vim.api.nvim_set_hl(0, grp, spec) end
+local function hl(grp, spec)
+	vim.api.nvim_set_hl(0, grp, spec)
+end
 
 -- For newbies: fg is text, bg is background color
 
@@ -9,10 +11,8 @@ vim.o.termguicolors = true
 -- vim.env.TERM = "tmux-256color" -- Needs to be removed, because it should be set either by wezterm or tmux
 -- vim.cmd([[ hi htmlArg cterm=italic hi Type cterm=italic]])
 
-
 -- vim.cmd("highlight Normal guibg=NONE")
 hl("Normal", { bg = "NONE", ctermbg = "NONE" })
-
 
 hl("StatusLine", { bg = "White", fg = "Black" })
 hl("StatusLineNC", { bg = "White", fg = "Black" })
@@ -30,14 +30,14 @@ hl("PmenuSbar", { bg = "#d0d0d0" }) -- scrollbar bg
 hl("PmenuThumb", { bg = "#000000" }) -- scrollbar thumb (black)
 
 -- code
-hl("Comment",  { fg = "LightGrey", bold = true })
+hl("Comment", { fg = "LightGrey", bold = true })
 hl("@comment", { fg = "LightGrey", bold = true })
 hl("@lsp.type.comment", { bold = false, fg = "LightGrey" })
 
 -- core-ui
-hl("CursorLine",   { bg = "#f2f2f2" })
-hl("Visual",       { bg = "#d0d0d0" })
-hl("LineNr",       { fg = "Gainsboro", bold = true, italic = true })
+hl("CursorLine", { bg = "#f2f2f2" })
+hl("Visual", { bg = "#d0d0d0" })
+hl("LineNr", { fg = "Gainsboro", bold = true, italic = true })
 hl("CursorLineNr", { bold = true })
 hl("MatchParen", { bg = "Snow", fg = "Black", bold = true })
 
@@ -81,9 +81,10 @@ hl("CurSearch", { bg = "gainsboro", fg = "Black", bold = true, nocombine = true 
 -- vim.o.hlsearch = true
 -- vim.o.incsearch = true
 
-
 -- syntax
-local link = function(child, parent) vim.api.nvim_set_hl(0, child, { link = parent }) end
+local link = function(child, parent)
+	vim.api.nvim_set_hl(0, child, { link = parent })
+end
 hl("Keyword", { bold = true })
 link("@keyword", "Keyword")
 
@@ -125,29 +126,47 @@ hl("DiffDelete", { strikethrough = true })
 hl("DiffChange", { bold = true })
 hl("DiffText", { reverse = true })
 
-vim.api.nvim_set_hl(0, "ErrorMsg",  { fg = "#000000", bg = "#FFFFFF", bold = true })
-vim.api.nvim_set_hl(0, "WarningMsg",{ fg = "#000000", bg = "#FFF1A8" })
-vim.api.nvim_set_hl(0, "MoreMsg",   { fg = "#000000" })
-vim.api.nvim_set_hl(0, "MsgArea",   { fg = "#000000", bg = "#FFFFFF" }) -- optional
+vim.api.nvim_set_hl(0, "ErrorMsg", { fg = "#000000", bg = "#FFFFFF", bold = true })
+vim.api.nvim_set_hl(0, "WarningMsg", { fg = "#000000", bg = "#FFF1A8" })
+vim.api.nvim_set_hl(0, "MoreMsg", { fg = "#000000" })
+vim.api.nvim_set_hl(0, "MsgArea", { fg = "#000000", bg = "#FFFFFF" }) -- optional
 
 -- highlight spaces
 vim.api.nvim_set_hl(0, "WsOnly", { bg = "#F2F2F2" })
 vim.fn.matchadd("WsOnly", [[^\s\+$]], 10)
 
-vim.api.nvim_set_hl(0, "AerialWinNormal",   { fg = "Black", bg = "White" })
+vim.api.nvim_set_hl(0, "AerialWinNormal", { fg = "Black", bg = "White" })
 vim.api.nvim_set_hl(0, "AerialWinNormalNC", { fg = "Black", bg = "White" })
-vim.api.nvim_set_hl(0, "AerialCursorLine",  { fg = "Black", bg = "Gray" }) -- active line
-vim.api.nvim_set_hl(0, "AerialSeparator",   { fg = "Black", bg = "White" })
-
+vim.api.nvim_set_hl(0, "AerialCursorLine", { fg = "Black", bg = "Gray" }) -- active line
+vim.api.nvim_set_hl(0, "AerialSeparator", { fg = "Black", bg = "White" })
 
 local set = vim.api.nvim_set_hl
-set(0, "AerialWin",   { fg = "Black", bg = "Gray" })
+set(0, "AerialWin", { fg = "Black", bg = "Gray" })
 set(0, "AerialWinNC", { fg = "Black", bg = "Gray" })
-set(0, "AerialNormal",{ fg = "Black", bg = "Gray", link = "White" })
+set(0, "AerialNormal", { fg = "Black", bg = "Gray", link = "White" })
 
-set(0, "AerialLine",  { bg = "LightGray" })
-set(0, "AerialLineNC",{ bg = "LightGray" })
+set(0, "AerialLine", { bg = "LightGray" })
+set(0, "AerialLineNC", { bg = "LightGray" })
 
-set(0, "AerialIcon",        { fg = "Black", bg = "White" })
-set(0, "AerialClassIcon",   { link = "AerialIcon" })
-set(0, "AerialFunctionIcon",{ fg = "Black", bg = "White" })
+set(0, "AerialIcon", { fg = "Black", bg = "White" })
+set(0, "AerialClassIcon", { link = "AerialIcon" })
+set(0, "AerialFunctionIcon", { fg = "Black", bg = "White" })
+
+-- Neotest
+
+hl("NeotestAdapterName", { fg = "Black", bg = "White" })
+hl("NeotestPassed", { fg = "Black" })
+hl("NeotestFailed", { fg = "Black" })
+hl("NeotestRunning", { fg = "Black" })
+hl("NeotestSkipped", { fg = "Black" })
+hl("NeotestUnknown", { fg = "Black" })
+hl("NeotestFile", { fg = "Black" })
+hl("NeotestDir", { fg = "Black" })
+hl("NeotestNamespace", { fg = "Black" })
+hl("NeotestTest", { fg = "Black" })
+hl("NeotestFocused", { fg = "Black" })
+hl("NeotestMarked", { fg = "Black" })
+hl("NeotestIndent", { fg = "Black" })
+hl("NeotestExpander", { fg = "Black" })
+hl("NeotestBorder", { fg = "Black" })
+hl("NeotestWinSelect", { fg = "Black" })
