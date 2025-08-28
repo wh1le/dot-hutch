@@ -1,4 +1,5 @@
-vim.o.termguicolors = true
+local is_wsl = vim.fn.has("wsl") == 1
+
 vim.opt.signcolumn = "yes"
 
 -- Basics vim.o.clipboard = 'unnamedplus' -- Uncomment to use system clipboard
@@ -9,8 +10,11 @@ vim.o.swapfile = false
 vim.o.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
 vim.o.history = 2000
-vim.o.fileformats = "mac,unix"
-vim.o.fileformat = "unix"
+if is_wsl then
+	vim.o.fileformat = "unix"
+else
+	vim.o.fileformats = "mac"
+end
 vim.o.binary = true
 vim.o.endofline = false
 vim.o.laststatus = 2
@@ -40,18 +44,6 @@ vim.o.showtabline = 0
 vim.o.scrolloff = 8
 vim.o.showmatch = true
 
--- Colors
-vim.g.base16colorspace = 256
-vim.cmd("syntax sync minlines=256")
-
-vim.cmd([[
-  hi htmlArg cterm=italic
-  hi Comment cterm=italic
-  hi Type cterm=italic
-  highlight Comment cterm=italic gui=italic
-  hi Function cterm=bold
-]])
-
 -- General settings
 vim.o.showmode = false
 vim.o.cursorline = false
@@ -61,11 +53,7 @@ vim.o.number = true
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
-
-vim.o.termguicolors = true
-vim.o.background = "light"
-
-vim.cmd("highlight Normal guibg=NONE")
+vim.o.showtabline = 1
 
 vim.opt.lazyredraw = true
 vim.opt.ruler = false
@@ -81,4 +69,3 @@ vim.opt.incsearch = false
 vim.o.wrap = false
 vim.o.linebreak = true
 
-vim.env.TERM = "tmux-256color"

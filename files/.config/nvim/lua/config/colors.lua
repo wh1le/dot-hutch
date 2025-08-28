@@ -1,170 +1,131 @@
--- vim.cmd("highlight clear")
--- vim.api.nvim_set_hl(0, "Normal", { fg = "#000000", bg = "NONE" })
+local function hl(grp, spec) vim.api.nvim_set_hl(0, grp, spec) end
+
+-- For newbies: fg is text, bg is background color
+
+vim.o.background = "light"
+vim.o.termguicolors = true
+-- vim.g.base16colorspace = 256
+-- vim.cmd("syntax sync minlines=256")
+-- vim.env.TERM = "tmux-256color" -- Needs to be removed, because it should be set either by wezterm or tmux
+-- vim.cmd([[ hi htmlArg cterm=italic hi Type cterm=italic]])
+
+
+-- vim.cmd("highlight Normal guibg=NONE")
+hl("Normal", { bg = "NONE", ctermbg = "NONE" })
+
+
+hl("StatusLine", { bg = "White", fg = "Black" })
+hl("StatusLineNC", { bg = "White", fg = "Black" })
+hl("WinSeparator", { fg = "LightGray" })
+-- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#e5e5e5" })
+
+-- popups
+hl("FloatBorder", { fg = "#000000", bg = "#ffffff" })
+hl("NormalFloat", { bg = "#ffffff" })
+
+-- menu
+hl("Pmenu", { bg = "#ffffff", fg = "#000000" }) -- popup bg white, text black
+hl("PmenuSel", { bg = "#e0e0e0", fg = "#000000" }) -- selection: light gray bg
+hl("PmenuSbar", { bg = "#d0d0d0" }) -- scrollbar bg
+hl("PmenuThumb", { bg = "#000000" }) -- scrollbar thumb (black)
+
+-- code
+hl("Comment",  { fg = "LightGrey", bold = true })
+hl("@comment", { fg = "LightGrey", bold = true })
+hl("@lsp.type.comment", { bold = false, fg = "LightGrey" })
+
+-- core-ui
+hl("CursorLine",   { bg = "#f2f2f2" })
+hl("Visual",       { bg = "#d0d0d0" })
+hl("LineNr",       { fg = "Gainsboro", bold = true, italic = true })
+hl("CursorLineNr", { bold = true })
+hl("MatchParen", { bg = "Snow", fg = "Black", bold = true })
+
+-- aerial
+hl("AerialFunction", { bold = true })
+hl("AerialMethod", { bold = true })
+hl("AerialClass", { bold = true })
+hl("AerialConstructor", { bold = true })
+
+-- nvim-tree
+hl("NvimTreeFolderName", { bold = true })
+hl("NvimTreeOpenedFolderName", { bold = true })
+hl("NvimTreeFolderIcon", { bold = true })
+
+-- nvim-cmp
+hl("CmpItemAbbr", { fg = "#000000" }) -- main text
+hl("CmpItemKind", { fg = "#333333" }) -- kind (method, class etc)
+hl("CmpItemMenu", { fg = "#666666" }) -- source (buffer, lsp)
+
+-- ---------------- Search -----------------
+-- -- search: all matches vs current match
+
+hl("Search", { bg = "gainsboro", fg = "Black", nocombine = true })
+hl("IncSearch", { bg = "gainsboro", fg = "Black", bold = true, nocombine = true })
+hl("CurSearch", { bg = "gainsboro", fg = "Black", bold = true, nocombine = true }) -- current match
+-- hl("Search", { guibg = "White", guifg = "Gray", nocombine = true }) -- all matches
+
+-- hl("IncSearch", { bg = "#ffd166", fg = "#000000", bold = true, nocombine = true })
+-- hl("CurSearch", { bg = "#ffb703", fg = "#000000", bold = true, nocombine = true }) -- current match
 --
--- local function set_sl_palette()
--- 	local fg, bg = "#FFFFFF", "#000000"
+-- -- cursor: visible everywhere
+-- hl("Cursor", { bg = "#000000", fg = "#ffffff", nocombine = true })
+-- hl("TermCursor", { bg = "#000000", fg = "#ffffff", nocombine = true })
+-- hl("TermCursorNC", { bg = "#000000", fg = "#ffffff" })
+-- vim.o.guicursor = "n-v-c:block-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,o:hor50-Cursor"
 --
--- 	-- core groups
--- 	vim.cmd(("hi! StatusLine   guifg=%s guibg=%s gui=NONE"):format(fg, bg))
--- 	vim.cmd(("hi! StatusLineNC guifg=%s guibg=%s gui=NONE"):format(fg, bg))
+-- -- avoid clashes
+-- hl("CursorLine", { bg = "#f2f2f2" }) -- no reverse
+-- hl("Visual", { bg = "#d0d0d0" }) -- no reverse
 --
--- 	-- nvim-tree overrides its own groups → relink
--- 	vim.cmd([[
---     hi! link NvimTreeStatusLine    StatusLine
---     hi! link NvimTreeStatusLineNC  StatusLineNC
---   ]])
---
--- 	-- aerial uses normal StatusLine; nothing extra
--- end
---
--- set_sl_palette() -- run once at startup
---
-local hl = vim.api.nvim_set_hl
+-- vim.o.hlsearch = true
+-- vim.o.incsearch = true
 
-hl(0, "Comment", { italic = true, fg = "lightGray" })
-hl(0, "@comment", { italic = true, fg = "lightGray" })
-hl(0, "@lsp.type.comment", { italic = true, fg = "lightGray" })
---
--- -- Check highlight group TSHighlightCapturesUnderCursor
--- -- print(vim.treesitter.highlighter.active[0] and "TS ON" or "TS OFF")
---
--- -- import / export
--- hl(0, "@include", { italic = true })
--- hl(0, "@keyword.import", { italic = true, link = "@include" })
--- hl(0, "@import.module", { bold = true })
---
--- hl(0, "@keyword", { bold = false })
--- hl(0, "@function", { bold = true })
--- -- hl(0, "@lsp.type.class", { bold = true })
--- -- hl(0, "@type.definition", { bold = true })
---
--- -- hl(0, "@function", { bold = true })
--- -- hl(0, "@function.call",     { fg = "#000000" })
--- -- hl(0, "@function.builtin",  { fg = "#000000", italic = true })
---
--- -- hl(0, "@keyword",           { fg = "#000000", italic = true })
--- -- hl(0, "@variable",          { fg = "#000000", italic = true })
--- -- hl(0, "@variable.member",   { fg = "#000000", underline = true })
--- -- hl(0, "@constant", { fg = "#000000", italic = true })
---
--- -- hl(0, "@method", { bold = true })
--- -- hl(0, "@lsp.type.function", { link = "Function", bold = true })
--- -- hl(0, "@lsp.type.method", { link = "Function", bold = true })
---
--- ✨ FOR TREESITTER (functions & methods)
--- hl(0, "@function", { bold = true })
--- hl(0, "@method", { bold = true })
--- hl(0, "@lsp.type.function", { bold = true })
--- hl(0, "@lsp.type.method", { bold = true })
 
--- 🏫 CLASSES / TYPES
--- hl(0, "@type", { bold = true })
--- hl(0, "@class", { bold = true })
--- hl(0, "@lsp.type.class", { bold = true })
+-- syntax
+local link = function(child, parent) vim.api.nvim_set_hl(0, child, { link = parent }) end
+hl("Keyword", { bold = true })
+link("@keyword", "Keyword")
 
--- 🧪 CONSTRUCTORS
--- hl(0, "@constructor", { bold = true })
--- hl(0, "@lsp.type.constructor", { bold = true })
+hl("Function", { italic = false })
+link("@function", "Function")
+link("@method", "Function")
 
--- 🧬 STRUCTS / ENUMS / INTERFACES
--- hl(0, "@struct", { bold = true })
--- hl(0, "@enum", { bold = true })
--- hl(0, "@interface", { bold = true })
+hl("Identifier", { italic = false })
+link("@variable", "Identifier")
+link("@field", "Identifier")
+link("@property", "Identifier")
 
--- UI --
--- ✨ FOR AERIAL (if using)
-hl(0, "AerialFunction", { bold = true })
-hl(0, "AerialMethod", { bold = true })
-hl(0, "AerialClass", { bold = true })
-hl(0, "AerialConstructor", { bold = true })
+hl("Constant", { bold = true, underline = true })
+link("@constant", "Constant")
+link("@boolean", "Constant")
+link("@number", "Constant")
+link("@type", "Constant")
 
--- 📁 NVIM-TREE
-hl(0, "NvimTreeFolderName", { bold = true })
-hl(0, "NvimTreeOpenedFolderName", { bold = true })
-hl(0, "NvimTreeFolderIcon", { bold = true })
+hl("String", { fg = "DarkGray" })
+link("@string", "String")
 
-hl(0, "Pmenu", { bg = "#ffffff", fg = "#000000" }) -- popup bg white, text black
-hl(0, "PmenuSel", { bg = "#e0e0e0", fg = "#000000" }) -- selection: light gray bg
-hl(0, "PmenuSbar", { bg = "#d0d0d0" }) -- scrollbar bg
-hl(0, "PmenuThumb", { bg = "#000000" }) -- scrollbar thumb (black)
-vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#333333", fg = "#ffffff", bold = true })
+hl("Operator", { bold = true })
+link("@operator", "Operator")
 
--- Optional: for nvim-cmp item kinds
-hl(0, "CmpItemAbbr", { fg = "#000000" }) -- main text
-hl(0, "CmpItemKind", { fg = "#333333" }) -- kind (method, class etc)
-hl(0, "CmpItemMenu", { fg = "#666666" }) -- source (buffer, lsp)
+-- diagnostics
+hl("DiagnosticError", { bold = true, underline = false })
+hl("DiagnosticWarn", { bold = true })
+hl("DiagnosticInfo", { italic = true })
+hl("DiagnosticHint", { italic = true, underline = false })
 
--- Popup border (used by cmp, lsp, etc)
-hl(0, "FloatBorder", { fg = "#000000", bg = "#ffffff" }) -- thin black border
-hl(0, "NormalFloat", { bg = "#ffffff" }) -- background matches popup
+-- lsp
+hl("LspReferenceText", { reverse = true })
+hl("LspReferenceRead", { reverse = true })
+hl("LspReferenceWrite", { reverse = true, bold = true })
 
--- No-Ink: eInk-friendly monochrome highlights
--- Usage: require('noink').apply()
+-- diff
+hl("DiffAdd", { underline = true })
+hl("DiffDelete", { strikethrough = true })
+hl("DiffChange", { bold = true })
+hl("DiffText", { reverse = true })
 
-local M = {}
-
-local function hl(grp, spec)
-	vim.api.nvim_set_hl(0, grp, spec)
-end
-
-function M.apply()
-	vim.o.termguicolors = false -- force TUI attrs
-
-	---------------- Core UI ----------------
-	hl("Normal", {}) -- plain text
-	hl("CursorLine", { reverse = true })
-	hl("LineNr", { italic = true })
-	hl("CursorLineNr", { bold = true })
-	hl("Visual", { reverse = true })
-
-	---------------- Syntax -----------------
-	-- Tree-sitter captures are just linked
-	local link = function(child, parent)
-		vim.api.nvim_set_hl(0, child, { link = parent })
-	end
-
-	hl("Keyword", { bold = true })
-	link("@keyword", "Keyword")
-
-	hl("Function", { italic = false })
-	link("@function", "Function")
-	link("@method", "Function")
-
-	hl("Identifier", { italic = false })
-	link("@variable", "Identifier")
-	link("@field", "Identifier")
-	link("@property", "Identifier")
-
-	hl("Constant", { bold = true, underline = true })
-	link("@constant", "Constant")
-	link("@boolean", "Constant")
-	link("@number", "Constant")
-	link("@type", "Constant")
-
-	hl("String", {}) -- keep clean
-	link("@string", "String")
-
-	hl("Operator", { bold = true })
-	link("@operator", "Operator")
-
-	--
-
-	---------------- Diagnostics ------------
-	hl("DiagnosticError", { bold = true, underline = false })
-	hl("DiagnosticWarn", { bold = true })
-	hl("DiagnosticInfo", { italic = true })
-	hl("DiagnosticHint", { italic = true, underline = false })
-
-	---------------- LSP Extras ------------
-	hl("LspReferenceText", { reverse = true })
-	hl("LspReferenceRead", { reverse = true })
-	hl("LspReferenceWrite", { reverse = true, bold = true })
-
-	---------------- Diff / Git ------------
-	hl("DiffAdd", { underline = true })
-	hl("DiffDelete", { strikethrough = true })
-	hl("DiffChange", { bold = true })
-	hl("DiffText", { reverse = true })
-end
-
-M.apply()
+vim.api.nvim_set_hl(0, "ErrorMsg",  { fg = "#000000", bg = "#FFFFFF", bold = true })
+vim.api.nvim_set_hl(0, "WarningMsg",{ fg = "#000000", bg = "#FFF1A8" })
+vim.api.nvim_set_hl(0, "MoreMsg",   { fg = "#000000" })
+vim.api.nvim_set_hl(0, "MsgArea",   { fg = "#000000", bg = "#FFFFFF" }) -- optional

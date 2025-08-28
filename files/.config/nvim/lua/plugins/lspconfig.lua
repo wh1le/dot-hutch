@@ -44,52 +44,53 @@ return {
 				end,
 				desc = "Code action",
 			},
+			{
+				"<leader>de",
+				function()
+					vim.diagnostic.open_float(nil, {
+						focus = false,
+						border = "rounded",
+						source = "always",
+						scope = "cursor",
+					})
+				end,
+				desc = "Explain diagnostic under cursor",
+			},
 		},
 
 		init = function()
 			local defaults = {}
 			local lspconfig = require("lspconfig")
 
-			for type, icon in pairs({
-				Error = "✘",
-				Warn = "➜",
-				Hint = "💡",
-				Info = "➜",
-			}) do
-				local hl = "DiagnosticSign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+			local signs = { Error = "󰢱", Warn = "", Info = "»", Hint = "" }
+			local function apply_diag_signs()
+				for typ, icon in pairs(signs) do
+					local hl = "DiagnosticSign" .. typ
+					vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+				end
+				vim.diagnostic.config({
+					signs = {
+						text = {
+							[vim.diagnostic.severity.ERROR] = signs.Error,
+							[vim.diagnostic.severity.WARN] = signs.Warn,
+							[vim.diagnostic.severity.INFO] = signs.Info,
+							[vim.diagnostic.severity.HINT] = signs.Hint,
+						},
+						numhl = false,
+					},
+					severity_sort = true,
+					float = { border = "rounded", source = "always" },
+				})
 			end
 
-			-- Show line diagnostics automatically in hover window
-			vim.o.updatetime = 250
-			vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
+			vim.api.nvim_create_autocmd({ "UIEnter", "LspAttach", "ColorScheme" }, {
+				callback = apply_diag_signs,
+			})
+
+			-- vim.o.updatetime = 10000
 
 			-- apply defaults to every server
 			vim.lsp.config("*", defaults)
-
-			-- 🔇 kill inline spam everywhere
-			-- vim.api.nvim_create_autocmd("CursorHold", {
-			-- 	callback = function()
-			-- 		vim.diagnostic.open_float(nil, {
-			-- 			focusable = false,
-			-- 			close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-			-- 			border = "rounded",
-			-- 			source = "always", -- show “prism” in header
-			-- 			scope = "cursor", -- just the diagnostic under the caret
-			-- 		})
-			-- 	end,
-			-- })
-			-- vim.api.nvim_create_autocmd("LspAttach", {
-			-- 	callback = function()
-			-- 		vim.diagnostic.config({ virtual_text = false })
-			-- 	end,
-			-- })
-			-- -- 🛡️ optional: re-disable if some plugin flips it back on
-			-- vim.api.nvim_create_autocmd("BufEnter", {
-			-- 	callback = function()
-			-- 		vim.diagnostic.config({ virtual_text = false })
-			-- 	end,
-			-- })
 
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -120,30 +121,38 @@ return {
 				firstTriggerCharacter = "\n", -- usually newline or `}`
 			}
 
-			lspconfig.ruby_lsp.setup({
-				capabilities = capabilities,
-			})
+      vim.api.nvim_create_autocmd({ "ColorScheme", "LspAttach" }, {
+        callback = function()
+          -- local style = {
+          --   fg = "#9CA3AF",      -- light gray
+          --   bg = "NONE",
+          --   italic = false,
+          --   underline = false,
+          --   strikethrough = false,
+          --   nocombine = true,    -- ignore theme links
+          -- }
+          -- local groups = {
+          --   "DiagnosticUnnecessary",
+          --   "@lsp.mod.unused",
+          --   "@lsp.typemod.variable.unused",
+          --   "@lsp.typemod.parameter.unused",
+          --   "@lsp.typemod.function.unused",
+          --   "@lsp.typemod.method.unused",
+          --   "@lsp.typemod.property.unused",
+          --   "@lsp.typemod.enumMember.unused",
+          -- }
+          -- vim.api.nvim_set_hl(0, "DiagUnusedThing", { fg = "#9CA3AF", italic = false, nocombine = true })
 
-			-- per-server override
-			-- vim.lsp.config(
-			-- 	"lua_ls",
-			-- 	vim.tbl_deep_extend("force", defaults, {
-			-- 		settings = {
-			-- 			Lua = {
-			-- 				runtime = { version = "LuaJIT" },
-			-- 				diagnostics = { globals = { "vim", "require" } },
-			-- 				workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-			-- 				telemetry = { enable = false },
-			-- 			},
-			-- 		},
-			-- 	})
-			-- )
+          -- for _, g in ipairs(groups) do
+          --   pcall(vim.api.nvim_set_hl, 0, g, style)
+          -- end
 
-			-- local caps = require("cmp_nvim_lsp").default_capabilities()
-			-- caps.workspace.didChangeWatchedFiles = { dynamicRegistration = true }
-			--
-			-- require("lspconfig.util").default_config =
-			-- 	vim.tbl_deep_extend("force", require("lspconfig.util").default_config, { capabilities = caps })
+          -- clean styles
+          for _, g in ipairs({ "DiagnosticUnnecessary", "@lsp.mod.unused" }) do
+            pcall(vim.api.nvim_set_hl, 0, g, { link = "Normal" })
+          end
+        end,
+      })
 		end,
 	},
 }

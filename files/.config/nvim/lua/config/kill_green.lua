@@ -58,7 +58,7 @@ local kill = {
 }
 
 for _, grp in ipairs(kill) do
-  vim.api.nvim_set_hl(0, grp, { fg = grey, bg = "NONE" })
+  vim.api.nvim_set_hl(0, grp, { fg = "Grey", bg = "NONE" })
 end
 
 -- append after all the previous “grey-ify” blocks

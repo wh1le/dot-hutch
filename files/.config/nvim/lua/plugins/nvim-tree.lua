@@ -1,6 +1,6 @@
 return {
 	"nvim-tree/nvim-tree.lua",
-	lazy = false,
+	-- lazy = false,
 	opts = {
     sync_root_with_cwd = true,
     -- update_focused_file = {                      -- optional: whenever you jump to a buffer outside
@@ -30,13 +30,13 @@ return {
 		},
 	},
 	keys = {
-		{
-			"<leader><leader>",
-			function()
-				require("nvim-tree.api").tree.toggle()
-			end,
-			desc = "Toggle NvimTree",
-		},
+		-- {
+		-- 	"<leader><leader>",
+		-- 	function()
+		-- 		require("nvim-tree.api").tree.toggle()
+		-- 	end,
+		-- 	desc = "Toggle NvimTree",
+		-- },
     {
       "<leader>e",
       function()

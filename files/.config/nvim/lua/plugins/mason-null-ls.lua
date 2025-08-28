@@ -1,11 +1,27 @@
 return {
 	"jay-babu/mason-null-ls.nvim",
 	event = { "BufReadPre", "BufNewFile" },
+	-- enabled = false,
 	dependencies = {
 		"williamboman/mason.nvim",
 		"nvimtools/none-ls.nvim",
 	},
-
+	keys = {
+		{
+			"<leader>df",
+			function()
+				vim.lsp.buf.format({
+					async = false,
+					timeout_ms = 2000,
+					filter = function(c)
+						return c.name == "null-ls"
+					end,
+				})
+			end,
+			mode = { "n", "v" },
+			desc = "Format (null-ls only)",
+		},
+	},
 	config = function()
 		require("mason-null-ls").setup({
 			ensure_installed = {
@@ -41,7 +57,7 @@ return {
 				null_ls.builtins.formatting.stylua,
 				null_ls.builtins.formatting.shfmt,
 				null_ls.builtins.formatting.rubocop,
-				null_ls.builtins.formatting.standardrb,
+				-- null_ls.builtins.formatting.standardrb,
 
 				-- null_ls.builtins.code_actions.eslint_d,
 				-- null_ls.builtins.code_actions.ruff,
@@ -60,21 +76,21 @@ return {
 				if client.supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						group = augroup,
-						buffer = bufnr,
-						desc = "💅 auto-format via null-ls before write",
-						callback = function()
-							vim.lsp.buf.format({
-								bufnr = bufnr,
-								async = false, -- blocking keeps file on disk always pretty
-								timeout_ms = 2000,
-								filter = function(c) -- only pick null-ls (don’t fight other LSPs)
-									return c.name == "null-ls"
-								end,
-							})
-						end,
-					})
+					-- vim.api.nvim_create_autocmd("BufWritePre", {
+					-- 	group = augroup,
+					-- 	buffer = bufnr,
+					-- 	desc = "💅 auto-format via null-ls before write",
+					-- 	callback = function()
+					-- 		vim.lsp.buf.format({
+					-- 			bufnr = bufnr,
+					-- 			async = false, -- blocking keeps file on disk always pretty
+					-- 			timeout_ms = 2000,
+					-- 			filter = function(c) -- only pick null-ls (don’t fight other LSPs)
+					-- 				return c.name == "null-ls"
+					-- 			end,
+					-- 		})
+					-- 	end,
+					-- })
 				end
 			end,
 		})

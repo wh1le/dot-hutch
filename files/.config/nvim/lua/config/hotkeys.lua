@@ -101,3 +101,23 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], {
 	silent = true,
 	desc = "Yank to system clipboard",
 })
+
+vim.keymap.set("c", "<C-y>", "<C-r>0", { noremap = true, silent = true, desc = "Paste last yank" })
+
+-- NOTE: Attempt to fix shaft-tab
+-- 
+-- Insert mode Tab → indent
+-- vim.keymap.set(
+--   "i", "<Tab>", "<C-o>>>",
+--   { noremap = true, silent = true }
+-- )
+-- Insert mode Shift-Tab → dedent
+-- vim.keymap.set(
+--   "i", "<S-Tab>", "<C-o><<",
+--   { noremap = true, silent = true }
+-- )
+--
+-- local backtab = string.char(27) .. "[Z" -- ESC[Z
+-- vim.keymap.set("i", "<Tab>",   "<C-o>>>", {noremap=true, silent=true})
+-- vim.keymap.set("i", "<S-Tab>", "<C-o><<", {noremap=true, silent=true}) -- GUIs/if term recognizes it
+-- vim.keymap.set("i", backtab,   "<C-o><<", {noremap=true, silent=true}) -- literal fallback

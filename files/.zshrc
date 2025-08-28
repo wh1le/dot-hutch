@@ -335,7 +335,8 @@ alias ymd="/Users/nikitamiloserdov/code/babulia/youtube/bin/download_music.sh"
 [ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
 
 # Enable VIM mode
-bindkey -v
+# bindkey -v
+
 export PATH="$PATH:/Users/nikitamiloserdov/code/bin/android"
 export PATH="$PATH:/Users/nikitamiloserdov/code/bin/scrcpy"
 
@@ -404,12 +405,14 @@ fi
 # Python
 # source ~/venvs/algos/bin/activate
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  eval "$(pyenv virtualenv-init -)"
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-  pyenv global 🐍local
-fi
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+pyenv global local-py
+alias pip="python -m pip"
 
 print -n '\e]4;2;#6e6e6e\a'
 

@@ -39,7 +39,7 @@ return {
 				desc = "CMP abort completion",
 			},
 			{
-				"<CR>",
+				"<Tab>",
 				mode = "i",
 				function()
 					require("cmp").mapping.confirm({ select = true })()
@@ -60,6 +60,11 @@ return {
 				--   { name = "path", max_item_count = 10 },
 				--   { name = "buffer", max_item_count = 10 },
 				-- },
+				performance = {
+					debounce = 1500, -- ms to wait before showing / updating menu
+					throttle = 150, -- (optional) how often to refresh while visible
+					-- fetching_timeout = 500, -- keep defaults
+				},
 				sources = {
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
@@ -84,39 +89,32 @@ return {
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 
-					["<CR>"] = cmp.mapping(function(fallback)
+					["<Tab>"] = cmp.mapping(function()
 						if cmp.visible() then
 							if luasnip.expandable() then
-								luasnip.expand() -- expand snippet first ⏩
+								luasnip.expand() -- expand snippet first
 							else
-								cmp.confirm({ select = true }) -- or accept completion item
+								cmp.confirm({ select = true }) -- accept item (triggers snippet if snippet item)
 							end
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump() -- jump inside snippet
 						else
-							fallback() -- insert newline
+							-- local t = function(str)
+							-- 	return vim.api.nvim_replace_termcodes(str, true, false, true)
+							-- end
+							-- vim.api.nvim_feedkeys(t("<Tab>"), "n", true) -- literal tab
 						end
-					end),
-
-					------------------------------------------------------------------
-					-- Tab gymnastics: menu > snippet > plain tab --------------------
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.locally_jumpable(1) then
-							luasnip.jump(1)
-						else
-							fallback() -- literally a <Tab>
-						end
-					end, { "i", "s" }),
+					end, { "i" }),
 
 					["<S-Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_prev_item()
-						elseif luasnip.locally_jumpable(-1) then
-							luasnip.jump(-1)
+						elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
 						else
-							fallback()
+              fallback()
 						end
-					end, { "i", "s" }),
+					end, { "i" }),
 				}),
 			})
 		end,

@@ -16,7 +16,9 @@ if is_wsl then
 else
 	vim.g.python3_host_prog = "/Users/nikitamiloserdov/.venvs/nvim/bin/python3"
 end
-vim.g.ruby_host_prog = vim.fn.expand("~/.rbenv/versions/3.3.1/bin/ruby")
+
+vim.g.ruby_host_prog = vim.fn.expand("~/.rbenv/shims/ruby")
+
 vim.g.loaded_perl_provider = 0
 
 require("config/colors")
@@ -44,11 +46,15 @@ end
 -- Move to separate file
 local M = {}
 
+-- helper: true when `path` is inside spec/
 local function in_spec(path)
 	return path:match("^spec/")
 end
 
-local M = {}
+-- helper: POSIX‑style existence check
+local function file_exists(path)
+	return vim.loop.fs_stat(path) ~= nil
+end
 
 function M.toggle()
 	local abs = vim.api.nvim_buf_get_name(0)
@@ -56,25 +62,33 @@ function M.toggle()
 		return
 	end
 
-	-- path relative to the cwd (assumed repo root)
 	local rel = vim.fn.fnamemodify(abs, ":.")
-
 	local target
+
 	if in_spec(rel) then
 		target = rel:gsub("^spec/", ""):gsub("_spec%.rb$", ".rb")
-		-- everything except lib/ lives in app/
 		if not target:match("^lib/") then
 			target = "app/" .. target
 		end
 	else
-		-- strip optional app/ prefix before building the spec path
 		target = rel:gsub("^app/", ""):gsub("%.rb$", "_spec.rb")
 		target = "spec/" .. target
 	end
 
-	vim.cmd.edit(target)
+	if not file_exists(target) then
+		local ok = vim.fn.confirm("Create " .. target .. "?", "&Yes\n&No", 2)
+		if ok == 1 then
+			vim.fn.mkdir(vim.fn.fnamemodify(target, ":h"), "p")
+			vim.cmd.edit(target)
+		end
+	else
+		vim.cmd.edit(target)
+	end
 end
 
 -- init.lua (or any file sourced at startup)
 vim.keymap.set("n", "<leader>ta", M.toggle, { desc = "Toggle source ⇄ spec", silent = true })
 -- Move to separate file
+
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
