@@ -112,7 +112,10 @@ return {
 				virtual_text = false, -- no “💡” at line end
 			},
 			symbol_in_winbar = {
-				enable = true,
+				enable = false,
+        show_file = true,
+        color_mode = false,
+        delay = 300,
 			},
 			diagnostic = {
 				show_code_action = false,

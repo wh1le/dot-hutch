@@ -5,7 +5,7 @@ return {
 		opts.options = opts.options or {}
 		opts.sections = opts.sections or {}
 
-		local function mode()
+		local function vim_mode()
 			local m = vim.fn.mode()
 			return (m == "n" and "N")
 				or (m == "i" and "I")
@@ -15,7 +15,7 @@ return {
 				or ""
 		end
 
-		local function branch_text()
+		local function branch_name()
 			local gs = vim.b.gitsigns_status_dict
 			local head = (gs and gs.head) or ""
 			if head == "" and vim.fn.exists("*FugitiveHead") == 1 then
@@ -31,13 +31,13 @@ return {
 			return head ~= "" and (" " .. head) or ""
 		end
 
-		local function cursor_progress()
+		local function total_lines()
 			local line = vim.api.nvim_win_get_cursor(0)[1]
 			local total = vim.api.nvim_buf_line_count(0)
-			return string.format("%d:%d", line, total)
+			return string.format("%d", total)
 		end
 
-		local function file_status()
+		local function linter_status()
 			local sev = vim.diagnostic.severity
 			local e = #vim.diagnostic.get(0, { severity = sev.ERROR })
 			local w = #vim.diagnostic.get(0, { severity = sev.WARN })
@@ -51,7 +51,7 @@ return {
 			return ""
 		end
 
-		local function diag_summary()
+		local function diagnostic_summary()
 			local sev = vim.diagnostic.severity
 			local e = #vim.diagnostic.get(0, { severity = sev.ERROR })
 			local w = #vim.diagnostic.get(0, { severity = sev.WARN })
@@ -80,17 +80,7 @@ return {
 			return "" .. table.concat(parts, " ") .. ""
 		end
 
-		local function diag_color()
-			local sev = vim.diagnostic.severity
-			if #vim.diagnostic.get(0, { severity = sev.ERROR }) > 0 then
-				return { fg = "#ffffff", bg = "#cc0000", gui = "bold" }
-			elseif #vim.diagnostic.get(0, { severity = sev.WARN }) > 0 then
-				return { fg = "#000000", bg = "#ffd24d", gui = "bold" }
-			end
-			return { fg = "#000000", bg = "White" } -- ok/clean
-		end
-
-		local function file_name()
+		local function current_file_name()
 			local bufname = vim.fn.expand("%:t") -- filename with extension
 			if bufname == "" then
 				return "No File"
@@ -121,21 +111,24 @@ return {
 		opts.options.component_separators = { left = "│", right = "│" }
 		opts.options.section_separators = { left = "█", right = "█" }
 
+    local breadcrumbs = require('lspsaga.symbol.winbar').get_bar
+
     -- active --
 		opts.sections = {
 			lualine_a = {
-				{ "mode", fmt = mode, color = { fg = "#ffffff", bg = "#000000", gui = "bold" } },
+				{ "mode", fmt = vim_mode, color = { fg = "#ffffff", bg = "#000000", gui = "bold" } },
 			},
-			lualine_b = {},
+      lualine_b = {},
 			lualine_c = {
-				{ file_name, color = { fg = "Black", bg = "white", gui = "bold" } },
-			},
-			lualine_x = {
-				{ file_status, color = { fg = "black", bg = "white", gui = "bold" } },
-			},
+        { 
+          breadcrumbs,
+          colors = { fg = "Black", bg = "White", gui = "bold" }
+        },
+      },
+			lualine_x = {},
 			lualine_y = {
 				{
-					diag_summary,
+					diagnostic_summary,
           color = { fg = "Black", bg = "White", gui = "bold" },
 					cond = function()
 						return vim.fn.winwidth(0) > 60
@@ -143,27 +136,17 @@ return {
 				},
 			},
 			lualine_z = {
-				{ branch_text, color = { fg = "White", bg = "Black" } },
-        { cursor_progress },
-      } ,
+				{ branch_name, color = { fg = "White", bg = "Black" } },
+        { total_lines },
+      }
 		}
 
-
-    -- inactive --
 		opts.inactive_sections = {
 			lualine_a = {},
 			lualine_b = {},
-			lualine_c = {
-				{
-          function()
-            return "   " .. file_name()
-          end,
-          color = { fg = "Black", bg = "white", gui = "bold" } 
-        },
-			},
+      lualine_c = {{ breadcrumbs }},
 			lualine_x = {},
 			lualine_y = {},
-			lualine_z = {},
 		}
 
 		return opts

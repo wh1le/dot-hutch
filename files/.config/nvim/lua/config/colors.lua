@@ -130,5 +130,24 @@ vim.api.nvim_set_hl(0, "WarningMsg",{ fg = "#000000", bg = "#FFF1A8" })
 vim.api.nvim_set_hl(0, "MoreMsg",   { fg = "#000000" })
 vim.api.nvim_set_hl(0, "MsgArea",   { fg = "#000000", bg = "#FFFFFF" }) -- optional
 
+-- highlight spaces
 vim.api.nvim_set_hl(0, "WsOnly", { bg = "#F2F2F2" })
 vim.fn.matchadd("WsOnly", [[^\s\+$]], 10)
+
+vim.api.nvim_set_hl(0, "AerialWinNormal",   { fg = "Black", bg = "White" })
+vim.api.nvim_set_hl(0, "AerialWinNormalNC", { fg = "Black", bg = "White" })
+vim.api.nvim_set_hl(0, "AerialCursorLine",  { fg = "Black", bg = "Gray" }) -- active line
+vim.api.nvim_set_hl(0, "AerialSeparator",   { fg = "Black", bg = "White" })
+
+
+local set = vim.api.nvim_set_hl
+set(0, "AerialWin",   { fg = "Black", bg = "Gray" })
+set(0, "AerialWinNC", { fg = "Black", bg = "Gray" })
+set(0, "AerialNormal",{ fg = "Black", bg = "Gray", link = "White" })
+
+set(0, "AerialLine",  { bg = "LightGray" })
+set(0, "AerialLineNC",{ bg = "LightGray" })
+
+set(0, "AerialIcon",        { fg = "Black", bg = "White" })
+set(0, "AerialClassIcon",   { link = "AerialIcon" })
+set(0, "AerialFunctionIcon",{ fg = "Black", bg = "White" })
