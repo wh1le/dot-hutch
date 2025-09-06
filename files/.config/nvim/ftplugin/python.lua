@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.g.python_recommended_style = 0
 
     -- Enable indentLine
-    vim.g.indentLine_enabled = 1
-    vim.g.indentLine_char = "▏"
+    -- vim.g.indentLine_enabled = 1
+    -- vim.g.indentLine_char = "▏"
   end,
 })

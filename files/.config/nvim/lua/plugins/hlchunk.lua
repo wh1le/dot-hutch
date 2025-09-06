@@ -4,8 +4,10 @@ return {
   config = function()
     require("hlchunk").setup({
       chunk = {
-        enable = true
-        -- ...
+        enable = true,
+        style = {
+          { fg = "LightGray" }
+        },
       },
     })
   end,

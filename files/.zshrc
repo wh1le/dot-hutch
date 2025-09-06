@@ -430,3 +430,27 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH="$JAVA_HOME/bin:$PATH"
+
+noglob cdw() {
+  if (( $# == 0 )); then
+    print -u2 "Usage: cdw <Windows path>"; return 1
+  fi
+  local winpath="$*"
+  local target=""
+  if command -v wslpath >/dev/null 2>&1; then
+    target=$(wslpath -a -u "$winpath" 2>/dev/null) || {
+      print -u2 "cdw: invalid path: $winpath"; return 1
+    }
+  else
+    # Fallback for drive-letter paths like C:\...
+    local drive="${winpath%%:*}"; drive="${drive:l}"
+    local rest="${winpath#*:}"
+    rest="${rest//\\//}"; rest="${rest##/}"
+    target="/mnt/${drive}/${rest}"
+  fi
+  [[ -d "$target" ]] && builtin cd -- "$target" || {
+    print -u2 "cdw: not a directory: $target"; return 1
+  }
+}

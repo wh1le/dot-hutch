@@ -3,6 +3,28 @@ return {
 	dependencies = { "williamboman/mason.nvim" },
 	opts = function()
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		capabilities = vim.tbl_deep_extend("force", capabilities, {
+			offsetEncoding = { "utf-16" },
+			general = {
+				positionEncodings = { "utf-16" },
+			},
+		})
+
+		capabilities.textDocument.signatureHelp = {
+			dynamicRegistration = false,
+			signatureInformation = {
+				documentationFormat = { "markdown", "plaintext" },
+				parameterInformation = { labelOffsetSupport = true },
+			},
+		}
+
+    capabilities.workspace = capabilities.workspace or {}
+    capabilities.workspace.didChangeWatchedFiles = { dynamicRegistration = true }
+
+		capabilities.textDocument.documentOnTypeFormatting = {
+			firstTriggerCharacter = "\n", -- usually newline or `}`
+		}
+
 		local function default(server)
 			require("lspconfig")[server].setup({ capabilities = capabilities })
 		end
@@ -13,7 +35,10 @@ return {
 				Lua = {
 					runtime = { version = "LuaJIT" },
 					diagnostics = { globals = { "vim", "require" } },
-					workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+					workspace = {
+            checkThirdParty = false,
+            library = vim.api.nvim_get_runtime_file("", true) 
+          },
 					telemetry = { enable = false },
 				},
 			},
@@ -21,7 +46,11 @@ return {
 
 		vim.lsp.config("ruby_lsp", {
 			capabilities = capabilities,
-			cmd = { "bundle", "exec", "ruby-lsp" },
+			cmd = { "rbenv", "exec", "ruby-lsp" },
+		})
+ 
+		vim.lsp.config("ruff", {
+			capabilities = capabilities,
 		})
 
 		require("mason-lspconfig").setup({
@@ -50,7 +79,7 @@ return {
 
         -- Spelling
         "typos_lsp",
-        "ltex",
+        -- "ltex",
 			},
 			automatic_enable = true, -- default is already true, but explicit is fine
 		})

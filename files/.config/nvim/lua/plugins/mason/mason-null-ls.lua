@@ -69,7 +69,7 @@ return {
 			},
 
 			on_init = function(client)
-				client.offset_encoding = "utf-8"
+				client.offset_encoding = "utf-16"
 			end,
 
 			on_attach = function(client, bufnr)

@@ -14,6 +14,8 @@ return {
   config = function()
     require("neotest").setup({
       adapters = {
+        -- require("neotest-plenary"),
+        require("neotest.python_adapter"),
         require("neotest-rspec")({
           rspec_cmd = function()
             return vim.tbl_flatten({
@@ -23,8 +25,21 @@ return {
             })
           end
         }),
-        -- require("neotest-python"),
+        require("neotest-python")({
+           dap = { justMyCode = false },
+           args = {"-q"}
+        }),
         -- require("neotest-jest"),
+      },
+      summary = {
+        enabled = false
+      },
+      discovery = {
+        enabled = false,
+        concurrent = 1,
+      },
+      running = {
+        concurrent = true,
       },
     })
   end

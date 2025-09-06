@@ -15,6 +15,7 @@ return {
 			"bash",
 			"dockerfile",
 			"markdown",
+			"markdown_inline",
 			"gitcommit",
 			"make",
 		},

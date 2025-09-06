@@ -1,14 +1,18 @@
 return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
-		"mfussenegger/nvim-dap-python",
 		"nvim-neotest/nvim-nio",
 		"igorlfs/nvim-dap-view",
 		"theHamsta/nvim-dap-virtual-text",
+    -- adapters
+		"mfussenegger/nvim-dap-python",
+    "suketa/nvim-dap-ruby",
 	},
 	config = function()
 		local dap = require("dap")
 		local dapui = require("dap-view")
+    local ruby  = require("dap-ruby")
+    ruby.setup()
 
 		dapui.setup({
 			winbar = {

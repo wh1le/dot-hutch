@@ -6,73 +6,29 @@ return {
 			"L3MON4D3/LuaSnip",
       "onsails/lspkind.nvim",
 		},
-		keys = {
-			{
-				"<C-b>",
-				mode = "i",
-				function()
-					require("cmp").mapping.scroll_docs(-4)()
-				end,
-				desc = "CMP scroll docs up",
-			},
-			{
-				"<C-f>",
-				mode = "i",
-				function()
-					require("cmp").mapping.scroll_docs(4)()
-				end,
-				desc = "CMP scroll docs down",
-			},
-			{
-				"<C-Space>",
-				mode = "i",
-				function()
-					require("cmp").mapping.complete()()
-				end,
-				desc = "CMP trigger completion",
-			},
-			{
-				"<C-e>",
-				mode = "i",
-				function()
-					require("cmp").mapping.abort()()
-				end,
-				desc = "CMP abort completion",
-			},
-			{
-				"<Tab>",
-				mode = "i",
-				function()
-					require("cmp").mapping.confirm({ select = true })()
-				end,
-				desc = "CMP confirm selection",
-			},
-		},
+		-- keys = {
+		-- 	{ "<C-b>", mode = "i", function() require("cmp").mapping.scroll_docs(-4)() end, desc = "CMP scroll docs up", },
+		-- 	{ "<C-f>", mode = "i", function() require("cmp").mapping.scroll_docs(4)() end, desc = "CMP scroll docs down", },
+		-- 	{ "<C-Space>", mode = "i", function() require("cmp").mapping.complete()() end, desc = "CMP trigger completion", },
+		-- 	{ "<C-e>", mode = "i", function() require("cmp").mapping.abort()() end, desc = "CMP abort completion", },
+		-- 	{ "<Tab>", mode = "i", function() require("cmp").mapping.confirm({ select = true })() end, desc = "CMP confirm selection", },
+		-- },
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
       local lspkind = require('lspkind')
 
-			-- vim.opt.pumheight = 10
-
 			cmp.setup({
-				-- sources = {
-				--   { name = "nvim_lsp", max_item_count = 10  },
-				--   { name = "luasnip", max_item_count = 10 },
-				--   { name = "path", max_item_count = 10 },
-				--   { name = "buffer", max_item_count = 10 },
-				-- },
 				performance = {
-					debounce = 1500, -- ms to wait before showing / updating menu
+					debounce = 3000, -- ms to wait before showing / updating menu
 					throttle = 150, -- (optional) how often to refresh while visible
-					-- fetching_timeout = 500, -- keep defaults
 				},
 				sources = {
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
 					{ name = "buffer" },
-					{ name = "nvim_lsp_signature_help" },
+					-- { name = "nvim_lsp_signature_help" },
 				},
 				window = {
 					completion = require("cmp").config.window.bordered(),
@@ -87,9 +43,6 @@ return {
           format = lspkind.cmp_format({
             mode = 'symbol', -- show only symbol annotations
             maxwidth = {
-              -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-              -- can also be a function to dynamically calculate max width such as
-              -- menu = function() return math.floor(0.45 * vim.o.columns) end,
               menu = 50, -- leading text (labelDetails)
               abbr = 50, -- actual suggestion item
             },
@@ -106,12 +59,14 @@ return {
         },
 
 				mapping = cmp.mapping.preset.insert({
+          ["<C-n>"] = cmp.mapping.select_next_item { behaviour = cmp.SelectBehavior.Insert },
+          ["<C-p>"] = cmp.mapping.select_prev_item { behaviour = cmp.SelectBehavior.Insert },
+
 					["<C-b>"] = cmp.mapping.scroll_docs(-4), -- safe: noop if no docs
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
 
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
-
 					["<Tab>"] = cmp.mapping(function()
 						if cmp.visible() then
 							if luasnip.expandable() then
@@ -128,7 +83,6 @@ return {
 							-- vim.api.nvim_feedkeys(t("<Tab>"), "n", true) -- literal tab
 						end
 					end, { "i" }),
-
 					["<S-Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_prev_item()

@@ -7,12 +7,17 @@ return {
 
 		local function vim_mode()
 			local m = vim.fn.mode()
-			return (m == "n" and "N")
-				or (m == "i" and "I")
-				or (m == "v" and "V")
-				or (m == "R" and "R")
-				or (m == "c" and "C")
-				or ""
+
+      local total = vim.api.nvim_buf_line_count(0)
+      local pad = string.rep(" ", math.max(#tostring(total), 0))
+
+      local res = (m == "n" and " N")
+        or (m == "i" and " I")
+        or (m == "V" and " V")
+        or (m == "R" and " R")
+        or (m == "c" and " C")
+        or ""
+      return pad .. res
 		end
 
 		local function branch_name()
@@ -34,7 +39,7 @@ return {
 		local function total_lines()
 			local line = vim.api.nvim_win_get_cursor(0)[1]
 			local total = vim.api.nvim_buf_line_count(0)
-			return string.format("%d", total)
+			return string.format("%d:%d", line, total)
 		end
 
 		local function linter_status()
@@ -55,8 +60,8 @@ return {
 			local sev = vim.diagnostic.severity
 			local e = #vim.diagnostic.get(0, { severity = sev.ERROR })
 			local w = #vim.diagnostic.get(0, { severity = sev.WARN })
-			local i = #vim.diagnostic.get(0, { severity = sev.INFO })
-			local h = #vim.diagnostic.get(0, { severity = sev.HINT })
+			-- local i = #vim.diagnostic.get(0, { severity = sev.INFO })
+			-- local h = #vim.diagnostic.get(0, { severity = sev.HINT })
 
 			local parts = {}
 
@@ -66,12 +71,12 @@ return {
 			if w > 0 then
 				table.insert(parts, string.format(" %d", w))
 			end
-			if i > 0 then
-				table.insert(parts, string.format(" %d", i))
-			end
-			if h > 0 then
-				table.insert(parts, string.format(" %d", h))
-			end
+			-- if i > 0 then
+			-- 	table.insert(parts, string.format(" %d", i))
+			-- end
+			-- if h > 0 then
+			-- 	table.insert(parts, string.format(" %d", h))
+			-- end
 
 			if #parts == 0 then
 				return ""
@@ -99,7 +104,7 @@ return {
 		for _mode, grp in pairs(theme) do
 			if type(grp) == "table" then
 				grp.c = grp.c or {}
-				grp.c.bg = "White"
+				grp.c.bg = "OldLace"
 				grp.c.fg = "Black"
 			end
 		end
@@ -113,6 +118,10 @@ return {
 
     local breadcrumbs = require('lspsaga.symbol.winbar').get_bar
 
+    if breadcrumbs == nil or breadcrumbs == "" then
+      breadcrumbs = current_file_name()
+    end
+
     -- active --
 		opts.sections = {
 			lualine_a = {
@@ -120,31 +129,39 @@ return {
 			},
       lualine_b = {},
 			lualine_c = {
-        { 
-          breadcrumbs,
-          colors = { fg = "Black", bg = "White", gui = "bold" }
-        },
+        {
+          current_file_name,
+          colors = { fg = "Black", bg = "OldLace", gui = "bold" }
+        }
+        -- {
+        --   breadcrumbs,
+        -- },
       },
 			lualine_x = {},
 			lualine_y = {
 				{
 					diagnostic_summary,
-          color = { fg = "Black", bg = "White", gui = "bold" },
+          color = { fg = "Black", bg = "OldLace", gui = "bold" },
 					cond = function()
 						return vim.fn.winwidth(0) > 60
 					end,
 				},
 			},
 			lualine_z = {
-				{ branch_name, color = { fg = "White", bg = "Black" } },
-        { total_lines },
+				-- { branch_name, color = { fg = "White", bg = "Black" } },
+        { total_lines, color = { fg = "white", bg = "Black", gui = "bold" } },
       }
 		}
 
 		opts.inactive_sections = {
 			lualine_a = {},
-			lualine_b = {},
-      lualine_c = {{ breadcrumbs }},
+      lualine_b = {},
+      lualine_c = {
+        {
+          current_file_name,
+          colors = { fg = "Black", bg = "OldLace", gui = "bold" }
+        }
+      }, --{{ breadcrumbs }},
 			lualine_x = {},
 			lualine_y = {},
 		}

@@ -1,8 +1,8 @@
-local is_wsl = vim.fn.has("wsl") == 1
+vim.deprecate = function() end
 
-vim.opt.signcolumn = "yes"
+vim.o.signcolumn = "yes"
+vim.o.cursorcolumn = false
 
--- Basics vim.o.clipboard = 'unnamedplus' -- Uncomment to use system clipboard
 vim.o.mouse = "a"
 vim.o.ttimeoutlen = 50
 vim.o.foldlevel = 99
@@ -10,14 +10,9 @@ vim.o.swapfile = false
 vim.o.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
 vim.o.history = 2000
-if is_wsl then
-	vim.o.fileformat = "unix"
-else
-	vim.o.fileformats = "mac"
-end
 vim.o.binary = true
 vim.o.endofline = false
-vim.o.laststatus = 2
+vim.o.laststatus = 3
 vim.o.wrap = false
 vim.o.readonly = false
 vim.o.hidden = true
@@ -33,39 +28,33 @@ vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.smartindent = true
-vim.o.cursorcolumn = false
-vim.o.cursorline = false
 vim.o.hlsearch = true
 vim.o.conceallevel = 3
 
--- TUI
-vim.o.numberwidth = 4
-vim.o.showtabline = 0
+vim.o.numberwidth = 1
 vim.o.scrolloff = 8
 vim.o.showmatch = true
 
 -- General settings
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
 vim.o.showmode = false
-vim.o.cursorline = false
-vim.o.relativenumber = false
 vim.o.autoread = true
 vim.o.number = true
-vim.o.backup = false
 vim.o.writebackup = false
-vim.o.swapfile = false
-vim.o.showtabline = 1
+vim.o.showtabline = 2
 
 vim.opt.lazyredraw = true
 vim.opt.ruler = false
 vim.opt.showcmd = false
 vim.opt.visualbell = false
-vim.opt.relativenumber = false
-vim.opt.cursorcolumn = false
-vim.opt.cursorline = false
+vim.opt.relativenumber = true
 -- vim.opt.ttyscroll = 3
 vim.opt.scrolloff = 0
 vim.opt.incsearch = false
 
-vim.o.wrap = false
-vim.o.linebreak = true
-
+if NM.os.is_wsl() then
+	vim.o.fileformat = "unix"
+else
+	vim.o.fileformats = "mac"
+end

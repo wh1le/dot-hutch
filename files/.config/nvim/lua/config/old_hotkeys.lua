@@ -1,6 +1,3 @@
--- Set leader key
-vim.g.mapleader = ","
-
 -- Navigation and movement
 vim.keymap.set("", "j", "gj")
 vim.keymap.set("", "k", "gk")
@@ -52,48 +49,27 @@ vim.keymap.set("n", "<leader>co", "ggVGy:tabnew<CR>:set syntax=qf<CR>pgg")
 vim.keymap.set("n", "<leader>n", ":cn<CR>")
 vim.keymap.set("n", "<leader>p", ":cp<CR>")
 
--- Spelling
-vim.keymap.set("n", "<leader>sn", "]s")
-vim.keymap.set("n", "<leader>sp", "[s")
-vim.keymap.set("n", "<leader>sa", "zg")
-vim.keymap.set("n", "<leader>s?", "z=")
-
 -- Remove ^M characters
 vim.keymap.set("n", "<leader>m", "mmHmt:%s/\\r//ge<CR>'tzt'm", { noremap = true })
 
--- Scratch buffers
-vim.keymap.set("n", "<leader>q", ":e ~/buffer<CR>")
-vim.keymap.set("n", "<leader>x", ":e ~/buffer.md<CR>")
+-- TODO: Delete: Toggle paste mode
+-- vim.keymap.set("n", "<leader>pp", ":setlocal paste!<CR>")
 
--- Toggle paste mode
-vim.keymap.set("n", "<leader>pp", ":setlocal paste!<CR>")
-
--- Smart window nav
+-- Window nav
 vim.keymap.set("n", "<C-j>", "<C-W>j")
 vim.keymap.set("n", "<C-k>", "<C-W>k")
 vim.keymap.set("n", "<C-h>", "<C-W>h")
 vim.keymap.set("n", "<C-l>", "<C-W>l")
 
--- Shared clipboard buffer file
-vim.keymap.set("v", "<leader>y", ":w! ~/.vbuf<CR>")
-vim.keymap.set("n", "<leader>y", ":.w! ~/.vbuf<CR>")
+-- TODO  Delete old copy paste
+-- vim.keymap.set("v", "<leader>y", ":w! ~/.vbuf<CR>")
+-- vim.keymap.set("n", "<leader>y", ":.w! ~/.vbuf<CR>")
 -- vim.keymap.set('n', '<leader>r', ':r ~/.vbuf<CR>') -- optional paste from buffer file
 
--- Vim-test mappings
-vim.keymap.set("n", "<leader>r", ":TestLast<CR>", { silent = true })
-vim.keymap.set("n", "<leader>T", ":TestFile<CR>", { silent = true })
-vim.keymap.set("n", "<leader>s", ":TestNearest<CR>", { silent = true })
-vim.keymap.set("n", "<leader>t", ":TestFile<CR>", { silent = true })
-
--- Buffer nav
-vim.keymap.set("n", "<leader>p", ":bp<CR>")
-vim.keymap.set("n", "<leader>n", ":bn<CR>")
-vim.keymap.set("n", "<leader>d", ":bd<CR>")
-
--- Vimwiki
--- vim.keymap.set('n', '<leader>tt', '<Plug>VimwikiToggleListItem')
--- vim.keymap.set('n', '<leader>wf', '<Plug>VimwikiFollowLink')
--- vim.keymap.set('n', '<leader>wq', '<Plug>VimwikiVSplitLink')
+-- TODO Delete old: Buffer nav
+-- vim.keymap.set("n", "<leader>p", ":bp<CR>")
+-- vim.keymap.set("n", "<leader>n", ":bn<CR>")
+-- vim.keymap.set("n", "<leader>d", ":bd<CR>")
 
 -- copy to clipboard (normal + visual)
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], {
@@ -102,22 +78,9 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], {
 	desc = "Yank to system clipboard",
 })
 
+-- (Past into console)
 vim.keymap.set("c", "<C-y>", "<C-r>0", { noremap = true, silent = true, desc = "Paste last yank" })
 
--- NOTE: Attempt to fix shaft-tab
--- 
--- Insert mode Tab → indent
--- vim.keymap.set(
---   "i", "<Tab>", "<C-o>>>",
---   { noremap = true, silent = true }
--- )
--- Insert mode Shift-Tab → dedent
--- vim.keymap.set(
---   "i", "<S-Tab>", "<C-o><<",
---   { noremap = true, silent = true }
--- )
---
--- local backtab = string.char(27) .. "[Z" -- ESC[Z
--- vim.keymap.set("i", "<Tab>",   "<C-o>>>", {noremap=true, silent=true})
--- vim.keymap.set("i", "<S-Tab>", "<C-o><<", {noremap=true, silent=true}) -- GUIs/if term recognizes it
--- vim.keymap.set("i", backtab,   "<C-o><<", {noremap=true, silent=true}) -- literal fallback
+-- (exit terminal)
+vim.keymap.set("t", "<C-x>", "<C-\\><C-n>", {buffer = true, silent = true})
+vim.keymap.set("n", "<C-x>", ":startinsert<CR>", {buffer = true, silent = true})

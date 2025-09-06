@@ -1,3 +1,15 @@
+-- https://en.wikipedia.org/wiki/X11_color_names?utm_source=chatgpt.com
+-- whitesmoke — #F5F5F5 (very pale)
+-- ghostwhite — #F8F8FF (near-white, bluish)
+-- gray95 (X11) — #F2F2F2
+-- gray90 (X11) — #E6E6E6
+-- gainsboro — #DCDCDC
+-- lightgray — #D3D3D3 (CSS)
+-- gray80 (X11) — #CCCCCC
+-- silver — #C0C0C0
+-- gray70 (X11) — #B2B2B2
+-- darkgray — #A9A9A9 (darker, included for context)
+
 local function hl(grp, spec)
 	vim.api.nvim_set_hl(0, grp, spec)
 end
@@ -12,11 +24,11 @@ vim.o.termguicolors = true
 -- vim.cmd([[ hi htmlArg cterm=italic hi Type cterm=italic]])
 
 -- vim.cmd("highlight Normal guibg=NONE")
-hl("Normal", { bg = "NONE", ctermbg = "NONE" })
+hl("Normal", { bg = "White", ctermbg = "White" })
 
 hl("StatusLine", { bg = "White", fg = "Black" })
 hl("StatusLineNC", { bg = "White", fg = "Black" })
-hl("WinSeparator", { fg = "LightGray" })
+hl("WinSeparator", { fg = "Black" })
 -- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#e5e5e5" })
 
 -- popups
@@ -30,8 +42,8 @@ hl("PmenuSbar", { bg = "#d0d0d0" }) -- scrollbar bg
 hl("PmenuThumb", { bg = "#000000" }) -- scrollbar thumb (black)
 
 -- code
-hl("Comment", { fg = "LightGrey", bold = true })
-hl("@comment", { fg = "LightGrey", bold = true })
+hl("Comment", { fg = "LightGrey" })
+hl("@comment", { fg = "LightGrey" })
 hl("@lsp.type.comment", { bold = false, fg = "LightGrey" })
 
 -- core-ui
@@ -97,10 +109,10 @@ link("@variable", "Identifier")
 link("@field", "Identifier")
 link("@property", "Identifier")
 
-hl("Constant", { bold = true, underline = true })
+hl("Constant", { bold = true })
 link("@constant", "Constant")
 link("@boolean", "Constant")
-link("@number", "Constant")
+-- link("@number", )
 link("@type", "Constant")
 
 hl("String", { fg = "DarkGray" })
@@ -132,7 +144,7 @@ vim.api.nvim_set_hl(0, "MoreMsg", { fg = "#000000" })
 vim.api.nvim_set_hl(0, "MsgArea", { fg = "#000000", bg = "#FFFFFF" }) -- optional
 
 -- highlight spaces
-vim.api.nvim_set_hl(0, "WsOnly", { bg = "#F2F2F2" })
+vim.api.nvim_set_hl(0, "WsOnly", { bg = "OldLace" })
 vim.fn.matchadd("WsOnly", [[^\s\+$]], 10)
 
 vim.api.nvim_set_hl(0, "AerialWinNormal", { fg = "Black", bg = "White" })
@@ -170,3 +182,27 @@ hl("NeotestIndent", { fg = "Black" })
 hl("NeotestExpander", { fg = "Black" })
 hl("NeotestBorder", { fg = "Black" })
 hl("NeotestWinSelect", { fg = "Black" })
+
+-- lsp diagnostics
+hl("DiagnosticVirtualTextError", { fg = "LightGray" })
+hl("DiagnosticVirtualTextWarn",  { fg = "LightGray" })
+hl("DiagnosticVirtualTextInfo",  { fg = "LightGray" })
+hl("DiagnosticVirtualTextHint",  { fg = "LightGray" })
+
+
+-- current line
+hl("CursorLineNr", { bg="OldLace"})
+hl("CursorLine", { bg="OldLace"})
+hl("CursorColumn", { bg="OldLace"})
+
+hl("TabLine", { bg="OldLace"})
+hl("TabLineSel", { bg="gray95", bold = true }) -- active
+hl("TabLineFill", { bg="OldLace"})
+
+vim.cmd('highlight link DiagnosticUnnecessary Normal')
+vim.cmd('highlight link LspDiagnosticsDefaultUnnecessary Normal')
+
+hl("DiagnosticSignError", { fg="gray95"})
+hl("DiagnosticSignWarn", { fg="gray95"})
+hl("DiagnosticSignInfo", { fg="gray95"})
+hl("DiagnosticSignHint", { fg="gray95"})
