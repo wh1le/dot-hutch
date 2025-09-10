@@ -23,7 +23,7 @@ NM.lazy = {
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
     if not (vim.uv or vim.loop).fs_stat(lazypath) then
-      NM.lazy._clone()
+      NM.lazy._clone(lazypath) 
     end
 
     vim.opt.rtp:prepend(lazypath)

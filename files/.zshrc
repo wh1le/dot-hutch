@@ -279,6 +279,8 @@ alias video="yt-dlp"
 
 
 
+export RBENV_ROOT="$HOME/.rbenv"
+export PATH="$RBENV_ROOT/bin:$PATH"
 if which rbenv > /dev/null; then 
   eval "$(rbenv init -)"; 
 fi
@@ -372,8 +374,7 @@ copy() {
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     pbcopy
   else
-    echo "❌ Unsupported OS for copy()" >&2
-    return 1
+    xclip -selection clipboard
   fi
 }
 
@@ -454,3 +455,13 @@ noglob cdw() {
     print -u2 "cdw: not a directory: $target"; return 1
   }
 }
+
+alias at="tmux attach"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# node versioning configuration
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit

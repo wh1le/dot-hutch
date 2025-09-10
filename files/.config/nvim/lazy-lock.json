@@ -68,7 +68,6 @@
   "vim-table-mode": { "branch": "master", "commit": "e156dbbedce0bbf61c0919db7678fa246fabd616" },
   "vim-test": { "branch": "master", "commit": "8c76f6c0953edaa13a37c29ac9c6a7bb56ddce89" },
   "vim-tmux-navigator": { "branch": "master", "commit": "c45243dc1f32ac6bcf6068e5300f3b2b237e576a" },
-  "vimwiki": { "branch": "dev", "commit": "72792615e739d0eb54a9c8f7e0a46a6e2407c9e8" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" },
   "zen-mode.nvim": { "branch": "main", "commit": "863f150ca321b3dd8aa1a2b69b5f411a220e144f" }
 }
