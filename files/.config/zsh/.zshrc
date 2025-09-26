@@ -314,7 +314,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 fi
 
-eval "$(dircolors -b ~/.dir_colors_eink)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 nocolor() {
@@ -405,16 +404,14 @@ fi
 # Python
 # source ~/venvs/algos/bin/activate
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-pyenv global local-py
-alias pip="python -m pip"
-
-print -n '\e]4;2;#6e6e6e\a'
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+#
+# eval "$(pyenv init --path)"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
+# pyenv global local-py
+# alias pip="python -m pip"
 
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
   export PATH=$HOME/.local/npm-global/bin:$PATH

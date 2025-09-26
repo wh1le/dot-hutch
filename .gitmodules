@@ -15,3 +15,6 @@
 [submodule "dependencies/lazy.nvim"]
 	path = dependencies/lazy.nvim
 	url = https://github.com/folke/lazy.nvim
+[submodule "files/.config/tmux/tpm"]
+	path = files/.config/tmux/tpm
+	url = https://github.com/tmux-plugins/tpm
