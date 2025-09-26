@@ -1,0 +1,31 @@
+ # keyboard mappings: /etc/default/keyboard
+ # tilda is swapped with xmodmap in ~/.xinitrc
+
+# Change langauge
+control + space
+    setxkbmap -layout us,ru -option "ctrl:swapcaps,grp:ctrl_space_toggle"
+
+# Reload hotkeys
+alt + shift + Escape
+  ~/.config/sxhkd/restart
+
+# Full window screensots
+super + shift + f
+  ~/.config/scripts/screenshoot.sh full
+
+# Active pane screenshoot
+super + shift + w
+  ~/.config/scripts/screenshoot.sh window
+
+# Selection screenshoot
+super + shift + s
+  ~/.config/scripts/screenshoot.sh select
+
+#
+# # Selection screenshot -> ~/Pictures  (run on key release)
+# shift + @Print
+# 	scrot -s -f ~/Pictures/%Y-%m-%d-%H%M%S.png
+#
+# # Selection screenshot -> clipboard only  (run on key release)
+# ctrl + shift + @Print
+# 	scrot -s -f -e 'xclip -selection clipboard -t image/png -i "$f"; rm "$f"' /tmp/screenshot-%Y-%m-%d-%H%M%S.png

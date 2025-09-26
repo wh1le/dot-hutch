@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+MAC="80:99:E7:E0:4B:A5"      # XM6 address
+NAME="WH-1000XM6"            # optional, for logs
+TRIES="${1:-20}"             # retries (default 20)
+SLEEP="${2:-3}"              # seconds between tries
+
+log(){ printf "[xm6] %s\n" "$*" >&2; }
+
+# quick check if already connected
+if bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
+  log "$NAME already connected"
+  exit 0
+fi
+
+# make adapter ready
+bluetoothctl power on >/dev/null || true
+bluetoothctl agent on >/dev/null || true
+bluetoothctl default-agent >/dev/null || true
+bluetoothctl trust "$MAC" >/dev/null || true
+
+i=0
+while [ "$i" -lt "$TRIES" ]; do
+  i=$((i+1))
+  log "attempt $i/$TRIES: connect $NAME"
+  # attempt connect
+  if bluetoothctl connect "$MAC" | grep -q 'Connection successful'; then
+    log "link up"
+    break
+  fi
+
+  # if adapter got wonky, nudge it
+  if ! bluetoothctl show | grep -q 'Powered: yes'; then
+    rfkill unblock bluetooth || true
+    bluetoothctl power on || true
+  fi
+
+  sleep "$SLEEP"
+done
+
+# verify link
+if ! bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
+  log "failed to connect. The headset likely has 2 other hosts attached."
+  exit 1
+fi
+
+# force A2DP profile on the new card
+CARD=$(pactl list cards short | awk '/bluez_card/ {print $2; exit}')
+if [ -n "$CARD" ]; then
+  pactl set-card-profile "$CARD" a2dp-sink || true
+fi
+
+# move audio to headset
+SINK=$(pactl list sinks short | awk '/bluez_output/ {print $2; exit}')
+if [ -n "$SINK" ]; then
+  pactl list sink-inputs short | awk '{print $1}' | while read -r IN; do
+    pactl move-sink-input "$IN" "$SINK" || true
+  done
+fi
+
+log "ready"

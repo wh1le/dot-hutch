@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+nvidia-smi --query-gpu=utilization.gpu,memory.used,memory.total \
+  --format=csv,noheader,nounits | sed -n '1p' |
+awk -F, '{
+  for(i=1;i<=NF;i++) gsub(/^ +| +$/,"",$i);
+  used=int($2/1024+0.5); total=int($3/1024+0.5);
+  printf "%s%% %d/%d\n", $1, used, total
+}'

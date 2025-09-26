@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+readarray -t lines < <(sensors 2>/dev/null)
+
+parse() {
+  awk '
+    BEGIN{insec=0}
+    /^kraken[0-9-]*hid/ {insec=1; next}
+    insec && NF==0       {insec=0}
+    insec && match($0,/Pump speed:[[:space:]]+([0-9]+)/,a){pump=a[1]}
+    insec && match($0,/Fan speed:[[:space:]]+([0-9]+)/,a){fan=a[1]}
+    insec && match($0,/Coolant temp:[[:space:]]+\+?([0-9]+(\.[0-9]+)?)/,a){cool=a[1]}
+    END{
+      if(cool=="") cool="NA";
+      if(pump=="") pump="NA";
+      if(fan=="")  fan="NA";
+      printf "%s %s %s\n", cool, pump, fan
+    }' <<<"$(printf '%s\n' "${lines[@]}")"
+}
+
+read -r coolant pump fan <<<"$(parse)"
+
+if [[ "${1-}" == "--notify" ]]; then
+  command -v notify-send >/dev/null 2>&1 || exit 0
+  notify-send "Kraken status" "Coolant: ${coolant}°C
+Pump: ${pump} RPM
+Fan: ${fan} RPM"
+else
+  printf "%s°C | %s / %s\n" "$coolant" "$fan" "$pump"
+fi
+

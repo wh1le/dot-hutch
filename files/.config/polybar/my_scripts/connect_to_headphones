@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+MAC="80:99:E7:E0:4B:A5"
+
+is_connected() { bluetoothctl info "$MAC" 2>/dev/null | grep -q "Connected: yes"; }
+
+a2dp() {
+  # set A2DP if the card exists
+  CARD_ID=$(pactl list cards short | awk '/bluez_card/ {print $1; exit}')
+  [ -n "$CARD_ID" ] && pactl set-card-profile "$CARD_ID" a2dp-sink >/dev/null 2>&1
+}
+
+case "$1" in
+  connect)
+    bluetoothctl <<BC
+power on
+agent on
+default-agent
+connect $MAC
+BC
+    sleep 1; a2dp
+    ;;
+  disconnect)
+    bluetoothctl disconnect "$MAC" >/dev/null
+    ;;
+  toggle|"")
+    if is_connected; then
+      bluetoothctl disconnect "$MAC" >/dev/null
+    else
+      bluetoothctl <<BC
+power on
+connect $MAC
+BC
+      sleep 1; a2dp
+    fi
+    ;;
+  status)
+    if is_connected; then echo "XM6: connected"; else echo "XM6: off"; fi
+    ;;
+esac

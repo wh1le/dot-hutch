@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+pkill -USR1 -x sxhkd
+pkill -USR2 -x sxhkd
+
+notify-send -a scrot "HotKey config reloaded" 

@@ -6,7 +6,7 @@ return {
     default_file_explorer = true,
     keymaps = {
       ["<CR>"] = "actions.select",
-      ["-"]    = "actions.parent",
+      ["-"] = { "actions.parent", mode = "n" },
       ["<C-v>"] = { "actions.select", opts = { vertical = true } },
       ["<C-s>"] = { "actions.select", opts = { horizontal = true } },
     },

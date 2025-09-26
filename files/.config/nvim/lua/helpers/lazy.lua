@@ -20,7 +20,8 @@ NM.lazy = {
   end,
 
   verify_plugin_and_load = function()
-    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+    -- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+    local lazypath = vim.fn.expand("~/.config/dot-files/dependencies/lazy.nvim")
 
     if not (vim.uv or vim.loop).fs_stat(lazypath) then
       NM.lazy._clone(lazypath) 

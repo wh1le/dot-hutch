@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# TODO: remove because switched to xkb-switch
+# deps: setxkbmap
+# optional: set OPTIONS to keep your XKB options
+OPTIONS=""
+
+current_layout() {
+  # Detect active group from xkb_symbols. ru:2 means RU is active.
+  if setxkbmap -print -verbose 10 | grep -q 'xkb_symbols.*ru:2'; then
+    echo "RU"
+  else
+    echo "US"
+  fi
+}
+
+toggle_layout() {
+  if [ "$(current_layout)" = "US" ]; then
+    setxkbmap -layout ru,us $OPTIONS
+  else
+    setxkbmap -layout us,ru $OPTIONS
+  fi
+}
+
+case "$1" in
+  print)  current_layout ;;
+  toggle) toggle_layout ;;
+  *)      echo "US" ;;
+esac

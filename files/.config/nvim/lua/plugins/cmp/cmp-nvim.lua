@@ -67,6 +67,13 @@ return {
 
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
+					["<C-j>"] = cmp.mapping(function()
+						if cmp.visible() then
+							if luasnip.expandable() then
+								luasnip.expand() -- expand snippet first
+							end
+            end
+					end, { "i" }),
 					["<Tab>"] = cmp.mapping(function()
 						if cmp.visible() then
 							if luasnip.expandable() then

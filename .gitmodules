@@ -9,3 +9,9 @@
 [submodule "files/.zsh/zsh-autosuggestions"]
 	path = files/.zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "dependencies/dotbot"]
+	path = dependencies/dotbot
+	url = https://github.com/anishathalye/dotbot
+[submodule "dependencies/lazy.nvim"]
+	path = dependencies/lazy.nvim
+	url = https://github.com/folke/lazy.nvim
