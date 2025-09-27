@@ -117,9 +117,9 @@ client.placeholder      $bg     $bg     $fg  $bg       $bg
 client.background       $bg
 
 # exec --no-startup-id xscreensaver
-exec_always --no-startup-id picom -b
-exec_always --no-startup-id feh --bg-scale ~/code/dot-files/files/desktop/anime-water.jpg
-exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id wal -R
+exec_always --no-startup-id picom -b
+# exec_always --no-startup-id feh --bg-scale ~/code/dot-files/files/desktop/anime-water.jpg
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 exec --no-startup-id i3-msg 'workspace 1; split h; exec wezterm; focus right; exec firefox'
