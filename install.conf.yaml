@@ -1,0 +1,35 @@
+# Use pipx to install dotbot
+# dotbot -d . -c install.conf.yaml
+- defaults:
+    link:
+      create: true
+      relink: true
+      # force: true   # uncomment if you want to overwrite non-symlinks
+
+- clean:
+  - ~/.config
+
+- link:
+    # X session files
+    ~/.xinitrc: xinitrc/.xinitrc
+    ~/.zprofile: zprofile/.zprofile
+    ~/.xprofile: xprofile/.xprofile
+
+    # ~/.config tree (map each dir explicitly to avoid clobbering other apps)
+    ~/.config/alacritty: config/alacritty
+    ~/.config/autorandr: config/autorandr
+    ~/.config/gtk-3.0: config/gtk-3.0
+    ~/.config/gtk-4.0: config/gtk-4.0
+    ~/.config/i3: config/i3
+    ~/.config/kitty: config/kitty
+    ~/.config/neofetch: config/neofetch
+    ~/.config/nvim: config/nvim
+    ~/.config/picom: config/picom
+    ~/.config/polybar: config/polybar
+    ~/.config/rofi: config/rofi
+    ~/.config/scripts: config/scripts
+    ~/.config/sxhkd: config/sxhkd
+    ~/.config/tmux: config/tmux
+    ~/.config/wezterm: config/wezterm
+    ~/.config/zsh: config/zsh
+    ~/.config/wal: config/wal
