@@ -1,16 +1,49 @@
-set $mod Mod4
-
 font pango:JetBrainsMonoNL Nerd Font Propo 10
 
+set $space1 "1"
+set $space2 "2"
+set $space3 "3"
+set $space4 "4"
+set $space5 "5"
+set $space6 "6"
+set $space7 "7"
+set $space8 "8"
+set $space9 "9"
+set $space0 "0"
+
+# Colors ###########################################################
+
+# for_window [class="^.*"] border pixel 1
+default_border normal            
+default_border pixel 2
+default_floating_border normal
+# hide titles
+for_window [class=".*"] title_format "" 
 gaps inner 10
+
+# default_border pixel 2
+# default_floating_border pixel 2
+
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
+
+# class                 border  backgr. text indicator child_border
+client.focused          $bg     $bg     $fg  $bg       $bg
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+client.background       $bg     $bg     $fg  $bg       $bg
+
+# Hotkeys ########################################################
+
+set $mod Mod4
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 bindsym $mod+Return exec wezterm
 bindsym $mod+Shift+q kill
-bindsym $mod+Shift+e exec thunar
-bindsym $mod+d exec dmenu_run
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -38,20 +71,7 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
-#bindsym $mod+d focus child
-
-# switch to workspace
-
-set $space1 "1"
-set $space2 "2"
-set $space3 "3"
-set $space4 "4"
-set $space5 "5"
-set $space6 "6"
-set $space7 "7"
-set $space8 "8"
-set $space9 "9"
-set $space0 "0"
+# bindsym $mod+d focus child
 
 bindsym $mod+1 workspace $space1
 bindsym $mod+2 workspace $space2
@@ -90,36 +110,11 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# for_window [class="^.*"] border pixel 1
-default_border normal            
-default_border pixel 2
-default_floating_border normal
-# hide titles
-for_window [class=".*"] title_format "" 
+# Scripts #######################################################################
 
-# default_border pixel 2
-# default_floating_border pixel 2
-
-# Set colors from Xresources
-# Change 'color7' and 'color2' to whatever colors you want i3 to use 
-# from the generated scheme.
-# The '#f0f0f0' in the lines below is the color i3 will use if it fails to get colors from Xresources.
-set_from_resource $fg i3wm.color7 #f0f0f0
-set_from_resource $bg i3wm.color2 #f0f0f0
-
-# class                 border  backgr. text indicator child_border
-client.focused          $bg     $bg     $fg  $bg       $bg
-client.focused_inactive $bg     $bg     $fg  $bg       $bg
-client.unfocused        $bg     $bg     $fg  $bg       $bg
-client.urgent           $bg     $bg     $fg  $bg       $bg
-client.placeholder      $bg     $bg     $fg  $bg       $bg
-
-client.background       $bg
-
-# exec --no-startup-id xscreensaver
 exec_always --no-startup-id wal -R
 exec_always --no-startup-id picom -b
-# exec_always --no-startup-id feh --bg-scale ~/code/dot-files/files/desktop/anime-water.jpg
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 exec --no-startup-id i3-msg 'workspace 1; split h; exec wezterm; focus right; exec firefox'
+# exec --no-startup-id sxhkd

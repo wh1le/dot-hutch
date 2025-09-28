@@ -178,6 +178,7 @@ source $HOME/.config/zsh/aliases
 source $HOME/.config/zsh/path
 source $HOME/.config/zsh/exports
 source $HOME/.config/zsh/functions
+source <(fzf --zsh)
 
 #
 ## Hooks
@@ -462,6 +463,8 @@ export NVM_DIR="$HOME/.nvm"
 
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 
-function wall() {
-  wal -i $(fzf --preview '~/.config/scripts/fzf-preview.sh {}')
+function cdf() {
+  export FZF_HOME_IGNORE_PATHS="--exclude .git --exclude node_modules --exclude .cargo"
+
+  cd $(find ~ -maxdepth 4 -type d | fzf)
 }

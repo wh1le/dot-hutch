@@ -1,27 +1,35 @@
  # keyboard mappings: /etc/default/keyboard
  # tilda is swapped with xmodmap in ~/.xinitrc
 
-# Change langauge
-control + space
+# bindsym $mod+Shift+e exec thunar
+
+# Change language
+control + space 
     setxkbmap -layout us,ru -option "ctrl:swapcaps,grp:ctrl_space_toggle"
 
+# Full window screenshot
+super + shift + f 
+    ~/.config/scripts/screenshoot.sh full
+
+# Active pane screenshot
+super + shift + w 
+    ~/.config/scripts/screenshoot.sh window
+
+super + shift + l 
+   pkill -u $(whoami)
+
+# Selection screenshot
+super + shift + s 
+    ~/.config/scripts/screenshoot.sh select
+
 # Reload hotkeys
-alt + shift + Escape
-  ~/.config/sxhkd/restart
+alt + shift + Escape 
+    ~/.config/sxhkd/restart
 
-# Full window screensots
-super + shift + f
-  ~/.config/scripts/screenshoot.sh full
+super + d
+    dmenu_run
 
-# Active pane screenshoot
-super + shift + w
-  ~/.config/scripts/screenshoot.sh window
 
-# Selection screenshoot
-super + shift + s
-  ~/.config/scripts/screenshoot.sh select
-
-#
 # # Selection screenshot -> ~/Pictures  (run on key release)
 # shift + @Print
 # 	scrot -s -f ~/Pictures/%Y-%m-%d-%H%M%S.png
