@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# Device 1C:1D:D3:74:6C:A9 Magic Keyboard
+# Device 80:99:E7:E0:4B:A5 WH-1000XM6
+
+require 'optparse'
+
+require_relative '../lib/cli/presentors/bluetooth_presentor'
+require_relative '../lib/cli/bluetooth'
+
+USAGE = <<~TXT
+  usage:
+    ./script connect --mac MAC
+    ./script status  --mac MAC [--icon ICON]
+TXT
+
+command = ARGV.shift or abort("missing subcommand\n\n#{USAGE}")
+args = {}
+
+parser = OptionParser.new do |opts|
+  opts.banner = USAGE
+
+  opts.on('-m', '--mac MAC', :mac, 'Bluetooth MAC') { |mac|  args[:mac] = mac }
+  opts.on("-i", "--icon ICON", "Icon to display")   { |icon| args[:icon] = icon }
+  opts.on("-h", "--help", "Show help")              { puts opts; exit }
+end
+
+begin
+  parser.parse!(ARGV)
+rescue OptionParser::InvalidArgument => e
+  abort("#{e.message}\n\n#{USAGE}")
+end
+
+abort("missing --mac\n\n#{USAGE}") unless args[:mac]
+
+puts CLI::Bluetooth.new(command_name: command, args: args).run
