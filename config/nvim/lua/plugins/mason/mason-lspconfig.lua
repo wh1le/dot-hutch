@@ -76,6 +76,7 @@ return {
 				"taplo",
 
 				"marksman",
+        "nil_ls",
 
         -- Spelling
         "typos_lsp",

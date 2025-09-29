@@ -38,6 +38,7 @@ return {
 
 				"shfmt", -- formatter
 				"shellcheck", -- diagnostics
+        "nixfmt"
 				-- "codespell",
 			},
 			automatic_installation = true,
@@ -57,6 +58,7 @@ return {
 				null_ls.builtins.formatting.stylua,
 				null_ls.builtins.formatting.shfmt,
 				null_ls.builtins.formatting.rubocop,
+				null_ls.builtins.formatting.nixfmt,
 				-- null_ls.builtins.formatting.standardrb,
 
 				-- null_ls.builtins.code_actions.eslint_d,

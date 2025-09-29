@@ -468,3 +468,5 @@ function cdf() {
 
   cd $(find ~ -maxdepth 4 -type d | fzf)
 }
+
+alias fspace="ncdu -x /"
