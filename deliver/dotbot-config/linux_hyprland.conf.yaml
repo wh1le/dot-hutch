@@ -1,0 +1,13 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+      force: true   # uncomment if you want to overwrite non-symlinks
+
+
+- link:
+    ~/.config/autorandr: config/autorandr
+
+    ~/.xinitrc: xinitrc/.xinitrc
+    ~/.zprofile: zprofile/.zprofile
+    ~/.xprofile: xprofile/.xprofile

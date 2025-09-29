@@ -1,9 +1,6 @@
 [submodule "config/tmux/tpm"]
 	path = config/tmux/tpm
 	url = https://github.com/tmux-plugins/tpm.git
-[submodule "dependencies/dotbot"]
-	path = dependencies/dotbot
+[submodule "dotbot/dotbot"]
+	path = deliver/dotbot
 	url = https://github.com/anishathalye/dotbot
-[submodule "dependencies/lazy.nvim"]
-	path = dependencies/lazy.nvim
-	url = https://github.com/folke/lazy.nvim
