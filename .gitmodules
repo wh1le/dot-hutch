@@ -1,6 +1,6 @@
 [submodule "config/tmux/tpm"]
 	path = config/tmux/tpm
 	url = https://github.com/tmux-plugins/tpm.git
-[submodule "dotbot/dotbot"]
+[submodule "deliver/dotbot"]
 	path = deliver/dotbot
 	url = https://github.com/anishathalye/dotbot
