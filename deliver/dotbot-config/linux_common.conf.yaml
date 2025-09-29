@@ -6,10 +6,10 @@
 
 
 - link:
-    ~/.config/alacritty: config/alacritty
-    ~/.config/kitty: config/kitty
-    ~/.config/wezterm: config/wezterm
-    ~/.config/zsh: config/zsh
-    ~/.config/tmux: config/tmux
-    ~/.config/nvim: config/nvim
-    ~/.config/scripts: config/scripts
+    ~/.config/alacritty: ../../config/alacritty
+    ~/.config/kitty: ../../config/kitty
+    ~/.config/wezterm: ../../config/wezterm
+    ~/.config/zsh: ../../config/zsh
+    ~/.config/tmux: ../../config/tmux
+    ~/.config/nvim: ../../config/nvim
+    ~/.config/scripts: ../../config/scripts
