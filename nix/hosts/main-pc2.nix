@@ -58,10 +58,6 @@ in
     xwayland.enable = true;
   };
 
-home.keyboard = {
-layout = "us,ru";
-options = ["ctrl:swapcaps"];
-};
 
   xdg.portal = {
     enable = true;
@@ -125,23 +121,23 @@ options = ["ctrl:swapcaps"];
     python3 python313Packages.pynvim
   ];
 
-  systemd.services.dotfiles-setup = {
-    description = "Dotfiles bootstrap";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    unitConfig.ConditionPathExists = "!${dotFilesFlagFilePath}";
-    serviceConfig = {
-      Type = "oneshot";
-      User = "${mainUser}";
-      WorkingDirectory = "/home/${mainUser}";
-    };
-    script = ''
-      set -euo pipefail
-      export PATH=${pkgs.lib.makeBinPath [ pkgs.git pkgs.gnumake pkgs.coreutils pkgs.util-linux pkgs.bash pkgs.python3 ]}
-      mkdir -p -- "${dotFilesFlagPath}"
-      ${pkgs.bash}/bin/bash ${../../scripts/deploy-dotfiles.sh} ${mainUser}
-      touch "${dotFilesFlagPath}"
-    '';
-  };
+  # [systemd.services.dotfiles-setup = {
+  #  description = "Dotfiles bootstrap";
+  #  wantedBy = [ "multi-user.target" ];
+  #  after = [ "network-online.target" ];
+  #  wants = [ "network-online.target" ];
+  #  unitConfig.ConditionPathExists = "!${dotFilesFlagFilePath}";
+  #  serviceConfig = {
+  #    Type = "oneshot";
+  #    User = "${mainUser}";
+  #    WorkingDirectory = "/home/${mainUser}";
+  #  };
+  #  script = ''
+  #    set -euo pipefail
+  #    export PATH=${pkgs.lib.makeBinPath [ pkgs.git pkgs.gnumake pkgs.coreutils pkgs.util-linux pkgs.bash pkgs.python3 ]}
+  #    mkdir -p -- "${dotFilesFlagPath}"
+  #    ${pkgs.bash}/bin/bash ${../../scripts/deploy-dotfiles.sh} ${mainUser}
+  #    touch "${dotFilesFlagPath}"
+  #  '';
+  #};
 }
