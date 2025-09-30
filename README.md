@@ -1,5 +1,9 @@
 # wh1le NixOS VM (Hyprland) — Flake Repo
 
+# TODO:
+
+- [ ] Use Nix Home Env for dotfiles delivery?
+
 This repository contains a Nix flake to build and launch a NixOS virtual machine with a Hyprland desktop environment, plus helper modules and scripts to bootstrap user dotfiles. It is designed for quick iteration in a QEMU VM and reproducible setups pinned to a specific nixpkgs release.
 
 I am new to NixOS and want to see if this system will suit me as a daily driver. So this is by no means a workable configuration.
@@ -23,6 +27,7 @@ I am new to NixOS and want to see if this system will suit me as a daily driver.
 - `.gitignore` — Ignores build symlink `result` and `*.qcow2` images.
 
 Notes:
+
 - You may see a local VM disk image like `wh1le-vm-debug.qcow2` present in your working directory; it is ignored by Git.
 
 ## Prerequisites
@@ -75,9 +80,11 @@ Both Hyprland modules define a one-shot systemd service `dotfiles-setup` that ru
 - Creates `/home/wh1le/.dotfiles-setup-done` as a completion marker.
 
 Script source:
+
 - `scripts/setup-dotfiles.sh`
 
 Requirements:
+
 - Network access on first boot.
 - The `wh1le` user defined by the module.
 
