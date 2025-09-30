@@ -37,7 +37,9 @@ in
         layout = "us,ru";
         options = "grp:ctrl_space_toggle,ctrl:swapcaps";
       };
+      # xkbOptions=
       videoDrivers = ["nvidia"];
+
   };
 
 	hardware.nvidia = {
@@ -55,6 +57,11 @@ in
     enable = true;
     xwayland.enable = true;
   };
+
+home.keyboard = {
+layout = "us,ru";
+options = ["ctrl:swapcaps"];
+}
 
   xdg.portal = {
     enable = true;
@@ -79,6 +86,9 @@ in
     htop
 
     git
+
+    # hotkeys
+    keyd 
 
     kitty
     wezterm
