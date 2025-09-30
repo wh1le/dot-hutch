@@ -59,6 +59,11 @@ return {
 
 		vim.api.nvim_create_autocmd({ "UIEnter", "LspAttach", "ColorScheme" }, { callback = apply_diag_signs })
 		vim.lsp.config("*", defaults)
+    -- delay update diagnostics
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics, { update_in_insert = false }
+    )
+
 
 		-- triggered with (
 		-- vim.api.nvim_create_autocmd("InsertCharPre", {
@@ -75,12 +80,6 @@ return {
 		-- 	end,
 		-- })
 
-    -- delay update diagnostics
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, { update_in_insert = false }
-    )
-
-    -- NOTE: Remove attempt to clean styles
 		-- vim.api.nvim_create_autocmd({ "ColorScheme", "LspAttach" }, {
 		-- 	callback = function()
 		-- 		-- local style = {

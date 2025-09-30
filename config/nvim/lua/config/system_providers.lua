@@ -1,11 +1,11 @@
 vim.o.shell = "/bin/zsh"
 
 -- languages
-vim.g.perl_host_prog       = NM.language_providers.get_perl_path()
-vim.g.loaded_perl_provider = 0
-vim.g.python_host_prog     = NM.language_providers.get_python2_path()
-vim.g.python3_host_prog    = NM.language_providers.get_python3_path()
-vim.g.ruby_host_prog       = NM.language_providers.get_ruby_path()
+-- vim.g.loaded_perl_provider = 0
+vim.g.perl_host_prog       = NM.language_providers.get_binary_path("perl")
+vim.g.python_host_prog     = NM.language_providers.get_binary_path("python2")
+vim.g.python3_host_prog    = NM.language_providers.get_binary_path("python3")
+vim.g.ruby_host_prog       = NM.language_providers.get_binary_path("ruby")
 
 -- open file
 vim.g.netrw_browsex_viewer = NM.os.open_cmd_provider()

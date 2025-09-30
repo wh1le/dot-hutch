@@ -2,14 +2,20 @@ NM.lazy = {
   setup = function()
     NM.lazy.verify_plugin_and_load()
 
+    local spec = {
+      { import = "plugins" },
+      { import = "plugins.cmp" },
+      { import = "plugins.treesitter" },
+    }
+
+    if NM.os.are_we_under_nixos() then
+      table.insert(spec, { import = "plugins.lsp_nixos" })
+    else
+      table.insert(spec, { import = "plugins.lsp_mason" })
+    end
+
     require("lazy").setup({
-      spec = {
-        { import = "plugins" },
-        { import = "plugins.cmp" },
-        { import = "plugins.lsp" },
-        { import = "plugins.mason" },
-        { import = "plugins.treesitter" },
-      },
+      spec = spec,
       install = { colorscheme = { "habamax" } },
       change_detection = {
         enabled = true,
@@ -20,8 +26,7 @@ NM.lazy = {
   end,
 
   verify_plugin_and_load = function()
-    -- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-    local lazypath = vim.fn.expand("~/.config/dot-files/dependencies/lazy.nvim")
+    local lazypath = vim.fn.expand("~/.config/dependencies/lazy.nvim")
 
     if not (vim.uv or vim.loop).fs_stat(lazypath) then
       NM.lazy._clone(lazypath) 

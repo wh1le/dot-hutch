@@ -8,16 +8,16 @@ return {
 		local function vim_mode()
 			local m = vim.fn.mode()
 
-      local total = vim.api.nvim_buf_line_count(0)
-      local pad = string.rep(" ", math.max(#tostring(total), 0))
+			local total = vim.api.nvim_buf_line_count(0)
+			local pad = string.rep(" ", math.max(#tostring(total), 0))
 
-      local res = (m == "n" and " N")
-        or (m == "i" and " I")
-        or (m == "V" and " V")
-        or (m == "R" and " R")
-        or (m == "c" and " C")
-        or ""
-      return pad .. res
+			local res = (m == "n" and " N")
+				or (m == "i" and " I")
+				or (m == "V" and " V")
+				or (m == "R" and " R")
+				or (m == "c" and " C")
+				or ""
+			return pad .. res
 		end
 
 		local function branch_name()
@@ -50,9 +50,9 @@ return {
 				return "- build failed -"
 			end
 
-      if w > 0 then
+			if w > 0 then
 				return "- linter failed -"
-      end
+			end
 			return ""
 		end
 
@@ -111,37 +111,37 @@ return {
 
 		opts.options.theme = theme
 
-    opts.disabled_filetypes = { "aerial", "Trouble", "NvimTree" }
+		opts.disabled_filetypes = { "aerial", "Trouble", "NvimTree" }
 
 		opts.options.component_separators = { left = "│", right = "│" }
 		opts.options.section_separators = { left = "█", right = "█" }
 
-    local breadcrumbs = require('lspsaga.symbol.winbar').get_bar
+		local breadcrumbs = require("lspsaga.symbol.winbar").get_bar
 
-    if breadcrumbs == nil or breadcrumbs == "" then
-      breadcrumbs = current_file_name()
-    end
+		if breadcrumbs == nil or breadcrumbs == "" then
+			breadcrumbs = current_file_name()
+		end
 
-    -- active --
+		-- active --
 		opts.sections = {
 			lualine_a = {
 				{ "mode", fmt = vim_mode, color = { fg = "#ffffff", bg = "#000000", gui = "bold" } },
 			},
-      lualine_b = {},
+			lualine_b = {},
 			lualine_c = {
-        {
-          current_file_name,
-          colors = { fg = "Black", bg = "OldLace", gui = "bold" }
-        }
-        -- {
-        --   breadcrumbs,
-        -- },
-      },
+				{
+					current_file_name,
+					colors = { fg = "Black", bg = "OldLace", gui = "bold" },
+				},
+				-- {
+				--   breadcrumbs,
+				-- },
+			},
 			lualine_x = {},
 			lualine_y = {
 				{
 					diagnostic_summary,
-          color = { fg = "Black", bg = "OldLace", gui = "bold" },
+					color = { fg = "Black", bg = "OldLace", gui = "bold" },
 					cond = function()
 						return vim.fn.winwidth(0) > 60
 					end,
@@ -149,19 +149,19 @@ return {
 			},
 			lualine_z = {
 				-- { branch_name, color = { fg = "White", bg = "Black" } },
-        { total_lines, color = { fg = "white", bg = "Black", gui = "bold" } },
-      }
+				{ total_lines, color = { fg = "white", bg = "Black", gui = "bold" } },
+			},
 		}
 
 		opts.inactive_sections = {
 			lualine_a = {},
-      lualine_b = {},
-      lualine_c = {
-        {
-          current_file_name,
-          colors = { fg = "Black", bg = "OldLace", gui = "bold" }
-        }
-      }, --{{ breadcrumbs }},
+			lualine_b = {},
+			lualine_c = {
+				{
+					current_file_name,
+					colors = { fg = "Black", bg = "OldLace", gui = "bold" },
+				},
+			}, --{{ breadcrumbs }},
 			lualine_x = {},
 			lualine_y = {},
 		}
