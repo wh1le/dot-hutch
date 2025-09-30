@@ -1,5 +1,10 @@
-{ config, pkgs, ... }:
+{ pkgs, self, ... }:
 
+let
+  mainUser = "wh1le";
+  dotFilesFlagPath = "/home/${mainUser}/.config/";
+  dotFilesFlagFilePath = "${dotFilesFlagPath}/.deployed";
+in 
 {
   # --- Basic System Setup ---
   system.stateVersion = "25.05";
@@ -9,7 +14,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # --- User Account ---
-  users.users.wh1le = {
+users.users.${mainUser} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "audio" "video" "input" "tss" ];
     initialPassword = "1234";
@@ -115,18 +120,18 @@
     wantedBy = [ "multi-user.target" ];
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
-    unitConfig.ConditionPathExists = "!/home/wh1le/.dotfiles-setup-done";
+    unitConfig.ConditionPathExists = "!${dotFilesFlagFilePath}";
     serviceConfig = {
       Type = "oneshot";
-      User = "wh1le";
-      WorkingDirectory = "/home/wh1le";
+      User = "${mainUser}";
+      WorkingDirectory = "/home/${mainUser}";
     };
     script = ''
-    set -euo pipefail
-    export HOME=/home/wh1le
-    export PATH=${pkgs.lib.makeBinPath [ pkgs.git pkgs.gnumake pkgs.coreutils pkgs.util-linux pkgs.bash pkgs.python3 ]}
-      ${pkgs.bash}/bin/bash ${./setup-dotfiles.sh}
-    touch /home/wh1le/.dotfiles-setup-done
+      set -euo pipefail
+      export PATH=${pkgs.lib.makeBinPath [ pkgs.git pkgs.gnumake pkgs.coreutils pkgs.util-linux pkgs.bash pkgs.python3 ]}
+      mkdir -p -- "${dotFilesFlagPath}"
+      ${pkgs.bash}/bin/bash ${../../scripts/deploy-dotfiles.sh} ${mainUser}
+      touch "${dotFilesFlagPath}"
     '';
   };
 }

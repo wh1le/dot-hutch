@@ -2,7 +2,11 @@
 
 set -euo pipefail
 
-home="/home/wh1le"
+# Username validation
+[ $# -ge 1 ] || { echo "User name is missing, Usage: $0 <username>"; exit 1; }
+
+userName=$1
+home="/home/${userName}"
 dotfiles_url="https://github.com/wh1le/dot-files.git"
 ssh_dotfiles_url="git@github.com:wh1le/dot-files.git"
 target_dir="$home/dot/files"
