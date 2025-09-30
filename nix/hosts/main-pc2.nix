@@ -61,7 +61,7 @@ in
 home.keyboard = {
 layout = "us,ru";
 options = ["ctrl:swapcaps"];
-}
+};
 
   xdg.portal = {
     enable = true;
