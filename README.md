@@ -1,6 +1,6 @@
-# wh1le NixOS VM (Hyprland) — Flake Repo
+# wh1le NixOS (Hyprland) — Flake Repo
 
-# TODO:
+## TODO:
 
 - [ ] Use Nix Home Env for dotfiles delivery?
 
@@ -124,7 +124,3 @@ Change the initial password and review enabled services before using beyond loca
 
 - Unfree packages are enabled (for items like `zoom-us`). Review and adjust according to your needs.
 - The `configurations/configuration-backup-non-workable.nix` is kept for reference; prefer `configurations/hyprland.nix` or `scripts/configuration-hypr.nix`.
-
----
-
-If you want, I can wire `configurations/hyprland.nix` into `flake.nix` and validate the build/run flow.
