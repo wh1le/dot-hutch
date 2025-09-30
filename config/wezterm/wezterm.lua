@@ -31,7 +31,7 @@ config.font = wezterm.font_with_fallback({ family = "JetBrainsMonoNL Nerd Font",
 if wezterm.target_triple:find("windows") then
 	config.font_size = 9.5
 else
-	config.font_size = 15.5
+	config.font_size = 15
 end
 
 config.window_padding = { left = 6, right = 2, top = 2, bottom = 2 }

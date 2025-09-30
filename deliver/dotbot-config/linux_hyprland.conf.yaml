@@ -8,6 +8,6 @@
 - link:
     ~/.config/autorandr: config/autorandr
 
-    ~/.xinitrc: ../../xinitrc/.xinitrc
+    # ~/.xinitrc: ../../xinitrc/.xinitrc
     ~/.zprofile: ../../zprofile/.zprofile
-    ~/.xprofile: ../../xprofile/.xprofile
+    # ~/.xprofile: ../../xprofile/.xprofile
