@@ -6,8 +6,7 @@
     nixosConfigurations.hyprland-vm-desktop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        (nixpkgs + "/nixos/modules/virtualisation/qemu-vm.nix")
-        ./nix/hosts/main-pc.nix
+        ./nix/hosts/main-pc2.nix
         { nixpkgs.config.allowUnfree = true; }
       ];
     };

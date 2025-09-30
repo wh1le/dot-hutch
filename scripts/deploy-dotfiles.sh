@@ -14,7 +14,7 @@ target_dir="$home/dot/files"
 if [ ! -d "$target_dir" ]; then
     git clone -b linux --recurse-submodules "$dotfiles_url" "$target_dir"
     cd "$target_dir"
-    git remote set-url origin "$ssh_dotfiles_url"
+    # git remote set-url origin "$ssh_dotfiles_url"
 else
     echo "Dotfiles directory already exists, skipping clone."
 fi
