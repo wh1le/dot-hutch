@@ -3,6 +3,7 @@
 {
   system.stateVersion = "25.05";
   networking.hostName = "wh1le-vm";
+  networking.networkmanager.enable = true;
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Europe/Lisbon";
 
@@ -10,7 +11,7 @@
     isNormalUser = true;
     home = "/home/wh1le";
     extraGroups = [ "networkmanager" "wheel" "audio" "video" "input" "tss" ];
-    initialPassword = "hackme";
+    initialPassword = "1234";
     shell = pkgs.zsh;
   };
 
@@ -31,6 +32,11 @@
     xwayland.enable = true;
   };
 
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+  };
+
   # Screen sharing
   xdg.portal = {
     enable = true;
@@ -46,12 +52,21 @@
       };
   };
 
-  console.useXkbConfig = true;
+  # console.useXkbConfig = true;
+
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+  };
+
+  # boot.kernelParams = [ "systemd.unit=multi-user.target" ];
+  # services.qemuGuest.enable = true;
 
   virtualisation = {
-    memorySize = 4096;
+    memorySize = 16384;
 
-    cores = 4;
+    cores = 6;
     qemu.options = [ "-vga virtio" ];
   };
 
@@ -89,7 +104,6 @@
     btop
     htop
 
-    docker
     veracrypt
 
     firefox
@@ -101,7 +115,7 @@
   system.activationScripts.setupDotFiles = {
     deps = ["users"];
     text = ''
-    PATH=${pkgs.lib.makeBinPath [ pkgs.git pkgs.gnumake ]}
+    PATH=${pkgs.lib.makeBinPath [ pkgs.git pkgs.gnumake pkgs.coreutils pkgs.util-linux ]}
 
     echo "Running dotfiles setup as user wh1le..."
 

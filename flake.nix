@@ -7,7 +7,7 @@
       system = "x86_64-linux";
       modules = [
         (nixpkgs + "/nixos/modules/virtualisation/qemu-vm.nix")
-        ./configuration.nix
+        # ./configurations/configuration-backup-non-workable.nix
         { nixpkgs.config.allowUnfree = true; }
       ];
     };
