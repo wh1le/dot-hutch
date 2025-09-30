@@ -58,7 +58,7 @@ in {
   };
 
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
     open = true;
     modesetting.enable = true;
   };
@@ -157,7 +157,7 @@ in {
     openssl
 
     wofi
-    neofetch
+    fastfetch
 
     firefox
 
