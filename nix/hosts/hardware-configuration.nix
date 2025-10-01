@@ -61,6 +61,17 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   nixpkgs.config.allowUnfree = true;
+
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.bluetooth.enable = true;
+
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = true;
+    modesetting.enable = true;
+  };
+
+  # hardware.opengl = {
+  #  enable = true;
+  # };
 }

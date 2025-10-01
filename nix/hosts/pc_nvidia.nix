@@ -62,26 +62,6 @@ in
     };
   };
 
-  services.xserver = {
-    xkb = {
-      layout = "us,ru";
-      options = "grp:ctrl_space_toggle,ctrl:swapcaps";
-    };
-    # xkbOptions=
-    videoDrivers = [ "nvidia" ];
-
-  };
-
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    open = true;
-    modesetting.enable = true;
-  };
-
-  # hardware.opengl = {
-  #  enable = true;
-  # };
-
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -92,10 +72,22 @@ in
     extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
 
-  services.displayManager.ly.enable = true;
-  programs.zsh.enable = true;
+  services.xserver = {
+    xkb = {
+      layout = "us,ru";
+      options = "grp:ctrl_space_toggle,ctrl:swapcaps";
+    };
+    # xkbOptions=
+    videoDrivers = [ "nvidia" ];
 
+  };
+
+  services.displayManager.ly.enable = true;
+  services.expressvpn.enable = true;
   services.openssh.enable = true;
+  services.resolved.enable = true;
+
+  programs.zsh.enable = true;
 
   # users.groups.keyd = {};
   # services.keyd = { enable = true; };
@@ -212,8 +204,6 @@ in
       ps.debugpy
     ]))
   ];
-
-  services.resolved.enable = true;
 
   # system.activationScripts.pywalfox = {
   #   text = ''
