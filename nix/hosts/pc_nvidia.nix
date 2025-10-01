@@ -12,6 +12,10 @@ let
   dotFilesFlagFilePath = "${dotFilesFlagPath}/deployed";
 in
 {
+  imports = [
+    ./hardware-configuration.nix
+    ../network.nix
+  ];
 
   users.users.wh1le = {
     isNormalUser = true;
@@ -32,13 +36,6 @@ in
   };
 
   system.stateVersion = "25.05";
-  networking = {
-    hostName = "wh1le";
-    networkmanager = {
-      enable = true;
-      plugins = [ pkgs.networkmanager-openvpn ];
-    };
-  };
   time.timeZone = "Europe/Lisbon";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -215,10 +212,6 @@ in
   ];
 
   services.resolved.enable = true;
-  networking.nameservers = [
-    "1.1.1.1"
-    "8.8.8.8"
-  ];
 
   # system.activationScripts.pywalfox = {
   #   text = ''

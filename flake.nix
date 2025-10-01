@@ -6,27 +6,34 @@
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
-    nixosConfigurations = {
-      default = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./nix/hosts/nvidia_pc.nix
-          {
-            nixpkgs.config.allowUnfree = true;
-          }
-          # home-manager.nixosModules.home-manager
-          # {
-          #   home-manager.useGlobalPkgs = true;
-          #   home-manager.useUserPackages = true;
-          #   home-manager.users.wh1le = {
-          #     home.stateVersion = "25.05";
-          #     # Use env variables to detect NIXOS?
-          #     # home.sessionVariables.NVIM_USE_MASON = "1";
-          #   };
-          # }
-        ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
+    {
+      nixosConfigurations = {
+        default = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./nix/hosts/pc_nvidia.nix
+            {
+              nixpkgs.config.allowUnfree = true;
+            }
+            # home-manager.nixosModules.home-manager
+            # {
+            #   home-manager.useGlobalPkgs = true;
+            #   home-manager.useUserPackages = true;
+            #   home-manager.users.wh1le = {
+            #     home.stateVersion = "25.05";
+            #     # Use env variables to detect NIXOS?
+            #     # home.sessionVariables.NVIM_USE_MASON = "1";
+            #   };
+            # }
+          ];
+        };
       };
     };
-  };
 }
