@@ -45,8 +45,10 @@ in
   fonts = {
     packages = with pkgs; [
       atkinson-hyperlegible
-      jetbrains-mono
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.atkynson-mono
       noto-fonts-color-emoji
+      noto-fonts-emoji
     ];
     fontconfig = {
       enable = true;
@@ -170,10 +172,19 @@ in
     gtk3
     gtk4
     yazi
+    # of
+    buku
+    xh # api
+    # http # api
+    # kulala.nvim
+    # https://github.com/kawre/leetcode.nvim
+    # posting
+    # lazygit
 
     expressvpn
 
     wofi
+    rofi
     fastfetch
 
     firefox
@@ -187,6 +198,7 @@ in
     # UI
     pywal16
     pywalfox-native
+    swaybg
 
     # Ruby
     # openssl libyaml zlib readline autoconf bison pkg-config
