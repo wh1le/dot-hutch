@@ -14,7 +14,7 @@ typeset -A __NIKITA
 # source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
-## Configuration based on 
+## Configuration based on
 ## https://github.com/wincent/wincent/tree/master/roles/dotfiles/files/.zsh
 
 ##
@@ -281,8 +281,8 @@ alias video="yt-dlp"
 
 export RBENV_ROOT="$HOME/.rbenv"
 export PATH="$RBENV_ROOT/bin:$PATH"
-if which rbenv > /dev/null; then 
-  eval "$(rbenv init -)"; 
+if which rbenv > /dev/null; then
+  eval "$(rbenv init -)";
 fi
 
 if [ "$BENCHMARK" = true ]; then
@@ -388,7 +388,7 @@ opend() {
   fi
 }
 
-# Move to seprate WSL file
+# Move to separate WSL file
 
 function edith() {
   cd /mnt/c/Users/nmilo/Documents/AutoHotKey
@@ -470,3 +470,6 @@ function cdf() {
 }
 
 alias fspace="ncdu -x /"
+echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
+
+eval "$(direnv hook zsh)"
