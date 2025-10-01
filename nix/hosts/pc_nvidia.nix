@@ -179,6 +179,8 @@ in
     gtk4
     yazi
 
+    expressvpn
+
     wofi
     fastfetch
 
