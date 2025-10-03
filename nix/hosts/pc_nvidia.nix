@@ -15,6 +15,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ../network.nix
+    ../nvim.nix
   ];
 
   users.users.wh1le = {
@@ -84,6 +85,13 @@ in
 
   };
 
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true; # wayland specific
+    openFirewall = true;
+  };
+
   services.displayManager.ly.enable = true;
   services.expressvpn.enable = true;
   services.openssh.enable = true;
@@ -97,15 +105,19 @@ in
   environment.systemPackages = with pkgs; [
     bash
     zsh
-
     tree
     fzf
     tmux
     vim
+
+    # --- ops -- #
     btop
     htop
     bluetui
     bluez
+    usbutils
+    libinput
+    # --- ops -- #
 
     # --- languages support   --- #
     mercurial
@@ -113,45 +125,6 @@ in
     perl
     ruby_3_4
     # --- languages support   --- #
-
-    # --- Neovim dependencies --- #
-    neovim
-    ripgrep
-    lua5_1
-    lua51Packages.luarocks
-    lua54Packages.luarocks
-    tree-sitter
-    # --- Neovim dependencies --- #
-
-    # --- LSP servers  ---  #
-    lua-language-server
-    bash-language-server
-    vscode-langservers-extracted
-    yaml-language-server
-    ruby-lsp
-    rubocop
-    typescript-language-server
-    typescript
-    vscode-langservers-extracted
-    pyright
-    ruff
-    taplo
-    marksman
-    nil
-    typos-lsp
-    # --- LSP servers  ---  #
-
-    # --- code formmaters --- #
-    codespell
-    black
-    isort
-    prettierd
-    eslint_d
-    stylua
-    shfmt
-    shellcheck
-    nixfmt-rfc-style
-    # --- code formatters ---  #
 
     git
     direnv
@@ -164,17 +137,19 @@ in
     hyprpaper
     wl-clipboard
 
-    dunst
-
     veracrypt
     openssl
 
+    dunst
+    libnotify # notification
     gtk3
     gtk4
     yazi
     # of
     buku
     xh # api
+    tldr
+    bat
     # http # api
     # kulala.nvim
     # https://github.com/kawre/leetcode.nvim
@@ -188,6 +163,7 @@ in
     fastfetch
 
     firefox
+    obsidian
 
     # Remove switch to lightweight
     kdePackages.dolphin
@@ -209,12 +185,6 @@ in
     cmake
     clang
     libgcc
-
-    (python3.withPackages (ps: [
-      # NeoVim
-      ps.pynvim
-      ps.debugpy
-    ]))
   ];
 
   # system.activationScripts.pywalfox = {
@@ -222,6 +192,10 @@ in
   #     runuser -l wh1le -c '${pkgs.pywalfox-native}/bin/pywalfox install || true
   #   '';
   # };
+
+  systemd.services.dunst = {
+    enable = true;
+  };
 
   systemd.services.dotfiles-setup = {
     description = "Dotfiles bootstrap";
@@ -231,12 +205,14 @@ in
       "network-online.target"
       "NetworkManager-wait-online.service"
     ];
+
     unitConfig.ConditionPathExists = "!${dotFilesFlagFilePath}";
     # serviceConfig = {
     #  Type = "oneshot";
     #  User = "${mainUser}";
     #  WorkingDirectory = "/home/${mainUser}";
     #};
+
     serviceConfig = {
       Type = "oneshot";
       User = "wh1le";
@@ -249,6 +225,7 @@ in
         "/tmp"
       ];
     };
+
     script = ''
       set -euo pipefail
       export PATH=${
