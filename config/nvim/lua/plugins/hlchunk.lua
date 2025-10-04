@@ -1,14 +1,17 @@
 return {
-  "shellRaining/hlchunk.nvim",
-  event = { "BufReadPre", "BufNewFile" },
-  config = function()
-    require("hlchunk").setup({
-      chunk = {
-        enable = true,
-        style = {
-          { fg = "LightGray" }
-        },
-      },
-    })
-  end,
+	"mbrea-c/wal-colors.nvim",
+	config = function()
+		vim.cmd([[colorscheme mbc]])
+
+		-- subscribe to file change
+		local uv = vim.loop
+		local wal_file = vim.fn.expand("~/.cache/wal/colors-wal.vim")
+		local h = uv.new_fs_event()
+		h:start(wal_file, {}, function()
+			vim.schedule(function()
+				vim.cmd([[colorscheme mbc]])
+			end)
+		end)
+	end,
+	priority = 1000,
 }

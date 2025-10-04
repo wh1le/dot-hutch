@@ -2,7 +2,6 @@ return {
 	"ibhagwan/fzf-lua",
 	dependencies = { "echasnovski/mini.icons" },
 	opts = {
-		fzf_bin = "~/.fzf/bin/fzf",
 		defaults = {
 			previewer = false,
 		},
@@ -25,9 +24,9 @@ return {
 				["<C-b>"] = "preview-page-up",
 				["<C-q>"] = "toggle-all+accept",
 			},
-			fzf = { 
-        ["ctrl-q"] = "toggle-all+accept"
-      },
+			fzf = {
+				["ctrl-q"] = "toggle-all+accept",
+			},
 		},
 		preview = {
 			hidden = true,

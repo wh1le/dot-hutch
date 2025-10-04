@@ -53,8 +53,9 @@ vim.opt.relativenumber = true
 vim.opt.scrolloff = 0
 vim.opt.incsearch = false
 
-if NM.os.is_wsl() then
-	vim.o.fileformat = "unix"
-else
-	vim.o.fileformats = "mac"
-end
+-- if NM.os.is_wsl() then
+-- 	vim.o.fileformat = "unix"
+-- else
+vim.o.fileformat = "unix"
+-- vim.o.fileformats = "mac"
+-- end

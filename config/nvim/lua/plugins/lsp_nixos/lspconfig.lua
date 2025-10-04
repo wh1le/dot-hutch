@@ -102,6 +102,7 @@ return {
 				positionEncodings = { "utf-16" },
 			},
 		})
+
 		capabilities.textDocument.signatureHelp = {
 			dynamicRegistration = false,
 			signatureInformation = {
@@ -110,6 +111,7 @@ return {
 			},
 		}
 
+		-- https://github.com/neovim/nvim-lspconfig/tree/master/lua/lspconfig/configs
 		lspconfig.jsonls.setup({ capabilities = capabilities })
 		lspconfig.yamlls.setup({ capabilities = capabilities })
 		lspconfig.ts_ls.setup({ capabilities = capabilities })
@@ -120,7 +122,25 @@ return {
 		lspconfig.marksman.setup({ capabilities = capabilities })
 		lspconfig.nil_ls.setup({ capabilities = capabilities })
 		lspconfig.typos_lsp.setup({ capabilities = capabilities })
-		lspconfig.ruby_lsp.setup({ capabilities = capabilities, cmd = { "ruby-lsp" } })
+		-- lspconfig.ruby_lsp.setup({ capabilities = capabilities, cmd = { "ruby-lsp" } })
+		lspconfig.ruby_lsp.setup({ capabilities = capabilities })
+		lspconfig.rubocop.setup({ capabilities = capabilities })
+		lspconfig.bashls.setup({
+			settings = {
+				["bash-language-server"] = {},
+			},
+			filetypes = {
+				"zsh",
+				"bash",
+			},
+		})
+		lspconfig.yamlls.setup({ capabilities = capabilities })
+
+		-- TODO: investigate
+		-- vscode-langservers-extracted
+		-- typescript-language-server
+		-- typescript
+		-- vscode-langservers-extracted
 
 		lspconfig.lua_ls.setup({
 			capabilities = capabilities,

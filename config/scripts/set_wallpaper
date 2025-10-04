@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# props to https://github.com/BreadOnPenguins/scripts/blob/master/wallpapermenu
+
+FOLDER=~/dot/wallpapers
+
+menu () {
+  CHOICE=$(nsxiv -otb $FOLDER/*)
+
+  case $CHOICE in
+    *.*)
+      swww img "$CHOICE" --transition-step 60
+      wal -i "$CHOICE"
+    ;;
+    *) exit 0 ;;
+  esac
+}
+
+# If given arguments:
+# First argument will be used by pywal as wallpaper/dir path
+# Second will be used as theme (use wal --theme to view built-in themes)
+
+case "$#" in
+  0) menu ;;
+  1) wal -i "$1" ;;
+  2) wal -i "$1" --theme $2 ;;
+  *) exit 0 ;;
+esac
