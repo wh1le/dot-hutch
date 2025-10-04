@@ -117,7 +117,16 @@ in
     bluez
     usbutils
     libinput
+    inotify-tools # livereload
     # --- ops -- #
+
+    # --- C and make --- #
+    gnumake
+    pkg-config
+    cmake
+    clang
+    libgcc
+    # --- C and make --- #
 
     # --- languages support   --- #
     mercurial
@@ -134,7 +143,7 @@ in
     wezterm
 
     waybar
-    hyprpaper
+    swww
     wl-clipboard
 
     veracrypt
@@ -150,6 +159,7 @@ in
     xh # api
     tldr
     bat
+    nsxiv
     # http # api
     # kulala.nvim
     # https://github.com/kawre/leetcode.nvim
@@ -158,11 +168,17 @@ in
 
     expressvpn
 
+    imagemagick
+
     wofi
     rofi
+    dmenu
+    waypaper
     fastfetch
 
     firefox
+    vlc
+    thunderbird
     obsidian
 
     # Remove switch to lightweight
@@ -178,13 +194,6 @@ in
 
     # Ruby
     # openssl libyaml zlib readline autoconf bison pkg-config
-
-    # C and make
-    gnumake
-    pkg-config
-    cmake
-    clang
-    libgcc
   ];
 
   # system.activationScripts.pywalfox = {
