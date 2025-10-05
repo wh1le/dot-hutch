@@ -4,14 +4,13 @@ set -euo pipefail
 
 MAC="80:99:E7:E0:4B:A5"      # XM6 address
 NAME="WH-1000XM6"            # optional, for logs
-TRIES="${1:-20}"             # retries (default 20)
+TRIES="${1:-3}"             # retries (default 20)
 SLEEP="${2:-3}"              # seconds between tries
 
 log(){ printf "[xm6] %s\n" "$*" >&2; }
 
-# quick check if already connected
 if bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
-  log "$NAME already connected"
+  notify-send "$NAME already connected"
   exit 0
 fi
 
@@ -24,10 +23,9 @@ bluetoothctl trust "$MAC" >/dev/null || true
 i=0
 while [ "$i" -lt "$TRIES" ]; do
   i=$((i+1))
-  log "attempt $i/$TRIES: connect $NAME"
-  # attempt connect
+  notify-send "attempt connecting $i/$TRIES: connect $NAME"
   if bluetoothctl connect "$MAC" | grep -q 'Connection successful'; then
-    log "link up"
+    notify-send "Link up"
     break
   fi
 
@@ -40,18 +38,9 @@ while [ "$i" -lt "$TRIES" ]; do
   sleep "$SLEEP"
 done
 
-# verify link
 if ! bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
-  log "failed to connect. The headset likely has 2 other hosts attached."
+  notify-send "failed to connect. The headset likely has 2 other hosts attached."
   exit 1
 fi
 
-# move audio to headset
-SINK=$(pactl list sinks short | awk '/bluez_output/ {print $2; exit}')
-if [ -n "$SINK" ]; then
-  pactl list sink-inputs short | awk '{print $1}' | while read -r IN; do
-    pactl move-sink-input "$IN" "$SINK" || true
-  done
-fi
-
-log "ready"
+notify-send "Connected"

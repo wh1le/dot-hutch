@@ -18,3 +18,12 @@ require("config.spell")
 NM.lazy.setup()
 
 vim.cmd("filetype plugin indent on")
+
+vim.api.nvim_create_augroup("NoConcealJSON", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	group = "NoConcealJSON",
+	pattern = { "json", "jsonc" },
+	callback = function()
+		vim.wo.conceallevel = 0
+	end,
+})

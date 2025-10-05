@@ -1,5 +1,6 @@
 return {
 	"mbrea-c/mbc-colorscheme.nvim",
+	enabled = false,
 	dependencies = {
 		{ "mbrea-c/wal-colors.nvim" },
 	},

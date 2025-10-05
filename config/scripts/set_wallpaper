@@ -5,12 +5,16 @@ set -euo pipefail
 
 FOLDER=~/dot/wallpapers
 
+pkill nsxiv || true
+
 menu () {
-  CHOICE=$(nsxiv -otb $FOLDER/*)
+  # CHOICE=$(nsxiv -otb $FOLDER/*)
+  CHOICE=$(ls $FOLDER/* | shuf | xargs nsxiv -otb)
 
   case $CHOICE in
     *.*)
-      swww img "$CHOICE" --transition-step 60
+      swww img --transition-type wipe --transition-angle 45 --transition-duration 0.8 "$CHOICE"
+      ln -sf "$CHOICE" ~/.current_wallpaper
       wal -i "$CHOICE"
     ;;
     *) exit 0 ;;

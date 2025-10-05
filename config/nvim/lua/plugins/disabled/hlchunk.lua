@@ -1,5 +1,6 @@
 return {
 	"mbrea-c/wal-colors.nvim",
+	enabled = false,
 	config = function()
 		vim.cmd([[colorscheme mbc]])
 
