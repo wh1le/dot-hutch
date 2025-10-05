@@ -36,6 +36,26 @@ in
     agentTimeout = "1h";
   };
 
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # Uncomment the following line if you want to use JACK applications
+    # jack.enable = true;
+  };
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = true;
+    modesetting.enable = true;
+  };
+
   system.stateVersion = "25.05";
   time.timeZone = "Europe/Lisbon";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -102,6 +122,13 @@ in
   # users.groups.keyd = {};
   # services.keyd = { enable = true; };
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
+
   environment.systemPackages = with pkgs; [
     bash
     zsh
@@ -141,10 +168,6 @@ in
 
     kitty
     wezterm
-
-    waybar
-    swww
-    wl-clipboard
 
     veracrypt
     openssl
@@ -191,9 +214,10 @@ in
     pywal16
     pywalfox-native
     swaybg
-
-    # Ruby
-    # openssl libyaml zlib readline autoconf bison pkg-config
+    pavucontrol
+    waybar
+    swww
+    wl-clipboard
   ];
 
   # system.activationScripts.pywalfox = {
