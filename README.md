@@ -2,7 +2,10 @@
 
 ## TODO:
 
-- [ ] Use Nix Home Env for dotfiles delivery?
+- [ ] Research nix home manager, switch dot-files deploy to it
+- [ ] Ssh or pem keys following for repository access
+- [ ] Bootable flash drive with my config
+- [ ] Create Private, and Work repositories for private dot-files
 
 This repository contains a Nix flake to build and launch a NixOS virtual machine with a Hyprland desktop environment, plus helper modules and scripts to bootstrap user dotfiles. It is designed for quick iteration in a QEMU VM and reproducible setups pinned to a specific nixpkgs release.
 
