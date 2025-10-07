@@ -1,0 +1,11 @@
+[global]
+    frame_color = "{color8}"
+    separator_color = "{color8}"
+
+[urgency_low]
+    background = "{color0}"
+    foreground = "{color7}"
+
+[urgency_normal]
+    background = "{color1}"
+    foreground = "{color15}"

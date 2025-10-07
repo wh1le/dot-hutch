@@ -1,0 +1,29 @@
+[global]
+frame_color = "#8ab4f8"
+separator_color = frame
+notification_limit = 20
+origin = "top-right"
+offset = 0x45
+icon_corner_radius = 10
+transparency = 0
+frame_width = 0
+width = (0, 500)
+font = "JetBrainsMono Nerd Font 11"
+browser = "chromium"
+icon_position = "left"
+min_icon_size = 60
+max_icon_size = 60
+timeout = 60
+
+[urgency_low]
+foreground = "#ccd0d9"
+background = "#212123"
+
+[urgency_normal]
+foreground = "#ccd0d9"
+background = "#212123"
+
+[urgency_critical]
+foreground = "#ccd0d9"
+background = "#212123"
+frame_color = "#8ab4f8"

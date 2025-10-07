@@ -1,0 +1,200 @@
+[
+  {
+    "height": 38,
+    "spacing": 10,
+    "layer": "top",
+    "position": "top",
+    "margin": "9px 18px 0 18px",
+    "modules-left": [
+      "custom/logo",
+      "custom/weather",
+      "hyprland/window"
+    ],
+    "modules-center": [
+      "hyprland/workspaces"
+    ],
+    "modules-right": [
+      // "custom/connect_xm6",
+      // "bluetooth",
+      "group/system",
+      "group/audio",
+      "tray",
+      "clock",
+      "group/power"
+    ],
+    "custom/logo": {
+      "format": "<span font='20'>{icon}</span>",
+      "format-icons": "󰯉",
+      "on-click": "pkill rofi; ~/.config/scripts/rofi_start"
+    },
+    // switch to https://open-meteo.com/en/docs?hourly=temperature_2m,rain,wind_speed_10m,wind_speed_80m,wind_speed_120m,wind_speed_180m,wind_direction_10m,wind_direction_80m,wind_direction_120m,wind_direction_180m,wind_gusts_10m,temperature_80m,temperature_120m,temperature_180m,showers,precipitation_probability,precipitation,apparent_temperature,dew_point_2m,relative_humidity_2m&forecast_days=1
+    "custom/weather": {
+      "tooltip": true,
+      "format": "{}",
+      "interval": 30,
+      "exec": "~/.config/waybar/scripts/waybar-wttr.py",
+      "on-click": "kitty weather",
+      "return-type": "json"
+    },
+    "custom/connect_xm6": {
+      "format": "  ",
+      "on-click": "~/.config/scripts/connect-xm6"
+    },
+    "hyprland/window": {
+      "rewrite": {
+        "(.*) - Firefox": "$1",
+        "(.*) - kitty": "[$1]"
+      },
+      "separate-outputs": true
+    },
+
+    "hyprland/workspaces": {
+      "active-only": false,
+      "all-outputs": false,
+      "disable-scroll": false,
+      "format-icons": { },
+      "persistent-workspaces": {
+        "HDMI-A-1": [1, 2, 3, 4]
+      }
+    },
+      "bluetooth": {
+        "format": " {status}",
+        "format-disabled": "",
+        "format-connected": " {num_connections} connected",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+      },
+
+    "disk": {
+      "interval": 60,
+      "format": "<span font='13' rise='-1000'></span> {percentage_used}%",
+      "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+    },
+
+    "memory": {
+      "format": "<span font='13' rise='-1000'>󰍛</span> {used} GiB",
+      "format-alt": "<span font='13' rise='-1000'>󰍛</span> {percentage}%",
+      "interval": 5,
+      "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+    },
+
+    "cpu": {
+      "format": "<span font='13' rise='-1000'>󰻠</span> {usage}%",
+      "format-alt": "󰻠 {avg_frequency} GHz",
+      "interval": 1,
+      "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+    },
+
+    "temperature": {
+      "thermal-zone": 1,
+      "format": " {temperatureC}°C",
+      "critical-threshold": 70,
+      "format-critical": " {temperatureF}°F",
+      "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+    },
+
+    "backlight": {
+      "device": "intel_backlight",
+      "format": "{icon} {percent}%",
+      "format-icons": ["", "", ""],
+      "on-scroll-up": "brightnessctl set 1%+",
+      "on-scroll-down": "brightnessctl set 1%-",
+      "min-length": 6
+    },
+
+    "battery": {
+      "states": {
+        "good": 95,
+        "warning": 30,
+        "critical": 20
+      },
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-alt": "{time} {icon}",
+      "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+    },
+
+    "pulseaudio": {
+      "format": "{icon} {volume}%",
+      "format-muted": "",
+      "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
+      "on-click-right": "pavucontrol",
+      "on-scroll-up": "pamixer -i 5",
+      "on-scroll-down": "pamixer -d 5",
+      "scroll-step": 5,
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", "", ""]
+      }
+    },
+
+    "pulseaudio#microphone": {
+      "format": "{format_source}",
+      "format-source": " {volume}%",
+      "format-source-muted": "",
+      "on-click": "pamixer --default-source -t",
+      "on-click-right": "pavucontrol",
+      "on-scroll-up": "pamixer --default-source -i 5",
+      "on-scroll-down": "pamixer --default-source -d 5",
+      "scroll-step": 5
+    },
+
+    "tray": {
+      "icon-size": 20,
+      "spacing": 7,
+          "icons": {
+        "blueman": "bluetooth",
+        "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+    }
+    },
+
+    "clock": {
+      "format": "{:%a %d %b %I:%M %p}",
+      "format-alt": "{:%I:%M %p}",
+      "tooltip": "true",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "custom/lock_screen": {
+      "format": "",
+      "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
+      "tooltip": false
+    },
+
+    "custom/power_btn": {
+      "format": "",
+      "on-click": "sh -c '(sleep 0.5s; wlogout --protocol layer-shell)' & disown",
+      "tooltip": false
+    },
+
+    "group/system": {
+      "orientation": "horizontal",
+      "drawer": {
+        "transition-duration": 500,
+        "children-class": "hidden",
+        "transition-left-to-right": false
+      },
+      "modules": ["temperature", "disk", "memory", "cpu"]
+    },
+
+    "group/audio": {
+      "orientation": "horizontal",
+      "modules": [
+        "pulseaudio"
+        // "pulseaudio#microphone"
+      ]
+    },
+
+    "group/power": {
+      "orientation": "horizontal",
+      "modules": ["custom/lock_screen", "custom/power_btn"]
+    }
+  }
+]

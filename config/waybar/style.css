@@ -1,0 +1,171 @@
+@import url("/home/wh1le/.cache/wal/colors-waybar.css");
+@import url("/home/wh1le/.cache/wal/colors-constants.css");
+
+/* base00: Main Background (The darkest color) */
+/* base01: Lighter Background (e.g., for status bars, line highlights) */
+/* base02: Selection Background / Subtle UI elements */
+/* base03: Comments, Low-contrast Foreground (The "middle grey") */
+/* base04: Dark Foreground (e.g., for UI elements that shouldn't pop) */
+/* base05: Main Foreground (The primary text color, high contrast with base00) */
+/* base06: Light Foreground (e.g., for less important text) */
+/* base07: Light Background / High-contrast Foreground (The lightest color) */
+/* base08 (Red): Used for errors, deletions in git diff, variable names in some languages. */
+/* base09 (Orange): Used for numbers, constants, warnings. */
+/* base0A (Yellow): Used for strings, warnings. */
+/* base0B (Green): Used for strings, success messages, additions in git diff. */
+/* base0C (Cyan): Used for types, class names, special characters. */
+/* base0D (Blue): Used for functions, keywords, namespaces. */
+/* base0E (Magenta): Used for keywords, operators, built-in constants (like true, false). */
+/* base0F (Brown/Maroon): A "catch-all" accent, often for variables or constants. Its usage is the least standardized. */
+
+* {
+  border: none;
+  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font",
+    "Symbols Nerd Font Mono";
+  font-weight: bold;
+  font-size: 16px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(21, 18, 27, 0);
+  color: @color4;
+}
+
+tooltip {
+  opacity: 0.8;
+  background-color: @waybarBackground;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+/* Left modules */
+
+#custom-logo,
+#custom-weather,
+#window {
+  opacity: 0.8;
+  background: @waybarBackground;
+  border-radius: 8px;
+  padding: 0px 10px;
+  margin: 3px 0px;
+}
+
+#custom-logo {
+  color: @color4;
+  padding: 0px 15px 0px 10px;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+#workspaces {
+  opacity: 0.8;
+  background: @waybarBackground;
+  border-radius: 8px;
+  padding: 0px 5px;
+  margin: 4px 10px;
+}
+
+#workspaces button {
+  padding: 0px 3px;
+  margin: 6px 2px;
+  border-radius: 40px;
+  background: @color10;
+  opacity: 30;
+  transition: all 0.5s cubic-bezier(0.11, 1.09, 0.6, 0.96);
+}
+#workspaces button.empty {
+  background-color: @background;
+}
+
+#workspaces button.active {
+  margin: 6px 2px;
+  /* padding: 0px 8px; */
+  background-color: @color13;
+  color: @foreground;
+}
+
+/* #workspaces button:hover { */
+/*   background-color: #89bfda; */
+/* } */
+
+/* Right modules These modules are children of group/system */
+#battery,
+#cpu,
+#disk,
+#memory,
+#temperature,
+#battery,
+#backlight,
+
+/* group/system */
+#system {
+  opacity: 0.8;
+  background: #1e1e2e;
+  border-radius: 8px;
+  margin: 3px 0px;
+  padding: 0px 8px;
+}
+
+#pulseaudio,
+#pulseaudio#microphone,
+#tray,
+#audio {
+  opacity: 0.8;
+  background: #1e1e2e;
+  border-radius: 8px;
+  margin: 3px 0px;
+  padding: 0px 8px;
+}
+
+#disk {
+  color: #cba6f7;
+}
+
+#memory {
+  color: #89b4fa;
+}
+
+#cpu {
+  color: #a6e4a1;
+}
+
+#temperature {
+  color: #cba6f7;
+}
+
+#backlight {
+  color: #89b4fa;
+}
+
+#battery {
+  color: #a6e4a1;
+}
+
+#pulseaudio {
+  color: #89b4fa;
+}
+
+#pulseaudio.microphone {
+  color: #cba6f7;
+}
+
+#clock {
+  opacity: 0.8;
+  background: #1e1e2e;
+  border-radius: 8px;
+  padding: 0px 10px;
+  margin: 3px 0px;
+}
+
+#custom-lock_screen,
+#custom-power_btn,
+#power {
+  opacity: 0.8;
+  background: #1e1e2e;
+  border-radius: 8px;
+  padding: 0px 7px;
+  margin: 3px 0px;
+}

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+waybar & disown
+
+inotifywait -mr -e close_write,move,create,delete ~/.config/waybar/* \
+| while read -r; do
+    pkill waybar
+    while pgrep -x waybar >/dev/null; do sleep 0.05; done
+    waybar & disown
+  done
