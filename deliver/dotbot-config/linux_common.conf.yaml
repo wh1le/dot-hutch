@@ -4,7 +4,6 @@
     relink: true
     force: true
 
-
 - link:
   ~/.config/alacritty: ../../config/alacritty
   ~/.config/kitty: ../../config/kitty

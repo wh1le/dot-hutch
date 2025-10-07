@@ -1,25 +1,24 @@
 - defaults:
-    link:
-      create: true
-      relink: true
-      force: true
-
+  link:
+    create: true
+    relink: true
+    force: true
 
 - link:
-    ~/.config/autorandr: ../../config/autorandr
-    ~/.config/gtk-3.0: ../../config/gtk-3.0
-    ~/.config/gtk-4.0: ../../config/gtk-4.0
-    ~/.config/i3: ../../config/i3
-    ~/.config/neofetch: ../../config/neofetch
-    ~/.config/picom: ../../config/picom
-    ~/.config/polybar: ../../config/polybar
-    ~/.config/rofi: ../../config/rofi
-    ~/.config/sxhkd: ../../config/sxhkd
-    ~/.config/wal: ../../config/wal
+  ~/.config/autorandr: ../../config/autorandr
+  ~/.config/gtk-3.0: ../../config/gtk-3.0
+  ~/.config/gtk-4.0: ../../config/gtk-4.0
+  ~/.config/i3: ../../config/i3
+  ~/.config/neofetch: ../../config/neofetch
+  ~/.config/picom: ../../config/picom
+  ~/.config/polybar: ../../config/polybar
+  ~/.config/rofi: ../../config/rofi
+  ~/.config/sxhkd: ../../config/sxhkd
+  ~/.config/wal: ../../config/wal
 
-    ~/.xinitrc: ../../xinitrc/.xinitrc
-    ~/.xprofile: ../../xprofile/.xprofile
-    ~/.zprofile: ../../zprofile/.zprofile
+  ~/.xinitrc: ../../xinitrc/.xinitrc
+  ~/.xprofile: ../../xprofile/.xprofile
+  ~/.zprofile: ../../zprofile/.zprofile
 
-    # SystemD
-    ~/.config/systemd/user/sxhkd.service.wants: ../../config/systemd/user/sxhkd.service.wants
+  # SystemD
+  ~/.config/systemd/user/sxhkd.service.wants: ../../config/systemd/user/sxhkd.service.wants
