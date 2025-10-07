@@ -1,0 +1,369 @@
+# ## Performance
+# if [ "$BENCHMARK" = true ]; then
+#   zmodload zsh/zprof
+# fi
+
+# export LC_ALL=en_US.UTF-8
+# export LANG=en_US.UTF-8
+
+typeset -A __NIKITA
+
+export HISTSIZE=100000
+export HISTFILE="$HOME/.history"
+export SAVEHIST=$HISTSIZE
+setopt AUTO_CD                 # [default] .. is shortcut for cd .. (etc)
+setopt AUTO_PARAM_SLASH        # tab completing directory appends a slash
+setopt AUTO_PUSHD              # [default] cd automatically pushes old dir onto dir stack
+setopt AUTO_RESUME             # allow simple commands to resume backgrounded jobs
+setopt CLOBBER                 # allow clobbering with >, no need to use >!
+# setopt CORRECT                 # [default] command auto-correction
+# setopt CORRECT_ALL             # [default] argument auto-correction
+setopt NO_FLOW_CONTROL         # disable start (C-s) and stop (C-q) characters
+setopt NO_HIST_IGNORE_ALL_DUPS # don't filter duplicates from history
+setopt NO_HIST_IGNORE_DUPS     # don't filter contiguous duplicates from history
+setopt HIST_FIND_NO_DUPS       # don't show dupes when searching
+setopt HIST_IGNORE_SPACE       # [default] don't record commands starting with a space
+setopt HIST_VERIFY             # confirm history expansion (!$, !!, !foo)
+setopt IGNORE_EOF              # [default] prevent accidental C-d from exiting shell
+setopt INTERACTIVE_COMMENTS    # [default] allow comments, even in interactive shells
+setopt LIST_PACKED             # make completion lists more densely packed
+setopt MENU_COMPLETE           # auto-insert first possible ambiguous completion
+setopt NO_NOMATCH              # [default] unmatched patterns are left unchanged
+setopt PRINT_EXIT_VALUE        # [default] for non-zero exit status
+setopt PUSHD_IGNORE_DUPS       # don't push multiple copies of same dir onto stack
+setopt PUSHD_SILENT            # [default] don't print dir stack after pushing/popping
+setopt SHARE_HISTORY           # share history across shells
+
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "\e[A" history-beginning-search-backward-end  # cursor up
+bindkey "\e[B" history-beginning-search-forward-end   # cursor down
+
+autoload -U select-word-style
+select-word-style bash # only alphanumeric chars are considered WORDCHARS
+
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^x' edit-command-line
+
+bindkey ' ' magic-space # do history expansion on space
+
+# Replace standard history-incremental-search-{backward,forward} bindings.
+# These are the same but permit patterns (eg. a*b) to be used.
+bindkey "^r" history-incremental-pattern-search-backward
+bindkey "^s" history-incremental-pattern-search-forward
+
+# Make CTRL-Z background things and unbackground them.
+function fg-bg() {
+  if [[ $#BUFFER -eq 0 ]]; then
+    fg
+  else
+    zle push-input
+  fi
+}
+zle -N fg-bg
+bindkey '^Z' fg-bg
+
+# source $HOME/.zsh/colors
+# source $HOME/.config/zsh/aliases
+# source $HOME/.config/zsh/path
+# source $HOME/.config/zsh/exports
+# source $HOME/.config/zsh/functions
+source <(fzf --zsh)
+
+#
+## Hooks
+#
+autoload -U add-zsh-hook
+
+function -set-tab-and-window-title() {
+  emulate -L zsh
+  local CMD="${1:gs/$/\\$}"
+  print -Pn "\e]0;$CMD:q\a"
+}
+
+# Remember each command we run.
+function -record-command() {
+  __NIKITA[LAST_COMMAND]="$2"
+}
+add-zsh-hook preexec -record-command
+
+function -update-window-title-precmd() {
+  emulate -L zsh
+  if [[ HISTCMD_LOCAL -eq 0 ]]; then
+    # About to display prompt for the first time; nothing interesting to show in
+    # the history. Show $PWD.
+    -set-tab-and-window-title "$(basename $PWD)"
+  else
+    local LAST=$(history | tail -1 | awk '{print $2}')
+    if [ -n "$TMUX" ]; then
+      # Inside tmux, just show the last command: tmux will prefix it with the
+      # session name (for context).
+      -set-tab-and-window-title "$LAST"
+    else
+      # Outside tmux, show $PWD (for context) followed by the last command.
+      -set-tab-and-window-title "$(basename $PWD) > $LAST"
+    fi
+  fi
+}
+add-zsh-hook precmd -update-window-title-precmd
+
+# Executed before executing a command: $2 is one-line (truncated) version of
+# the command.
+function -update-window-title-preexec() {
+  emulate -L zsh
+  setopt EXTENDED_GLOB
+  HISTCMD_LOCAL=$((++HISTCMD_LOCAL))
+
+  # Skip ENV=settings, sudo, ssh; show first distinctive word of command;
+  # mostly stolen from:
+  #   https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/termsupport.zsh
+  local TRIMMED="${2[(wr)^(*=*|mosh|ssh|sudo)]}"
+  if [ -n "$TMUX" ]; then
+    # Inside tmux, show the running command: tmux will prefix it with the
+    # session name (for context).
+    -set-tab-and-window-title "$TRIMMED"
+  else
+    # Outside tmux, show $PWD (for context) followed by the running command.
+    -set-tab-and-window-title "$(basename $PWD) > $TRIMMED"
+  fi
+}
+add-zsh-hook preexec -update-window-title-preexec
+
+# function -maybe-show-vcs-info() {
+#   local LAST="$__NIKITA[LAST_COMMAND]"
+#
+#   # In case user just hit enter, overwrite LAST_COMMAND, because preexec
+#   # won't run and it will otherwise linger.
+#   __NIKITA[LAST_COMMAND]="<unset>"
+#
+#   # Check first word; via:
+#   # http://tim.vanwerkhoven.org/post/2012/10/28/ZSH/Bash-string-manipulation
+#   case "$LAST[(w)1]" in
+#     (cd|cp|git|rm|touch|mv|)
+#       vcs_info
+#       ;;
+#     *)
+#       ;;
+#   esac
+# }
+
+# add-zsh-hook precmd -maybe-show-vcs-info
+
+if [ "$BENCHMARK" = true ]; then
+  zprof
+fi
+
+export TERM="xterm-256color"
+
+# export NVM_DIR="$HOME/.nvm"
+#   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+#   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+#
+# nvm use 18.17
+
+# S=${1:-10}
+
+# while true
+# do
+#     pbcopy < /dev/null
+#     sleep $S
+# done
+
+# /usr/local/bin/clear_buffer 120 &
+
+[ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
+
+# Enable VIM mode
+
+# Show -- NORMAL -- or -- INSERT -- in prompt
+# function zle-keymap-select {
+#   case $KEYMAP in
+#     vicmd) RPROMPT="-- NORMAL --" ;;
+#     main|viins) RPROMPT="-- INSERT --" ;;
+#   esac
+#   zle reset-prompt
+# }
+# zle-line-init() { zle vi-insert }
+# zle -N zle-line-init
+
+# copy() {
+#   if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+#     clip.exe
+#   else
+#     if command -v xclip >/dev/null 2>&1; then
+#       xclip -selection clipboard
+#       exit 0
+#     fi
+#
+#     if command -v pbcopy >/dev/null 2>&1; then
+#       pbcopy
+#       exit 0
+#     fi
+#
+#     if command -v wl-copy >/dev/null 2>&1; then
+#       wl-copy
+#       exit 0
+#     fi
+#   fi
+# }
+
+# if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+#   eval "$(ssh-agent -s)"
+# fi
+
+# fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+alias ls='ls -a --color=auto --group-directories-first'
+
+function -auto-ls-after-cd() {
+  emulate -L zsh
+  if [[ "$ZSH_EVAL_CONTEXT" == "toplevel:shfunc" ]]; then
+    echo -e "\n📂 $(pwd)\n"
+    while IFS= read -r line; do
+      printf '  %s\n' "$line"
+    done < <(ls -a --color=always --group-directories-first)
+    echo
+  fi
+}
+
+add-zsh-hook chpwd -auto-ls-after-cd
+
+function cdf() {
+  export FZF_HOME_IGNORE_PATHS="--exclude .git --exclude node_modules --exclude .cargo"
+
+  cd $(find ~ -maxdepth 4 -type d | fzf)
+}
+
+compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
+
+alias fspace="ncdu -x /"
+alias at="tmux attach"
+alias song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
+alias video="yt-dlp"
+
+alias ta="tmux attach"
+
+alias nix_test="sudo nixos-rebuild test   --flake /etc/nixos#default"
+alias nix_switch="sudo nixos-rebuild switch --flake /etc/nixos#default"
+alias nix_build="sudo nixos-rebuild build  --flake /etc/nixos#default"
+alias nix_boot="sudo nixos-rebuild boot   --flake /etc/nixos#default"
+alias nix_clean="sudo nix-collect-garbage -d"
+alias nix_releases_list="sudo nixos-rebuild list-generations"
+alias nix_releases_switch="sudo nixos-rebuild switch --generation"
+alias vim="nvim"
+
+eval "$(direnv hook zsh)"
+
+# prompt_bureau_setup () {
+#     autoload -U colors && colors
+#     prompt_bureau_user_color=${1:-'white'}
+#     prompt_bureau_path_color=${2:-$prompt_bureau_user_color}
+#     prompt_bureau_vcs_color=${3:-$prompt_bureau_user_color}
+#
+#     autoload -Uz vcs_info add-zsh-hook
+#     prompt_bureau_vcs_style
+#     add-zsh-hook precmd prompt_bureau_precmd
+#     add-zsh-hook zshexit prompt_bureau_exit
+#
+#     PROMPT=$(prompt_bureau_prompt)
+# }
+#
+# prompt_bureau_prompt () {
+#     local color=green
+#     if [ "$UID" = "0" ]; then color=red; fi
+#     echo "> %{$fg[${color}]%}%(!.#.$)%{$reset_color%} "
+# }
+#
+# prompt_bureau_string_width () {
+#     local str=$1
+#     echo ${#${(S%%)str//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+# }
+#
+# prompt_bureau_rprompt_file() {
+#     echo "/tmp/$(whoami)_zsh_rprompt.$$"
+# }
+#
+# BUREAU_ASYNC_PROC=0
+#
+# prompt_bureau_precmd () {
+#     # user@host path
+#     local left="%{$fg_bold[$prompt_bureau_user_color]%} %{$fg_bold[$prompt_bureau_path_color]%}%~%{$reset_color%} $(prompt_bureau_nvm)"
+#     # current time
+#     local right="[%*]"
+#     local offset=$(( $COLUMNS - $(prompt_bureau_string_width $left) - $(prompt_bureau_string_width $right) + 2 ))
+#
+#     print -P "\n${left}" "${(l:$offset:: :)right}"
+#
+#     # kill child if necessary
+#     if [[ "${BUREAU_ASYNC_PROC}" != 0 ]]; then
+#         kill -s HUP $BUREAU_ASYNC_PROC >/dev/null 2>&1 || :
+#     fi
+#
+#     # start background computation
+#     prompt_bureau_vcs_prompt &!
+#     BUREAU_ASYNC_PROC=$!
+# }
+#
+# prompt_bureau_vcs_style () {
+#     zstyle ':vcs_info:*' enable git
+#     # Check for staged and unstaged
+#     zstyle ':vcs_info:*' check-for-changes true
+#     zstyle ':vcs_info:*' max-exports 2
+#     local git_base="%{$fg[green]%}±%{$fg_bold[$prompt_bureau_vcs_color]%}%b %u%c%"
+#     zstyle ':vcs_info:git*' stagedstr "%{$fg_bold[green]%}●"
+#     zstyle ':vcs_info:git*' unstagedstr "%{$fg_bold[red]%}●"
+#     zstyle ':vcs_info:git*' formats "[${git_base}%{$reset_color%}]"
+#     zstyle ':vcs_info:git*' actionformats "[${git_base} %{$fg[magenta]%}⌘ %a%{$reset_color%}]"
+# }
+#
+# prompt_bureau_nvm () {
+#     which nvm &>/dev/null || return
+#     echo "%B⬡%b ${$(nvm current)#v}"
+# }
+#
+# prompt_bureau_vcs_prompt () {
+#     vcs_info
+#     printf "%s" "$vcs_info_msg_0_" > "$(prompt_bureau_rprompt_file)"
+#
+#     # signal parent
+#     kill -s USR1 $$
+# }
+#
+# prompt_bureau_exit () {
+#     rm -f "$(prompt_bureau_rprompt_file)" 2> /dev/null
+# }
+#
+# TRAPUSR1 () {
+#     # read from temp file
+#     RPROMPT="$(cat $(prompt_bureau_rprompt_file))"
+#
+#     # reset proc number
+#     BUREAU_ASYNC_PROC=0
+#
+#     # redisplay
+#     zle && zle reset-prompt
+# }
+#
+# prompt_bureau_setup $@
+
+# set up prompt
+# PROMPT="${NEWLINE}%K{#32302f}%F{#d5c4a1} $0 %K{#3c3836}%F{#d5c4a1} %n %K{#504945} %~ %f%k ❯ " # warmer theme
+# PROMPT="${NEWLINE}%K{$COL0}%F{$COL1}$(date +%_I:%M%P) %K{$COL0}%F{$COL2} %n %K{$COL3} %~ %f%k ❯ " # pywal colors, from postrun script
+
+# echo -e "${NEWLINE}\033[48;2;46;52;64;38;2;216;222;233m $0 \033[0m\033[48;2;59;66;82;38;2;216;222;233m $(uptime -p | cut -c 4-) \033[0m\033[48;2;76;86;106;38;2;216;222;233m $(uname -r) \033[0m" # nord theme
+# echo -e "${NEWLINE}\x1b[38;5;137m\x1b[48;5;0m it's$(date +%_I:%M%P) \x1b[38;5;180m\x1b[48;5;0m $(uptime -p | cut -c 4-) \x1b[38;5;223m\x1b[48;5;0m $(uname -r) \033[0m" # warmer theme
+
+# NEWLINE=$'\n'
+# PROMPT="${NEWLINE}%K{#2E3440}%F{#E5E9F0}$(date +%_I:%M%P) %K{#3b4252}%F{#ECEFF4} %n %K{#4c566a} %~ %f%k ❯ "
+
+
+precmd_prompt() {
+  NEWLINE=$'\n'
+  echo "${NEWLINE}%K{#2E3440}%F{#E5E9F0}$(date +%_I:%M%P) %K{#3b4252}%F{#ECEFF4} %n %K{#4c566a} %~ %f%k ❯ "
+
+}
+
+add-zsh-hook preexec precmd_prompt
+# add-zsh-hook zshexit prompt_bureau_exit

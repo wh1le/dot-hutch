@@ -1,121 +1,13 @@
-# ## Performance
-if [ "$BENCHMARK" = true ]; then
-  zmodload zsh/zprof
-fi
-
-# export LC_ALL=en_US.UTF-8
-# export LANG=en_US.UTF-8
-
-typeset -A __NIKITA
-
-# autoload -U colors
-# colors
-
-# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
-
-## Configuration based on
-## https://github.com/wincent/wincent/tree/master/roles/dotfiles/files/.zsh
-
-##
-## Prompt
-##
-
-# autoload -Uz vcs_info
-# zstyle ':vcs_info:*' enable git hg
-# zstyle ':vcs_info:*' check-for-changes true
-# zstyle ':vcs_info:*' disable-patterns "${(b)HOME}/code/portal(|-ee)(|/*)"
-# zstyle ':vcs_info:*' stagedstr "%F{green}●%f" # default 'S'
-# zstyle ':vcs_info:*' unstagedstr "%F{red}●%f" # default 'U'
-# zstyle ':vcs_info:*' use-simple true
-# zstyle ':vcs_info:git+set-message:*' hooks git-untracked
-# zstyle ':vcs_info:git*:*' formats '[%b%m%c%u] ' # default ' (%s)-[%b]%c%u-'
-# zstyle ':vcs_info:git*:*' actionformats '[%b|%a%m%c%u] ' # default ' (%s)-[%b|%a]%c%u-'
-# zstyle ':vcs_info:hg*:*' formats '[%m%b] '
-# zstyle ':vcs_info:hg*:*' actionformats '[%b|%a%m] '
-# zstyle ':vcs_info:hg*:*' branchformat '%b'
-# zstyle ':vcs_info:hg*:*' get-bookmarks true
-# zstyle ':vcs_info:hg*:*' get-revision true
-# zstyle ':vcs_info:hg*:*' get-mq false
-# zstyle ':vcs_info:hg*+gen-hg-bookmark-string:*' hooks hg-bookmarks
-# zstyle ':vcs_info:hg*+set-message:*' hooks hg-message
-#
-# function +vi-hg-bookmarks() {
-#   emulate -L zsh
-#   if [[ -n "${hook_com[hg-active-bookmark]}" ]]; then
-#     hook_com[hg-bookmark-string]="${(Mj:,:)@}"
-#     ret=1
-#   fi
-# }
-#
-# function +vi-hg-message() {
-#   emulate -L zsh
-#
-#   # Suppress hg branch display if we can display a bookmark instead.
-#   if [[ -n "${hook_com[misc]}" ]]; then
-#     hook_com[branch]=''
-#   fi
-#   return 0
-# }
-#
-# function +vi-git-untracked() {
-#   emulate -L zsh
-#   if [[ -n $(git ls-files --exclude-standard --others 2> /dev/null) ]]; then
-#     hook_com[unstaged]+="%F{red} ● %f"
-#   fi
-# }
-
-# RPROMPT_BASE="\${vcs_info_msg_0_}%F{blue}"
-# setopt PROMPT_SUBST
-
-# Anonymous function to avoid leaking variables.
-# function () {
-#   # Check for tmux by looking at $TERM, because $TMUX won't be propagated to any
-#   # nested sudo shells but $TERM will.
-#   # local TMUXING=$([[ "$TERM" =~ "tmux" ]] && echo tmux)
-#   if [ -n "$TMUX" ]; then
-#     # In a a tmux session created in a non-root or root shell.
-#     local LVL=$(($SHLVL - 1))
-#   else
-#     # Either in a root shell created inside a non-root tmux session,
-#     # or not in a tmux session.
-#     local LVL=$SHLVL
-#   fi
-#   if [[ $EUID -eq 0 ]]; then
-#     local SUFFIX='%F{yellow}%n%f'$(printf '%%F{yellow}\u276f%.0s%%f' {1..$LVL})
-#   else
-#     local SUFFIX=$(printf '%%F{yellow}\u276f%.0s%%f' {1..$LVL})
-#   fi
-#   export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%B%1~%b%F{yellow}%B%(1j.*.)%(?..!)%b%f %B${SUFFIX}%b "
-#   if [[ -n "$TMUXING" ]]; then
-#     # Outside tmux, ZLE_RPROMPT_INDENT ends up eating the space after PS1, and
-#     # prompt still gets corrupted even if we add an extra space to compensate.
-#     export ZLE_RPROMPT_INDENT=0
-#   fi
-# }
-
-# export RPROMPT=$RPROMPT_BASE
-# export SPROMPT="zsh: correct %F{red}'%R'%f to %F{red}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
-
-#
-# History
-#
-
 export HISTSIZE=100000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
-
-#
-# Options
-#
 
 setopt AUTO_CD                 # [default] .. is shortcut for cd .. (etc)
 setopt AUTO_PARAM_SLASH        # tab completing directory appends a slash
 setopt AUTO_PUSHD              # [default] cd automatically pushes old dir onto dir stack
 setopt AUTO_RESUME             # allow simple commands to resume backgrounded jobs
 setopt CLOBBER                 # allow clobbering with >, no need to use >!
-# setopt CORRECT                 # [default] command auto-correction
-# setopt CORRECT_ALL             # [default] argument auto-correction
+
 setopt NO_FLOW_CONTROL         # disable start (C-s) and stop (C-q) characters
 setopt NO_HIST_IGNORE_ALL_DUPS # don't filter duplicates from history
 setopt NO_HIST_IGNORE_DUPS     # don't filter contiguous duplicates from history
@@ -132,241 +24,78 @@ setopt PUSHD_IGNORE_DUPS       # don't push multiple copies of same dir onto sta
 setopt PUSHD_SILENT            # [default] don't print dir stack after pushing/popping
 setopt SHARE_HISTORY           # share history across shells
 
-#
-# Bindings
-#
-
-
-# Use "cbt" capability ("back_tab", as per `man terminfo`), if we have it:
-if tput cbt &> /dev/null; then
-  bindkey "$(tput cbt)" reverse-menu-complete # make Shift-tab go to previous completion
-fi
-
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "\e[A" history-beginning-search-backward-end  # cursor up
-bindkey "\e[B" history-beginning-search-forward-end   # cursor down
-
-autoload -U select-word-style
-select-word-style bash # only alphanumeric chars are considered WORDCHARS
-
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '^x^x' edit-command-line
-
-bindkey ' ' magic-space # do history expansion on space
-
-# Replace standard history-incremental-search-{backward,forward} bindings.
-# These are the same but permit patterns (eg. a*b) to be used.
-bindkey "^r" history-incremental-pattern-search-backward
-bindkey "^s" history-incremental-pattern-search-forward
-
-# Make CTRL-Z background things and unbackground them.
-function fg-bg() {
-  if [[ $#BUFFER -eq 0 ]]; then
-    fg
-  else
-    zle push-input
-  fi
-}
-zle -N fg-bg
-bindkey '^Z' fg-bg
-
-# source $HOME/.zsh/colors
-# source $HOME/.config/zsh/aliases
-# source $HOME/.config/zsh/path
-# source $HOME/.config/zsh/exports
-# source $HOME/.config/zsh/functions
 source <(fzf --zsh)
 
-#
-## Hooks
-#
-autoload -U add-zsh-hook
+source $HOME/.config/zsh/aliases
+source $HOME/.config/zsh/bindings
+source $HOME/.cache/wal/colors.sh
 
-function -set-tab-and-window-title() {
-  emulate -L zsh
-  local CMD="${1:gs/$/\\$}"
-  print -Pn "\e]0;$CMD:q\a"
-}
-
-# Remember each command we run.
-function -record-command() {
-  __NIKITA[LAST_COMMAND]="$2"
-}
-add-zsh-hook preexec -record-command
-
-function -update-window-title-precmd() {
-  emulate -L zsh
-  if [[ HISTCMD_LOCAL -eq 0 ]]; then
-    # About to display prompt for the first time; nothing interesting to show in
-    # the history. Show $PWD.
-    -set-tab-and-window-title "$(basename $PWD)"
-  else
-    local LAST=$(history | tail -1 | awk '{print $2}')
-    if [ -n "$TMUX" ]; then
-      # Inside tmux, just show the last command: tmux will prefix it with the
-      # session name (for context).
-      -set-tab-and-window-title "$LAST"
-    else
-      # Outside tmux, show $PWD (for context) followed by the last command.
-      -set-tab-and-window-title "$(basename $PWD) > $LAST"
-    fi
-  fi
-}
-add-zsh-hook precmd -update-window-title-precmd
-
-# Executed before executing a command: $2 is one-line (truncated) version of
-# the command.
-function -update-window-title-preexec() {
-  emulate -L zsh
-  setopt EXTENDED_GLOB
-  HISTCMD_LOCAL=$((++HISTCMD_LOCAL))
-
-  # Skip ENV=settings, sudo, ssh; show first distinctive word of command;
-  # mostly stolen from:
-  #   https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/termsupport.zsh
-  local TRIMMED="${2[(wr)^(*=*|mosh|ssh|sudo)]}"
-  if [ -n "$TMUX" ]; then
-    # Inside tmux, show the running command: tmux will prefix it with the
-    # session name (for context).
-    -set-tab-and-window-title "$TRIMMED"
-  else
-    # Outside tmux, show $PWD (for context) followed by the running command.
-    -set-tab-and-window-title "$(basename $PWD) > $TRIMMED"
-  fi
-}
-add-zsh-hook preexec -update-window-title-preexec
-
-# function -maybe-show-vcs-info() {
-#   local LAST="$__NIKITA[LAST_COMMAND]"
-#
-#   # In case user just hit enter, overwrite LAST_COMMAND, because preexec
-#   # won't run and it will otherwise linger.
-#   __NIKITA[LAST_COMMAND]="<unset>"
-#
-#   # Check first word; via:
-#   # http://tim.vanwerkhoven.org/post/2012/10/28/ZSH/Bash-string-manipulation
-#   case "$LAST[(w)1]" in
-#     (cd|cp|git|rm|touch|mv|)
-#       vcs_info
-#       ;;
-#     *)
-#       ;;
-#   esac
-# }
-
-# add-zsh-hook precmd -maybe-show-vcs-info
-
-if [ "$BENCHMARK" = true ]; then
-  zprof
-fi
-
-export TERM="xterm-256color"
-
-# export NVM_DIR="$HOME/.nvm"
-#   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-#   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-#
-# nvm use 18.17
-
-# S=${1:-10}
-
-# while true
-# do
-#     pbcopy < /dev/null
-#     sleep $S
-# done
-
-# /usr/local/bin/clear_buffer 120 &
-
-[ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
-
-# Enable VIM mode
-
-# Show -- NORMAL -- or -- INSERT -- in prompt
-# function zle-keymap-select {
-#   case $KEYMAP in
-#     vicmd) RPROMPT="-- NORMAL --" ;;
-#     main|viins) RPROMPT="-- INSERT --" ;;
-#   esac
-#   zle reset-prompt
-# }
-# zle-line-init() { zle vi-insert }
-# zle -N zle-line-init
-
-# copy() {
-#   if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
-#     clip.exe
-#   else
-#     if command -v xclip >/dev/null 2>&1; then
-#       xclip -selection clipboard
-#       exit 0
-#     fi
-#
-#     if command -v pbcopy >/dev/null 2>&1; then
-#       pbcopy
-#       exit 0
-#     fi
-#
-#     if command -v wl-copy >/dev/null 2>&1; then
-#       wl-copy
-#       exit 0
-#     fi
-#   fi
-# }
-
-# if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-#   eval "$(ssh-agent -s)"
-# fi
-
-# fpath+=~/.zfunc; autoload -Uz compinit; compinit
-
-alias ls='ls -a --color=auto --group-directories-first'
-
-function -auto-ls-after-cd() {
-  emulate -L zsh
-  if [[ "$ZSH_EVAL_CONTEXT" == "toplevel:shfunc" ]]; then
-    echo -e "\n📂 $(pwd)\n"
-    while IFS= read -r line; do
-      printf '  %s\n' "$line"
-    done < <(ls -a --color=always --group-directories-first)
-    echo
-  fi
-}
-
-add-zsh-hook chpwd -auto-ls-after-cd
-
-function cdf() {
-  export FZF_HOME_IGNORE_PATHS="--exclude .git --exclude node_modules --exclude .cargo"
-
-  cd $(find ~ -maxdepth 4 -type d | fzf)
-}
-
-compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
-
-alias fspace="ncdu -x /"
-alias at="tmux attach"
-alias song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
-alias video="yt-dlp"
-
-alias nix_test="sudo nixos-rebuild test   --flake /etc/nixos#default"
-alias nix_switch="sudo nixos-rebuild switch --flake /etc/nixos#default"
-alias nix_build="sudo nixos-rebuild build  --flake /etc/nixos#default"
-alias nix_boot="sudo nixos-rebuild boot   --flake /etc/nixos#default"
-alias nix_clean="sudo nix-collect-garbage -d"
-alias nix_releases_list="sudo nixos-rebuild list-generations"
-alias nix_releases_switch="sudo nixos-rebuild switch --generation"
-alias vim="nvim"
-
+# Remapping
+alias bat="bat --theme=base16"
 eval "$(direnv hook zsh)"
 
-# Attempt to do autoatch to session
-# if [[ ! -n "$TMUX" ]]; then
-#   if tmux has-session -t local 2>/dev/null; then
-#     tmux new-session -t local -s local2
+# Until .argc exists...
+# (https://github.com/ggreer/the_silver_searcher/pull/709)
+function ag() {
+  emulate -L zsh
+
+  # italic blue paths, pink line numbers, underlined purple matches
+  command ag --pager="less -iFMRSX" --color-path=34\;3 --color-line-number=35 --color-match=35\;1\;4 "$@"
+}
+
+# TODO: Revisit integration of tmux to ssh
+# function ssh() {
+#   emulate -L zsh
+#
+#   if [[ -z "$@" ]]; then
+#     # common case: getting to my workstation
+#     command ssh dev
 #   else
-#     tmux new-session -s local
+#     local LOCAL_TERM=$(echo -n "$TERM" | sed -e s/tmux/screen/)
+#     env TERM=$LOCAL_TERM command ssh "$@"
 #   fi
-# fi
+# }
+#
+# function tmux() {
+#   emulate -L zsh
+
+#   # Make sure even pre-existing tmux sessions use the latest SSH_AUTH_SOCK.
+#   # (Inspired by: https://gist.github.com/lann/6771001)
+#   local SOCK_SYMLINK=~/.ssh/ssh_auth_sock
+#   if [ -r "$SSH_AUTH_SOCK" -a ! -L "$SSH_AUTH_SOCK" ]; then
+#     ln -sf "$SSH_AUTH_SOCK" $SOCK_SYMLINK
+#   fi
+
+#   # If provided with args, pass them through.
+#   if [[ -n "$@" ]]; then
+#     env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux "$@"
+#     return
+#   fi
+
+#   # Check for .tmux file (poor man's Tmuxinator).
+#   if [ -x .tmux ]; then
+#     # Prompt the first time we see a given .tmux file before running it.
+#     local DIGEST="$(openssl sha -sha512 .tmux)"
+#     if ! grep -q "$DIGEST" ~/..tmux.digests 2> /dev/null; then
+#       cat .tmux
+#       read -k 1 -r \
+#         'REPLY?Trust (and run) this .tmux file? (t = trust, otherwise = skip) '
+#       echo
+#       if [[ $REPLY =~ ^[Tt]$ ]]; then
+#         echo "$DIGEST" >> ~/..tmux.digests
+#         ./.tmux
+#         return
+#       fi
+#     else
+#       ./.tmux
+#       return
+#     fi
+#   fi
+
+#   # Attach to existing session, or create one, based on current directory.
+#   local SESSION_NAME=$(basename "${$(pwd)//[.:]/_}")
+#   env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux new -A -s "$SESSION_NAME"
+# }
+
+NEWLINE=$'\n'
+PROMPT="${NEWLINE}%K{#2E3440}%F{#E5E9F0}$(date +%_I:%M%P) %K{#3b4252}%F{#ECEFF4} %n %K{#4c566a} %~ %f%k ❯ "

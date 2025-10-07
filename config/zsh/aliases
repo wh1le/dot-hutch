@@ -1,44 +1,43 @@
-#
-# Command aliases
-#
-
-alias ....='cd ../..'
-alias dsleep="pmset sleepnow"
+# Vimlike
 alias :e=vim
 alias :qa=exit
 alias :sp='test -n "$TMUX" && tmux split-window'
 alias :vs='test -n "$TMUX" && tmux split-window -h'
 alias :wq=exit
+
+# Ruby
+
 alias b=bundle
 alias be='bundle exec'
-alias cd..='cd ..'
-alias cdtmp='cd $(mktemp -d $TMPDIR/$USER-cdtmp-XXXXXX)'
-alias d='hash -d'
-alias e=exit
+
+# Git
+
 alias g=git
-alias groot='cd $(git rev-parse --show-toplevel 2> /dev/null || echo -n ".")'
-alias h=history
-alias l='ls -F'
-alias ll='ls -laF'
-alias o='git oneline'
-alias p='git patch'
-alias oo='git oneline -10'
-alias s=ssh
-alias t=tmux
-alias v=vim
-
-alias srs='rails s'
-alias src='rails c'
-
-alias ta='tmux attach'
-
+alias gl="git log --oneline"
 alias gs='git status'
 alias gc='git checkout'
 alias gr='git rebase -i'
-alias edit="nvim"
-# alias bat="bat --theme=base16"
-alias afk='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 
-if command -v nvim &> /dev/null; then
-  alias vim=nvim # Use `\vim` or `command vim` to get the real vim.
-fi
+alias fspace="ncdu -x /"
+
+# Tmux
+
+alias ta="tmux attach"
+# TODO: Tmux kill session (alias tks)
+
+# Nix
+alias nix_test="sudo nixos-rebuild test   --flake /etc/nixos#default"
+alias nix_switch="sudo nixos-rebuild switch --flake /etc/nixos#default"
+alias nix_build="sudo nixos-rebuild build  --flake /etc/nixos#default"
+alias nix_boot="sudo nixos-rebuild boot   --flake /etc/nixos#default"
+alias nix_clean="sudo nix-collect-garbage -d"
+alias nix_releases_list="sudo nixos-rebuild list-generations"
+alias nix_releases_switch="sudo nixos-rebuild switch --generation"
+alias nix_doc='manix "" | grep "^# " | sed "s/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //" | fzf --preview="manix '\''{}'\''" | xargs manix'
+alias nix_packages="nix-search-tv print | fzf --preview 'nix-search-tv preview {}' --scheme history | wl-copy"
+
+alias vim="nvim"
+
+# Aliased for youtube download script and video
+alias song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
+alias video="yt-dlp"
