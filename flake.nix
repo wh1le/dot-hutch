@@ -15,7 +15,15 @@
       ...
     }@inputs:
     {
+      nixConfig = {
+        extra-excludes = [ ".git" ];
+        extra-experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+      };
       nixosConfigurations = {
+
         default = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs =
@@ -29,7 +37,7 @@
                 ;
             };
           modules = [
-            ./nix/hosts/nvidia_workstation/main.nix
+            ./nix/hosts/home_pc.nix
             {
               nixpkgs.config.allowUnfree = true;
             }
