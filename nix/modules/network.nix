@@ -1,5 +1,6 @@
 {
   pkgs,
+  userName,
   ...
 }:
 
@@ -12,7 +13,7 @@
   # };
 
   networking = {
-    hostName = "wh1le";
+    hostName = "${userName}";
     networkmanager = {
       enable = true;
       plugins = [ pkgs.networkmanager-openvpn ];

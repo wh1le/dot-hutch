@@ -29,7 +29,6 @@
                 ;
             };
           modules = [
-            ./nix/hosts/nvidia_workstation/hardware-configuration.nix
             ./nix/hosts/nvidia_workstation/main.nix
             {
               nixpkgs.config.allowUnfree = true;
