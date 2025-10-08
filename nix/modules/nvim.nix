@@ -5,22 +5,22 @@
 
 {
   environment.systemPackages = with pkgs; [
-    # --- Neovim dependencies --- #
+    # Main dependencies
     neovim
     ripgrep
     lua5_1
     lua51Packages.luarocks
     lua54Packages.luarocks
     tree-sitter
-    # --- Neovim dependencies --- #
 
+    # Neovim python package
     (python3.withPackages (ps: [
       # NeoVim
       ps.pynvim
       ps.debugpy
     ]))
 
-    # --- LSP servers  ---  #
+    # LSP Servers
     lua-language-server
     bash-language-server
     vscode-langservers-extracted
@@ -36,9 +36,8 @@
     marksman
     nil
     typos-lsp
-    # --- LSP servers  ---  #
 
-    # --- code formmaters --- #
+    # Formatters
     codespell
     black
     isort
@@ -48,6 +47,5 @@
     shfmt
     shellcheck
     nixfmt-rfc-style
-    # --- code formatters ---  #
   ];
 }

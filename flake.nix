@@ -18,24 +18,27 @@
       nixosConfigurations = {
         default = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs =
+            let
+              mainUser = "wh1le";
+            in
+            {
+              inherit
+                mainUser
+                inputs
+                ;
+            };
           modules = [
-            ./nix/hosts/pc_nvidia.nix
+            ./nix/hosts/nvidia_workstation/hardware-configuration.nix
+            ./nix/hosts/nvidia_workstation/main.nix
             {
               nixpkgs.config.allowUnfree = true;
             }
-            # home-manager.nixosModules.home-manager
-            # {
-            #   home-manager.useGlobalPkgs = true;
-            #   home-manager.useUserPackages = true;
-            #   home-manager.users.wh1le = {
-            #     home.stateVersion = "25.05";
-            #     # Use env variables to detect NIXOS?
-            #     # home.sessionVariables.NVIM_USE_MASON = "1";
-            #   };
-            # }
           ];
         };
+
+        # Provide your custom configuration here
+        # other =  {}
       };
     };
 }

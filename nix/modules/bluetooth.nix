@@ -1,0 +1,14 @@
+{
+  pkgs,
+}:
+{
+  services.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    bluez
+    bluetui
+  ];
+}
