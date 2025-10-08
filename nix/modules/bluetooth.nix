@@ -1,8 +1,9 @@
 {
   pkgs,
+  ...
 }:
 {
-  services.bluetooth = {
+  hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
   };

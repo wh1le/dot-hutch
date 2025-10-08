@@ -1,4 +1,7 @@
 {
+  ...
+}:
+{
   programs = {
     steam = {
       enable = true;

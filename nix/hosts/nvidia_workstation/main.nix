@@ -27,9 +27,8 @@
     ../../modules/paperlike.nix
     ../../modules/printers.nix
     ../../modules/security.nix
-    ../../modules/sound.nix
+    ../../modules/audio.nix
     ../../modules/streaming.nix
-    ../../modules/systemd.nix
     ../../modules/terminal.nix
     ../../modules/users.nix
     ../../modules/vpn.nix
@@ -80,17 +79,5 @@
   environment.systemPackages = with pkgs; [
     usbutils
     libinput
-
-    git
-    ncdu
-
-    bash
-    zsh
-
-    tmux
-
-    vim
-    nvim
-    htop
   ];
 }

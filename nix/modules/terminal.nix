@@ -1,9 +1,10 @@
 {
   pkgs,
   mainUser,
+  ...
 }:
 {
-  services.zsh.enable = true;
+  programs.zsh.enable = true;
   users.users.${mainUser}.shell = pkgs.zsh;
 
   environment.variables = {
@@ -13,8 +14,18 @@
   };
 
   environment.systemPackages = with pkgs; [
+    git
+    ncdu
+
+    bash
+    zsh
+
+    # vim
     # Resource monitor
     btop
+    htop
+
+    tmux
 
     # Power features
     fzf

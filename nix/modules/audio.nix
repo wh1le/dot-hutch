@@ -1,7 +1,7 @@
-{ pkgs }:
+{ pkgs, ... }:
 
 {
-  pipewire = {
+  services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
@@ -13,8 +13,8 @@
       "default.clock.min-quantum" = 64;
       "default.clock.max-quantum" = 256;
     };
+    wireplumber.enable = true;
   };
-  services.wireplumber.enable = true;
 
   environment.systemPackages = with pkgs; [
     pavucontrol
