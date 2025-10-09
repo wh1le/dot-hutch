@@ -18,5 +18,7 @@
 
   environment.systemPackages = with pkgs; [
     pavucontrol
+    mpd
+    ncmpcpp
   ];
 }

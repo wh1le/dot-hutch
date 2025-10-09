@@ -7,8 +7,10 @@
   environment.variables = {
     XCURSOR_THEME = "Bibata-Modern-Ice";
     HYPRCURSOR_THEME = "Bibata-Modern-Ice";
+
     HYPRCURSOR_SIZE = 40;
     XCURSOR_SIZE = 40;
+
     GDK_SCALE = "1.5";
     GDK_BACKEND = "wayland,x11,*";
     QT_QPA_PLATFORM = "wayland;xcb";
@@ -57,6 +59,7 @@
     swaybg
     swww
     bibata-cursors
+    papirus-icon-theme
 
     waybar
     inotify-tools # livereload on config edit

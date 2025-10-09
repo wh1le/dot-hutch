@@ -10,7 +10,7 @@
   # TODO: Configure pywallfox
   # system.activationScripts.pywalfox = {
   #   text = ''
-  #     runuser -l ${mainUser} -c '${pkgs.pywalfox-native}/bin/pywalfox install || true
+  #     runuser -l ${mainUser} -c '${pkgs.pywalfox-native}/bin/pywalfox update || true
   #   '';
   # };
 

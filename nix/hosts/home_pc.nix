@@ -57,7 +57,7 @@
     ../modules/terminal.nix
     ../modules/users.nix
     ../modules/vpn.nix
-    ../modules/wayland.nix
+    ../modules/hyprland.nix
     # ../../modules/wine.nix
     ../modules/xserver.nix
   ];
@@ -104,5 +104,6 @@
   environment.systemPackages = with pkgs; [
     usbutils
     libinput
+    socat
   ];
 }
