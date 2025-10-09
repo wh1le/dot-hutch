@@ -23,13 +23,17 @@
   font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font",
     "Symbols Nerd Font Mono";
   font-weight: bold;
-  font-size: 16px;
+  /* font-size: 16px; */
   min-height: 0;
 }
 
 window#waybar {
   background: rgba(21, 18, 27, 0);
   color: @ffffff;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
 }
 
 tooltip {
@@ -39,133 +43,66 @@ tooltip {
   border-radius: 5px;
 }
 
-/* Left modules */
-
-#custom-logo,
-#custom-weather,
-#window {
-  opacity: 0.8;
-  background: @waybarBackground;
+.module {
   border-radius: 8px;
-  padding: 0px 10px;
+  opacity: 0.8;
+  background: #1e1e2e;
+  border-radius: 8px;
   margin: 3px 0px;
+  padding: 0px 8px;
+  padding-right: 5px;
 }
 
-#custom-logo {
+.module#custom-logo {
   color: @color4;
-  padding: 0px 15px 0px 10px;
+  padding: 0px 18px 0px 10px;
 }
 
-window#waybar.empty #window {
-  background-color: transparent;
-}
-
-#workspaces {
+.module#workspaces {
   opacity: 0.8;
   background: @waybarBackground;
-  border-radius: 8px;
-  padding: 0px 5px;
   margin: 4px 10px;
 }
 
-#workspaces button {
+.module#workspaces button {
   padding: 0px 3px;
   margin: 6px 2px;
   border-radius: 40px;
   background: @color10;
   opacity: 30;
   transition: all 0.5s cubic-bezier(0.11, 1.09, 0.6, 0.96);
+  border: 1px solid @color10;
 }
-#workspaces button.empty {
+
+.module#workspaces button.empty {
   background-color: @background;
 }
 
-#workspaces button.active {
+.module#workspaces button.active {
   margin: 6px 2px;
   /* padding: 0px 8px; */
   background-color: @color13;
   color: #ffffff;
 }
 
-/* #workspaces button:hover { */
-/*   background-color: #89bfda; */
-/* } */
-
-/* Right modules These modules are children of group/system */
-#battery,
-#cpu,
-#disk,
-#memory,
-#temperature,
-#battery,
-#backlight,
-
-/* group/system */
-#system {
-  opacity: 0.8;
-  background: #1e1e2e;
-  border-radius: 8px;
-  margin: 3px 0px;
-  padding: 0px 8px;
+.module#workspaces button:hover {
+  background-color: @color13;
+  border: 1px solid white;
+  color: white;
 }
 
-#pulseaudio,
-#pulseaudio#microphone,
-#tray,
-#audio {
-  opacity: 0.8;
-  background: #1e1e2e;
-  border-radius: 8px;
-  margin: 3px 0px;
-  padding: 0px 8px;
+.module#submap {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 0px;
+  margin: 0px;
+  border: 2px solid #ff6b6b;
 }
 
-#disk {
-  color: #cba6f7;
-}
-
-#memory {
-  color: #89b4fa;
-}
-
-#cpu {
-  color: #a6e4a1;
-}
-
-#temperature {
-  color: #cba6f7;
-}
-
-#backlight {
-  color: #89b4fa;
-}
-
-#battery {
-  color: #a6e4a1;
-}
-
-#pulseaudio {
-  color: #89b4fa;
-}
-
-#pulseaudio.microphone {
-  color: #cba6f7;
-}
-
-#clock {
+.module#clock {
   opacity: 0.8;
   background: #1e1e2e;
   border-radius: 8px;
   padding: 0px 10px;
-  margin: 3px 0px;
-}
-
-#custom-lock_screen,
-#custom-power_btn,
-#power {
-  opacity: 0.8;
-  background: #1e1e2e;
-  border-radius: 8px;
-  padding: 0px 7px;
   margin: 3px 0px;
 }

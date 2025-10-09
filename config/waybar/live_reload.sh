@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+pkill waybar
 waybar & disown
 
 inotifywait -mr -e close_write,move,create,delete ~/.config/waybar/* \
