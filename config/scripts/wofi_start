@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-wofi -show drun -modi drun,filebrowser,run,window
+pkill wofi || wofi --show drun

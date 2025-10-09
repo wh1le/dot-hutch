@@ -2,7 +2,6 @@ export HISTSIZE=100000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 
-setopt AUTO_CD                 # [default] .. is shortcut for cd .. (etc)
 setopt AUTO_PARAM_SLASH        # tab completing directory appends a slash
 setopt AUTO_PUSHD              # [default] cd automatically pushes old dir onto dir stack
 setopt AUTO_RESUME             # allow simple commands to resume backgrounded jobs
@@ -26,8 +25,10 @@ setopt SHARE_HISTORY           # share history across shells
 
 source <(fzf --zsh)
 
-source $HOME/.config/zsh/aliases
-source $HOME/.config/zsh/bindings
+bindkey -e
+
+source $HOME/.config/zsh/aliases.zsh
+source $HOME/.config/zsh/bindings.zsh
 source $HOME/.cache/wal/colors.sh
 
 # Remapping

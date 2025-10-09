@@ -6,6 +6,14 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], {
 	desc = "Yank to system clipboard",
 })
 
+-- TODO: marks not working by default, investigate why and remove hotkey definition
+-- Set 'm' to set a mark in normal mode
+vim.keymap.set("n", "m", "m", { desc = "Set mark" })
+-- Jump to mark with "'"
+vim.keymap.set("n", "'", "'", { desc = "Jump to mark line" })
+-- Jump to mark with "`"
+vim.keymap.set("n", "`", "`", { desc = "Jump to mark position" })
+
 -- Navigation and movement
 vim.keymap.set("", "j", "gj")
 vim.keymap.set("", "k", "gk")

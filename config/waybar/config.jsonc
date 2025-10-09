@@ -1,25 +1,24 @@
 [
   {
     "height": 38,
-    "spacing": 10,
+    "spacing": 12,
     "layer": "top",
     "position": "top",
     "margin": "9px 18px 0 18px",
     "modules-left": [
       "custom/logo",
-      // "hyprland/window",
+      "hyprland/workspaces#app_tray",
       "hyprland/submap",
     ],
     "modules-center": [
-      "hyprland/workspaces",
+      "hyprland/workspaces#main",
     ],
     "modules-right": [
-      "wlr/taskbar",
-      "group/audio",
       "tray",
+      "group/audio",
       "clock",
       "hyprland/language",
-      "group/power"
+      "custom/lock_screen"
     ],
 
     // "wlr/taskbar": {
@@ -43,21 +42,49 @@
 
     "hyprland/submap": {
       "tooltip": false,
-      "on-click": "hyprctl dispatch submap reset",
+      "on-click": "hyprctl dispatch submap reset"
     },
 
     //
     // center
     //
 
-    "hyprland/workspaces": {
+    "hyprland/workspaces#main": {
+      "disable-scroll": false,
+      "on-scroll-up": "hyprctl dispatch workspace -1",
+      "on-scroll-down": "hyprctl dispatch workspace +1",
       "active-only": false,
       "all-outputs": false,
-      "disable-scroll": false,
-      "format-icons": { },
+      "format": "{icon}",
       "persistent-workspaces": {
-        "HDMI-A-1": [1, 2, 3, 4]
+        "HDMI-A-1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      "current": "",
+      "default": "󰧞",
+      "format-icons": {
+        "active": "",
+        "default": "󰧞",
+        "urgent": "",
+        "1": "1",
+        "2": "2",
+        "8": "8",
+        "9": "9",
+        "10": "0"
       }
+    },
+
+    // displays active apps for given workspace
+    "hyprland/workspaces#app_tray": {
+      "all-outputs": true,
+      "active-only": true,
+      "format": "{windows}",
+      "workspace-taskbar": {
+        "icon-size": 20,
+        "enable": true,
+        "format": "{icon}",
+        "format-window-separator": "n",
+        "icon-theme": ["hicolor","Papirus","Adwaita"],
+      },
     },
 
     //
@@ -72,14 +99,27 @@
       ]
     },
 
-    "wlr/taskbar": {
-      "format": "{icon}",
-      "all-outputs": false,
-      "active-first": true,
-      "tooltip-format": "{name}",
-      "on-click": "activate",
-      "on-click-middle": "close"
-    },
+    // "wlr/taskbar": {
+    //   "format": "{icon}",
+    //   "all-outputs": false,
+    //   // "active-first": true,
+    //   "tooltip-format": "{name}",
+    //   "on-click": "activate",
+    //   "on-click-middle": "close",
+    // },
+    // "wlr/taskbar": {
+    //   "format": "{icon}",
+    //   "icon-size": 14,
+    //   "icon-theme": "Numix-Circle",
+    //   "tooltip-format": "{title}",
+    //   "on-click": "activate",
+    //   "ignore-list": [
+    //     "Alacritty"
+    //   ],
+    //   "app_ids-mapping": {
+    //     "firefoxdeveloperedition": "firefox-developer-edition"
+    //   }
+    // },
 
     "tray": {
       "icon-size": 20,
@@ -117,8 +157,9 @@
     },
 
     "custom/lock_screen": {
-      "format": "",
-      "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
+      "format-icons": "",
+      "format": "<span font='16'>{icon}</span>",
+      // "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
       "tooltip": false
     },
 
@@ -157,19 +198,19 @@
 
     "disk": {
       "interval": 60,
-      "format": "<span font='13' rise='-1000'></span> {percentage_used}%",
+      "format": " {percentage_used}%",
       "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
     },
 
     "memory": {
-      "format": "<span font='13' rise='-1000'>󰍛</span> {used} GiB",
-      "format-alt": "<span font='13' rise='-1000'>󰍛</span> {percentage}%",
+      "format": "󰍛 {used} GiB",
+      "format-alt": "󰍛 {percentage}%",
       "interval": 5,
       "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
     },
 
     "cpu": {
-      "format": "<span font='13' rise='-1000'>󰻠</span> {usage}%",
+      "format": "󰻠 {usage}%",
       "format-alt": "󰻠 {avg_frequency} GHz",
       "interval": 1,
       "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"

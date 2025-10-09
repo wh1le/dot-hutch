@@ -8,26 +8,25 @@ FILE="$DIR/$(date +%Y-%m-%d_%H-%M-%S).png"
 mode="${1:-full}"
 saved="${2:-false}"
 
+# wl-copy --type image/png < image.png
 case "$mode" in
-  full)   scrot "$FILE" ;;
-  window) scrot -u "$FILE" ;;
-  select) scrot -s "$FILE" ;;
+  full)
+    # grimblast --notify copysave screen
+    grimblast --notify save screen "$FILE";
+  ;;
+  window)
+    # grimblast --notify copysave active
+    grimblast --notify save active "$FILE";
+  ;;
+  select)
+    grimblast --notify save area "$FILE";
+    # grimblast --notify copysave area
+  ;;
   *) echo "usage: $0 {full|window|select}" >&2; exit 2 ;;
 esac
 
-wl-copy "$FILE"
-notify-send -a scrot "Screenshot saved" "$FILE" -i "$FILE"
+# hyprctl dispatch submap reset
 
-
-# Section screenshoot
-# grim -g "$(slurp)" - | wl-copy
-
-# Active window
-# grim -g "$(hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" - | wl-copy
-
-# Entire screen
-# #!/bin/bash
-# grim - | wl-copy
-
-# grim -g "$(slurp)" "$SCREENSHOT_DIR/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png"
-# grim -g "$(hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" "$SCREENSHOT_DIR/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png"
+if [[ $saved == false ]]; then
+  wl-copy < "$FILE"
+fi

@@ -1,5 +1,4 @@
 @import url("/home/wh1le/.cache/wal/colors-waybar.css");
-@import url("/home/wh1le/.cache/wal/colors-constants.css");
 
 /* base00: Main Background (The darkest color) */
 /* base01: Lighter Background (e.g., for status bars, line highlights) */
@@ -18,91 +17,97 @@
 /* base0E (Magenta): Used for keywords, operators, built-in constants (like true, false). */
 /* base0F (Brown/Maroon): A "catch-all" accent, often for variables or constants. Its usage is the least standardized. */
 
+@define-color moduleBackground #1e1e2e;
+@define-color moduleBackgroundLighter #2a2a3a;
+@define-color inactive dimgray;
+
 * {
   border: none;
   font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font",
     "Symbols Nerd Font Mono";
   font-weight: bold;
-  /* font-size: 16px; */
+  font-size: 16px;
   min-height: 0;
 }
 
 window#waybar {
   background: rgba(21, 18, 27, 0);
-  color: @ffffff;
-}
-
-window#waybar.empty #window {
-  background-color: transparent;
+  color: @foreground;
 }
 
 tooltip {
   opacity: 0.8;
-  background-color: @waybarBackground;
-  color: #ffffff;
+  background-color: @moduleBackground;
   border-radius: 5px;
 }
 
 .module {
   border-radius: 8px;
   opacity: 0.8;
-  background: #1e1e2e;
+  background: @moduleBackground;
   border-radius: 8px;
-  margin: 3px 0px;
-  padding: 0px 8px;
-  padding-right: 5px;
+  padding: 0px 10px 0px 10px;
+}
+
+/* ICONS offset correction */
+.module#custom-logo,
+.module#language,
+.module#custom-lock_screen {
+  padding: 0px 18px 0px 10px;
 }
 
 .module#custom-logo {
   color: @color4;
-  padding: 0px 18px 0px 10px;
-}
-
-.module#workspaces {
-  opacity: 0.8;
-  background: @waybarBackground;
-  margin: 4px 10px;
-}
-
-.module#workspaces button {
-  padding: 0px 3px;
-  margin: 6px 2px;
-  border-radius: 40px;
-  background: @color10;
-  opacity: 30;
-  transition: all 0.5s cubic-bezier(0.11, 1.09, 0.6, 0.96);
-  border: 1px solid @color10;
-}
-
-.module#workspaces button.empty {
-  background-color: @background;
-}
-
-.module#workspaces button.active {
-  margin: 6px 2px;
-  /* padding: 0px 8px; */
-  background-color: @color13;
-  color: #ffffff;
-}
-
-.module#workspaces button:hover {
-  background-color: @color13;
-  border: 1px solid white;
-  color: white;
 }
 
 .module#submap {
-  background-color: #ff6b6b;
+  background-color: gray;
+  color: yellow;
+  border: 2px solid yellow;
+}
+
+.module#workspaces.main {
+  opacity: 0.8;
+  /* background: transparent; */
+  /* margin: 2px 0 2px 5px; */
+  /* padding: 0px 5px 0px 5px; */
+  border-radius: 16px;
+}
+
+.module#workspaces.main button {
+  color: @color9;
+  border-radius: 40px;
+}
+
+.module#workspaces.main button.empty {
+  color: @inactive;
+}
+
+.module#workspaces.main button.active {
+  color: @color5;
+}
+
+.module#workspaces.main button:hover {
+  background: transparent;
+  background-color: transparent;
+  color: inherit;
+  box-shadow: none;
+  transition: none;
   color: white;
-  padding: 0px;
-  margin: 0px;
-  border: 2px solid #ff6b6b;
+}
+
+.module#workspaces.app_tray {
+  background: transparent;
+  background-color: transparent;
+  color: inherit;
+  box-shadow: none;
+  transition: none;
 }
 
 .module#clock {
   opacity: 0.8;
   background: #1e1e2e;
   border-radius: 8px;
-  padding: 0px 10px;
-  margin: 3px 0px;
+  /* padding: 0px 10px; */
+  /* margin: 3px 0px; */
 }

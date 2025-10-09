@@ -1,22 +1,21 @@
 # Props to https://github.com/BreadOnPenguins
 
 export EDITOR="nvim"
-export TERM="wezterm"
-export TERMINAL="wezterm"
-# export MUSPLAYER="termusic"
+export TERM="kitty"
+export TERMINAL="kitty"
 export BROWSER="firefox"
 
-export XCURSOR_SIZE="50"
-export HYPRCURSOR_SIZE="50"
-export ELECTRON_OZONE_PLATFORM_HINT="wayland"
-export NIXOS_OZONE_WL=1
-export GDK_BACKEND="wayland"
-export QT_QPA_PLATFORM="wayland"
-export GDK_SCALE=2
-export GDK_DPI_SCALE=1.0
-export QT_SCALE_FACTOR=2
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-export OBSIDIAN_USE_WAYLAND=1
+# export XCURSOR_SIZE="50"
+# export HYPRCURSOR_SIZE="50"
+# export ELECTRON_OZONE_PLATFORM_HINT="wayland"
+# export NIXOS_OZONE_WL=1
+# export GDK_BACKEND="wayland"
+# export QT_QPA_PLATFORM="wayland"
+# export GDK_SCALE=2
+# export GDK_DPI_SCALE=1.0
+# export QT_SCALE_FACTOR=2
+# export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+# export OBSIDIAN_USE_WAYLAND=1
 
 export USER_SCRIPTS_PATH="$HOME/.config/scripts"
 
