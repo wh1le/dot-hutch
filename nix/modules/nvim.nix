@@ -13,13 +13,6 @@
     lua54Packages.luarocks
     tree-sitter
 
-    # Neovim python package
-    (python3.withPackages (ps: [
-      # NeoVim
-      ps.pynvim
-      ps.debugpy
-    ]))
-
     # LSP Servers
     lua-language-server
     bash-language-server

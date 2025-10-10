@@ -13,10 +13,13 @@
 
     GDK_SCALE = "1.5";
     GDK_BACKEND = "wayland,x11,*";
-    QT_QPA_PLATFORM = "wayland;xcb";
+
+    QT_QPA_PLATFORM = "wayland";
     QT_AUTO_SCREEN_SCALE_FACTOR = 1;
     QT_SCALE_FACTOR = 2;
     QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
+    QT_ENABLE_HIGHDPI_SCALING = 1;
+
     OBSIDIAN_USE_WAYLAND = 1;
     USER_SCRIPTS_PATH = "$HOME/.config/scripts";
     # NIXOS_OZONE_WL=1;
@@ -32,6 +35,23 @@
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
+
+  xdg.icons.enable = true;
+
+  # Apply as the default GTK icon theme system-wide
+  environment.etc."gtk-3.0/settings.ini".text = ''
+    [Settings]
+    gtk-icon-theme-name=Colloid
+  '';
+  environment.etc."gtk-4.0/settings.ini".text = ''
+    [Settings]
+    gtk-icon-theme-name=Colloid
+  '';
+
+  # Optional: also set for GTK2 apps
+  environment.etc."gtk-2.0/gtkrc".text = ''
+    gtk-icon-theme-name="Colloid"
+  '';
 
   systemd = {
     services = {
@@ -59,7 +79,7 @@
     swaybg
     swww
     bibata-cursors
-    papirus-icon-theme
+    colloid-icon-theme
 
     waybar
     inotify-tools # livereload on config edit

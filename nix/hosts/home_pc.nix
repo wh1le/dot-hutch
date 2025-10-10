@@ -58,6 +58,7 @@
     ../modules/users.nix
     ../modules/vpn.nix
     ../modules/hyprland.nix
+    ../modules/icons.nix
     # ../../modules/wine.nix
     ../modules/xserver.nix
   ];
