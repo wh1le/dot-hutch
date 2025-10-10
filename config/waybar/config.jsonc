@@ -7,29 +7,24 @@
     "margin": "9px 18px 0 18px",
     "modules-left": [
       "custom/logo",
+      "custom/weather",
       "hyprland/workspaces#app_tray",
-      "hyprland/submap",
+      "hyprland/submap"
     ],
     "modules-center": [
-      "hyprland/workspaces#main",
+      "hyprland/workspaces#main"
     ],
     "modules-right": [
       "tray",
       "group/audio",
-      "clock",
+      "custom/mic_used_by_app",
+      "battery",
       "hyprland/language",
+      "custom/date_neuro",
+      "custom/date_month",
+      "custom/date_time",
       "custom/lock_screen"
     ],
-
-    // "wlr/taskbar": {
-    //   "format": "{icon}",
-    //   "current-only": true,
-    //   "all-outputs": true,
-    //   "active-first": true,
-    //   "tooltip-format": "{name}",
-    //   "on-click": "activate",
-    //   "on-click-middle": "close",
-    // },
 
     //
     // left
@@ -77,15 +72,39 @@
     "hyprland/workspaces#app_tray": {
       "all-outputs": true,
       "active-only": true,
+      "active-first": true,
       "format": "{windows}",
       "workspace-taskbar": {
+        "reverse-direction": true,
+        "tooltip": false,
         "icon-size": 20,
         "enable": true,
         "format": "{icon}",
         "format-window-separator": "n",
-        "icon-theme": ["hicolor","Papirus","Adwaita"],
-      },
+        "icon-theme": ["Papirus"]
+      }
     },
+
+    // "wireplumber#mic": {
+    //   "node-type": "Audio/Source",
+    //   "format": "ON AIR",
+    //   "format-muted": "",
+    //   "tooltip": true,
+    //   "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    //   "states": {
+    //     "muted": {
+    //       "show": false
+    //     }
+    //   }
+    // },
+
+    "custom/mic_used_by_app": {
+      "interval": 1,
+      "exec": "~/.config/scripts/is_mic_used",
+      "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+      "tooltip": false
+    },
+
 
     //
     // right
@@ -94,40 +113,14 @@
     "group/audio": {
       "orientation": "horizontal",
       "modules": [
-        "pulseaudio"
-        // "pulseaudio#microphone"
+        "pulseaudio",
       ]
     },
-
-    // "wlr/taskbar": {
-    //   "format": "{icon}",
-    //   "all-outputs": false,
-    //   // "active-first": true,
-    //   "tooltip-format": "{name}",
-    //   "on-click": "activate",
-    //   "on-click-middle": "close",
-    // },
-    // "wlr/taskbar": {
-    //   "format": "{icon}",
-    //   "icon-size": 14,
-    //   "icon-theme": "Numix-Circle",
-    //   "tooltip-format": "{title}",
-    //   "on-click": "activate",
-    //   "ignore-list": [
-    //     "Alacritty"
-    //   ],
-    //   "app_ids-mapping": {
-    //     "firefoxdeveloperedition": "firefox-developer-edition"
-    //   }
-    // },
 
     "tray": {
       "icon-size": 20,
       "spacing": 7,
-      "icons": {
-        "blueman": "bluetooth",
-        "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-      },
+      "icon-theme": ["Papirus"]
     },
 
     "clock": {
@@ -137,12 +130,25 @@
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
+    "custom/date_neuro": {
+      "exec": "~/.config/scripts/date-time neuro",
+      "interval": 60
+    },
+
+    "custom/date_month": {
+      "exec": "~/.config/scripts/date-time month",
+      "interval": 60
+    },
+    "custom/date_time": {
+      "exec": "~/.config/scripts/date-time time",
+      "interval": 60
+    },
+
     "hyprland/language": {
-      "format": "{} ",
       "on-click": "hyprctl switchxkblayout apple-inc.-magic-keyboard next",
-      "format-ru": "RU",
-      "format-en": "EN",
-      "justify": "center",
+      "format-ru": "ru",
+      "format-en": "en",
+      "justify": "center"
     },
 
     "group/power": {
@@ -163,38 +169,25 @@
       "tooltip": false
     },
 
-    // TODO: switch to https://open-meteo.com/en/docs?hourly=temperature_2m,rain,wind_speed_10m,wind_speed_80m,wind_speed_120m,wind_speed_180m,wind_direction_10m,wind_direction_80m,wind_direction_120m,wind_direction_180m,wind_gusts_10m,temperature_80m,temperature_120m,temperature_180m,showers,precipitation_probability,precipitation,apparent_temperature,dew_point_2m,relative_humidity_2m&forecast_days=1
-    // "custom/weather": {
-    //   "tooltip": true,
-    //   "format": "{}",
-    //   "interval": 30,
-    //   "exec": "~/.config/waybar/scripts/waybar-wttr.py",
-    //   "on-click": "kitty weather",
-    //   "return-type": "json"
-    // },
+    "custom/weather": {
+      "exec": "~/.config/scripts/weathers/weather2 waybar",
+      "return-type": "json",
+      "interval": 400,
+      "format": "{text}",
+      "tooltip": true,
+      "markup": "pango",
+      "signal": 5,
+       "on-click": "pkill -RTMIN+5 waybar"
+    },
 
-    // "custom/connect_xm6": {
-    //   "format": "  ",
-    //   "on-click": "~/.config/scripts/connect-xm6"
-    // },
-
-    // "hyprland/language": {
-    //   "format": " {short}",
-    //   "format-us": "US",
-    //   "format-ru": "RU",
-    //   "keyboard-name": "at-translated-set-2-keyboard", // set yours
-    //   "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
-    //   "min-length": 2
-    // },
-
-      "bluetooth": {
-        "format": " {status}",
-        "format-disabled": "",
-        "format-connected": " {num_connections} connected",
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
-      },
+    "bluetooth": {
+      "format": " {status}",
+      "format-disabled": "",
+      "format-connected": " {num_connections} connected",
+      "tooltip-format": "{controller_alias}\t{controller_address}",
+      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    },
 
     "disk": {
       "interval": 60,
@@ -247,8 +240,10 @@
     },
 
     "pulseaudio": {
-      "format": "{icon} {volume}%",
-      "format-muted": "",
+      "format": "{icon} {volume} {format_source}",
+      "format-muted": "  {format_source}",
+      "format-source": " ",
+      "format-source-muted": " ",
       "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
       "on-click-right": "pavucontrol",
       "on-scroll-up": "pamixer -i 5",
@@ -263,27 +258,16 @@
         "car": "",
         "default": ["", "", ""]
       }
-    },
+    }
 
-    "pulseaudio#microphone": {
-      "format": "{format_source}",
-      "format-source": " {volume}%",
-      "format-source-muted": "",
-      "on-click": "pamixer --default-source -t",
-      "on-click-right": "pavucontrol",
-      "on-scroll-up": "pamixer --default-source -i 5",
-      "on-scroll-down": "pamixer --default-source -d 5",
-      "scroll-step": 5
-    },
-
-    "group/system": {
-      "orientation": "horizontal",
-      "drawer": {
-        "transition-duration": 500,
-        "children-class": "hidden",
-        "transition-left-to-right": false
-      },
-      "modules": ["temperature", "disk", "memory", "cpu"]
-    },
+    // "group/system": {
+    //   "orientation": "horizontal",
+    //   "drawer": {
+    //     "transition-duration": 500,
+    //     "children-class": "hidden",
+    //     "transition-left-to-right": false
+    //   },
+    //   "modules": ["temperature", "disk", "memory", "cpu"]
+    // }
   }
 ]

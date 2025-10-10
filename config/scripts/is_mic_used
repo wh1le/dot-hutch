@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if pactl list source-outputs | grep -q "firefox"; then
+  echo "ON AIR"
+fi
+
+if pactl list source-outputs | grep -q "zoom"; then
+  echo "ON AIR"
+fi

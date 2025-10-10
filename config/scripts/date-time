@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+import sys
+from datetime import datetime
+
+option = sys.argv[1]
+
+now = datetime.now()
+
+def quartal():
+    m = now.month
+    return (m - 1) // 3 + 1
+
+def iso_week():
+    return now.isocalendar().week
+
+if option == "neuro":
+    print(f" Q{quartal()} W{iso_week():02d}/52 {now:%m}/12")
+elif option == "month":
+    print(f"{now:%d} {now:%B}")
+elif option == "time":
+    print(f"{now:%H}:{now:%m}")
+else:
+    print(f" Q{quartal()}, W{iso_week():02d}, {now:%m} ({now:%B} - {now:%d}) {now:%H}:{now:%m} ")
