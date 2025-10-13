@@ -6,6 +6,7 @@ require("helpers.tests")
 require("helpers.language_providers")
 require("helpers.lazy")
 require("helpers.quit")
+require("helpers.statusline")
 
 require("config.system_providers")
 require("config.core")
@@ -14,6 +15,11 @@ require("config.bindings")
 require("config.callbacks")
 require("config.copypaste")
 require("config.spell")
+require("config.system_notifications")
+
+require("config.lsp")
+-- require("config.lsp.typescript")
+-- require("config.lsp.json_ls")
 
 NM.lazy.setup()
 

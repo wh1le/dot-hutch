@@ -2,7 +2,7 @@ return {
 	"stevearc/oil.nvim",
 	opts = {
 		default_file_explorer = true,
-		columns = { "icon" },
+		columns = {},
 		use_default_keymaps = false,
 		view_options = { show_hidden = true },
 		keymaps = {

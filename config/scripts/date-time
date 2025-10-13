@@ -41,7 +41,7 @@ class NeuroDivergentTime:
         print(f"{self.get_month_emoji()} {self.date:%B}")
 
     def time_string(self):
-        print(f"{self.date:%H}:{self.date:%m}")
+        print(f"{self.date:%H}:{self.date:%M}")
 
     def regular_string(self):
         print(f" Q{self.quartal()}, W{self.iso_week():02d}, {self.date:%m} ({self.date:%B} - {self.date:%d}) {self.date:%H}:{self.date:%m} ")

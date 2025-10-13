@@ -1,0 +1,8 @@
+require("config.lsp.eslint")
+require("config.lsp.json")
+require("config.lsp.python")
+require("config.lsp.typescript")
+require("config.lsp.yaml")
+require("config.lsp.ruby")
+require("config.lsp.nix")
+require("config.lsp.lua")

@@ -51,10 +51,8 @@ return {
 			desc = "Explain diagnostic under cursor",
 		},
 	},
-	init = function()
-		-- local defaults = {}
-		local lspconfig = require("lspconfig")
 
+	init = function()
 		local function apply_diag_signs()
 			local signs = { Error = "󰢱", Warn = "", Info = "»", Hint = "" }
 
@@ -93,48 +91,63 @@ return {
 			})
 		end
 
+		vim.api.nvim_create_autocmd({ "UIEnter", "LspAttach", "ColorScheme" }, { callback = apply_diag_signs })
+	end,
+
+	config = function()
+		-- local defaults = {}
+		-- local lspconfig = require("lspconfig")
+
 		-- capabilities --
 
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-		capabilities = vim.tbl_deep_extend("force", capabilities, {
-			offsetEncoding = { "utf-16" },
-			general = {
-				positionEncodings = { "utf-16" },
-			},
-		})
-
-		capabilities.textDocument.signatureHelp = {
-			dynamicRegistration = false,
-			signatureInformation = {
-				documentationFormat = { "markdown", "plaintext" },
-				parameterInformation = { labelOffsetSupport = true },
-			},
-		}
+		-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		--
+		-- capabilities = vim.tbl_deep_extend("force", capabilities, {
+		-- 	offsetEncoding = { "utf-16" },
+		-- 	general = {
+		-- 		positionEncodings = { "utf-16" },
+		-- 	},
+		-- })
+		--
+		-- capabilities.textDocument.signatureHelp = {
+		-- 	dynamicRegistration = false,
+		-- 	signatureInformation = {
+		-- 		documentationFormat = { "markdown", "plaintext" },
+		-- 		parameterInformation = { labelOffsetSupport = true },
+		-- 	},
+		-- }
 
 		-- https://github.com/neovim/nvim-lspconfig/tree/master/lua/lspconfig/configs
-		lspconfig.jsonls.setup({ capabilities = capabilities })
-		lspconfig.yamlls.setup({ capabilities = capabilities })
-		lspconfig.ts_ls.setup({ capabilities = capabilities })
-		lspconfig.eslint.setup({ capabilities = capabilities })
-		lspconfig.pyright.setup({ capabilities = capabilities })
-		lspconfig.ruff.setup({ capabilities = capabilities })
-		lspconfig.taplo.setup({ capabilities = capabilities })
-		lspconfig.marksman.setup({ capabilities = capabilities })
-		lspconfig.nil_ls.setup({ capabilities = capabilities })
-		lspconfig.typos_lsp.setup({ capabilities = capabilities })
+		-- lspconfig.jsonls.setup({ capabilities = capabilities })
+		-- lspconfig.yamlls.setup({ capabilities = capabilities })
+		-- lspconfig.ts_ls.setup({ capabilities = capabilities })
+		-- lspconfig.eslint.setup({ capabilities = capabilities })
+		-- lspconfig.pyright.setup({ capabilities = capabilities })
+		-- lspconfig.ruff.setup({ capabilities = capabilities })
+		-- lspconfig.taplo.setup({ capabilities = capabilities })
+		-- lspconfig.marksman.setup({ capabilities = capabilities })
+		-- lspconfig.nil_ls.setup({ capabilities = capabilities })
 		-- lspconfig.ruby_lsp.setup({ capabilities = capabilities, cmd = { "ruby-lsp" } })
-		lspconfig.ruby_lsp.setup({ capabilities = capabilities })
-		lspconfig.rubocop.setup({ capabilities = capabilities })
-		lspconfig.bashls.setup({
-			settings = {
-				["bash-language-server"] = {},
-			},
-			filetypes = {
-				"zsh",
-				"bash",
-			},
-		})
-		lspconfig.yamlls.setup({ capabilities = capabilities })
+		-- lspconfig.ruby_lsp.setup({ capabilities = capabilities })
+		-- lspconfig.rubocop.setup({ capabilities = capabilities })
+		-- lspconfig.bashls.setup({
+		-- 	settings = {
+		-- 		["bash-language-server"] = {},
+		-- 	},
+		-- 	filetypes = {
+		-- 		"zsh",
+		-- 		"sh",
+		-- 		"bash",
+		-- 	},
+		-- })
+		-- lspconfig.yamlls.setup({ capabilities = capabilities })
+
+		-- lspconfig.typos_lsp.setup({ capabilities = capabilities })
+		-- lspconfig.typos_lsp.setup({
+		-- 	capabilities = capabilities,
+		-- 	filetypes = { "*" },
+		-- 	single_file_support = true,
+		-- })
 
 		-- TODO: investigate
 		-- vscode-langservers-extracted
@@ -142,23 +155,22 @@ return {
 		-- typescript
 		-- vscode-langservers-extracted
 
-		lspconfig.lua_ls.setup({
-			capabilities = capabilities,
-			settings = {
-				Lua = {
-					runtime = { version = "LuaJIT" },
-					diagnostics = { globals = { "vim", "require" } },
-					workspace = {
-						checkThirdParty = false,
-						library = vim.api.nvim_get_runtime_file("", true),
-					},
-					telemetry = { enable = false },
-				},
-			},
-		})
+		-- lspconfig.lua_ls.setup({
+		-- 	capabilities = capabilities,
+		-- 	settings = {
+		-- 		Lua = {
+		-- 			runtime = { version = "LuaJIT" },
+		-- 			diagnostics = { globals = { "vim", "require" } },
+		-- 			workspace = {
+		-- 				checkThirdParty = false,
+		-- 				library = vim.api.nvim_get_runtime_file("", true),
+		-- 			},
+		-- 			telemetry = { enable = false },
+		-- 		},
+		-- 	},
+		-- })
 		-- capabilities --
 
-		vim.api.nvim_create_autocmd({ "UIEnter", "LspAttach", "ColorScheme" }, { callback = apply_diag_signs })
 		-- vim.lsp.config("*", defaults)
 		-- delay update diagnostics
 		vim.lsp.handlers["textDocument/publishDiagnostics"] =

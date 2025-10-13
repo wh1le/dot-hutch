@@ -23,7 +23,6 @@ class VimFormatter
     end
 
     def backtrace
-      binding.pry
       input.exception.backtrace[0..10].join(" ")
     end
   end
