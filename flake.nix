@@ -2,7 +2,6 @@
   description = "wh1le NixOS Configuration";
   inputs = {
     sops-nix.url = "github:Mic92/sops-nix";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     # home-manager.url = "github:nix-community/home-manager/release-24.11";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -37,7 +36,7 @@
                 ;
             };
           modules = [
-            ./nix/hosts/home_pc.nix
+            ./hosts/home_pc.nix
             {
               nixpkgs.config.allowUnfree = true;
             }

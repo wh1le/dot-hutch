@@ -16,12 +16,14 @@
     # LSP Servers
     lua-language-server
     bash-language-server
-    vscode-langservers-extracted
+    vscode-langservers-extracted # ships: vscode-html-language-server vscode-css-language-server vscode-json-language-server vscode-eslint-language-server
+
     yaml-language-server
-    ruby-lsp
-    rubocop
+
+    ruby_3_4
+
     typescript-language-server
-    typescript
+    # typescript
     vscode-langservers-extracted
     pyright
     ruff
@@ -35,7 +37,7 @@
     black
     isort
     prettierd
-    eslint_d
+    eslint
     stylua
     shfmt
     shellcheck

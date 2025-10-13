@@ -3,11 +3,8 @@
   ...
 }:
 {
-  services.expressvpn.enable = true;
 
   environment.systemPackages = with pkgs; [
-    expressvpn
-    openvpn
+    transmission_4
   ];
-
 }

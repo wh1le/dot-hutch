@@ -42,7 +42,6 @@
     ../modules/browser.nix
     ../modules/desktop.nix
     ../modules/fonts.nix
-    ../modules/games.nix
     ../modules/images.nix
     ../modules/languages.nix
     ../modules/mime_types.nix
@@ -50,17 +49,16 @@
     ../modules/nvidia.nix
     ../modules/nvim.nix
     ../modules/paperlike.nix
-    ../modules/printers.nix
     ../modules/security.nix
     ../modules/audio.nix
-    ../modules/streaming.nix
     ../modules/terminal.nix
     ../modules/users.nix
     ../modules/vpn.nix
     ../modules/hyprland.nix
     ../modules/icons.nix
-    # ../../modules/wine.nix
     ../modules/xserver.nix
+    ../modules/filesystem.nix
+    ../modules/video.nix
   ];
 
   boot = {
