@@ -15,8 +15,10 @@
     kdePackages.polkit-kde-agent-1 # or: lxqt.lxqt-policykit
     xorg.xhost
 
-    bzip2
     file
+
+    bzip2
     unzip
+    udisks
   ];
 }
