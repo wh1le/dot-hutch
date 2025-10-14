@@ -14,6 +14,47 @@
     config.allowUnfree = true;
   };
 
+  boot = {
+    initrd = {
+      availableKernelModules = [
+        "vmd"
+        "xhci_pci"
+        "ahci"
+        "nvme"
+        "usb_storage"
+        "usbhid"
+        "sd_mod"
+      ];
+      kernelModules = [ ];
+    };
+
+    loader = {
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        # copyKernels = false;
+        useOSProber = false;
+        configurationLimit = 10;
+
+	extraEntries = ''
+		menuentry "Windows Boot Manager" {
+			search --no-floppy --fs-uuid --set=esp 2F34-5D71
+				chainloader ($esp)/EFI/Microsoft/Boot/bootmgfw.efi
+		}
+	'';
+      };
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
+    };
+
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+  };
+
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/44b4a5fa-e13f-4a1c-a7d1-a5499a0803a2";
     fsType = "ext4";
@@ -65,40 +106,6 @@
     ../modules/filesystem.nix
     ../modules/video.nix
   ];
-
-  boot = {
-    initrd = {
-      availableKernelModules = [
-        "vmd"
-        "xhci_pci"
-        "ahci"
-        "nvme"
-        "usb_storage"
-        "usbhid"
-        "sd_mod"
-      ];
-      kernelModules = [ ];
-    };
-
-    loader = {
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-        useOSProber = true;
-        copyKernels = false;
-        configurationLimit = 5;
-      };
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot";
-      };
-    };
-
-    kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
-  };
-
   nix.gc = {
     automatic = true;
     dates = "weekly";
