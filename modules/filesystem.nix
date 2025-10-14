@@ -20,5 +20,6 @@
     bzip2
     unzip
     udisks
+    efibootmgr
   ];
 }

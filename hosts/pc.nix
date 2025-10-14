@@ -28,10 +28,10 @@
     ];
   };
 
-  nix.settings = {
-    max-jobs = "auto";
-    cores = 0;
-  };
+  # nix.settings = {
+  #   max-jobs = "auto";
+  #   cores = 0;
+  # };
 
   swapDevices = [ { device = "/dev/disk/by-uuid/9572a97b-f3aa-408d-aad5-bdcaeb019c91"; } ];
 
