@@ -4,24 +4,45 @@
   ...
 }:
 {
-  boot.kernelModules = lib.mkAfter [ "nzxt-kraken2" ];
+  boot.kernelModules = lib.mkAfter [
+    "nzxt-kraken3"
+  ];
   environment.systemPackages = lib.mkAfter [ pkgs.liquidctl ];
   services.udev.packages = lib.mkAfter [ pkgs.liquidctl ];
 
   systemd.services.liquidctl-kraken = {
-    description = "Configure NZXT Kraken on boot";
-    wantedBy = [ "multi-user.target" ];
-    after = [
-      "network.target"
-      "udev.service"
-    ];
-    serviceConfig.Type = "oneshot";
-    script = ''
-      ${pkgs.liquidctl}/bin/liquidctl initialize all
+    description = "Configure NZXT Kraken";
 
-      liquidctl set fan  speed 25 35 30 45 35 60 40 80 43 90 45 100
-      liquidctl set pump speed 25 70 35 80 40 90 43 100
+    wantedBy = [ "multi-user.target" ];
+
+    after = [ "uved.service" ];
+
+    serviceConfig.Type = "oneshot";
+    serviceConfig.TimeoutStartSec = "5s";
+    path = [
+      pkgs.liquidctl
+      pkgs.coreutils
+    ];
+
+    script = ''
+      set -euo pipefail
+      # optional: wait for USB if needed
+      # /run/current-system/sw/bin/udevadm settle || true
+
+      liquidctl initialize all
+
+      liquidctl --match kraken set lcd screen orientation 90
+
+      # liquidctl --match kraken set fan  speed 25 25 30 35 35 45 40 65 45 85 50 100
+      # liquidctl --match kraken set fan  speed  25 60  30 80  35 95  37 100
+
+      # liquidctl --match kraken set pump speed 25 60 35 70 40 80 45 90 50 100
+      # liquidctl --match kraken set pump speed  25 80  30 90  35 100
+
+      liquidctl --match kraken set fan  speed 25 80  28 90  30 100
+      liquidctl --match kraken set pump speed 25 90  28 100
     '';
     serviceConfig.RemainAfterExit = true;
+    restartIfChanged = true;
   };
 }
