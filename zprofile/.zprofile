@@ -24,6 +24,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+export SCREENSHOT_PATH="$HOME/pictures/screenshots"
+
 # bootstrap .zshrc to ~/.config/zsh/zshrc, any other zsh config files can also reside here
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh/"
 

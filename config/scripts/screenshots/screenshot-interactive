@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# inspired by omarchy
-
-DIR="$HOME/pictures/screenshots"
-FILE="$DIR/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png"
+FILE="$SCREENSHOT_PATH/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png"
 
 if [[ ! -d "$DIR" ]]; then
 	mkidr -p "$DIR"
