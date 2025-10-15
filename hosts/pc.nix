@@ -25,7 +25,6 @@
         "usbhid"
         "sd_mod"
       ];
-      kernelModules = [ ];
     };
 
     loader = {
@@ -37,12 +36,12 @@
         useOSProber = false;
         configurationLimit = 10;
 
-	extraEntries = ''
-		menuentry "Windows Boot Manager" {
-			search --no-floppy --fs-uuid --set=esp 2F34-5D71
-				chainloader ($esp)/EFI/Microsoft/Boot/bootmgfw.efi
-		}
-	'';
+        extraEntries = ''
+          		menuentry "Windows Boot Manager" {
+          			search --no-floppy --fs-uuid --set=esp 2F34-5D71
+          				chainloader ($esp)/EFI/Microsoft/Boot/bootmgfw.efi
+          		}
+          	'';
       };
       efi = {
         canTouchEfiVariables = true;
@@ -53,7 +52,6 @@
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
   };
-
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/44b4a5fa-e13f-4a1c-a7d1-a5499a0803a2";
@@ -84,13 +82,14 @@
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    ../modules/nzxt_kraken.nix
     ../modules/bluetooth.nix
     ../modules/browser.nix
     ../modules/desktop.nix
     ../modules/fonts.nix
     ../modules/images.nix
     ../modules/languages.nix
-    ../modules/mime_types.nix
+    # ../modules/mime_types.nix
     ../modules/network.nix
     ../modules/nvidia.nix
     ../modules/nvim.nix
@@ -116,5 +115,13 @@
     usbutils
     libinput
     socat
+
+    # TODO: move
+    expressvpn
+    veracrypt
+    mpv
+
+    grimblast
+    imgcat
   ];
 }

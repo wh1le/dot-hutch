@@ -1,5 +1,7 @@
 {
   pkgs,
+  unstable,
+  lib,
   ...
 }:
 
@@ -29,14 +31,19 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    package = unstable.hyprland;
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-  };
+  xdg = {
+    icons.enable = true;
 
-  xdg.icons.enable = true;
+    portal = {
+      enable = true;
+      # extraPortals = [ unstable.xdg-desktop-portal-hyprland ];
+      extraPortals = lib.mkForce [ unstable.xdg-desktop-portal-hyprland ];
+      configPackages = [ unstable.hyprland ];
+    };
+  };
 
   # Apply as the default GTK icon theme system-wide
   environment.etc."gtk-3.0/settings.ini".text = ''
@@ -89,12 +96,10 @@
 
     pcmanfm
 
-    # nautilus
-    nautilus
-    sushi
-
     # image preview
     nsxiv
+
+    grimblast
 
     # Screen capture
     hyprshot

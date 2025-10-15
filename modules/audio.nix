@@ -21,5 +21,7 @@
     mpd
     ncmpcpp
     pulseaudio
+
+    blanket
   ];
 }

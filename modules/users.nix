@@ -12,6 +12,7 @@
       "video"
       "input"
       "tss"
+      "plugdev"
     ];
   };
 }
