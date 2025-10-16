@@ -15,45 +15,6 @@
     config.allowUnfree = true;
   };
 
-  boot = {
-    initrd = {
-      availableKernelModules = [
-        "vmd"
-        "xhci_pci"
-        "ahci"
-        "nvme"
-        "usb_storage"
-        "usbhid"
-        "sd_mod"
-      ];
-    };
-
-    loader = {
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-        # copyKernels = false;
-        useOSProber = false;
-        configurationLimit = 10;
-
-        extraEntries = ''
-          		menuentry "Windows Boot Manager" {
-          			search --no-floppy --fs-uuid --set=esp 2F34-5D71
-          				chainloader ($esp)/EFI/Microsoft/Boot/bootmgfw.efi
-          		}
-          	'';
-      };
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot";
-      };
-    };
-
-    kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
-  };
-
   networking.hostName = "${hostname}";
 
   fileSystems."/" = {
@@ -69,6 +30,13 @@
       "dmask=0022"
     ];
   };
+
+  boot.loader.grub.extraEntries = ''
+    menuentry "Windows Boot Manager" {
+      search --no-floppy --fs-uuid --set=esp FE6B-635E
+        chainloader ($esp)/EFI/Microsoft/Boot/bootmgfw.efi
+    }
+  '';
 
   nix.settings = {
     max-jobs = "auto";
@@ -108,6 +76,7 @@
     ../modules/filesystem.nix
     ../modules/video.nix
     ../modules/game.nix
+    ../modules/boot.nix
   ];
   nix.gc = {
     automatic = true;
