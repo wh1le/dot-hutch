@@ -16,6 +16,7 @@
     ],
     "modules-right": [
       "tray",
+      "temperature",
       "group/audio",
       "custom/mic_used_by_app",
       "battery",
@@ -213,7 +214,7 @@
       "thermal-zone": 1,
       "format": " {temperatureC}°C",
       "critical-threshold": 70,
-      "format-critical": " {temperatureF}°F",
+      "format-critical": " {temperatureC}°C",
       "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
     },
 
