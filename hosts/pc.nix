@@ -3,6 +3,7 @@
   lib,
   pkgs,
   modulesPath,
+  hostname,
   ...
 }:
 
@@ -53,13 +54,15 @@
     extraModulePackages = [ ];
   };
 
+  networking.hostName = "${hostname}";
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/44b4a5fa-e13f-4a1c-a7d1-a5499a0803a2";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/2F34-5D71";
+    device = "/dev/disk/by-uuid/FE6B-635E";
     fsType = "vfat";
     options = [
       "fmask=0022"
@@ -67,10 +70,10 @@
     ];
   };
 
-  # nix.settings = {
-  #   max-jobs = "auto";
-  #   cores = 0;
-  # };
+  nix.settings = {
+    max-jobs = "auto";
+    cores = 8;
+  };
 
   swapDevices = [ { device = "/dev/disk/by-uuid/9572a97b-f3aa-408d-aad5-bdcaeb019c91"; } ];
 
@@ -104,12 +107,15 @@
     ../modules/xserver.nix
     ../modules/filesystem.nix
     ../modules/video.nix
+    ../modules/game.nix
   ];
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   environment.systemPackages = with pkgs; [
     usbutils
@@ -123,5 +129,7 @@
 
     grimblast
     imgcat
+    desktop-file-utils
+    lm_sensors
   ];
 }

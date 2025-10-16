@@ -39,8 +39,8 @@
       # liquidctl --match kraken set pump speed 25 60 35 70 40 80 45 90 50 100
       # liquidctl --match kraken set pump speed  25 80  30 90  35 100
 
-      liquidctl --match kraken set fan  speed 25 80  28 90  30 100
-      liquidctl --match kraken set pump speed 25 90  28 100
+      liquidctl --match kraken set fan  speed 27 30 28 70  29 90  30 100
+      liquidctl --match kraken set pump speed 27 30 28 90  29 100
     '';
     serviceConfig.RemainAfterExit = true;
     restartIfChanged = true;
