@@ -15,7 +15,6 @@
     vlc
     thunderbird
     obsidian
-    pkgs.kdePackages.dolphin
     zoom-us
   ];
 }

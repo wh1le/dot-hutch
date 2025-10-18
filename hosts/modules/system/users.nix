@@ -1,9 +1,9 @@
-{ mainUser, ... }:
-{
-  time.timeZone = "Europe/Lisbon";
-  i18n.defaultLocale = "en_US.UTF-8";
+{ settings, ... }:
 
-  users.users.${mainUser} = {
+{
+  time.timeZone = settings.timezone;
+
+  users.users.${settings.mainUser} = {
     isNormalUser = true;
     extraGroups = [
       "networkmanager"

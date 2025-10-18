@@ -1,7 +1,8 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    imagemagick
-    gimp
+    usbutils
+    libinput
+    # socat
   ];
 }

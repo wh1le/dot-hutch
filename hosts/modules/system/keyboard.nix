@@ -1,4 +1,5 @@
 {
+  pkgs,
   ...
 }:
 {
@@ -10,4 +11,9 @@
       };
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    klavaro
+    gtypist
+  ];
 }

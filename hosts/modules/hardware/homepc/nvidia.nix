@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware = {
@@ -8,4 +8,13 @@
       modesetting.enable = true;
     };
   };
+
+  environment.variables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+    NVD_BACKEND = "direct";
+  };
+
+  environment.systemPackages = with pkgs; [
+    nvidia-vaapi-driver
+  ];
 }

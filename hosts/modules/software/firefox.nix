@@ -10,7 +10,7 @@
   # TODO: Configure pywallfox
   # system.activationScripts.pywalfox = {
   #   text = ''
-  #     runuser -l ${mainUser} -c '${pkgs.pywalfox-native}/bin/pywalfox update || true
+  #     runuser -l ${settings.mainUser} -c '${pkgs.pywalfox-native}/bin/pywalfox update || true
   #   '';
   # };
 
@@ -18,8 +18,7 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    ungoogled-chromium
-
+    # ungoogled-chromium
     # nativefier
   ];
 }

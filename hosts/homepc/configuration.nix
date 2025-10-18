@@ -1,0 +1,54 @@
+{
+  settings,
+  modulesPath,
+  ...
+}:
+
+{
+  system.stateVersion = "25.05";
+  nixpkgs.config.allowUnfree = true;
+
+  networking.hostName = settings.hostname;
+
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./hardware-configuration.nix
+
+    ../modules/hardware/homepc/nvidia.nix
+    ../modules/hardware/homepc/nzxt_kraken.nix
+    ../modules/hardware/homepc/boot.nix
+
+    ../modules/hardware/audio.nix
+    ../modules/hardware/paperlike.nix
+    ../modules/hardware/bluetooth.nix
+    ../modules/hardware/usb.nix
+
+    ../modules/nix/settings.nix
+    ../modules/nix/auto-upgrade.nix
+
+    ../modules/security/anti_virus.nix
+    ../modules/security/firewall.nix
+    ../modules/security/geo.nix
+    ../modules/security/network.nix
+    ../modules/security/security.nix
+    ../modules/security/vpn.nix
+    ../modules/security/sops.nix
+
+    ../modules/software/desktop.nix
+    ../modules/software/firefox.nix
+    ../modules/software/llm.nix
+    ../modules/software/nvim.nix
+
+    ../modules/system/filesystem.nix
+    ../modules/system/keyboard.nix
+    ../modules/system/languages.nix
+    ../modules/system/locales.nix
+    ../modules/system/terminal.nix
+    ../modules/system/users.nix
+    ../modules/system/fonts.nix
+
+    ../modules/desktop/hyprland/hyprland_packages.nix
+    ../modules/desktop/hyprland/kde_packages.nix
+    ../modules/desktop/icons.nix
+  ];
+}

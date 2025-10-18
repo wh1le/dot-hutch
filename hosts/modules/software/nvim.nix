@@ -3,6 +3,10 @@
   ...
 }:
 
+# TODO:
+# kulala.nvim
+# https://github.com/kawre/leetcode.nvim
+
 {
   environment.systemPackages = with pkgs; [
     # Main dependencies
@@ -31,6 +35,15 @@
     marksman
     nil
     typos-lsp
+
+    # Neovim python package
+    (python3.withPackages (ps: [
+      # NeoVim
+      ps.pynvim
+      ps.debugpy
+
+      ps.requests
+    ]))
 
     # Formatters
     codespell

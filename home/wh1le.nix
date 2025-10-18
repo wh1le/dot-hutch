@@ -1,21 +1,14 @@
-{
-  ...
-}:
-let
-  mainUser = "wh1le";
-in
+{ settings, ... }:
 {
   home = {
-    username = "${mainUser}";
-    homeDirectory = "/home/${mainUser}";
+    username = "${settings.mainUser}";
+    homeDirectory = "/home/${settings.mainUser}";
     stateVersion = "25.05";
   };
 
-  programs.git = {
-    enable = true;
-    userName = "Nikita";
-    userEmail = "nmiloserdov09@gmail.com";
-  };
-
-  # packages = with pkgs; [ ];
+  imports = [
+    ./modules/git.nix
+    # ./modules/setup_dot_files.nix
+    ./modules/mime_types.nix
+  ];
 }

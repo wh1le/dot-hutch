@@ -1,11 +1,12 @@
 {
   pkgs,
-  mainUser,
+  settings,
   ...
 }:
 {
   programs.zsh.enable = true;
-  users.users.${mainUser}.shell = pkgs.zsh;
+
+  users.users.${settings.mainUser}.shell = pkgs.zsh;
 
   environment.variables = {
     EDITOR = "nvim";
@@ -20,8 +21,6 @@
     bash
     zsh
 
-    # vim
-    # Resource monitor
     btop
     htop
 
@@ -35,39 +34,26 @@
     direnv
     nix-direnv
 
-    # bookmarks
-    buku
+    buku # bookmarks
 
-    # http
-    xh
+    xh # http
 
-    # summary
     tldr
 
-    # highlight
     bat
 
     # nix documentation searcher
     manix
     nix-search-tv
 
-    # Json parser
-    jq
+    jq # Json parser
+    # http # api
 
-    # Silver searcher
     silver-searcher
 
-    # TODO: Mail client
-    mutt
+    mutt # TODO: Mail client
+    dooit # TODO: todos
 
-    # TODO: todos
-    dooit
-
-    # http # api
-    # kulala.nvim
-    # https://github.com/kawre/leetcode.nvim
-    # posting
-    # lazygit
-    # -- terminal --- #
+    lazygit
   ];
 }
