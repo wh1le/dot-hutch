@@ -6,6 +6,8 @@
     stateVersion = "25.05";
   };
 
+  home.sessionVariables.QT_QPA_PLATFORMTHEME = "qt6ct";
+
   imports = [
     ./modules/git.nix
     # ./modules/setup_dot_files.nix

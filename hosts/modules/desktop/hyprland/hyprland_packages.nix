@@ -20,7 +20,6 @@
     QT_SCALE_FACTOR = 2;
 
     QT_QPA_PLATFORM = "wayland";
-    QT_QPA_PLATFORMTHEME = "qt6ct";
 
     QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
     QT_ENABLE_HIGHDPI_SCALING = 1;
@@ -28,10 +27,14 @@
     OBSIDIAN_USE_WAYLAND = 1;
     USER_SCRIPTS_PATH = "$HOME/.config/scripts";
     NIXOS_OZONE_WL = 1;
+
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_DESKTOP = "Hyprland";
   };
+
+  environment.variables.QT_QPA_PLATFORMTHEME = "qt6ct";
 
   programs.hyprland.enable = true;
   programs.hyprland.package = unstable.hyprland;
@@ -75,15 +78,11 @@
     waybar
     inotify-tools # livereload on config edit
 
-    dunst
     libnotify
-
     # pcmanfm
 
-    # image preview
-    nsxiv
-
-    grimblast
+    nsxiv # image preview
+    grimblast # screenshot
 
     # Screen capture
     hyprshot
@@ -101,7 +100,5 @@
     imgcat
     lm_sensors
     desktop-file-utils
-
-    qt6ct # kde stack scaling
   ];
 }

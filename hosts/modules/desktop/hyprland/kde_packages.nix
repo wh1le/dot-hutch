@@ -35,5 +35,6 @@
     xdg-utils # xdg-open, xdg-email, required by KDE for file associations
     wlogout # graphical logout menu (optional)
     gifsicle # GIF optimization
+    qt6ct # kde stack scaling
   ];
 }
