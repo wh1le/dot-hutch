@@ -14,13 +14,14 @@
     kdePackages.kdegraphics-thumbnailers
     kdePackages.polkit-kde-agent-1
     kdePackages.qt6ct
+    kdePackages.kwallet # passwords
 
     qt6.qtwayland
     qt5.qtwayland
 
     shared-mime-info
     desktop-file-utils
-    kwallet # passwords
+
     at-spi2-atk # accessibility bridge, safe and used by Qt/GTK apps
     playerctl # media key control; works with KDE media players
     psmisc # provides 'killall', 'pstree', general utilities

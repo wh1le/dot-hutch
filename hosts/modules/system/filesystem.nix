@@ -21,6 +21,5 @@
     unzip
     udisks
     efibootmgr
-    udisksctl
   ];
 }
