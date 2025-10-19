@@ -38,6 +38,7 @@
     ../modules/software/firefox.nix
     ../modules/software/llm.nix
     ../modules/software/nvim.nix
+    ../modules/software/kde_connect.nix
 
     ../modules/system/filesystem.nix
     ../modules/system/keyboard.nix

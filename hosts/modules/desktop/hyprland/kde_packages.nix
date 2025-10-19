@@ -1,8 +1,6 @@
 { pkgs, ... }:
 {
-  # programs.plasma.enable = true;
   services.fwupd.enable = true;
-  services.kdeconnect.enable = true;
 
   environment.systemPackages = with pkgs; [
     kdePackages.dolphin
@@ -15,7 +13,6 @@
     kdePackages.ffmpegthumbs
     kdePackages.kdegraphics-thumbnailers
     kdePackages.polkit-kde-agent-1
-    kdePackages.kdeconnect
     kdePackages.qt6ct
 
     qt6.qtwayland
