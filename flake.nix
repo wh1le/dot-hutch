@@ -6,7 +6,8 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
-      dotfiles,
+      # dotfiles,
+      sops-nix,
       ...
     }@inputs:
     let
@@ -19,13 +20,13 @@
       };
     in
     {
-
       nixConfig = {
         extra-experimental-features = [
           "nix-command"
           "flakes"
         ];
       };
+
       environment.variables.NIX_CONFIG_TYPE = "nix_public";
 
       nixosConfigurations = {
@@ -71,6 +72,7 @@
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    dotfiles.url = "github:wh1le/dot-files";
+    # dotfiles.url = "path:/home/wh1le/dot/files";
+    # dotfiles.flake = false;
   };
 }
