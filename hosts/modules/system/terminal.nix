@@ -55,5 +55,7 @@
     dooit # TODO: todos
 
     lazygit
+
+    psmisc # provides 'killall', 'pstree', general utilities
   ];
 }

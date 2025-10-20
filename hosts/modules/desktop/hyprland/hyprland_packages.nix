@@ -6,45 +6,33 @@
 }:
 
 {
-  environment.variables = {
-    XCURSOR_THEME = "Bibata-Modern-Ice";
-    HYPRCURSOR_THEME = "Bibata-Modern-Ice";
+  # Cusror theme
+  environment.variables.XCURSOR_THEME = "Bibata-Modern-Ice";
+  environment.variables.HYPRCURSOR_THEME = "Bibata-Modern-Ice";
 
-    HYPRCURSOR_SIZE = 40;
-    XCURSOR_SIZE = 40;
-
-    GDK_SCALE = "1.5";
-    GDK_BACKEND = "wayland,x11,*";
-
-    # QT_AUTO_SCREEN_SCALE_FACTOR = 1; # you can only pick one QT_AUTO_SCREEN_SCALE_FACTOR or QT_SCALE_FACTOR
-    QT_SCALE_FACTOR = 2;
-
-    QT_QPA_PLATFORM = "wayland";
-
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
-    QT_ENABLE_HIGHDPI_SCALING = 1;
-
-    OBSIDIAN_USE_WAYLAND = 1;
-    USER_SCRIPTS_PATH = "$HOME/.config/scripts";
-    NIXOS_OZONE_WL = 1;
-
-    ELECTRON_OZONE_PLATFORM_HINT = "wayland";
-
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-  };
-
-  environment.variables.QT_QPA_PLATFORMTHEME = "qt6ct";
+  environment.variables.HYPRCURSOR_SIZE = 40;
+  environment.variables.XCURSOR_SIZE = 40;
+  environment.variables.GDK_SCALE = "1.5";
+  environment.variables.GDK_BACKEND = "wayland,x11,*";
+  environment.variables.OBSIDIAN_USE_WAYLAND = 1;
+  environment.variables.USER_SCRIPTS_PATH = "$HOME/.config/scripts";
+  environment.variables.ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+  environment.variables.XDG_CURRENT_DESKTOP = "Hyprland";
+  environment.variables.XDG_SESSION_DESKTOP = "Hyprland";
+  environment.variables.WLR_NO_HARDWARE_CURSORS = 0;
 
   programs.hyprland.enable = true;
   programs.hyprland.package = unstable.hyprland;
+  programs.hyprland.withUWSM = true;
   programs.hyprland.xwayland.enable = true;
+
+  # programs.hyprlock.enable = true;
+  # services.hypridle.enable = true;
 
   xdg.icons.enable = true;
   xdg.portal.enable = true;
   xdg.portal.configPackages = [ unstable.hyprland ];
   xdg.portal.extraPortals = lib.mkForce [
-    # unstable.xdg-desktop-portal
     unstable.xdg-desktop-portal-hyprland
     # unstable.kdePackages.xdg-desktop-portal-kde
   ];
@@ -60,8 +48,10 @@
 
   environment.systemPackages = with pkgs; [
     greetd.tuigreet
+    # xwayland
 
-    wl-clipboard
+    wl-clipboard # wlogout # graphical logout menu (optional)
+    wl-clip-persist # keeps clipboard after app exit
 
     fastfetch
 
@@ -100,5 +90,7 @@
     imgcat
     lm_sensors
     desktop-file-utils
+
+    nautilus
   ];
 }

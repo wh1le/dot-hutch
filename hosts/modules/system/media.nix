@@ -6,6 +6,7 @@
     gimp
 
     # videos
+    ffmpeg_6-full
     ffmpeg
     libva-utils
     vlc

@@ -16,5 +16,6 @@
     thunderbird
     obsidian
     zoom-us
+    blanket
   ];
 }
