@@ -1,23 +1,56 @@
 {
   description = "wh1le NixOS Build";
 
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    hyprland = {
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
+    };
+
+    # dotfiles.url = "path:/home/wh1le/dot/files";
+    # dotfiles.flake = false;
+  };
+
   outputs =
     {
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
-      # dotfiles,
+      hyprland,
       sops-nix,
       ...
     }@inputs:
     let
-      settings = import (./. + "/settings.nix") { inherit pkgs inputs; };
+      # Import settings *just* for the system string first
+      system = (import (./. + "/settings.nix") { }).system; # Assumes settings.nix doesn't need args for system
+
       pkgs = import nixpkgs {
-        system = settings.system;
+        inherit system;
       };
+
       unstable = import nixpkgs-unstable {
-        system = settings.system;
+        inherit system;
       };
+
+      settings = import (./. + "/settings.nix") { inherit pkgs inputs; };
+
+      # settings = import (./. + "/settings.nix") { inherit pkgs inputs; };
+      # pkgs = import nixpkgs {
+      #   system = settings.system;
+      # };
+      # unstable = import nixpkgs-unstable {
+      #   system = settings.system;
+      # };
     in
     {
       nixConfig = {
@@ -31,7 +64,6 @@
 
       nixosConfigurations = {
         ${settings.hostname} = nixpkgs.lib.nixosSystem {
-
           modules = [
             ./hosts/${settings.hostname}/configuration.nix
             inputs.sops-nix.nixosModules.sops
@@ -43,7 +75,7 @@
 
       homeConfigurations = {
 
-        ${settings.userName} = home-manager.lib.homeManagerConfiguration {
+        ${settings.mainUser} = home-manager.lib.homeManagerConfiguration {
           useUserPackages = true;
           backupFileExtension = "backup";
           pkgs = nixpkgs.legacyPackages.${settings.system};
@@ -61,18 +93,4 @@
         };
       };
     };
-
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    # dotfiles.url = "path:/home/wh1le/dot/files";
-    # dotfiles.flake = false;
-  };
 }
