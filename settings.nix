@@ -5,7 +5,6 @@
   autoUpdateFrequency = "monthly";
 
   # Change based on deployment machine
-  hostname = "homepc";
   mainUser = "wh1le";
 
   # Git

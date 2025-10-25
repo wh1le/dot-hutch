@@ -8,7 +8,7 @@
   system.stateVersion = "25.05";
   nixpkgs.config.allowUnfree = true;
 
-  networking.hostName = settings.hostname;
+  networking.hostName = "homepc";
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -17,6 +17,7 @@
     ../modules/hardware/homepc/nvidia.nix
     ../modules/hardware/homepc/nzxt_kraken.nix
     ../modules/hardware/homepc/boot.nix
+    ../modules/hardware/homepc/dasung.nix
 
     ../modules/hardware/audio.nix
     ../modules/hardware/paperlike.nix
@@ -40,6 +41,8 @@
     ../modules/software/nvim.nix
     ../modules/software/kde_connect.nix
     ../modules/software/virtualisation.nix
+    ../modules/software/wine.nix
+    ../modules/software/utils.nix
 
     ../modules/system/filesystem.nix
     ../modules/system/keyboard.nix
@@ -48,9 +51,12 @@
     ../modules/system/terminal.nix
     ../modules/system/users.nix
     ../modules/system/fonts.nix
+    ../modules/system/media.nix
+    # ../modules/system/monitors.nix
 
-    ../modules/desktop/hyprland/hyprland_packages.nix
+    ../modules/desktop/hyprland/hyprland.nix
     ../modules/desktop/hyprland/kde_packages.nix
-    ../modules/desktop/icons.nix
+    ../modules/desktop/hyprland/wayland.nix
+    ../modules/desktop/hyprland/icons.nix
   ];
 }

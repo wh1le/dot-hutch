@@ -36,6 +36,13 @@
 
     buku # bookmarks
 
+    wl-clipboard # wlogout # graphical logout menu (optional)
+    wl-clip-persist # keeps clipboard after app exit
+
+    imgcat
+
+    fastfetch
+
     xh # http
 
     tldr

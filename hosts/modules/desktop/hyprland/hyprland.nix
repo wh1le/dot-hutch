@@ -1,7 +1,6 @@
 {
   hyprland,
   pkgs,
-  unstable,
   lib,
   ...
 }:
@@ -30,25 +29,23 @@
   programs.hyprland.withUWSM = true;
   programs.hyprland.xwayland.enable = true;
 
-  # programs.hyprlock.enable = true;
-  # services.hypridle.enable = true;
+  xdg.portal.extraPortals = lib.mkForce [
+    pkgs.kdePackages.xdg-desktop-portal-kde
+    pkgs.xdg-desktop-portal-gtk
+  ];
 
   xdg.icons.enable = true;
   xdg.portal.enable = true;
-  # xdg.portal.configPackages = [ unstable.hyprland ];
-  # xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
-  # xdg.portal.extraPortals = lib.mkForce [
-  #   unstable.xdg-desktop-portal-hyprland
-  # ];
 
-  # services.displayManager.sddm.enable = true;
-  # services.displayManager.sddm.wayland.enable = true;
-  # services.displayManager.sddm.defaultSession = "hyprland";
+  # programs.hyprlock.enable = true;
+  # services.hypridle.enable = true;
+
+  services.displayManager.ly.enable = true;
+
+  programs.dconf.enable = true;
 
   services.dbus.enable = true;
   services.dbus.implementation = "broker";
-
-  # systemd.services.dunst.enable = true;
 
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];
@@ -57,30 +54,9 @@
 
   environment.systemPackages = with pkgs; [
     greetd.tuigreet
-    # xwayland
-
-    wl-clipboard # wlogout # graphical logout menu (optional)
-    wl-clip-persist # keeps clipboard after app exit
-
-    fastfetch
-
-    pywal16
-    pywalfox-native
-
-    wofi
-
-    swaybg
-    swww
-    bibata-cursors
-    colloid-icon-theme
-
-    dunst
 
     waybar
-    inotify-tools # livereload on config edit
-
-    libnotify
-    # pcmanfm
+    inotify-tools # livereload on waybar config edit
 
     nsxiv # image preview
     grimblast # screenshot
@@ -97,11 +73,8 @@
     hyprsunset # night light (temperature control)
     imv # image viewer
 
-    grimblast
     imgcat
     lm_sensors
     desktop-file-utils
-
-    nautilus
   ];
 }

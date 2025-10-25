@@ -12,6 +12,11 @@
   # environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
   # environment.variables.QT_QPA_PLATFORMTHEME = "qt6ct";
 
+  environment.etc."xdg/menus/applications.menu".source =
+    "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
+  environment.variables.XDG_MENU_PREFIX = "plasma-";
+
   environment.systemPackages = with pkgs; [
     kdePackages.dolphin
     kdePackages.dolphin-plugins
@@ -24,19 +29,19 @@
     kdePackages.ffmpegthumbs
     kdePackages.kdegraphics-thumbnailers
     kdePackages.kwallet # passwords
+    kdePackages.kservice
+
     xdg-utils
+    xdgmenumaker
 
-    # Consider to remove
+    # TODO: Consider to remove
     # kdePackages.qtstyleplugin-kvantum # styling
-
     # kdePackages.qtwayland
     # libsForQt5.qt5.qtwayland
     # libsForQt5.plasma-wayland-protocols
-    #
     # kdePackages.qt6ct # configuration
     # libsForQt5.qt5ct # configuration
     # libsForQt5.qtstyleplugin-kvantum
-
     # qt6.qtwayland # Qt6 Wayland platform plugin
     # libsForQt5.qt5.qtwayland # Qt5 Wayland platform plugin
     # kdePackages.polkit-kde-agent-1 # some polkit agent is required

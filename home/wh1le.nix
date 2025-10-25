@@ -1,4 +1,4 @@
-{ settings, ... }:
+{ settings, lib, ... }:
 {
   home = {
     username = "${settings.mainUser}";
@@ -8,9 +8,11 @@
 
   home.sessionVariables.QT_QPA_PLATFORMTHEME = "qt6ct";
 
-  imports = [
-    ./modules/git.nix
-    # ./modules/setup_dot_files.nix
-    ./modules/mime_types.nix
+  imports = lib.after [
+    ./modules/system/mime_types.nix
+    ./modules/system/icons.nix
+
+    ./modules/programs/git.nix
+    ./modules/programs/thunderbird.nix
   ];
 }

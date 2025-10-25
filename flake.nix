@@ -1,26 +1,6 @@
 {
   description = "wh1le NixOS Build";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    hyprland = {
-      type = "git";
-      url = "https://github.com/hyprwm/Hyprland";
-      submodules = true;
-    };
-
-    # dotfiles.url = "path:/home/wh1le/dot/files";
-    # dotfiles.flake = false;
-  };
-
   outputs =
     {
       nixpkgs,
@@ -63,19 +43,26 @@
       environment.variables.NIX_CONFIG_TYPE = "nix_public";
 
       nixosConfigurations = {
-        ${settings.hostname} = nixpkgs.lib.nixosSystem {
+        homepc = nixpkgs.lib.nixosSystem {
           modules = [
-            ./hosts/${settings.hostname}/configuration.nix
+            ./hosts/homepc/configuration.nix
             inputs.sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+          ];
+          specialArgs = { inherit inputs settings unstable; };
+        };
+
+        khole = nixpkgs.lib.nixosSystem {
+          modules = [
+            ./hosts/khole/configuration.nix
+            inputs.sops-nix.nixosModules.sops
           ];
           specialArgs = { inherit inputs settings unstable; };
         };
       };
 
       homeConfigurations = {
-
-        ${settings.mainUser} = home-manager.lib.homeManagerConfiguration {
+        wh1le = home-manager.lib.homeManagerConfiguration {
           useUserPackages = true;
           backupFileExtension = "backup";
           pkgs = nixpkgs.legacyPackages.${settings.system};
@@ -93,4 +80,25 @@
         };
       };
     };
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    hyprland = {
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
+    };
+
+    # dotfiles.url = "path:/home/wh1le/dot/files";
+    # dotfiles.flake = false;
+  };
+
 }
