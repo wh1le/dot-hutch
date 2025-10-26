@@ -22,7 +22,7 @@
     # dotfiles.flake = false;
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, sops-nix, hyprland, ... }@inputs:
+  outputs = { self,nixpkgs, nixpkgs-unstable, home-manager, sops-nix, hyprland, ... }@inputs:
     {
       nixConfig = { extra-experimental-features = [ "nix-command" "flakes" ]; };
 
@@ -49,7 +49,7 @@
             ./hosts/khole/configuration.nix
             inputs.sops-nix.nixosModules.sops
           ];
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit self inputs; };
         };
       };
 

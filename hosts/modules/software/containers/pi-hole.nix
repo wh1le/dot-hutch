@@ -1,5 +1,19 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
+
+let
+  KHOLE_IP = "192.168.1.253";
+  KHOLE_UNBOUND_PORT = "5355";
+in
 {
+  sops.secrets = {
+    pihole_password_file = {
+      sopsFile = "${self}/secrets/default.yaml";
+      key = "khole.pihole.password";
+      owner = "root";
+      group = "root";
+    };
+  };
+
   services.resolved.enable = false;
   services.dnsmasq.enable = lib.mkForce false;
 
@@ -20,9 +34,6 @@
   virtualisation.podman.enable = true;
   virtualisation.oci-containers.backend = "podman";
 
-  # services.resolved.enable = false;
-  # services.dnsmasq.enable = lib.mkForce false;
-
   virtualisation.oci-containers.containers.pi-hole = {
     image = "pihole/pihole:latest";
     autoStart = true;
@@ -41,13 +52,15 @@
     environment = {
       TZ = config.time.timeZone;
       DNSMASQ_USER = "root";
+      DNS1 = "${KHOLE_IP}#${KHOLE_UNBOUND_PORT}";
+      DNS2 = "";
+      WEBPASSWORD_FILE = config.sops.secrets.pihole_password_file.path;
     };
-    # environmentFiles = [ "/run/keys/pihole.env" ]; # WEBPASSWORD=...
+
     extraOptions = [
       "--cap-add=NET_ADMIN"
       "--cpus=0.5"
       "--memory=256m"
     ];
   };
-
 }

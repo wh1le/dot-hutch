@@ -25,7 +25,13 @@ I am new to NixOS and want to see if this system will suit me as a daily driver.
 ## Build image for Rasbery PI3 with Pi-Hole
 
 ```bash
+
+# generate secrets with sops
+sops secrets/default.yaml
+
+# build image
 nix build .#nixosConfigurations.khole.config.system.build.sdImage
+
 ```
 
 ## Prerequisites
