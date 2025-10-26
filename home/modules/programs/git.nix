@@ -1,15 +1,15 @@
-{ settings, config, ... }:
+{ config, ... }:
 {
   sops.secrets.email = {
     sopsFile = ./secrets/default.yaml;
     format = "yaml";
     key = "email";
-    owner = settings.mainUser;
+    owner = "wh1le";
     mode = "0400";
   };
 
   sops.templates."git-user" = {
-    owner = settings.mainUser;
+    owner = "wh1le";
     mode = "0400";
     content = ''
       [user]

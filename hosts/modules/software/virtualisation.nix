@@ -1,7 +1,7 @@
-{ settings, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
-  users.users.${settings.mainUser}.extraGroups = [
+  users.users.wh1le.extraGroups = [
     "docker"
     "kvm"
   ];

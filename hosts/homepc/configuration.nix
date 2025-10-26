@@ -1,12 +1,10 @@
-{
-  settings,
-  modulesPath,
-  ...
-}:
-
+{ modulesPath, ... }:
 {
   system.stateVersion = "25.05";
   nixpkgs.config.allowUnfree = true;
+
+  # NOTE: Consider to remove
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   networking.hostName = "homepc";
 

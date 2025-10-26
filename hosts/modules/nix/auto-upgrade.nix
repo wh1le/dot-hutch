@@ -1,4 +1,4 @@
-{ settings, ... }:
+{  ... }:
 
 {
   system.autoUpgrade = {
@@ -10,7 +10,6 @@
     #   "nixpkgs"
     #   "--commit-lock-file"
     # ];
-    dates = settings.autoUpdateFrequency;
-    # channel = "https://nixos.org/channels/nixos-unstable";
+    dates = "monthly";
   };
 }

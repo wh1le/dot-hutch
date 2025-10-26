@@ -1,25 +1,32 @@
-{ pkgs, settings, ... }:
+{ pkgs, ... }:
+let
+  defaultLocale = "en_US.UTF-8";
+in
 {
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = settings.defaultLocale;
-    LC_IDENTIFICATION = settings.defaultLocale;
-    LC_MEASUREMENT = settings.defaultLocale;
-    LC_MONETARY = settings.defaultLocale;
-    LC_NAME = settings.defaultLocale;
-    LC_NUMERIC = settings.defaultLocale;
-    LC_PAPER = settings.defaultLocale;
-    LC_TELEPHONE = settings.defaultLocale;
-    LC_TIME = settings.defaultLocale;
-    LC_MESSAGES = settings.defaultLocale;
-    LC_COLLATE = settings.defaultLocale;
-    LANGUAGE = settings.defaultLocale;
-    LC_ALL = settings.defaultLocale;
-    LC_CTYPE = settings.defaultLocale;
+    LC_ADDRESS = defaultLocale;
+    LC_IDENTIFICATION = defaultLocale;
+    LC_MEASUREMENT = defaultLocale;
+    LC_MONETARY = defaultLocale;
+    LC_NAME = defaultLocale;
+    LC_NUMERIC = defaultLocale;
+    LC_PAPER = defaultLocale;
+    LC_TELEPHONE = defaultLocale;
+    LC_TIME = defaultLocale;
+    LC_MESSAGES = defaultLocale;
+    LC_COLLATE = defaultLocale;
+    LANGUAGE = defaultLocale;
+    LC_ALL = defaultLocale;
+    LC_CTYPE = defaultLocale;
   };
 
-  i18n.extraLocales = settings.locales;
-  i18n.defaultLocale = settings.defaultLocale;
+  i18n.extraLocales = [
+    "en_US.UTF-8/UTF-8"
+    "ru_RU.UTF-8/UTF-8"
+  ];
+
+  i18n.defaultLocale = defaultLocale;
 
   environment.systemPackages = with pkgs; [
     hunspellDicts.en_US

@@ -22,6 +22,12 @@ I am new to NixOS and want to see if this system will suit me as a daily driver.
   - `scripts/setup-dotfiles.sh` — First-boot dotfiles bootstrap.
 - `.gitignore` — Ignores build symlink `result` and `*.qcow2` images.
 
+## Build image for Rasbery PI3 with Pi-Hole
+
+```bash
+nix build .#nixosConfigurations.khole.config.system.build.sdImage
+```
+
 ## Prerequisites
 
 - Nix installed with flakes enabled.

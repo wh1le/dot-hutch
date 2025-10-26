@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }:
+{ pkgs, inputs, unstable, ... }:
 {
   environment.systemPackages = with pkgs; [
     libnotify

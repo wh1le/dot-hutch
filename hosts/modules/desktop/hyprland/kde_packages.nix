@@ -18,10 +18,14 @@
   environment.variables.XDG_MENU_PREFIX = "plasma-";
 
   environment.systemPackages = with pkgs; [
+    kdePackages.polkit-kde-agent-1 # authentication
+
     kdePackages.dolphin
     kdePackages.dolphin-plugins
     kdePackages.kio
     kdePackages.kio-extras
+    kdePackages.kio-fuse
+    kdePackages.kio-admin
     kdePackages.kde-cli-tools
     kdePackages.ark
     kdePackages.gwenview

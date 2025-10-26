@@ -1,12 +1,12 @@
 {
   pkgs,
-  settings,
+  inputs,
   ...
 }:
 {
   programs.zsh.enable = true;
 
-  users.users.${settings.mainUser}.shell = pkgs.zsh;
+  users.users.wh1le.shell = pkgs.zsh;
 
   environment.variables = {
     EDITOR = "nvim";

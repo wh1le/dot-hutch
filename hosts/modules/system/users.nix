@@ -1,9 +1,9 @@
-{ settings, ... }:
+{ inputs, ... }:
 
 {
-  time.timeZone = settings.timezone;
+  time.timeZone = "Europe/Lisbon";
 
-  users.users.${settings.mainUser} = {
+  users.users.wh1le = {
     isNormalUser = true;
     extraGroups = [
       "networkmanager"

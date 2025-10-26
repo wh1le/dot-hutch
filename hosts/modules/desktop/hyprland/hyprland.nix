@@ -1,5 +1,5 @@
 {
-  hyprland,
+  inputs,
   pkgs,
   lib,
   ...
@@ -22,10 +22,8 @@
   environment.variables.WLR_NO_HARDWARE_CURSORS = 0;
 
   programs.hyprland.enable = true;
-  programs.hyprland.package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  programs.hyprland.portalPackage =
-    hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  # programs.hyprland.portalPackage = unstable.xdg-desktop-portal-hyprland;
+  programs.hyprland.package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  programs.hyprland.portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   programs.hyprland.withUWSM = true;
   programs.hyprland.xwayland.enable = true;
 

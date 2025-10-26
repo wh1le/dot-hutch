@@ -1,8 +1,8 @@
-{ settings, lib, ... }:
+{ inputs, lib, ... }:
 {
   home = {
-    username = "${settings.mainUser}";
-    homeDirectory = "/home/${settings.mainUser}";
+    username = "wh1le";
+    homeDirectory = "/home/wh1le";
     stateVersion = "25.05";
   };
 

@@ -15,7 +15,7 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-label/KHOLE_SD";
+      device = "/dev/disk/by-uuid/6462-6639";
       fsType = "ext4";
       options = [ "noatime" ];
     };
