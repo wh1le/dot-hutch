@@ -13,20 +13,39 @@ let
   KHOLE_UNBOUND_PORT = "5355";
 in
 {
+  networking.hostName = "khole";
+  system.stateVersion = "25.05";
+
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./hardware-configuration.nix
+    ./image.nix
+
+    ../modules/security/firewall.nix
+
+    ../modules/system/fonts.nix
+    ../modules/system/locales.nix
+
+    ../modules/software/virtualisation.nix
+    ../modules/software/containers/pi-hole.nix
+  ];
+
   sops.secrets = {
     user_password_file = {
       sopsFile = "${self}/secrets/default.yaml";
-      key = "khole.user.password";
+      key = "khole/user/password";
       owner = "root";
       group = "root";
       mode = "0400";
+			neededForUsers = true;
     };
     ssh_key = {
       sopsFile = "${self}/secrets/default.yaml";
-      key = "khole.ssh.key";
+      key = "khole/ssh/key";
       owner = "root";
       group = "root";
       mode = "0400";
+			neededForUsers = true;
     };
   };
 
@@ -38,68 +57,51 @@ in
     group = "root";
   };
 
-  networking.hostName = "khole";
-  system.stateVersion = "25.05";
-
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    ./hardware-configuration.nix
-    ./image.nix
-
-    ../modules/security/firewall.nix
-
-    ../modules/system/users.nix
-    ../modules/system/fonts.nix
-    ../modules/system/keyboard.nix
-    ../modules/system/locales.nix
-
-    ../modules/software/virtualisation.nix
-    ../modules/software/containers/pi-hole.nix
-  ];
-
-  # TODO: remove if not needed
-  hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = config.boot.isContainer;
-
-  networking.firewall.allowedTCPPorts = [
-    KHOLE_SSH_PORT
-  ];
-
-  # Desktop env
-  services.xserver.enable = true;
-  services.xserver.desktopManager.lxqt.enable = true;
-  services.displayManager.sddm.enable = true;
 
   users = {
     mutableUsers = true;
 
     users.wh1le = {
+      initialPassword = "hackme";
       isNormalUser = true;
-      hashedPasswordFile = config.sops.secrets.user_password_file.path;
-      extraGroups = [
-        "wheel"
-        "docker"
-      ];
+      extraGroups = [ "wheel" "docker" "video" "input" ];
     };
   };
 
-  services.openssh = {
+  services.xserver = {
     enable = true;
-    ports = [
-      KHOLE_SSH_PORT
-    ];
 
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitRootLogin = lib.mkForce "no";
-      KexAlgorithms = [
-        # ssh-ed25519
-        "curve25519-sha256"
-        "curve25519-sha256@libssh.org"
+    displayManager.lightdm.enable = true;
+    displayManager.lightdm.autoLogin.enable = true;
+    displayManager.lightdm.autoLogin.user = "wh1le";
+
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        i3status
       ];
     };
+
+    xkb = {
+      layout = "us,ru";
+      options = "grp:ctrl_space_toggle,ctrl:swapcaps";
+    };
+
+    videoDrivers = [ "modesetting" ];
   };
 
+  hardware.opengl.enable = true;
+
+  # services.displayManager.autoLogin.enable = true;
+  # services.displayManager.autoLogin.user = "wh1le";
+  programs.ssh.startAgent = true;
+
+  # services.getty.autologinUser = "wh1le";
+
+  # need this line in order to build under oc
+  hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = config.boot.isContainer;
+
+  networking.firewall.allowedTCPPorts = [ KHOLE_SSH_PORT ];
   services.unbound = {
     enable = true;
     settings = {
@@ -147,11 +149,15 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    tmux
     neovim
     kitty
+    firefox
+
     htop
     nano
     nmap
+
     nettools
     iputils
     unzip

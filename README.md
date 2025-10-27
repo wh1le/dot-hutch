@@ -15,23 +15,31 @@ I am new to NixOS and want to see if this system will suit me as a daily driver.
 ## Repository Layout
 
 - `flake.nix` — Flake definition and `nixosConfigurations` entry.
-- `flake.lock` — Pin for reproducibility.
-- `hosts/` - NixOS modules for a Hyprland-based desktop VM.
+- `hosts/` - hosts golder
 - `home/` - Home Manager configuration
 - `scripts/` — Auxiliary scripts and an alternate module, will be removed soon in favour of nix-home
-  - `scripts/setup-dotfiles.sh` — First-boot dotfiles bootstrap.
-- `.gitignore` — Ignores build symlink `result` and `*.qcow2` images.
+
+Current configuration includes:
+
+- Rasbery Pi config for PiHole
+- Hyprland Setup for pc with Nvidia 4090
 
 ## Build image for Rasbery PI3 with Pi-Hole
 
 ```bash
-
 # generate secrets with sops
 sops secrets/default.yaml
+
+# Map you Router IP address
 
 # build image
 nix build .#nixosConfigurations.khole.config.system.build.sdImage
 
+# go to release folder
+cd result/sd-image/
+
+# write to drive
+sudo dd if=./image.img of=/dev/sdX bs=4M status=progress conv=fsync
 ```
 
 ## Prerequisites

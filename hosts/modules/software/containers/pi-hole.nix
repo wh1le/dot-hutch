@@ -8,7 +8,7 @@ in
   sops.secrets = {
     pihole_password_file = {
       sopsFile = "${self}/secrets/default.yaml";
-      key = "khole.pihole.password";
+      key = "khole/pihole/password";
       owner = "root";
       group = "root";
     };
@@ -50,7 +50,7 @@ in
     ];
 
     environment = {
-      TZ = config.time.timeZone;
+      TZ = "Europe/Lisbon";
       DNSMASQ_USER = "root";
       DNS1 = "${KHOLE_IP}#${KHOLE_UNBOUND_PORT}";
       DNS2 = "";
