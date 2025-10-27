@@ -3,6 +3,8 @@
 {
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 
+  hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = config.boot.isContainer;
+
   hardware.enableRedistributableFirmware = true;
 
   boot = {

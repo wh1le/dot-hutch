@@ -64,5 +64,7 @@
     lazygit
 
     psmisc # provides 'killall', 'pstree', general utilities
+
+    nmap
   ];
 }
