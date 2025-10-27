@@ -149,6 +149,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    git
     tmux
     neovim
     kitty
