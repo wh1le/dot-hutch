@@ -42,16 +42,6 @@
             unstable = import nixpkgs-unstable { system = "x86_64-linux"; };
           };
         };
-
-        khole = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          modules = [
-            ./hosts/khole/configuration.nix
-            home-manager.nixosModules.home-manager
-            inputs.sops-nix.nixosModules.sops
-          ];
-          specialArgs = { inherit self inputs; };
-        };
       };
 
       homeConfigurations = {
@@ -61,16 +51,6 @@
           # pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
             ./home/wh1le.nix
-            inputs.sops-nix.nixosModules.sops
-          ];
-          extraSpecialArgs = { inherit inputs; };
-        };
-
-        pihole = home-manager.lib.homeManagerConfiguration {
-          useUserPackages = true;
-          backupFileExtension = "backup";
-          modules = [
-            ./home/pihole.nix
             inputs.sops-nix.nixosModules.sops
           ];
           extraSpecialArgs = { inherit inputs; };

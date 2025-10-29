@@ -24,24 +24,6 @@ Current configuration includes:
 - Rasbery Pi config for PiHole
 - Hyprland Setup for pc with Nvidia 4090
 
-## Build image for Rasbery PI3 with Pi-Hole
-
-```bash
-# generate secrets with sops
-sops secrets/default.yaml
-
-# Map you Router IP address
-
-# build image
-nix build .#nixosConfigurations.khole.config.system.build.sdImage
-
-# go to release folder
-cd result/sd-image/
-
-# write to drive
-sudo dd if=./image.img of=/dev/sdX bs=4M status=progress conv=fsync
-```
-
 ## Prerequisites
 
 - Nix installed with flakes enabled.
