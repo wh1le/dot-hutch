@@ -185,24 +185,23 @@ hl("NeotestWinSelect", { fg = "Black" })
 
 -- lsp diagnostics
 hl("DiagnosticVirtualTextError", { fg = "LightGray" })
-hl("DiagnosticVirtualTextWarn",  { fg = "LightGray" })
-hl("DiagnosticVirtualTextInfo",  { fg = "LightGray" })
-hl("DiagnosticVirtualTextHint",  { fg = "LightGray" })
-
+hl("DiagnosticVirtualTextWarn", { fg = "LightGray" })
+hl("DiagnosticVirtualTextInfo", { fg = "LightGray" })
+hl("DiagnosticVirtualTextHint", { fg = "LightGray" })
 
 -- current line
-hl("CursorLineNr", { bg="OldLace"})
-hl("CursorLine", { bg="OldLace"})
-hl("CursorColumn", { bg="OldLace"})
+hl("CursorLineNr", { bg = "OldLace" })
+hl("CursorLine", { bg = "OldLace" })
+hl("CursorColumn", { bg = "OldLace" })
 
-hl("TabLine", { bg="OldLace"})
-hl("TabLineSel", { bg="gray95", bold = true }) -- active
-hl("TabLineFill", { bg="OldLace"})
+hl("TabLine", { bg = "OldLace" })
+hl("TabLineSel", { bg = "gray95", bold = true }) -- active
+hl("TabLineFill", { bg = "OldLace" })
 
-vim.cmd('highlight link DiagnosticUnnecessary Normal')
-vim.cmd('highlight link LspDiagnosticsDefaultUnnecessary Normal')
+vim.cmd("highlight link DiagnosticUnnecessary Normal")
+vim.cmd("highlight link LspDiagnosticsDefaultUnnecessary Normal")
 
-hl("DiagnosticSignError", { fg="gray95"})
-hl("DiagnosticSignWarn", { fg="gray95"})
-hl("DiagnosticSignInfo", { fg="gray95"})
-hl("DiagnosticSignHint", { fg="gray95"})
+hl("DiagnosticSignError", { fg = "gray95" })
+hl("DiagnosticSignWarn", { fg = "gray95" })
+hl("DiagnosticSignInfo", { fg = "gray95" })
+hl("DiagnosticSignHint", { fg = "gray95" })

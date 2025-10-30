@@ -8,7 +8,7 @@ return {
 			python = { "isort", "black", stop_after_first = true },
 			bash = { "shfmt" },
 			ruby = { "rubocop" },
-			nix = { "nixfmt" },
+			-- nix = { "nixfmt" },
 			javascript = { "prettierd", stop_after_first = true },
 			typescript = { "prettierd" },
 			typescriptreact = { "prettierd" },

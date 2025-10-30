@@ -4,7 +4,6 @@ NM.lazy = {
 
 		local spec = {
 			{ import = "plugins" },
-			{ import = "plugins.cmp" },
 			{ import = "plugins.treesitter" },
 		}
 

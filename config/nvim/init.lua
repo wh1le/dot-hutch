@@ -10,7 +10,7 @@ require("helpers.statusline")
 
 require("config.system_providers")
 require("config.core")
--- require("config.colors")
+require("config.colors")
 require("config.bindings")
 require("config.callbacks")
 require("config.copypaste")
