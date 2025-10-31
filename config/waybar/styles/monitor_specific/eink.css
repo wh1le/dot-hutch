@@ -2,7 +2,7 @@
 @define-color moduleBackgroundLighter #2a2a3a;
 @define-color inactive dimgray;
 
-#waybar.big {
+#waybar.eink {
   background: rgba(21, 18, 27, 0);
 }
 
