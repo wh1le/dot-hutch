@@ -1,0 +1,237 @@
+{
+  "custom/logo": {
+    "format": "<span font='15'>{icon}</span>",
+    "format-icons": "󰯉",
+    "on-click": "pkill wofi; ~/.config/scripts/wofi_start"
+  },
+
+  "hyprland/submap": {
+    "tooltip": false,
+    "on-click": "hyprctl dispatch submap reset"
+  },
+
+  "hyprland/workspaces#main": {
+    // "disable-scroll": false,
+    // "on-scroll-up": "hyprctl dispatch workspace -1",
+    // "on-scroll-down": "hyprctl dispatch workspace +1",
+    "active-only": false,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "active": "",
+      "urgent": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10"
+    }
+  },
+
+  // displays active apps for given workspace
+  "hyprland/workspaces#app_tray": {
+    "all-outputs": false,
+    "active-only": true,
+    "active-first": true,
+    "format": "{windows}",
+    "workspace-taskbar": {
+      "reverse-direction": true,
+      "tooltip": false,
+      "icon-size": 10,
+      "enable": true,
+      "format": "{icon}",
+      "format-window-separator": "n",
+      "icon-theme": ["Papirus"]
+    }
+  },
+
+  // "wireplumber#mic": {
+  //   "node-type": "Audio/Source",
+  //   "format": "ON AIR",
+  //   "format-muted": "",
+  //   "tooltip": true,
+  //   "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+  //   "states": {
+  //     "muted": {
+  //       "show": false
+  //     }
+  //   }
+  // },
+
+  "custom/mic_used_by_app": {
+    "interval": 1,
+    "exec": "~/.config/scripts/is_mic_used",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "tooltip": false
+  },
+
+
+  //
+  // right
+  //
+
+  "group/audio": {
+    "orientation": "horizontal",
+    "modules": [
+      "pulseaudio",
+    ]
+  },
+
+  "tray": {
+    "icon-size": 15,
+    "spacing": 7,
+    "icon-theme": ["Papirus"]
+  },
+
+  "clock": {
+    "format": "{:%a %d %b %I:%M %p}",
+    "format-alt": "{:%I:%M %p}",
+    "tooltip": "true",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+
+  "custom/date_neuro": {
+    "exec": "~/.config/scripts/date-time neuro",
+    "interval": 60
+  },
+
+  "custom/date_month": {
+    "exec": "~/.config/scripts/date-time month",
+    "interval": 60
+  },
+  "custom/date_time": {
+    "exec": "~/.config/scripts/date-time time",
+    "interval": 60
+  },
+
+  "hyprland/language": {
+    "on-click": "hyprctl switchxkblayout apple-inc.-magic-keyboard next",
+    "format-ru": "ru",
+    "format-en": "en",
+    "justify": "center"
+  },
+
+  "group/power": {
+    "orientation": "horizontal",
+    "modules": ["custom/lock_screen", "custom/power_btn"]
+  },
+
+  "custom/powermenu": {
+    "on-click": "~/.config/wofi/scripts/wofipowermenu.py",
+    "format": "",
+    "tooltip": false
+  },
+
+  "custom/lock_screen": {
+    "format-icons": "",
+    "format": "<span font='16'>{icon}</span>",
+    // "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
+    "tooltip": false
+  },
+
+  "custom/weather": {
+    "exec": "~/.config/scripts/weathers/weather2 waybar",
+    "return-type": "json",
+    "interval": 400,
+    "format": "{text}",
+    "tooltip": true,
+    "markup": "pango",
+    "signal": 5,
+    "on-click": "pkill -RTMIN+5 waybar"
+  },
+
+  "bluetooth": {
+    "format": " {status}",
+    "format-disabled": "",
+    "format-connected": " {num_connections} connected",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+  },
+
+  "disk": {
+    "interval": 60,
+    "format": " {percentage_used}%",
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "memory": {
+    "format": "󰍛 {used} GiB",
+    "format-alt": "󰍛 {percentage}%",
+    "interval": 5,
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "cpu": {
+    "format": "󰻠 {usage}%",
+    "format-alt": "󰻠 {avg_frequency} GHz",
+    "interval": 1,
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "temperature": {
+    "thermal-zone": 1,
+    "format": " {temperatureC}°C",
+    "critical-threshold": 70,
+    "format-critical": " {temperatureC}°C",
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon} {percent}%",
+    "format-icons": ["", "", ""],
+    "on-scroll-up": "brightnessctl set 1%+",
+    "on-scroll-down": "brightnessctl set 1%-",
+    "min-length": 6
+  },
+
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume} {format_source}",
+    "format-muted": "  {format_source}",
+    "format-source": " ",
+    "format-source-muted": " ",
+    "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "pavucontrol",
+    "on-scroll-up": "pamixer -i 5",
+    "on-scroll-down": "pamixer -d 5",
+    "scroll-step": 5,
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    }
+  }
+
+  // "group/system": {
+  //   "orientation": "horizontal",
+  //   "drawer": {
+  //     "transition-duration": 500,
+  //     "children-class": "hidden",
+  //     "transition-left-to-right": false
+  //   },
+  //   "modules": ["temperature", "disk", "memory", "cpu"]
+  // }
+}

@@ -1,4 +1,7 @@
 @import url("/home/wh1le/.cache/wal/colors-waybar.css");
+@import url("/home/wh1le/.config/waybar/styles/monitor_specific/big_screen.css");
+@import url("/home/wh1le/.config/waybar/styles/monitor_specific/eink.css");
+@import url("/home/wh1le/.config/waybar/styles/monitor_specific/laptop.css");
 
 /* base00: Main Background (The darkest color) */
 /* base01: Lighter Background (e.g., for status bars, line highlights) */
@@ -17,53 +20,27 @@
 /* base0E (Magenta): Used for keywords, operators, built-in constants (like true, false). */
 /* base0F (Brown/Maroon): A "catch-all" accent, often for variables or constants. Its usage is the least standardized. */
 
-@define-color moduleBackground #1e1e2e;
-@define-color moduleBackgroundLighter #2a2a3a;
-@define-color inactive dimgray;
-
-* {
-  border: none;
-  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font",
-    "Symbols Nerd Font Mono";
-  font-weight: bold;
-  font-size: 16px;
-  min-height: 0;
-}
-
-window#waybar {
-  background: rgba(21, 18, 27, 0);
-  color: @foreground;
-}
-
 tooltip {
   opacity: 1;
   padding-top: 20px;
-  background-color: @moduleBackground;
   border-radius: 5px;
 }
 
 .module {
   border-radius: 8px;
   opacity: 0.8;
-  background: @moduleBackground;
   border-radius: 8px;
-  padding: 0px 10px 0px 10px;
 }
 
 /* ICONS offset correction */
 .module#custom-logo,
 /* .module#language, */
+
 .module#custom-lock_screen {
   padding: 0px 18px 0px 10px;
 }
 
-.module#custom-logo {
-  color: @foreground;
-}
-
 .module#submap {
-  background-color: gray;
-  color: yellow;
   border: 2px solid yellow;
 }
 
@@ -75,45 +52,29 @@ tooltip {
   border-radius: 16px;
 }
 
-.module#workspaces.main button {
-  color: @color9;
-  border-radius: 40px;
+.modules-center {
+  margin-right: 30px;
 }
 
-.module#workspaces.main button.empty {
-  color: @inactive;
-}
+/* .module#workspaces.main button { */
+/*   color: @color9; */
+/*   border-radius: 40px; */
+/* } */
 
-.module#workspaces.main button.active {
-  color: @color5;
-}
-
-.module#workspaces.main button:hover {
-  background: transparent;
-  background-color: transparent;
-  color: inherit;
-  box-shadow: none;
-  transition: none;
-  color: white;
-}
-
-.module#workspaces.app_tray button.active {
-  color: @peach;
-  border-radius: 10px;
-  padding-left: 8px;
-  padding-right: 8px;
-  animation: gradient_f 20s ease-in infinite;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
-}
+/* .module#workspaces.app_tray button.active { */
+/*   color: @peach; */
+/*   border-radius: 10px; */
+/*   padding-left: 8px; */
+/*   padding-right: 8px; */
+/*   animation: gradient_f 20s ease-in infinite; */
+/*   transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682); */
+/* } */
 
 .module#custom-mic_used_by_app {
-  color: white;
   border: 2px solid white;
-  background-color: red;
 }
 
 .module#clock {
   opacity: 0.8;
-  background: #1e1e2e;
   border-radius: 8px;
 }

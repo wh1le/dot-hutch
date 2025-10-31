@@ -1,0 +1,60 @@
+@define-color moduleBackground #1e1e2e;
+@define-color moduleBackgroundLighter #2a2a3a;
+@define-color inactive dimgray;
+
+#waybar.big {
+  background: rgba(21, 18, 27, 0);
+}
+
+.eink tooltip {
+  background-color: @moduleBackground;
+}
+
+.eink window#waybar {
+  background: @moduleBackground;
+  color: @foreground;
+}
+
+.eink .module#workspaces.main button.empty {
+  color: @inactive;
+}
+
+.eink .module#workspaces.main button.active {
+  color: black;
+}
+
+.eink * {
+  color: white;
+  border: none;
+  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font",
+    "Symbols Nerd Font Mono";
+  font-weight: bold;
+  font-size: 13px;
+  min-height: 0;
+}
+
+.eink .module {
+  background: @moduleBackground;
+}
+
+.eink window#waybar {
+  background: black;
+}
+
+.eink .module {
+  padding: 0px 10px 0px 10px;
+}
+
+.eink .module#custom-mic_used_by_app {
+  color: white;
+  background-color: red;
+}
+
+.eink .module#submap {
+  background-color: gray;
+  color: yellow;
+}
+
+.eink .module#custom-logo {
+  color: #ffffff;
+}
