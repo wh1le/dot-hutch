@@ -5,7 +5,7 @@ set -euo pipefail
 LG_MONITOR="DP-1" # swww query
 
 ORIENTATION="${1:-horizontal}"
-DEFAULT_WALLPAPER="$HOME/dot/files/assets/black-background.jpg"
+DEFAULT_WALLPAPER="$HOME/dot/files/defaults/forest.jpg"
 
 case "$ORIENTATION" in
   *rotated*)
@@ -15,5 +15,9 @@ case "$ORIENTATION" in
     swww img --outputs  "$LG_MONITOR" "$DEFAULT_WALLPAPER"
   ;;
 esac
+
+pkill waybar
+while pgrep -x waybar >/dev/null; do sleep 0.05; done
+waybar & disown
 
 notify-send 'LG connected on $LG_MONITOR and settings applied'
