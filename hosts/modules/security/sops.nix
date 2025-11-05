@@ -5,7 +5,6 @@
   ...
 }:
 {
-  environment.variables.SOPS_AGE_KEY_FILE = "/home/wh1le/.secrets/sops/age/keys.txt";
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
   sops.defaultSopsFile = ../../../secrets/default.yaml;
@@ -15,7 +14,6 @@
   sops.age.keyFile = "/home/wh1le/.secrets/sops/age/keys.txt";
 
   sops.secrets.openweathermap.owner = config.users.users.wh1le.name;
-  sops.secrets.email.owner = config.users.users.wh1le.name;
 
   environment.systemPackages = with pkgs; [
     sops

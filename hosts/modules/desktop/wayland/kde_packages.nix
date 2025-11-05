@@ -1,21 +1,12 @@
 { pkgs, ... }:
 {
-  services.fwupd.enable = true;
-
-  environment.variables.QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
-  environment.variables.QT_ENABLE_HIGHDPI_SCALING = 1;
   # environment.variables.QT_SCALE_FACTOR = 2;
-  environment.variables.QT_AUTO_SCREEN_SCALE_FACTOR = 1; # you can only pick one QT_AUTO_SCREEN_SCALE_FACTOR or QT_SCALE_FACTOR
-  environment.variables.MOZ_ENABLE_WAYLAND = 1;
-
-  environment.variables.QT_QPA_PLATFORM = "wayland";
   # environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
   # environment.variables.QT_QPA_PLATFORMTHEME = "qt6ct";
 
-  environment.etc."xdg/menus/applications.menu".source =
-    "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
-
-  environment.variables.XDG_MENU_PREFIX = "plasma-";
+  # environment.etc."xdg/menus/applications.menu".source =
+  # "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+  # environment.variables.XDG_MENU_PREFIX = "plasma-";
 
   environment.systemPackages = with pkgs; [
     kdePackages.polkit-kde-agent-1 # authentication
@@ -32,11 +23,7 @@
     kdePackages.okular
     kdePackages.ffmpegthumbs
     kdePackages.kdegraphics-thumbnailers
-    kdePackages.kwallet # passwords
     kdePackages.kservice
-
-    xdg-utils
-    xdgmenumaker
 
     # TODO: Consider to remove
     # kdePackages.qtstyleplugin-kvantum # styling

@@ -18,7 +18,6 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    # ungoogled-chromium
     # nativefier
   ];
 }

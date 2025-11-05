@@ -3,7 +3,7 @@
   environment.sessionVariables = {
     NVD_BACKEND = "direct";
     LIBVA_DRIVER_NAME = "nvidia";
-    XDG_SESSION_TYPE = "wayland";
+
     GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     NIXOS_OZONE_WL = "1";
@@ -12,10 +12,7 @@
     # a lot of these came from https://github.com/NixOS/nixpkgs/issues/162562#issuecomment-1523177264
     # SDL_VIDEODRIVER = "wayland";
     _JAVA_AWT_WM_NONREPARENTING = "1";
-    CLUTTER_BACKEND = "wayland";
     WLR_RENDERER = "vulkan";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_DESKTOP = "Hyprland";
     GTK_USE_PORTAL = "1";
     NIXOS_XDG_OPEN_USE_PORTAL = "1";
     ENABLE_VKBASALT = "1";

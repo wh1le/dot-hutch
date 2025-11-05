@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 
@@ -9,6 +10,20 @@
       "127.0.0.1"
       "[::1]"
     ];
+
+    # Fix assigning static IP
+    # interfaces = {
+    #   eth0 = {
+    #     useDHCP = lib.mkForce false;
+    #
+    #     ipv4.addresses = [
+    #       {
+    #         address = "192.168.50.3";
+    #         prefixLength = 24;
+    #       }
+    #     ];
+    #   };
+    # };
 
     # If using dhcpcd:
     dhcpcd.enable = false; # disable, because enabled by default
@@ -74,10 +89,13 @@
     StateDirectory = "dnscrypt-proxy";
   };
 
-  # services = {
-  #   resolved.enable = true;
-  # };
+  # services.resolved.enable = false;
 
   programs.ssh.startAgent = true;
   programs.ssh.agentTimeout = "1h";
+
+  environment.systemPackages = with pkgs; [
+    nmap
+    dig
+  ];
 }

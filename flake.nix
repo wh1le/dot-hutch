@@ -22,9 +22,23 @@
     # dotfiles.flake = false;
   };
 
-  outputs = { self,nixpkgs, nixpkgs-unstable, home-manager, sops-nix, hyprland, ... }@inputs:
+  outputs =
     {
-      nixConfig = { extra-experimental-features = [ "nix-command" "flakes" ]; };
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      sops-nix,
+      hyprland,
+      ...
+    }@inputs:
+    {
+      nixConfig = {
+        extra-experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+      };
 
       environment.variables.NIX_CONFIG_TYPE = "nix_public";
 
@@ -36,21 +50,32 @@
             ./hosts/homepc/configuration.nix
             inputs.sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            {
+              home-manager.users.wh1le = ./home/users/wh1le.nix;
+              # username = "wh1le";
+              # homeDirectory = "/home/wh1le";
+              # stateVersion = "25.05";
+            }
           ];
+
           specialArgs = {
-            inherit inputs;
-            unstable = import nixpkgs-unstable { system = "x86_64-linux"; };
+            inherit inputs self;
+            unstable = import nixpkgs-unstable {
+              system = "x86_64-linux";
+              config = {
+                allowUnfree = true;
+              };
+            };
           };
         };
       };
 
       homeConfigurations = {
-        wh1le = home-manager.lib.homeManagerConfiguration {
+        deck = home-manager.lib.homeManagerConfiguration {
           useUserPackages = true;
           backupFileExtension = "backup";
-          # pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
-            ./home/wh1le.nix
+            ./home/deck.nix
             inputs.sops-nix.nixosModules.sops
           ];
           extraSpecialArgs = { inherit inputs; };

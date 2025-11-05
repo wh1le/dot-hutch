@@ -15,25 +15,12 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git
-    ncdu
+    psmisc # provides 'killall', 'pstree', general utilities
 
-    bash
-    zsh
-
-    btop
-    htop
-
-    tmux
-
-    # Power features
     fzf
+    btop
+    tmux
     tree
-
-    # better nix environment management
-    direnv
-    nix-direnv
-
     buku # bookmarks
 
     wl-clipboard # wlogout # graphical logout menu (optional)
@@ -42,29 +29,13 @@
     imgcat
 
     fastfetch
-
-    xh # http
-
     tldr
 
-    bat
-
-    # nix documentation searcher
-    manix
+    manix # nix documentation searcher
     nix-search-tv
-
-    jq # Json parser
-    # http # api
-
-    silver-searcher
 
     mutt # TODO: Mail client
     dooit # TODO: todos
-
-    lazygit
-
-    psmisc # provides 'killall', 'pstree', general utilities
-
-    nmap
+    astroterm # fun
   ];
 }

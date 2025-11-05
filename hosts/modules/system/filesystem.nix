@@ -6,13 +6,11 @@
 
   environment.systemPackages = with pkgs; [
     gparted
-    # xorg.xhost
-
+    efibootmgr
     hfsprogs
-
+    ncdu # freespace
     file
     bzip2
     unzip
-    efibootmgr
   ];
 }

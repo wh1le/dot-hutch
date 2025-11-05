@@ -12,11 +12,13 @@
   virtualisation.docker.daemon.settings.experimental = true;
   virtualisation.podman.enable = true;
   virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
+  virtualisation.oci-containers.backend = "podman";
 
   environment.systemPackages = with pkgs; [
     docker-compose
     distrobox
     libvirt
     qemu
+    virt-manager
   ];
 }

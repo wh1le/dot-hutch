@@ -1,12 +1,20 @@
 { modulesPath, ... }:
 {
   system.stateVersion = "25.05";
+
   nixpkgs.config.allowUnfree = true;
 
-  # NOTE: Consider to remove
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
   networking.hostName = "homepc";
+
+  environment.variables.USER_SCRIPTS_PATH = "$HOME/.config/scripts";
+
+  services.dbus.enable = true;
+  services.dbus.implementation = "broker";
+
+  services.fwupd.enable = true;
+
+  # TODO: remove
+  programs.dconf.enable = true;
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -15,10 +23,9 @@
     ../modules/hardware/homepc/nvidia.nix
     ../modules/hardware/homepc/nzxt_kraken.nix
     ../modules/hardware/homepc/boot.nix
-    ../modules/hardware/homepc/dasung.nix
 
     ../modules/hardware/audio.nix
-    ../modules/hardware/paperlike.nix
+    # ../modules/hardware/dasung_paperlike.nix
     ../modules/hardware/bluetooth.nix
     ../modules/hardware/usb.nix
 
@@ -32,29 +39,35 @@
     ../modules/security/security.nix
     ../modules/security/vpn.nix
     ../modules/security/sops.nix
+    ../modules/security/ssh.nix
+    ../modules/security/encryption.nix
 
     ../modules/software/desktop.nix
     ../modules/software/firefox.nix
-    ../modules/software/llm.nix
     ../modules/software/nvim.nix
     ../modules/software/kde_connect.nix
     ../modules/software/virtualisation.nix
     ../modules/software/wine.nix
     ../modules/software/utils.nix
+    ../modules/software/flatpacks.nix
+    ../modules/software/llms.nix
+    ../modules/software/n8n.nix
+    # ../modules/software/searx.nix
+    # ../modules/software/reverse_proxy.nix
 
     ../modules/system/filesystem.nix
     ../modules/system/keyboard.nix
     ../modules/system/languages.nix
     ../modules/system/locales.nix
     ../modules/system/terminal.nix
+    ../modules/system/coding.nix
     ../modules/system/users.nix
     ../modules/system/fonts.nix
     ../modules/system/media.nix
-    # ../modules/system/monitors.nix
 
-    ../modules/desktop/hyprland/hyprland.nix
-    ../modules/desktop/hyprland/kde_packages.nix
-    ../modules/desktop/hyprland/wayland.nix
-    ../modules/desktop/hyprland/icons.nix
+    ../modules/desktop/wayland/hyprland.nix
+    ../modules/desktop/wayland/kde_packages.nix
+    ../modules/desktop/wayland/pointer.nix
+    ../modules/desktop/wayland/xdg.nix
   ];
 }

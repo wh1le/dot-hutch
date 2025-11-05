@@ -3,14 +3,11 @@
   ...
 }:
 {
-  services = {
-    xserver = {
-      xkb = {
-        layout = "us,ru";
-        options = "grp:ctrl_space_toggle,ctrl:swapcaps";
-      };
-    };
-  };
+  # environment.variables = {
+  #   XKB_CONFIG_ROOT = "${pkgs.xkeyboard_config}/share/X11/xkb";
+  #   XKB_DEFAULT_LAYOUT = "us,ru";
+  #   XKB_DEFAULT_OPTIONS = "ctrl:swapcaps,grp:win_space_toggle";
+  # };
 
   environment.systemPackages = with pkgs; [
     klavaro

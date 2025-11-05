@@ -1,9 +1,8 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    paperlike-go
+    gnupg
+    veracrypt
+    gnutar
   ];
 }

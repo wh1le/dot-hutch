@@ -31,6 +31,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   boot.loader.grub.extraEntries = ''
     menuentry "Windows Boot Manager" {
       search --no-floppy --fs-uuid --set=esp FE6B-635E
