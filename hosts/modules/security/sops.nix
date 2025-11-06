@@ -13,7 +13,11 @@
   sops.age.generateKey = false;
   sops.age.keyFile = "/home/wh1le/.secrets/sops/age/keys.txt";
 
-  sops.secrets.openweathermap.owner = config.users.users.wh1le.name;
+  sops.secrets.openweathermap = {
+    owner = config.users.users.wh1le.name;
+    group = "users";
+    mode = "0400";
+  };
 
   environment.systemPackages = with pkgs; [
     sops

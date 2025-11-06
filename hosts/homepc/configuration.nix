@@ -1,4 +1,4 @@
-{ modulesPath, ... }:
+{ modulesPath, pkgs, ... }:
 {
   system.stateVersion = "25.05";
 
@@ -7,9 +7,6 @@
   networking.hostName = "homepc";
 
   environment.variables.USER_SCRIPTS_PATH = "$HOME/.config/scripts";
-
-  services.dbus.enable = true;
-  services.dbus.implementation = "broker";
 
   services.fwupd.enable = true;
 
@@ -43,6 +40,7 @@
     ../modules/security/encryption.nix
 
     ../modules/software/desktop.nix
+    ../modules/software/devops.nix
     ../modules/software/firefox.nix
     ../modules/software/nvim.nix
     ../modules/software/kde_connect.nix
@@ -50,7 +48,7 @@
     ../modules/software/wine.nix
     ../modules/software/utils.nix
     ../modules/software/flatpacks.nix
-    ../modules/software/llms.nix
+    # ../modules/software/llms.nix
     ../modules/software/n8n.nix
     # ../modules/software/searx.nix
     # ../modules/software/reverse_proxy.nix
@@ -65,7 +63,8 @@
     ../modules/system/fonts.nix
     ../modules/system/media.nix
 
-    ../modules/desktop/wayland/hyprland.nix
+    ../modules/desktop/wayland/hyprland/main.nix
+    ../modules/desktop/wayland/hyprland/systemd.nix
     ../modules/desktop/wayland/kde_packages.nix
     ../modules/desktop/wayland/pointer.nix
     ../modules/desktop/wayland/xdg.nix

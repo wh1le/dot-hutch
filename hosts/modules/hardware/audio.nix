@@ -16,6 +16,13 @@
     };
   };
 
+  # hardware.pulseaudio.enable = true;
+  # services.pulseaudio = {
+  #   package = pkgs.pulseaudioFull;
+  # };
+
+  services.upower.enable = true;
+
   environment.systemPackages = with pkgs; [
     pavucontrol
     ncmpcpp

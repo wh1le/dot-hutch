@@ -6,10 +6,11 @@
 {
   fonts = {
     packages = with pkgs; [
-      atkinson-hyperlegible
       atkinson-hyperlegible-next
+      atkinson-hyperlegible-mono
+
       nerd-fonts.jetbrains-mono
-      nerd-fonts.atkynson-mono
+
       noto-fonts-color-emoji
       noto-fonts-emoji
     ];
@@ -26,10 +27,11 @@
       antialias = false;
 
       defaultFonts = {
-        serif = [ "Atkinson Hyperlegible" ];
-        sansSerif = [ "Atkinson Hyperlegible" ];
+
+        serif = [ "Atkinson Hyperlegible Next" ];
+        sansSerif = [ "Atkinson Hyperlegible Next" ];
         monospace = [
-          "Atkinson Hyperlegible Mono"
+          "Atkinson Hyperlegible Next"
           "JetBrainsMono Nerd Font"
         ];
         emoji = [ "Noto Color Emoji" ];

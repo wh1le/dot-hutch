@@ -1,26 +1,39 @@
 { pkgs, ... }:
 {
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # boot.initrd.availableKernelModules = [
-  #   "vmd"
-  #   "xhci_pci"
-  #   "ahci"
-  #   "nvme"
-  #   "usb_storage"
-  #   "usbhid"
-  #   "sd_mod"
-  # ];
+  boot.kernelModules = [
+    "hid_apple"
+    "kvm-intel"
+    "btusb"
+  ];
 
-  # boot.kernelModules = [ "kvm-intel" ];
-  boot.consoleLogLevel = 3;
+  boot.extraModprobeConfig = ''options hid_apple iso_layout=0 fnmode=2'';
+
+  boot.initrd = {
+    enable = true;
+
+    systemd.enable = true;
+
+    kernelModules = [
+      "vmd"
+    ];
+
+    availableKernelModules = [
+      "xhci_pci" # USB3 controller (keyboards, mice, hubs)
+      "ahci" # Intel SATA controller
+      "nvme" # NVMe controller for nvme0n1
+      "usb_storage" # USB mass storage (external drives)
+      "usbhid" # Generic USB HID (keyboard, mouse)
+      "sd_mod" # SCSI disk layer
+      # "vmd" # Intel VMD / RAID path (safe to keep)
+
+      # "i915"
+    ];
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 2;
-
-  boot.initrd.enable = true;
-  boot.initrd.systemd.enable = true;
-  boot.initrd.availableKernelModules = [ "i915" ];
-  boot.initrd.kernelModules = [ "i915" ];
 
   # boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
@@ -33,17 +46,19 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  boot.loader.grub.extraEntries = ''
-    menuentry "Windows Boot Manager" {
-      search --no-floppy --fs-uuid --set=esp FE6B-635E
-        chainloader ($esp)/EFI/Microsoft/Boot/bootmgfw.efi
-    }
-  '';
+  # boot.loader.grub.extraEntries = ''
+  #   menuentry "Windows Boot Manager" {
+  #     search --no-floppy --fs-uuid --set=esp FE6B-635E
+  #       chainloader ($esp)/EFI/Microsoft/Boot/bootmgfw.efi
+  #   }
+  # '';
 
-  boot.plymouth = {
-    enable = true;
-    font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
-    themePackages = [ pkgs.catppuccin-plymouth ];
-    theme = "catppuccin-macchiato";
-  };
+  # boot.consoleLogLevel = 3;
+
+  # boot.plymouth = {
+  #   enable = true;
+  #   font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
+  #   themePackages = [ pkgs.catppuccin-plymouth ];
+  #   theme = "catppuccin-macchiato";
+  # };
 }
