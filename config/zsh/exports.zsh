@@ -1,8 +1,6 @@
 export PAGER=less
 
 # Old with bat
-# export FZF_DEFAULT_OPTS="--height 20% --ansi --layout=reverse --preview-window 'right:60%' --preview 'bat --color=always --style='changes' --theme='base16' {}'"
-export FZF_DEFAULT_OPTS="--height 20% --ansi --layout=reverse --preview-window 'right:60%'"
 
 if which nvim &> /dev/null; then
   export EDITOR=$(which nvim)

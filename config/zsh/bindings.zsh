@@ -8,7 +8,6 @@ bindkey "^f" forward-word
 bindkey "^w" backward-kill-word
 bindkey "^k" kill-word
 
-export FZF_CTRL_R_OPTS='--exact --no-sort'
 bindkey '^r' fzf-history-widget
 
 #

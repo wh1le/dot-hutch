@@ -1,0 +1,2 @@
+alias play_dir="mpv *"
+alias play_random="mpv --shuffle *"

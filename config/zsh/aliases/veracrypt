@@ -1,0 +1,36 @@
+# Mount: args = <source> <mountpoint>
+helper-veracrypt-mount() {
+  src="$1"; mnt="$2"
+  sudo mkdir -p "$mnt"
+  sudo veracrypt --text --pim=0 --keyfiles="" --mount  "$src" "$mnt"
+}
+
+# Unmount by mountpoint
+helper-veracrypt-umount() {
+  mnt="$1"
+  sudo veracrypt --text --non-interactive --force -d $1
+}
+
+# Force unmount by slot number
+helper-veracrypt-fix-umount() {
+  slot="$1"
+  sudo veracrypt --text --non-interactive --force --slot=$1 -d
+  sudo umount -l $1 || sudo fusermount -u -z $1
+}
+
+# Show who holds a path or mapper
+helper-veracrypt-used-by() {
+  mnt="$1"
+    if command -v fuser >/dev/null; then
+    sudo fuser -vm "$tgt"
+  fi
+  if command -v lsof >/dev/null; then
+    sudo lsof +f -- "$tgt"
+  fi
+}
+
+alias vera_mount="helper-veracrypt-mount /dev/sda1 /mnt/private_first"
+alias vera_umount="helper-veracrypt-umount /mnt/private_first"
+alias vera_list="veracrypt --text --list"
+alias vera_fix="helper-veracrypt-fix-umount"
+alias vera_busy_pid="helper-veracrypt-used-by /mnt/private_first"

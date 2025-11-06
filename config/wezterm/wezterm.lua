@@ -2,32 +2,32 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 if wezterm.target_triple:find("windows") then
-	config.default_prog = { "wsl.exe", "--distribution", "Ubuntu", "--exec", "zsh", }
+	config.default_prog = { "wsl.exe", "--distribution", "Ubuntu", "--exec", "zsh" }
 end
 
-config.font = wezterm.font_with_fallback({ family = "JetBrainsMonoNL Nerd Font", weight = "Regular"})
+config.font = wezterm.font_with_fallback({ family = "JetBrainsMonoNL Nerd Font", weight = "Regular" })
 
--- remove
--- config.font_rules = {
--- 	{
--- 		intensity = "Bold",
---     font = wezterm.font_with_fallback({
---       { family = "JetBrainsMonoNL Nerd Font", weight = "ExtraBold" },
---     }),
--- 	},
--- 	{
--- 		intensity = "Half",
---     font = wezterm.font_with_fallback({
---       { family = "JetBrainsMonoNL Nerd Font", weight = "DemiBold" },
---     }),
--- 	},
--- 	{
--- 		italic = true,
---     font = wezterm.font_with_fallback({
---       { family = "JetBrainsMonoNL Nerd Font", weight = "ExtraLight", italic = true },
---     }),
--- 	},
--- }
+config.font_rules = {
+	{
+		intensity = "Bold",
+		font = wezterm.font_with_fallback({
+			{ family = "JetBrainsMonoNL Nerd Font", weight = "ExtraBold" },
+		}),
+	},
+	{
+		intensity = "Half",
+		font = wezterm.font_with_fallback({
+			{ family = "JetBrainsMonoNL Nerd Font", weight = "DemiBold" },
+		}),
+	},
+	{
+		italic = true,
+		font = wezterm.font_with_fallback({
+			{ family = "JetBrainsMonoNL Nerd Font", weight = "ExtraLight", italic = true },
+		}),
+	},
+}
+
 if wezterm.target_triple:find("windows") then
 	config.font_size = 9.5
 else
@@ -37,13 +37,25 @@ end
 config.window_padding = { left = 6, right = 2, top = 2, bottom = 2 }
 config.enable_tab_bar = false
 
-config.color_schemes = {
-  wal = wezterm.color.load_scheme(
-    wezterm.home_dir .. '/.cache/wal/colors-wezterm.toml'
-  )
-}
+config.warn_about_missing_glyphs = false
 
-config.color_scheme = "wal"
+if os.getenv("XDG_SESSION_TYPE") == "wayland" then
+	config.max_fps = 60
+	config.front_end = "WebGpu"
+	config.enable_wayland = false
+	config.font_size = 25 -- extra large because of the scaling issue
+end
+
+config.window_close_confirmation = "NeverPrompt"
+
+-- config.color_schemes = {
+-- 	wal = wezterm.color.load_scheme(wezterm.home_dir .. "/.cache/wal/colors-wezterm.toml"),
+-- }
+-- config.color_scheme = "wal"
+config.colors = {
+	background = "white",
+	foreground = "black",
+}
 
 config.audible_bell = "Disabled"
 config.visual_bell = { fade_in_duration_ms = 0, fade_out_duration_ms = 0 }

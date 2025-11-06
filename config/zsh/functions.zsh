@@ -41,56 +41,6 @@ function ssh() {
   fi
 }
 
-# function tmux() {
-#   emulate -L zsh
-
-#   # Make sure even pre-existing tmux sessions use the latest SSH_AUTH_SOCK.
-#   # (Inspired by: https://gist.github.com/lann/6771001)
-#   local SOCK_SYMLINK=~/.ssh/ssh_auth_sock
-#   if [ -r "$SSH_AUTH_SOCK" -a ! -L "$SSH_AUTH_SOCK" ]; then
-#     ln -sf "$SSH_AUTH_SOCK" $SOCK_SYMLINK
-#   fi
-
-#   # If provided with args, pass them through.
-#   if [[ -n "$@" ]]; then
-#     env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux "$@"
-#     return
-#   fi
-
-#   # Check for .tmux file (poor man's Tmuxinator).
-#   if [ -x .tmux ]; then
-#     # Prompt the first time we see a given .tmux file before running it.
-#     local DIGEST="$(openssl sha -sha512 .tmux)"
-#     if ! grep -q "$DIGEST" ~/..tmux.digests 2> /dev/null; then
-#       cat .tmux
-#       read -k 1 -r \
-#         'REPLY?Trust (and run) this .tmux file? (t = trust, otherwise = skip) '
-#       echo
-#       if [[ $REPLY =~ ^[Tt]$ ]]; then
-#         echo "$DIGEST" >> ~/..tmux.digests
-#         ./.tmux
-#         return
-#       fi
-#     else
-#       ./.tmux
-#       return
-#     fi
-#   fi
-
-#   # Attach to existing session, or create one, based on current directory.
-#   local SESSION_NAME=$(basename "${$(pwd)//[.:]/_}")
-#   env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux new -A -s "$SESSION_NAME"
-# }
-
-# Bounce the Dock icon, if iTerm does not have focus.
-function bounce() {
-  if [ -n "$TMUX" ]; then
-    print -Pn "\ePtmux;\e\e]1337;RequestAttention=1\a\e\\"
-  else
-    print -Pn "\e]1337;RequestAttention=1\a"
-  fi
-}
-
 # regmv = regex + mv (mv with regex parameter specification)
 #   example: regmv '/\.tif$/.tiff/' *
 #   replaces .tif with .tiff for all files in current dir
@@ -254,23 +204,15 @@ function tmuker() {
   tmux attach
 }
 
-function cwn() {
-  git commit -m "$1"
-}
-
-function gd() {
-  git diff $1 $2 --color | diff-so-fancy | less
-}
-
 function kill_by_name() {
   ps ax | grep $1 | grep -v grep | awk '{print $1}' | xargs kill
 }
 
-function go_to_work() {
-  cd ~/CODE/work/$1/$2
+function helper-git-diff() {
+  git diff $1 $2 --color | diff-so-fancy | less
 }
 
-function git_history() {
+function helper-git-history() {
   local out shas sha q k
   while out=$(
       git log --graph --color=always \
@@ -291,11 +233,43 @@ function git_history() {
   done
 }
 
-function watch() {
-  # PYTHONWARNINGS="ignore" nodemon --quiet --exec "python3 -m friendly" $1
+function helper-python-watch() {
   nodemon --quiet --exec 'clear; echo "[reloaded]"; python3 -m friendly' "$1"
 }
 
 function python_repl {
   python3 -i -c "import friendly; friendly.set_formatter('plain'); friendly.install()"
 }
+
+incognito() {
+  fc -p /dev/null 0 0
+  setopt NO_INC_APPEND_HISTORY NO_SHARE_HISTORY
+  echo "history: off"
+}
+
+quick-edit-directory() {
+  if [[ $# -eq 1 ]]; then
+    selected=$1
+  else
+    selected=$(find ~/obsidian ~/projects  ~/.config ~/dot -mindepth 1 -maxdepth 1 -xtype d | fzf)
+  fi
+
+  if [[ -z $selected ]]; then
+    exit 0
+  fi
+
+  selected_name=$(basename "$selected" | tr . _)
+
+  cd $selected && nvim .
+}
+
+quick_edit_directory_widget() {
+  zle -I                     # suspend ZLE so fzf draws cleanly
+  quick-edit-directory || return
+  zle reset-prompt           # refresh prompt after cd
+}
+
+zle -N quick_edit_directory_widget
+bindkey -M emacs '^O' quick_edit_directory_widget
+bindkey -M viins '^O' quick_edit_directory_widget
+bindkey -M vicmd '^O' quick_edit_directory_widget

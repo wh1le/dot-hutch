@@ -1,3 +1,8 @@
+source $HOME/.config/zsh/functions.zsh
+source $HOME/.config/zsh/aliases.zsh
+source $HOME/.config/zsh/bindings.zsh
+source $HOME/.cache/wal/colors.sh
+
 export HISTSIZE=100000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
@@ -26,10 +31,6 @@ setopt SHARE_HISTORY           # share history across shells
 source <(fzf --zsh)
 
 bindkey -e
-
-source $HOME/.config/zsh/aliases.zsh
-source $HOME/.config/zsh/bindings.zsh
-source $HOME/.cache/wal/colors.sh
 
 # Remapping
 alias bat="bat --theme=base16"
@@ -100,3 +101,9 @@ function ag() {
 
 NEWLINE=$'\n'
 PROMPT="${NEWLINE}%K{#2E3440}%F{#E5E9F0}$(date +%_I:%M%P) %K{#3b4252}%F{#ECEFF4} %n %K{#4c566a} %~ %f%k ❯ "
+
+export LS_COLORS="di=1;34:ln=1;36:ow=30;47:ln=01;36:$LS_COLORS"
+
+unset FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS
+export FZF_DEFAULT_OPTS=$'--style=minimal --layout=reverse --height=30% --no-preview --color=fg:black,bg:#ededed,fg+:black,bg+:#ffffff,hl:#005fcc,hl+:#005fcc,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black'
+export FZF_CTRL_R_OPTS=$'--style=minimal --info=inline --no-sort --exact --no-preview --color=fg:black,bg:#ededed,fg+:black,bg+:#ffffff,hl:#005fcc,hl+:#005fcc,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black'

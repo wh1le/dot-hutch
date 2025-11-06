@@ -19,6 +19,8 @@ export BROWSER="firefox"
 
 export USER_SCRIPTS_PATH="$HOME/.config/scripts"
 
+export SEARCH_DIRECTORIES_PATHS="$HOME/projects $HOME/obsidian $HOME/.config $HOME/dot"
+
 # follow XDG base dir specification
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -57,8 +59,13 @@ export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
 export FFMPEG_DATADIR="$XDG_CONFIG_HOME/ffmpeg"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 
-export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --no-preview"
-export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview" # separate opts for history widget
+# NOTE: you messed with the --exact flag for FZF_CTRL_R_OPTS don't forget to add it back or rule out
+
+export FZF_DEFAULT_OPTS="--style=minimal --layout=reverse --height=30% --no-preview --color=16,fg:black,bg:7,fg+:black,bg+:15,hl:4,hl+:4,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black"
+export FZF_CTRL_R_OPTS="--style=minimal --info=inline --no-sort --no-preview --color=16,fg:black,bg:7,fg+:black,bg+:15,hl:4,hl+:4,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black"
+# export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --no-preview"
+# export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview" # separate opts for history widget
+
 export MANPAGER="less -R --use-color -Dd+r -Du+b" # colored man pages
 
 # colored less + termcap vars

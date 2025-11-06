@@ -1,43 +1,54 @@
-# Vimlike
-alias :e=vim
-alias :qa=exit
+source $HOME/.config/zsh/aliases/veracrypt
+source $HOME/.config/zsh/aliases/media
+source $HOME/.config/zsh/aliases/nix
+source $HOME/.config/zsh/aliases/ops
+source $HOME/.config/zsh/aliases/youtube
+
+# vimlike
+alias :e=nvim
 alias :sp='test -n "$TMUX" && tmux split-window'
 alias :vs='test -n "$TMUX" && tmux split-window -h'
+alias :qa=exit
 alias :wq=exit
 
 # Ruby
-
 alias b=bundle
 alias be='bundle exec'
 
 # Git
-
 alias g=git
 alias gl="git log --oneline"
 alias gs='git status'
 alias gc='git checkout'
 alias gr='git rebase -i'
+alias gd='helper-git-diff'
+alias gh='helper-git-history'
 
-alias fspace="ncdu -x /"
+alias python-watch="helper-python-watch"
 
 # Tmux
-
 alias ta="tmux attach"
-# TODO: Tmux kill session (alias tks)
 
-# Nix
-alias nix_test="sudo nixos-rebuild test   --flake /etc/nixos#default"
-alias nix_switch="sudo nixos-rebuild switch --flake /etc/nixos#default"
-alias nix_build="sudo nixos-rebuild build  --flake /etc/nixos#default"
-alias nix_boot="sudo nixos-rebuild boot   --flake /etc/nixos#default"
-alias nix_clean="sudo nix-collect-garbage -d"
-alias nix_releases_list="sudo nixos-rebuild list-generations"
-alias nix_releases_switch="sudo nixos-rebuild switch --generation"
-alias nix_doc='manix "" | grep "^# " | sed "s/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //" | fzf --preview="manix '\''{}'\''" | xargs manix'
-alias nix_packages="nix-search-tv print | fzf --preview 'nix-search-tv preview {}' --scheme history | wl-copy"
+# Edit configs
+
+alias ezsh="cd ~/.config/zsh && nvim ."
+alias ehypr="cd ~/.config/hypr && nvim ."
+alias ekanshi="cd ~/.config/kanshi && nvim ."
+alias envim="cd ~/.config/nvim && nvim ."
+alias etmux="cd ~/.config/etmux && nvim ."
+alias enixpub="cd ~/dot/nix-public && nvim ."
+alias enixpri="cd ~/dot/nix-private && nvim ."
 
 alias vim="nvim"
+alias freespace="ncdu -x"
+alias open="xdg-open"
 
-# Aliased for youtube download script and video
-alias song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
-alias video="yt-dlp"
+function show-font-styles() {
+  # "JetBrainsMono Nerd Font Mono"
+  fc-list $1 -f '%{style}\n' | sed 's/,/\n/g' | sort -u
+}
+
+alias slogs="sudo journalctl -u"
+alias status="sudo systemctl status"
+
+alias copy="rsync -ah --info=progress2 --stats"

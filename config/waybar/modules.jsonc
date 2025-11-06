@@ -2,7 +2,7 @@
   "custom/logo": {
     "format": "<span font='15'>{icon}</span>",
     "format-icons": "󰯉",
-    "on-click": "pkill wofi; ~/.config/scripts/wofi_start"
+    "on-click": "pkill wofi; ~/.config/scripts/wofi"
   },
 
   "hyprland/submap": {
@@ -10,40 +10,24 @@
     "on-click": "hyprctl dispatch submap reset"
   },
 
-  "hyprland/workspaces#main": {
-    // "disable-scroll": false,
-    // "on-scroll-up": "hyprctl dispatch workspace -1",
-    // "on-scroll-down": "hyprctl dispatch workspace +1",
-    "active-only": false,
-    "all-outputs": true,
-    "format": "{icon}",
-    "format-icons": {
-      "active": "",
-      "urgent": "",
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "6": "6",
-      "7": "7",
-      "8": "8",
-      "9": "9",
-      "10": "10"
-    }
-  },
-
   // displays active apps for given workspace
   "hyprland/workspaces#app_tray": {
+    // "all-outputs": false,
+    // "active-only": true,
+    // "active-first": true,
+    // "persistent-only": true,
+
     "all-outputs": false,
     "active-only": true,
+    "persistent-only": true,
     "active-first": true,
+
     "format": "{windows}",
     "workspace-taskbar": {
+      "enable": true,
       "reverse-direction": true,
       "tooltip": false,
       "icon-size": 10,
-      "enable": true,
       "format": "{icon}",
       "format-window-separator": "n",
       "icon-theme": ["Papirus"]
@@ -65,7 +49,7 @@
 
   "custom/mic_used_by_app": {
     "interval": 1,
-    "exec": "~/.config/scripts/is_mic_used",
+    "exec": "~/.config/scripts/waybar/is-mic-used",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "tooltip": false
   },
@@ -96,24 +80,25 @@
   },
 
   "custom/date_neuro": {
-    "exec": "~/.config/scripts/date-time neuro",
+    "exec": "~/.config/scripts/waybar/date-time neuro",
     "interval": 60
   },
 
   "custom/date_month": {
-    "exec": "~/.config/scripts/date-time month",
+    "exec": "~/.config/scripts/waybar/date-time month",
     "interval": 60
   },
   "custom/date_time": {
-    "exec": "~/.config/scripts/date-time time",
+    "exec": "~/.config/scripts/waybar/date-time time",
     "interval": 60
   },
 
   "hyprland/language": {
-    "on-click": "hyprctl switchxkblayout apple-inc.-magic-keyboard next",
+    "on-click": "$HOME/.config/scripts/switch-layout",
     "format-ru": "ru",
     "format-en": "en",
-    "justify": "center"
+    "justify": "center",
+    "format": "{short}"
   },
 
   "group/power": {
@@ -135,7 +120,7 @@
   },
 
   "custom/weather": {
-    "exec": "~/.config/scripts/weathers/weather2 waybar",
+    "exec": "~/.config/scripts/waybar/wofi waybar",
     "return-type": "json",
     "interval": 400,
     "format": "{text}",
@@ -209,7 +194,7 @@
     "format-muted": "  {format_source}",
     "format-source": " ",
     "format-source-muted": " ",
-    "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
+    "on-click": "pavucontrol",
     "on-click-right": "pavucontrol",
     "on-scroll-up": "pamixer -i 5",
     "on-scroll-down": "pamixer -d 5",

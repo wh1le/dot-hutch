@@ -26,9 +26,9 @@ vim.keymap.set({ "n", "x", "s", "o" }, "<C-h>", "<C-w>h")
 vim.keymap.set({ "n", "x", "s", "o" }, "<C-l>", "<C-w>l")
 
 -- Buffers
-vim.keymap.set("n", "<leader>bn", ":bnext<CR>")
-vim.keymap.set("n", "<leader>bp", ":bprevious<CR>")
-vim.keymap.set("n", "<leader>bd", ":bdelete<CR>")
+-- vim.keymap.set("n", "<leader>bn", ":bnext<CR>")
+-- vim.keymap.set("n", "<leader>bp", ":bprevious<CR>")
+-- vim.keymap.set("n", "<leader>bd", ":bdelete<CR>")
 
 -- Windows
 vim.keymap.set("n", "<C-w>f", "<C-w>_<C-w>|") -- focus

@@ -1,0 +1,32 @@
+# Vimlike
+alias :e=vim
+alias :wq=exit
+alias :qa=exit
+alias :q=exit
+alias :sp='test -n "$TMUX" && tmux split-window'
+alias :vs='test -n "$TMUX" && tmux split-window -h'
+
+# Ruby
+
+alias b=bundle
+alias be='bundle exec'
+
+# Git
+
+alias g=git
+alias gl="git log --oneline"
+alias gs='git status'
+alias gc='git checkout'
+alias gr='git rebase -i'
+
+alias fspace="ncdu -x /"
+
+# Tmux
+
+alias ta="tmux attach"
+# TODO: Tmux kill session (alias tks)
+alias vim="nvim"
+
+# youtube
+alias song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
+alias video="yt-dlp"

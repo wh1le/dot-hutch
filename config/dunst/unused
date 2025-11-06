@@ -1,5 +1,6 @@
 [global]
-browser = /run/current-system/sw/bin/thunar
+browser = /run/current-system/sw/bin/firefox
+monitor = 1
 mouse_left_click = open_url
 frame_color = "#8ab4f8"
 separator_color = frame

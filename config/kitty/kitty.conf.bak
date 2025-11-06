@@ -1,20 +1,10 @@
 # vim:fileencoding=utf-8:ft=conf
-# font_family      "JetBrainsMono Nerd Font Mono"
-# bold_font        "auto"
-# italic_font      "auto"
-# bold_italic_font "auto"
 
-# font_family      JetBrainsMono Nerd Font Mono
-# bold_font        JetBrainsMonoNFM-Bold
-# italic_font      JetBrainsMonoNFM-Italic
-# bold_italic_font JetBrainsMonoNFM-BoldItalic
+font_family      "JetBrainsMono Nerd Font Mono"
+bold_font        "auto"
+italic_font      "auto"
+bold_italic_font "auto"
 
-font_family      JetBrainsMonoNFM-Thin
-bold_font        JetBrainsMonoNFM-Bold
-italic_font      JetBrainsMonoNFM-Italic
-bold_italic_font JetBrainsMonoNFM-BoldItalic
-
-text_composition_strategy legacy
 
 # adjust_line_height -1
 # adjust_column_height 2
@@ -298,16 +288,10 @@ macos_option_as_alt yes
 
 # tab_bar_style hidden
 
+
+# include ~/.cache/wal/colors-kitty.conf
 background #FFFFFF
 foreground #000000
 
 allow_remote_control yes
 listen_on unix:/tmp/kitty-socket
-
-
-# BEGIN_KITTY_FONTS
-font_family      family="JetBrainsMono Nerd Font Mono"
-bold_font        auto
-italic_font      auto
-bold_italic_font auto
-# END_KITTY_FONTS

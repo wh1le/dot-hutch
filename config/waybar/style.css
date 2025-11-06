@@ -45,11 +45,8 @@ tooltip {
 }
 
 .module#workspaces.main {
-  opacity: 0.8;
   /* background: transparent; */
-  /* margin: 2px 0 2px 5px; */
   /* padding: 0px 5px 0px 5px; */
-  border-radius: 16px;
 }
 
 .modules-center {
