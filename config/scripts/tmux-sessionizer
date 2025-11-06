@@ -3,15 +3,13 @@
 # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 # Fantastic script from ThePrimeagen
 
-
-#!/usr/bin/env bash
-
-search_directories="~/projects ~/obsidian ~/.config ~/dot /mnt"
+# search_directories=${SEARCH_DIRECTORIES_PATHS:-"$HOME/projects $HOME/obsidian $HOME/.config $HOME/dot"}
+search_directories=${SEARCH_DIRECTORIES_PATHS:-"$HOME/projects $HOME/obsidian $HOME/.config $HOME/dot"}
 
 if [[ $# -eq 1 ]]; then
   selected=$1
 else
-  selected=$(find ~/obsidian ~/projects  ~/.config ~/dot /mnt -mindepth 1 -maxdepth 1 -xtype d | fzf)
+  selected=$(find $search_directories -mindepth 1 -maxdepth 1 -xtype d | fzf)
 fi
 
 if [[ -z $selected ]]; then

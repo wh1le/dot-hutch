@@ -6,10 +6,11 @@ import datetime
 import json
 import statistics
 import sys
+from pathlib import Path
 
 import requests
 
-API_KEY = ""
+API_KEY = Path("/run/secrets/openweathermap").read_text().strip()
 
 # latitude and longitude of the city you want to query
 # can be obtained through `./weather.py geocoding <city[,state,country]>`

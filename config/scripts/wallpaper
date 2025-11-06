@@ -3,7 +3,10 @@ set -euo pipefail
 
 # props to https://github.com/BreadOnPenguins/scripts/blob/master/wallpapermenu
 
-FOLDER=~/dot/wallpapers
+FOLDER=~/dot/wallpapers/rotated
+
+EINK_MONITOR="HDMI-A-1" # swww query
+EINK_DEFAULT_WALLPAPER="$HOME/dot/files/assets/white-background.jpg"
 
 pkill nsxiv || true
 
@@ -13,9 +16,10 @@ menu () {
 
   case $CHOICE in
     *.*)
-      swww img --transition-type wipe --transition-angle 45 --transition-duration 0.8 "$CHOICE"
+      swww img --outputs "DP-1" --transition-type wipe --transition-angle 45 --transition-duration 0.8 "$CHOICE"
       ln -sf "$CHOICE" ~/.current_wallpaper
-      wal -i "$CHOICE"
+      wal -s -n -i "$CHOICE"
+
     ;;
     *) exit 0 ;;
   esac
@@ -27,7 +31,10 @@ menu () {
 
 case "$#" in
   0) menu ;;
-  1) wal -i "$1" ;;
-  2) wal -i "$1" --theme $2 ;;
+  1) wal -s -n -i "$1" ;;
+  2) wal -s -n -i "$1" --theme $2 ;;
   *) exit 0 ;;
 esac
+
+
+swww img --outputs "$EINK_MONITOR" --transition-type none "$EINK_DEFAULT_WALLPAPER"

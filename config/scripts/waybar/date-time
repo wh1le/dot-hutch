@@ -34,11 +34,18 @@ class NeuroDivergentTime:
             case _:
                 self.regular_string()
 
-    def neuro_string(self):
-        print(f" Q{self.quartal()} W{self.iso_week():02d}/52 {self.date:%m}/12 {self.date:%d}/{self.days_in_month()}")
+    def neuro_string(self, version=2):
+        if version == 1:
+            print(f" Q{self.quartal()} W{self.iso_week():02d}/52 {self.date:%m}/12 {self.date:%d}/{self.days_in_month()}")
+        else:
+            print(f" Q{self.quartal()} W{self.iso_week():02d}/52 {self.date:%d}/{self.days_in_month()}")
 
-    def month_string(self):
-        print(f"{self.get_month_emoji()} {self.date:%B}")
+    def month_string(self, version=2):
+        if version == 1:
+            print(f"{self.get_month_emoji()} {self.date:%B}")
+        else:
+            print(f"{self.get_month_emoji()} {self.date:%m}/12 {self.date:%B}")
+
 
     def time_string(self):
         print(f"{self.date:%H}:{self.date:%M}")

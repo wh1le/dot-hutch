@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+hyprctl switchxkblayout "$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true).name')" next

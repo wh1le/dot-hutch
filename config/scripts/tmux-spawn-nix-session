@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SESSION="nix"
+BASE="$HOME/dot"
+
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+  exit 0
+fi
+
+# Create session and windows without attaching
+tmux new-session  -d -s "$SESSION" -n private -c "$BASE/nix-private"
+tmux new-window      -t "$SESSION:" -n public -c "$BASE/nix-public"
+tmux new-window      -t "$SESSION:" -n switch -c "$BASE/nix-private"
+
+tmux select-window -t "$SESSION:1"
