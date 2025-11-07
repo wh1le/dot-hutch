@@ -17,9 +17,6 @@
       rev = "b10b9660004b3dfaf9e11a305d78f24955b089a4";
       submodules = true;
     };
-
-    # dotfiles.url = "path:/home/wh1le/dot/files";
-    # dotfiles.flake = false;
   };
 
   outputs =

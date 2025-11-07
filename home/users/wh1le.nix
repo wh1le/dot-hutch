@@ -1,6 +1,5 @@
 { ... }:
 {
-
   home = {
     username = "wh1le";
     homeDirectory = "/home/wh1le";
@@ -8,6 +7,7 @@
   };
 
   imports = [
+    ../modules/link_dotfiles.nix
     # ../modules/system/mime_types.nix
     # ../modules/system/pointer.nix
 

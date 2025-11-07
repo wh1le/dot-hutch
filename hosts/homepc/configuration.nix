@@ -13,6 +13,8 @@
   # TODO: remove
   programs.dconf.enable = true;
 
+  environment.systemPackages = [ pkgs.google-chrome ];
+
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
