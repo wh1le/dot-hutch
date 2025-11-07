@@ -4,16 +4,17 @@
   ...
 }:
 let
+  home = config.home.homeDirectory;
   git = "${pkgs.git}/bin/git";
   ssh = "${pkgs.openssh}/bin/ssh";
-  sshKey = "${config.home.homeDirectory}/.ssh/nixos";
+  sshKey = "${home}/.ssh/nixos";
 in
 {
   home.activation.clone-dot-files = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     set -eu
 
     export repo="git@github.com:wh1le/dot-files.git"
-    export destination="${config.home.homeDirectory}/dot-test/files"
+    export destination="${config.home.homeDirectory}/dot/files"
 
     if [ ! -f "${sshKey}" ]; then
       echo "Missing SSH key ${sshKey}" >&2
@@ -26,13 +27,25 @@ in
       mkdir -p "$(dirname $destination)"
       ${git} clone $repo $destination
     fi
+
+    ln -sfn $destination/home/.zprofile ${home}/.zprofile
+
+    src="$destination/home/.config"
+    dst="${home}/.config"
+
+    mkdir -p "$dst"
+
+    for item in "$src"/*; do
+      name=$(basename "$item")
+      ln -sfn "$item" "$dst/$name"
+    done
   '';
 
   home.activation.clone-dot-nix = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     set -eu
 
     export repo="git@github.com:wh1le/dot-nix.git"
-    export destination="${config.home.homeDirectory}/dot-test/nix-public"
+    export destination="${config.home.homeDirectory}/dot/nix-public"
 
     if [ ! -f "${sshKey}" ]; then
       echo "Missing SSH key ${sshKey}" >&2
@@ -51,7 +64,7 @@ in
     set -eu
 
     export repo="git@github.com:wh1le/dot-wallpapers.git"
-    export destination="${config.home.homeDirectory}/dot-test/wallpapers"
+    export destination="${config.home.homeDirectory}/dot/wallpapers"
 
     if [ ! -f "${sshKey}" ]; then
       echo "Missing SSH key ${sshKey}" >&2
@@ -65,14 +78,4 @@ in
       ${git} clone $repo $destination
     fi
   '';
-
-  # Single files from repo::/home/
-  # home.file.".xprofile".source = "${dot}/home/.xprofile";
-  # home.file.".zprofile".source = "${dot}/home/.zprofile";
-
-  # entries = builtins.attrNames (builtins.readDir "${dot}/home/.config");
-  #
-  # xdg.configFile = lib.genAttrs entries (name: {
-  #   source = "${dot}/home/.config/${name}";
-  # });
 }
