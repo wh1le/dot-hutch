@@ -37,7 +37,22 @@ in
 
     for item in "$src"/*; do
       name=$(basename "$item")
-      ln -sfn "$item" "$dst/$name"
+
+      target="$dst/$name"
+
+      if [ -L "$target" ]; then # already a symlink
+        current="$(readlink -- "$target")"
+
+        if [ "$current" = "$item" ]; then # points to correct place, skip
+          continue
+        else
+          rm -f -- "$target"
+        fi
+      elif [ -e "$target" ]; then
+        rm -rf -- "$target" # remove real path: $target
+      fi
+
+      ln -s "$item" "$target"
     done
   '';
 
