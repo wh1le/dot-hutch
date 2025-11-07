@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SESSION="local"
+BASE="$HOME"
+
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+  exit 0
+fi
+
+tmux new-session  -d -s "$SESSION"  -c "$BASE"
+
+tmux select-window -t "$SESSION:1"

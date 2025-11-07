@@ -95,11 +95,17 @@
 
   "hyprland/language": {
     "on-click": "$HOME/.config/scripts/switch-layout",
-    "format-ru": "ru",
-    "format-en": "en",
     "justify": "center",
-    "format": "{short}"
+    "format": "{short}",
+    "keyboard-name":"apple-inc.-magic-keyboard",
   },
+
+  // "language-big": {
+  //   "exec": "",
+  //   "on-click": "$HOME/.config/scripts/switch-layout",
+  //   "justify": "center",
+  //   "format": "{short}"
+  // },
 
   "group/power": {
     "orientation": "horizontal",
@@ -120,7 +126,7 @@
   },
 
   "custom/weather": {
-    "exec": "~/.config/scripts/waybar/wofi waybar",
+    "exec": "~/.config/scripts/waybar/weather-forecast waybar",
     "return-type": "json",
     "interval": 400,
     "format": "{text}",
@@ -129,6 +135,18 @@
     "signal": 5,
     "on-click": "pkill -RTMIN+5 waybar"
   },
+
+  "custom/weather-eink": {
+    "exec": "~/.config/scripts/waybar/weather-forecast waybar eink",
+    "return-type": "json",
+    "interval": 400,
+    "format": "{text}",
+    "tooltip": true,
+    "markup": "pango",
+    "signal": 5,
+    "on-click": "pkill -RTMIN+5 waybar"
+  },
+
 
   "bluetooth": {
     "format": " {status}",

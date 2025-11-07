@@ -10,7 +10,7 @@
     "modules-left": [
       "custom/logo",
       "hyprland/workspaces#main",
-      // "custom/weather",
+      "custom/weather-eink",
       // "hyprland/workspaces#app_tray",
       "hyprland/submap"
     ],
@@ -42,8 +42,7 @@
     "modules-left": [
       "custom/logo",
       "hyprland/workspaces#main",
-      // "custom/weather",
-      // "hyprland/workspaces#app_tray",
+      "custom/weather",
       "hyprland/submap"
     ],
     "modules-center": [ ],
@@ -53,7 +52,8 @@
       "group/audio",
       "custom/mic_used_by_app",
       "battery",
-      "hyprland/language",
+      // it is not working properly
+      // "hyprland/language",
       "custom/date_neuro",
       "custom/date_month",
       "custom/date_time"

@@ -4,14 +4,14 @@ set -euo pipefail
 
 MAC="80:99:E7:E0:4B:A5"      # XM6 address
 NAME="WH-1000XM6"            # optional, for logs
-TRIES="${1:-3}"             # retries (default 20)
+TRIES="${1:-3}"             # retries (default 3)
 SLEEP="${2:-3}"              # seconds between tries
 
 log(){ printf "[xm6] %s\n" "$*" >&2; }
 
 if bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
-  notify-send "$NAME already connected"
-  exit 0
+    notify-send "$NAME already connected"
+    exit 0
 fi
 
 # make adapter ready
@@ -22,24 +22,24 @@ bluetoothctl trust "$MAC" >/dev/null || true
 
 i=0
 while [ "$i" -lt "$TRIES" ]; do
-  i=$((i+1))
-  # notify-send "attempt connecting $i/$TRIES: connect $NAME"
-  if bluetoothctl connect "$MAC" | grep -q 'Connection successful'; then
-    break
-  fi
+    i=$((i+1))
+    # notify-send "attempt connecting $i/$TRIES: connect $NAME"
+    if bluetoothctl connect "$MAC" | grep -q 'Connection successful'; then
+        break
+    fi
 
-  # if adapter got wonky, nudge it
-  if ! bluetoothctl show | grep -q 'Powered: yes'; then
-    rfkill unblock bluetooth || true
-    bluetoothctl power on || true
-  fi
+    # if adapter got wonky, nudge it
+    if ! bluetoothctl show | grep -q 'Powered: yes'; then
+        rfkill unblock bluetooth || true
+        bluetoothctl power on || true
+    fi
 
-  sleep "$SLEEP"
+    sleep "$SLEEP"
 done
 
 if ! bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
-  notify-send "failed to connect."
-  exit 1
+    notify-send "failed to connect."
+    exit 1
+else
+    notify-send "Connected"
 fi
-
-notify-send "Connected"

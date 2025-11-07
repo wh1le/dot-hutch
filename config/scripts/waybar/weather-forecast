@@ -17,15 +17,24 @@ API_KEY = Path("/run/secrets/openweathermap").read_text().strip()
 LATITUDE  = 38.6445165
 LONGITUDE = -9.2336068
 
-# waybar colors
-GRAY   = '#859289'
-DARK   = '#5a6772'
-GREEN  = '#a7c080'
-YELLOW = '#dbbc7f'
-ORANGE = '#e69875'
-RED    = '#e67e80'
-PURPLE = '#d699b6'
-BLUE   = '#7fbbb3'
+if len(sys.argv) == 3 and sys.argv[2] == 'eink':
+    GRAY   = '#ffffff'
+    DARK   = '#ffffff'
+    GREEN  = '#ffffff'
+    YELLOW = '#ffffff'
+    ORANGE = '#ffffff'
+    RED    = '#ffffff'
+    PURPLE = '#ffffff'
+    BLUE   = '#ffffff'
+else:
+    GRAY   = '#859289'
+    DARK   = '#5a6772'
+    GREEN  = '#a7c080'
+    YELLOW = '#dbbc7f'
+    ORANGE = '#e69875'
+    RED    = '#e67e80'
+    PURPLE = '#d699b6'
+    BLUE   = '#7fbbb3'
 
 ### UTILITIES ###
 
@@ -464,8 +473,8 @@ def waybar():
     widget = waybar_widget(current_data)
     current = waybar_current(current_data)
     forecast = waybar_forecast(forecast_data)
-    tooltip = colorize('current weather', GREEN) + '\n' + current + '\n' + \
-              colorize('forecast', GREEN) + '\n' + forecast
+    tooltip = colorize('Current weather: \n', GREEN) + '\n' + current + '\n' + \
+        colorize('Forecast: \n', GREEN) + '\n' + forecast
 
     print(json.dumps({
         'text': widget,

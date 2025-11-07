@@ -8,7 +8,7 @@ def show_notification(title, message):
     subprocess.run(["notify-send", title, message])
 
 def available_profiles():
-    kanshi_profiles = execute(r"grep -Eo '^\s*profile\s+\S+' ~/.config/kanshi/config | awk '{print $2}' | sort -u")
+    kanshi_profiles = execute(r"grep -Eo '^\s*profile\s+\S+' $HOME/.config/kanshi/config | awk '{print $2}' | sort -u")
 
     return kanshi_profiles.split("\n")
 

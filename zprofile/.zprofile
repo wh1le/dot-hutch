@@ -77,3 +77,9 @@ export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"
 export LESS_TERMCAP_se="$(printf '%b' '[0m')"
 export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
 export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
+
+if [ -z "$TMUX" ] && [ -z "$WAYLAND_DISPLAY" ] && [ -z "$DISPLAY" ]; then
+  case "$XDG_VTNR" in
+    1) exec tmux new-session -A -s local ;;
+  esac
+fi
