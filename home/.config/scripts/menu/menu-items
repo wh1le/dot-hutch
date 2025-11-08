@@ -1,7 +1,27 @@
 #!/usr/bin/env bash
 sep=$'\034'   # field separator required by sway-launcher-desktop
 
-printf 'applications%smainmenu%sApplications\n' "$sep" "$sep"
-printf 'bookmarks%smainmenu%sBookmarks\n'   "$sep" "$sep"
-printf 'history%smainmenu%sHistory\n'       "$sep" "$sep"
-printf 'pass%smainmenu%sPass\n'             "$sep" "$sep"
+declare -A OPTIONS=(
+  [applications]="Applications"
+  [nix-packages]="Nix Packages"
+  [nix-options]="Nix Options"
+  [bookmarks]="Bookmarks"
+  [history]="History"
+  [pass]="Pass"
+  [kill]="Kill Program"
+  [connect-bluetooth]="Connect Bluetooth"
+)
+
+keys=( "${!OPTIONS[@]}" )
+last=$(( ${#keys[@]} - 1 ))
+
+for i in "${!keys[@]}"; do
+  key=${keys[i]}
+  label=${OPTIONS[$key]}
+
+  if (( i == last )); then
+    printf '%s%smainmenu%s%s' "$key" "$sep" "$sep" "$label"
+  else
+    printf '%s%smainmenu%s%s\n' "$key" "$sep" "$sep" "$label"
+  fi
+done

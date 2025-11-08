@@ -39,24 +39,28 @@ set -euo pipefail
 # esac
 
 kitty --single-instance --class launcher bash -lc '
-  choice=$(printf "%s\n" applications bookmarks history pass |
-           fzf --prompt="Menu> ")
-
+  choice=$(PROVIDERS_FILE="$HOME/.config/sway-launcher-desktop/mainmenu.conf" HIST_FILE=""  sway-launcher-desktop) || exit 0
   case "$choice" in
     applications)
       sway-launcher-desktop
       ;;
     bookmarks)
-      sel=$(cut -d" " -f1 ~/.config/my-bookmarks | \
-            fzf --prompt="Bookmarks> " || exit 0)
-      [ -n "$sel" ] && xdg-open "$sel"
+      ~/.config/scripts/menu/bookmarks-launcher.sh
       ;;
     history)
-      cmd=$(fc -ln 0 | tac | fzf --prompt="History> " || exit 0)
-      [ -n "$cmd" ] && eval "$cmd"
+      ~/.config/scripts/menu/history-launcher.sh
       ;;
     pass)
-      my_pass_cmd
+      ~/.config/scripts/menu/pass-launcher.sh
+      ;;
+    nix-doc)
+      ~/.config/scripts/menu/nix-doc-launcher.sh
+      ;;
+    nix-packages)
+      ~/.config/scripts/menu/nix-packages-launcher.sh
+      ;;
+    connect-bluetooth)
+      ~/.config/scripts/menu/connect-bluetooth-launcher.sh
       ;;
   esac
 '
