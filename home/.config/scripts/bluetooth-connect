@@ -1,16 +1,27 @@
 #!/usr/bin/env bash
 
+# Connected:
+#           Magic Keyboard:
+#               Address: 1C:1D:D3:74:6C:A9
+#               Vendor ID: 0x004C
+#               Product ID: 0x0320
+#               Firmware Version: 3.1.4
+#               Minor Type: Keyboard
+#               RSSI: -46
+#               Services: 0x800020 < HID ACL >
+
 set -euo pipefail
 
-MAC=$1
-NAME=$2
-TRIES="${1:-3}"             # retries (default 20)
-SLEEP="${2:-3}"              # seconds between tries
+MAC=${1:? "MAC required"}
+NAME=${2:? "NAME required"}
 
-log(){ printf "[xm6] %s\n" "$*" >&2; }
+TRIES=${3:-3}   # default 3
+SLEEP=${4:-3}   # default 3
 
 if bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
-  notify-send "$NAME already connected"
+  echo "$NAME already connected"
+
+  notify-send "Bluetooth" "$NAME already connected"
   exit 0
 fi
 
@@ -23,7 +34,8 @@ bluetoothctl trust "$MAC" >/dev/null || true
 i=0
 while [ "$i" -lt "$TRIES" ]; do
   i=$((i+1))
-  # notify-send "attempt connecting $i/$TRIES: connect $NAME"
+  echo "attempt connecting $i/$TRIES: connect $NAME"
+  sleep 0.5
   if bluetoothctl connect "$MAC" | grep -q 'Connection successful'; then
     break
   fi
@@ -38,8 +50,10 @@ while [ "$i" -lt "$TRIES" ]; do
 done
 
 if ! bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
-  notify-send "failed to connect."
+  echo "Failed to connect to $2"
+  notify-send "Bluetooth" "Failed to connect to $2"
   exit 1
 fi
 
-notify-send "Connected"
+echo "$2 connected."
+notify-send "Bluetooth" "$NAME connected."

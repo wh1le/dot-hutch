@@ -1,6 +1,1 @@
-[core]
-	excludesFile = "~/.config/git/ignore"
-
-[user]
-	email = "nmiloserdov@proton.me"
-	name = "Nikita M"
+/nix/store/n9hf6xb8nsib07l1sklqdhsc7w5490r7-home-manager-files/.config/git/config

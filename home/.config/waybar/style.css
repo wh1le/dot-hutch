@@ -27,9 +27,8 @@ tooltip {
 }
 
 .module {
-  border-radius: 8px;
   opacity: 0.8;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 /* ICONS offset correction */

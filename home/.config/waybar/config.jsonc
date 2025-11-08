@@ -11,17 +11,20 @@
       "custom/logo",
       "hyprland/workspaces#main",
       "custom/weather-eink",
+      "custom/surf",
       // "hyprland/workspaces#app_tray",
       "hyprland/submap"
     ],
     "modules-center": [ ],
     "modules-right": [
       "tray",
+      "custom/podman",
+      "custom/openvpn",
+      "custom/veracrypt",
       "temperature",
       "group/audio",
       "custom/mic_used_by_app",
       "battery",
-      "hyprland/language",
       "custom/date_neuro",
       "custom/date_month",
       "custom/date_time"
@@ -43,17 +46,22 @@
       "custom/logo",
       "hyprland/workspaces#main",
       "custom/weather",
+      "custom/surf",
       "hyprland/submap"
     ],
     "modules-center": [ ],
     "modules-right": [
       "tray",
+      "custom/podman",
+      "custom/openvpn",
+      "custom/veracrypt",
       "temperature",
       "group/audio",
       "custom/mic_used_by_app",
       "battery",
       // it is not working properly
       // "hyprland/language",
+      "custom/language",
       "custom/date_neuro",
       "custom/date_month",
       "custom/date_time"

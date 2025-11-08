@@ -17,6 +17,26 @@ API_KEY = Path("/run/secrets/openweathermap").read_text().strip()
 LATITUDE  = 38.6445165
 LONGITUDE = -9.2336068
 
+ICONS = {
+  "thunderstorm": "󰖓",
+  "drizzle": "󰖗",
+  "rain": "󰖖",
+  "snow": "󰖘",
+  "mist": "󰖑",
+  "smoke": "󰖑",
+  "haze": "󰖑",
+  "dust": "󰖑",
+  "fog": "󰖑",
+  "sand": "󰖑",
+  "ash": "󰖑",
+  "squall": "󰖓",
+  "tornado": "󰼯",
+  "clear": "󰖙",
+  "clouds": "󰖕",
+  "extreme": "󰖓",
+  "additional": "󰖕"
+}
+
 if len(sys.argv) == 3 and sys.argv[2] == 'eink':
     GRAY   = '#ffffff'
     DARK   = '#ffffff'
@@ -383,6 +403,13 @@ def detailed_forecast():
 
 ### WAYBAR ###
 
+def weather_description_icon(value):
+    if value in ICONS.keys():
+        return ICONS[value]
+    else:
+        return value
+
+
 def waybar_widget(data: dict) -> str:
     '''
     get the widget component of the waybar output. contains the current weather
@@ -393,10 +420,10 @@ def waybar_widget(data: dict) -> str:
     @return widget component
     '''
 
-    weather = data['weather'][0]['main'].lower()
+    weather = weather_description_icon(data['weather'][0]['main'].lower())
     temperature = round(data['main']['temp'])
 
-    return f'{colorize(weather, DARK)} {temperature}°'
+    return f'{colorize(weather, BLUE)} {temperature}°'
 
 
 def waybar_current(data: dict) -> str:

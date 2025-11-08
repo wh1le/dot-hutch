@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-hyprctl switchxkblayout "$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true).name')" next
+hyprctl switchxkblayout "$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true).name')" next && pkill -RTMIN+6 waybar

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if mount | grep -qE ' on /mnt/private_[^ ]* '; then
+  echo ""
+fi

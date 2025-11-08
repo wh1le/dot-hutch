@@ -1,3 +1,1 @@
-[Unit]
-Description=Home Manager System Tray
-Requires=graphical-session-pre.target
+/nix/store/n9hf6xb8nsib07l1sklqdhsc7w5490r7-home-manager-files/.config/systemd/user/tray.target

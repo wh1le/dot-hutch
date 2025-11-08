@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+sep=$'\034'   # field separator required by sway-launcher-desktop
+
+printf 'applications%smainmenu%sApplications\n' "$sep" "$sep"
+printf 'bookmarks%smainmenu%sBookmarks\n'   "$sep" "$sep"
+printf 'history%smainmenu%sHistory\n'       "$sep" "$sep"
+printf 'pass%smainmenu%sPass\n'             "$sep" "$sep"

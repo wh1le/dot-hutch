@@ -8,6 +8,10 @@
   background: rgba(21, 18, 27, 0);
 }
 
+#waybar.big .module#workspaces.main button {
+  padding: 5;
+}
+
 .big tooltip {
   background-color: @moduleBackground;
 }

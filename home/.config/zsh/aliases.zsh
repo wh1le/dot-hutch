@@ -52,3 +52,5 @@ alias slogs="sudo journalctl -u"
 alias status="sudo systemctl status"
 
 alias copy="rsync -ah --info=progress2 --stats"
+
+alias dmenu_run="dmenu-wl_run"

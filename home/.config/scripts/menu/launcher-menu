@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# main_menu() {
+#   printf '%s\n' applications bookmarks history |
+#     kitty --single-instance --class launcher -e sway-launcher-desktop
+# }
+
+#!/usr/bin/env bash
+# main_menu() {
+#   kitty --single-instance --class launcher bash -lc '
+#     choice=$(printf "%s\n" applications bookmarks history |
+#              fzf --prompt="Menu> ")
+#     case "$choice" in
+#       applications) sway-launcher-desktop ;;
+#       bookmarks)    my_bookmarks_cmd ;;
+#       history)    my_history_cmd ;;
+#       pass)    my_pass_cmd ;;
+#       pass)    my_pass_cmd ;;
+#     esac
+#   '
+# }
+#
+# case "$(main_menu || exit 0)" in
+#   applications)
+#     # your existing launcher
+#     sway-launcher-desktop
+#     ;;
+#   bookmarks)
+#     # example: pick a bookmark, then open it
+#     sel=$(cut -d' ' -f1 ~/.config/my-bookmarks | fzf --prompt='Bookmarks> ' || exit 0)
+#     [ -n "$sel" ] && xdg-open "$sel"
+#     ;;
+#   history)
+#     # example: pick a command from shell history and run it
+#     cmd=$(fc -ln 0 | tac | fzf --prompt='History> ' || exit 0)
+#     [ -n "$cmd" ] && eval "$cmd"
+#     ;;
+# esac
+
+kitty --single-instance --class launcher bash -lc '
+  choice=$(printf "%s\n" applications bookmarks history pass |
+           fzf --prompt="Menu> ")
+
+  case "$choice" in
+    applications)
+      sway-launcher-desktop
+      ;;
+    bookmarks)
+      sel=$(cut -d" " -f1 ~/.config/my-bookmarks | \
+            fzf --prompt="Bookmarks> " || exit 0)
+      [ -n "$sel" ] && xdg-open "$sel"
+      ;;
+    history)
+      cmd=$(fc -ln 0 | tac | fzf --prompt="History> " || exit 0)
+      [ -n "$cmd" ] && eval "$cmd"
+      ;;
+    pass)
+      my_pass_cmd
+      ;;
+  esac
+'
