@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-if pgrep -f sway-launcher-desktop >/dev/null; then
-  pkill -f 'kitty.*class launcher'
-fi
-
-kitty --single-instance --class launcher -e sway-launcher-desktop
-# kitty --class launcher -e sway-launcher-desktop

@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.config/scripts/menu}"
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+kitty -o allow_remote_control=yes --listen-on unix:/tmp/kitty-launcher -o font_size=14 --single-instance --class launcher bash -lc '
+  sep=$'"'"'\034'"'"'
+  SCRIPT_DIR="$HOME/.config/scripts/menu/options"
+
+  OPTIONS=(
+    "applications:󰣆 Applications"
+    "nix-packages: Nix Search Packages"
+    "nix-options: Nix Search Options"
+    "nix-switch: Nix Switch"
+    #"bookmarks:󰖟 Browser Bookmarks"
+    #"history:󰖟 Browser History"
+    #"pass: Passwords"
+    #"pass:2FAuthnetication"
+    "kill:󰧻 Kill Program"
+    #"connect-bluetooth: Connect Bluetooth"
+    #"connect-bluetooth:󰖩 Connect Wi-Fi"
+    #"search-youtube:󰕧 Search Youtube"
+  )
+
+  # choice="$(
+  #   for opt in "${OPTIONS[@]}"; do
+  #     IFS=":" read -r key label <<<"$opt"
+  #     printf "%s%s%s\n" "$key" "$sep" "$label"
+  #   done | fzf-with-options
+  # )" || exit 0
+
+  choice="$(
+		# printf '%s\n' "${OPTIONS[@]}" \
+		# | fzf-with-options --delimiter=':' --with-nth=2
+		printf '%s\0' "${OPTIONS[@]}" \
+  | fzf --read0 --delimiter=':' --with-nth=2
+  )" || exit 0
+
+  # key=${choice%%"$sep"*}
+	key="${choice%%:*}"
+  script="${SCRIPT_DIR}/${key}"
+
+  if [[ -x "$script" ]]; then
+    exec "$script"
+  elif [[ -f "$script" ]]; then
+    exec bash "$script"
+  else
+    printf "script not found: %s\n" "$script" >&2
+    exit 1
+  fi
+'
+

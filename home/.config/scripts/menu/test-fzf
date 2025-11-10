@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+sep=$'\034'
+SCRIPT_DIR="$HOME/.config/scripts/menu/options"
+
+OPTIONS=(
+  "applications:󰣆 Applications"
+  "nix-packages: Nix Search Packages"
+  "nix-options: Nix Options"
+  "nix-switch: Nix Switch"
+  "bookmarks:󰖟 Browser Bookmarks"
+  "history:󰖟 Browser History"
+  "pass: Passwords"
+  "pass-2fa:2FAuthentication"
+  "kill:󰧻 Kill Program"
+  "connect-bluetooth: Connect Bluetooth"
+  "connect-wifi:󰖩 Connect Wi-Fi"
+  "search-youtube:󰕧 Search Youtube"
+)
+
+choice="$(
+  for opt in "${OPTIONS[@]}"; do
+    IFS=":" read -r key label <<< "$opt"
+    printf '%s%s%s\n' "$key" "$sep" "$label"
+  done | fzf \
+    --ansi \
+    --margin="0,2,0,2" \
+    --cycle \
+    --delimiter="$sep" \
+    --with-nth=2 \
+    --no-info \
+		 --color="gutter:-1,border:238,scrollbar:238" \
+    --prompt="> "
+)" || exit 0

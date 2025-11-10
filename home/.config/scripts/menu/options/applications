@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.config/scripts/menu}"
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+paths=(
+  /run/current-system/sw/bin
+  /etc/profiles/per-user/$USER/bin
+  "$HOME/.nix-profile/bin"
+)
+
+if pgrep -f 'kitty.*--class launcher' >/dev/null; then
+  hyprctl dispatch resizeactive 100 200
+  hyprctl dispatch centerwindow
+fi
+
+apps=$(
+  for d in "${paths[@]}"; do
+    [ -d "$d" ] || continue
+    find "$d" -maxdepth 1 -mindepth 1 -executable -printf '%f\n' 2>/dev/null
+  done | sort -u
+)
+
+# notify-send "$choice"
+
+choice=$(printf '%s\n' "$apps" | fzf-with-options)
+
+"$choice" >/dev/null 2>&1 #& disown

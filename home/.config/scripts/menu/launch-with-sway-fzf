@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# if pgrep -f sway-launcher-desktop >/dev/null; then
+#   pkill -f 'kitty.*class launcher'
+# fi
+
+kitty -o font_size=14 --single-instance --class launcher bash -lc '
+  choice=$(PROVIDERS_FILE="$HOME/.config/sway-launcher-desktop/main.conf" PREVIEW_WINDOW='up:2:noborder' HIST_FILE=""  sway-launcher-desktop) || exit 0
+  case "$choice" in
+    applications)
+      sway-launcher-desktop
+      ;;
+    bookmarks)
+      ~/.config/scripts/menu/bookmarks-launcher.sh
+      ;;
+    history)
+      ~/.config/scripts/menu/history-launcher.sh
+      ;;
+    nix-options)
+      PROVIDERS_FILE="$HOME/.config/sway-launcher-desktop/nix-options.conf" sway-launcher-desktop
+      ;;
+    nix-packages)
+      ~/.config/scripts/menu/nix-packages-launcher.sh
+      ;;
+    connect-bluetooth)
+      ~/.config/scripts/menu/connect-bluetooth-launcher.sh
+      ;;
+    kill)
+      ~/.config/scripts/menu/options/kill
+      ;;
+    kanshi)
+      ~/.config/scripts/menu/options/kanshi
+      ;;
+    pass)
+      ~/.config/scripts/menu/pass-launcher.sh
+      ;;
+  esac
+'
