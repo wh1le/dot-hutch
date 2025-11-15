@@ -1,5 +1,6 @@
 {
   pkgs,
+  unstable,
   ...
 }:
 
@@ -7,15 +8,15 @@
   environment.variables.OBSIDIAN_USE_WAYLAND = 1;
 
   environment.systemPackages = with pkgs; [
-    kitty
-    wezterm
-    telegram-desktop
-    vlc
-    thunderbird
-    obsidian
-    zoom-us
-    blanket
-    joplin-desktop
-    qalculate-qt
+    pkgs.kitty
+    unstable.wezterm
+    pkgs.telegram-desktop
+    pkgs.vlc
+    pkgs.thunderbird
+    pkgs.obsidian
+    pkgs.zoom-us
+    pkgs.blanket
+    pkgs.joplin-desktop
+    pkgs.gnome-calculator
   ];
 }

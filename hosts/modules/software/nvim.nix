@@ -1,5 +1,6 @@
 {
   pkgs,
+  unstable,
   ...
 }:
 
@@ -8,36 +9,36 @@
 # https://github.com/kawre/leetcode.nvim
 
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     # Main dependencies
-    neovim
-    ripgrep
-    lua5_1
-    lua51Packages.luarocks
-    lua54Packages.luarocks
-    tree-sitter
+    unstable.neovim
+    pkgs.ripgrep
+    pkgs.lua5_1
+    pkgs.lua51Packages.luarocks
+    pkgs.lua54Packages.luarocks
+    pkgs.tree-sitter
 
     # LSP Servers
-    lua-language-server
-    bash-language-server
-    vscode-langservers-extracted # ships: vscode-html-language-server vscode-css-language-server vscode-json-language-server vscode-eslint-language-server
+    pkgs.lua-language-server
+    pkgs.bash-language-server
+    pkgs.vscode-langservers-extracted # ships: vscode-html-language-server vscode-css-language-server vscode-json-language-server vscode-eslint-language-server
 
-    yaml-language-server
+    pkgs.yaml-language-server
 
-    ruby_3_4
+    pkgs.ruby_3_4
 
-    typescript-language-server
+    pkgs.typescript-language-server
     # typescript
-    vscode-langservers-extracted
-    pyright
-    ruff
-    taplo
-    marksman
-    nil
-    typos-lsp
+    pkgs.vscode-langservers-extracted
+    pkgs.pyright
+    pkgs.ruff
+    pkgs.taplo
+    pkgs.marksman
+    pkgs.nil
+    pkgs.typos-lsp
 
     # Neovim python package
-    (python3.withPackages (ps: [
+    (pkgs.python3.withPackages (ps: [
       # NeoVim
       ps.pynvim
       ps.debugpy
@@ -46,14 +47,14 @@
     ]))
 
     # Formatters
-    codespell
-    black
-    isort
-    prettierd
-    eslint
-    stylua
-    shfmt
-    shellcheck
-    nixfmt-rfc-style
+    pkgs.codespell
+    pkgs.black
+    pkgs.isort
+    pkgs.prettierd
+    pkgs.eslint
+    pkgs.stylua
+    pkgs.shfmt
+    pkgs.shellcheck
+    pkgs.nixfmt-rfc-style
   ];
 }

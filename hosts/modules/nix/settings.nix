@@ -1,16 +1,23 @@
 { ... }:
 {
+  # NOTE: temporary disable clean until second video card is connected
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   options = "--delete-older-than 30d";
+  # };
 
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 14d";
-    };
+  # programs.nh = {
+  #   enable = true;
+  #   clean.enable = false;
+  #   clean.extraArgs = "--keep-since 4d --keep 3";
+  #   flake = "/etc/nixos";
+  # };
 
-    settings = {
-      max-jobs = "auto";
-      cores = 8;
-    };
+  nix.settings = {
+    auto-optimise-store = true;
+    max-jobs = "auto";
+    cores = 0;
   };
+
 }

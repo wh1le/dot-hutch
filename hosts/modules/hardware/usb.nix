@@ -19,6 +19,8 @@
     libinput
     # socat
 
+    woeusb
+
     exfatprogs
     dosfstools
     ntfs3g

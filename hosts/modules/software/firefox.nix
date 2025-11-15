@@ -1,5 +1,6 @@
 {
   pkgs,
+  unstable,
   ...
 }:
 {
@@ -16,8 +17,8 @@
 
   environment.sessionVariables.DEFAULT_BROWSER = "${pkgs.firefox}/bin/firefox";
 
-  environment.systemPackages = with pkgs; [
-    firefox
-    # nativefier
+  environment.systemPackages = [
+    unstable.firefox
+    unstable.librewolf
   ];
 }

@@ -1,6 +1,6 @@
 {
   pkgs,
-  inputs,
+  unstable,
   ...
 }:
 {
@@ -14,28 +14,28 @@
     TERMINAL = "kitty";
   };
 
-  environment.systemPackages = with pkgs; [
-    psmisc # provides 'killall', 'pstree', general utilities
+  environment.systemPackages = [
+    pkgs.psmisc # provides 'killall', 'pstree', general utilities
 
-    fzf
-    btop
-    tmux
-    tree
-    buku # bookmarks
+    pkgs.fzf
+    pkgs.btop
+    pkgs.tmux
+    pkgs.tree
+    pkgs.buku # bookmarks
 
-    wl-clipboard # wlogout # graphical logout menu (optional)
-    wl-clip-persist # keeps clipboard after app exit
+    pkgs.wl-clipboard # wlogout # graphical logout menu (optional)
+    pkgs.wl-clip-persist # keeps clipboard after app exit
 
-    imgcat
+    pkgs.imgcat
 
-    fastfetch
-    tldr
+    pkgs.fastfetch
+    pkgs.tldr
 
-    manix # nix documentation searcher
-    nix-search-tv
+    pkgs.manix # nix documentation searcher
+    unstable.nix-search-tv
 
-    mutt # TODO: Mail client
-    dooit # TODO: todos
-    astroterm # fun
+    pkgs.mutt # TODO: Mail client
+    pkgs.dooit # TODO: todos
+    pkgs.astroterm # fun
   ];
 }

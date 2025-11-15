@@ -15,7 +15,7 @@ in
       wantedBy = [ "default.target" ];
       path = [
         pkgs.nix
-        pkgs.tmux
+        unstable.tmux
       ];
 
       environment = {

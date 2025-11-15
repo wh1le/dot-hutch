@@ -7,6 +7,5 @@
 
   environment.systemPackages = with pkgs; [
     openvpn
-    expressvpn
   ];
 }

@@ -25,8 +25,6 @@ in
 
   environment.variables.HYPRCURSOR_SIZE = 40;
   environment.variables.XCURSOR_SIZE = 40;
-  environment.variables.GDK_SCALE = "1.5";
-  environment.variables.GDK_BACKEND = "wayland,x11,*";
   environment.variables.ELECTRON_OZONE_PLATFORM_HINT = "wayland";
   environment.variables.CLUTTER_BACKEND = "wayland";
   environment.variables.XDG_SESSION_TYPE = "wayland";
@@ -37,8 +35,6 @@ in
   environment.variables.QT_QPA_PLATFORM = "wayland";
 
   environment.variables.MOZ_ENABLE_WAYLAND = 1;
-
-  environment.variables.WLR_NO_HARDWARE_CURSORS = 1;
 
   programs.uwsm.waylandCompositors = {
     hyprland = {
@@ -124,6 +120,7 @@ in
     pkgs.wofi
     pkgs.fuzzel
     pkgs.dmenu-wayland
+    unstable.sway-launcher-desktop
 
     # pkgs.grimblast
 

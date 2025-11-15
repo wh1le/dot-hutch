@@ -1,4 +1,9 @@
-{ modulesPath, pkgs, ... }:
+{
+  modulesPath,
+  pkgs,
+  unstable,
+  ...
+}:
 {
   system.stateVersion = "25.05";
 
@@ -13,13 +18,20 @@
   # TODO: remove
   programs.dconf.enable = true;
 
-  environment.systemPackages = [ pkgs.google-chrome ];
+  environment.systemPackages = [
+    pkgs.google-chrome
+    pkgs.nix-search
+    unstable.yewtube
+    unstable.yt-dlp
+    unstable.ytfzf
+  ];
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
 
     ../modules/hardware/homepc/nvidia.nix
+    ../modules/hardware/homepc/radeon.nix
     ../modules/hardware/homepc/nzxt_kraken.nix
     ../modules/hardware/homepc/boot.nix
 
@@ -41,12 +53,15 @@
     ../modules/security/ssh.nix
     ../modules/security/encryption.nix
 
+    ../modules/software/virtualisation/qemu.nix
+    ../modules/software/virtualisation/docker.nix
+    ../modules/software/virtualisation/podman.nix
+
     ../modules/software/desktop.nix
     ../modules/software/devops.nix
     ../modules/software/firefox.nix
     ../modules/software/nvim.nix
     ../modules/software/kde_connect.nix
-    ../modules/software/virtualisation.nix
     ../modules/software/wine.nix
     ../modules/software/utils.nix
     ../modules/software/flatpacks.nix

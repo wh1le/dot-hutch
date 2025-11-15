@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
 {
+  environment.variables.GDK_BACKEND = "wayland,x11,*";
+  # Override in radeon config
+  # environment.variables.GDK_SCALE = "1.5";
+  environment.variables.WLR_NO_HARDWARE_CURSORS = 1;
+  environment.variables.NVIDIA_CARD_PRIMARY = 1;
+
   environment.sessionVariables = {
     NVD_BACKEND = "direct";
     LIBVA_DRIVER_NAME = "nvidia";
@@ -8,9 +14,6 @@
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     NIXOS_OZONE_WL = "1";
 
-    # setting the SDL_VIDEODRIVER to wayland or x11 doesn't make a difference
-    # a lot of these came from https://github.com/NixOS/nixpkgs/issues/162562#issuecomment-1523177264
-    # SDL_VIDEODRIVER = "wayland";
     _JAVA_AWT_WM_NONREPARENTING = "1";
     WLR_RENDERER = "vulkan";
     GTK_USE_PORTAL = "1";

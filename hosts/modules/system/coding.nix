@@ -1,22 +1,22 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    git
-    lazygit
+  environment.systemPackages = [
+    pkgs.git
+    pkgs.lazygit
 
-    bash
-    zsh
+    pkgs.bash
+    pkgs.zsh
 
-    direnv
-    nix-direnv
+    pkgs.direnv
+    pkgs.nix-direnv
 
-    bat
-    xh # http
+    pkgs.bat
+    pkgs.xh # http
 
-    jq # Json parser
+    pkgs.jq # Json parser
     # http # api
 
-    silver-searcher
+    pkgs.silver-searcher
   ];
 }

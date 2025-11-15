@@ -1,13 +1,5 @@
 { pkgs, ... }:
 {
-  # environment.variables.QT_SCALE_FACTOR = 2;
-  # environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
-  # environment.variables.QT_QPA_PLATFORMTHEME = "qt6ct";
-
-  # environment.etc."xdg/menus/applications.menu".source =
-  # "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
-  # environment.variables.XDG_MENU_PREFIX = "plasma-";
-
   environment.systemPackages = with pkgs; [
     kdePackages.polkit-kde-agent-1 # authentication
 
