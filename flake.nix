@@ -11,6 +11,8 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
+
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -27,6 +29,7 @@
       home-manager,
       sops-nix,
       hyprland,
+      flatpaks,
       ...
     }@inputs:
     {
@@ -46,6 +49,7 @@
           modules = [
             ./hosts/homepc/configuration.nix
             inputs.sops-nix.nixosModules.sops
+            flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
             {
               home-manager.users.wh1le = ./home/users/wh1le.nix;

@@ -64,7 +64,7 @@
     ../modules/software/kde_connect.nix
     ../modules/software/wine.nix
     ../modules/software/utils.nix
-    ../modules/software/flatpacks.nix
+    ../modules/software/flatpaks.nix
     # ../modules/software/llms.nix
     ../modules/software/n8n.nix
     # ../modules/software/searx.nix

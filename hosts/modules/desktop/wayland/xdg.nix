@@ -6,6 +6,8 @@
 
   xdg.portal.extraPortals = lib.mkForce [
     pkgs.kdePackages.xdg-desktop-portal-kde
+    pkgs.xdg-desktop-portal-hyprland
+    pkgs.xdg-desktop-portal-gtk
     # pkgs.xdg-desktop-portal-gtk
   ];
 
