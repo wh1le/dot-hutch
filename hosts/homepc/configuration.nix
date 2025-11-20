@@ -30,8 +30,9 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
 
-    ../modules/hardware/homepc/nvidia.nix
-    ../modules/hardware/homepc/radeon.nix
+    # ../modules/hardware/homepc/nvidia.nix
+    # ../modules/hardware/homepc/radeon.nix
+    ../modules/hardware/homepc/dual_gpu.nix
     ../modules/hardware/homepc/nzxt_kraken.nix
     ../modules/hardware/homepc/boot.nix
 
@@ -57,12 +58,13 @@
     ../modules/software/virtualisation/docker.nix
     ../modules/software/virtualisation/podman.nix
 
+    ../modules/software/databases.nix
+
     ../modules/software/desktop.nix
     ../modules/software/devops.nix
     ../modules/software/firefox.nix
     ../modules/software/nvim.nix
     ../modules/software/kde_connect.nix
-    ../modules/software/wine.nix
     ../modules/software/utils.nix
     ../modules/software/flatpaks.nix
     # ../modules/software/llms.nix
@@ -80,10 +82,12 @@
     ../modules/system/fonts.nix
     ../modules/system/media.nix
 
-    ../modules/desktop/wayland/hyprland/main.nix
+    ../modules/desktop/wayland/hyprland/hyprland.nix
+    ../modules/desktop/wayland/hyprland/desktop.nix
     ../modules/desktop/wayland/hyprland/systemd.nix
     ../modules/desktop/wayland/kde_packages.nix
     ../modules/desktop/wayland/pointer.nix
     ../modules/desktop/wayland/xdg.nix
+    ../modules/desktop/wayland/qt6.nix
   ];
 }

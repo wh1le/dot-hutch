@@ -17,7 +17,8 @@
     _JAVA_AWT_WM_NONREPARENTING = "1";
     WLR_RENDERER = "vulkan";
     GTK_USE_PORTAL = "1";
-    NIXOS_XDG_OPEN_USE_PORTAL = "1";
+    # TODO: might break portal
+    # NIXOS_XDG_OPEN_USE_PORTAL = "1";
     ENABLE_VKBASALT = "1";
   };
 

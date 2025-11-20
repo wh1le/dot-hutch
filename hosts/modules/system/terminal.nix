@@ -10,13 +10,15 @@
 
   environment.variables = {
     EDITOR = "nvim";
-    TERM = "kitty";
     TERMINAL = "kitty";
   };
 
   environment.systemPackages = [
-    pkgs.psmisc # provides 'killall', 'pstree', general utilities
 
+    unstable.sway-launcher-desktop
+
+    pkgs.psmisc # provides 'killall', 'pstree', general utilities
+    pkgs.lm_sensors
     pkgs.fzf
     pkgs.btop
     pkgs.tmux
@@ -30,6 +32,7 @@
 
     pkgs.fastfetch
     pkgs.tldr
+    unstable.yazi
 
     pkgs.manix # nix documentation searcher
     unstable.nix-search-tv

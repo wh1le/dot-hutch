@@ -1,19 +1,17 @@
-{ pkgs, ... }:
+{ unstable, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    # images
-    imagemagick
-    gimp
+    pkgs.imagemagick
+    pkgs.gimp
 
-    # videos
-    ffmpeg_6-full
-    ffmpeg
-    libva-utils
-    vlc
-    mpv
+    pkgs.ffmpeg_6-full
+    pkgs.ffmpeg
+    pkgs.libva-utils
 
-    # music
-    mpd
-    blanket
+    pkgs.mpd
+    pkgs.blanket
+
+    unstable.vlc
+    unstable.mpv
   ];
 }

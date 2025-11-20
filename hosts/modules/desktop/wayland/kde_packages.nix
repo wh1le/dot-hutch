@@ -1,8 +1,22 @@
 { pkgs, ... }:
 {
+  qt = {
+    enable = true;
+    platformTheme = "kde";
+    # style = "Breeze";
+  };
+
+  environment.sessionVariables.QT_QPA_PLATFORM = "wayland";
+
+  services.desktopManager.plasma6.enable = true;
+
+  services.dbus.packages = [
+    pkgs.kdePackages.kded
+    pkgs.kdePackages.plasma-workspace
+  ];
+
   environment.systemPackages = with pkgs; [
     kdePackages.polkit-kde-agent-1 # authentication
-
     kdePackages.dolphin
     kdePackages.dolphin-plugins
     kdePackages.kio
@@ -16,6 +30,14 @@
     kdePackages.ffmpegthumbs
     kdePackages.kdegraphics-thumbnailers
     kdePackages.kservice
+    kdePackages.systemsettings
+    kdePackages.qtwayland
+    # qt6.qtwayland # Qt6 Wayland platform plugin
+    egl-wayland
+    qt6.qtwayland
+
+    # kdePackages.breeze
+    # kdePackages.breeze-gtk
 
     # TODO: Consider to remove
     # kdePackages.qtstyleplugin-kvantum # styling
@@ -25,7 +47,6 @@
     # kdePackages.qt6ct # configuration
     # libsForQt5.qt5ct # configuration
     # libsForQt5.qtstyleplugin-kvantum
-    # qt6.qtwayland # Qt6 Wayland platform plugin
     # libsForQt5.qt5.qtwayland # Qt5 Wayland platform plugin
     # kdePackages.polkit-kde-agent-1 # some polkit agent is required
 

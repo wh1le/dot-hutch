@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = [
-    pkgs.sqlitebrowser
+    pkgs.sqlite-web
+    pkgs.sqlite
   ];
 }
