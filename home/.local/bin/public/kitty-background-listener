@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+#
+# declare -A monitor_colors
+# monitor_colors["DP-1"]="#1a1b26"
+# monitor_colors["HDMI-A-1"]="#2d1b2e"
+# monitor_colors["eDP-1"]="#1b2b34"
+#
+# SOCKET_PATH="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+#
+# if [[ ! -S "$SOCKET_PATH" ]]; then
+#   SOCKET_PATH=$(echo /tmp/hypr/*/.socket2.sock)
+# fi
+#
+# socat -u UNIX-CONNECT:$(echo $SOCKET_PATH) - | while read -r line; do
+#   if [[ "$line" =~ ^movewindow\>\> ]]; then
+#     window_addr=$(echo "$line" | cut -d',' -f1 | cut -d'>' -f3)
+#
+#     window_info=$(hyprctl clients -j | jq -r ".[] | select(.address == \"0x$window_addr\")")
+#     window_class=$(echo "$window_info" | jq -r '.initialTitle')
+#     monitor=$(echo "$window_info" | jq -r '.monitor')
+#     pid=$(echo "$window_info" | jq -r '.pid')
+#
+#     echo "$window_class"
+#     echo "$window_info"
+#
+#     if [[ "$window_class" == "kitty" ]]; then
+#       color="${monitor_colors[$monitor]:-#1a1b26}"
+#       kitty @ --to unix:/tmp/kitty set-colors --match "pid:$pid" background="$color"
+#     fi
+#   fi
+# done
+
+DASUNG_BG="#ffffff"
+DASUNG_FG="#000000"
+NORMAL_BG="#1a1b26"
+NORMAL_FG="#c0caf5"
+
+SOCKET_PATH="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+if [[ ! -S "$SOCKET_PATH" ]]; then
+  SOCKET_PATH=$(echo /tmp/hypr/*/.socket2.sock)
+fi
+
+socat -u UNIX-CONNECT:$SOCKET_PATH - | while read -r line; do
+  if [[ "$line" =~ ^movewindow\>\> ]]; then
+    window_addr=$(echo "$line" | cut -d',' -f1 | cut -d'>' -f3)
+
+    window_info=$(hyprctl clients -j | jq -r ".[] | select(.address == \"0x$window_addr\")")
+    window_class=$(echo "$window_info" | jq -r '.initialTitle')
+    monitor_id=$(echo "$window_info" | jq -r '.monitor')
+    pid=$(echo "$window_info" | jq -r '.pid')
+
+    # Get monitor name from monitor ID
+    monitor_name=$(hyprctl monitors -j | jq -r ".[] | select(.id == $monitor_id) | .description")
+
+    if [[ "$window_class" == "kitty" ]]; then
+      kitty_socket="/tmp/kitty-$pid"
+
+      if [[ "$monitor_name" =~ [Dd]asung|[Pp]aperlike ]]; then
+        kitty @ --to unix:$kitty_socket set-colors background="$DASUNG_BG" foreground="$DASUNG_FG"
+      else
+        kitty @ --to unix:$kitty_socket set-colors background="$NORMAL_BG" foreground="$NORMAL_FG"
+      fi
+    fi
+  fi
+done

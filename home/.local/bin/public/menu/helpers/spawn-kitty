@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+spawn-kitty() {
+	if [ -n "$KITTY_LAUNCHER_SOCKET_PATH" ] && [ -S "$KITTY_LAUNCHER_SOCKET_PATH" ]; then
+		kitty @ --to "unix:$KITTY_LAUNCHER_SOCKET_PATH" close-window
+	fi
+
+  kitty -o allow_remote_control=yes \
+    --listen-on "unix:${KITTY_LAUNCHER_SOCKET_PATH}" \
+    -o font_size=13 \
+    --single-instance \
+    --class launcher \
+    bash -lc "exec $1"
+    # bash -lc "$1"
+}
+export -f spawn-kitty

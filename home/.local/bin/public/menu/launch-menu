@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+SCRIPT_DIR="$LAUNCHER_SCRIPTS_PATH/options"
+
+OPTIONS=(
+  "applications:󰣆 Applications"
+  "kill-process:󰧻 Kill Process"
+  "clipboard-history: Clipboard History"
+  "openvpn-connect:󱠾 OpenVPN Connect"
+  "nix-switch: Nix Switch"
+  "browser-history:󰖟 Browser History"
+  "ruby-gems: Gems Search"
+  "nix-search-packages: Nix Search Packages"
+  "nix-search-options: Nix Search Options"
+  "nix-search-home-options: Nix Search Home Options"
+  # "browser-bookmarks:󰖟 Browser Bookmarks"
+  # "pass: Passwords"
+  "pass: 2FA"
+  #"connect-bluetooth: Connect Bluetooth"
+  #"connect-bluetooth:󰖩 Connect Wi-Fi"
+  #"search-youtube:󰕧 Search Youtube"
+)
+
+choice="$(
+  printf '%s\0' "${OPTIONS[@]}" |
+    fzf --read0 --delimiter=':' --with-nth=2
+)" || exit 0
+
+key="${choice%%:*}"
+script="${SCRIPT_DIR}/${key}"
+
+if [[ -x "$script" ]]; then
+  exec "$script"
+elif [[ -f "$script" ]]; then
+  exec bash "$script"
+else
+  printf "script not found: %s\n" "$script" >&2
+  exit 1
+fi

@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+ICON="󰡨"
+
+command -v jq >/dev/null 2>&1 || exit 0
+command -v systemctl >/dev/null 2>&1 || {
+  jq -nc --arg icon "$ICON" '{
+    "text": ($icon + " off"),
+    "tooltip": "systemd not available",
+    "class": "off"
+  }'
+  exit 0
+}
+
+# running count (user/system)
+count_running() {
+  scope="$1" # "" or "--user"
+  systemctl $scope list-units --type=service --state=running --no-legend --no-pager 2>/dev/null \
+    | awk '$1 ~ /^(podman-|docker-)/ {print $1}' \
+    | wc -l
+}
+
+# any defined podman-/docker- services (user/system)
+count_any() {
+  scope="$1"
+  systemctl $scope list-unit-files --type=service --no-legend --no-pager 2>/dev/null \
+    | awk '$1 ~ /^(podman-|docker-)/ {print $1}' \
+    | wc -l
+}
+
+# collect running names, flattened to one line
+list_running_flat() {
+  scope="$1"
+  systemctl $scope list-units --type=service --state=running --no-legend --no-pager 2>/dev/null \
+    | awk '$1 ~ /^(podman-|docker-)/ {print $1}'
+}
+
+user_running=$(count_running --user)
+system_running=$(count_running "")
+
+user_any=$(count_any --user)
+system_any=$(count_any "")
+
+running=$((user_running + system_running))
+has_any=$((user_any + system_any))
+
+if [ "$has_any" -eq 0 ]; then
+  jq -nc --arg icon "$ICON" '{
+    "text": ($icon + " off"),
+    "tooltip": "no podman-/docker- services found",
+    "class": "off"
+  }'
+  exit 0
+fi
+
+if [ "$running" -eq 0 ]; then
+  cls="idle"
+  tooltip="podman-/docker- services present, none running"
+else
+  cls="active"
+
+  # Build single-line tooltip of service names
+  services=""
+  user_list=$(list_running_flat --user)
+  system_list=$(list_running_flat "")
+
+  if [ -n "$user_list" ]; then
+    services="$user_list"
+  fi
+
+  if [ -n "$system_list" ]; then
+    if [ -n "$services" ]; then
+      services="${services}, ${system_list}"
+    else
+      services="${system_list}"
+    fi
+  fi
+
+  tooltip="$services"
+fi
+
+jq -nc \
+  --arg icon "$ICON" \
+  --arg running "$running" \
+  --arg tooltip "$tooltip" \
+  --arg cls "$cls" \
+  '{
+    "text": ($icon + " " + $running),
+    "tooltip": $tooltip,
+    "class": $cls
+  }'

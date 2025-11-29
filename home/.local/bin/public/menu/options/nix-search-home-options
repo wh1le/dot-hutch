@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
+: "${KITTY_LAUNCHER_CLASS:=launcher}"
+: "${KITTY_LAUNCHER_SOCKET_PATH:=/tmp/kitty-launcher}"
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+  hyprctl dispatch resizeactive 700 400
+  hyprctl dispatch centerwindow
+  kitty @ --to unix:/tmp/kitty-launcher set-font-size 10
+fi
+
+choice=$(
+  nix-search-tv print --indexes home-manager |
+    fzf-with-options \
+      --margin="0,0,0,0" \
+      --preview 'nix-search-tv preview --indexes home-manager {}' \
+      --scheme history \
+      --preview-window=right,55%,wrap \
+      --preview-label='docs' \
+      --preview-label-pos=1
+)
+
+notify-send "NixOS Search Copied" "$choice"
+
+printf "$choice" | wl-copy
+
+if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+  kitty @ --to unix:$KITTY_LAUNCHER_SOCKET_PATH close-window
+fi

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SESSION="nix"
+BASE="$HOME/dot"
+
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+  exit 0
+fi
+
+# Create session and windows without attaching
+tmux new-session -d -s "$SESSION" \
+  -n private \
+  -c "$BASE/nix-private" \
+  'zsh -l'
+tmux send-keys -t "$SESSION:private" 'nvim .' C-m
+
+tmux new-window -t "$SESSION:" \
+  -n public \
+  -c "$BASE/nix-public" \
+  'zsh -l'
+tmux send-keys -t "$SESSION:public" 'nvim .' C-m
+
+tmux new-window -t "$SESSION:" \
+  -n switch \
+  -c "$BASE/nix-public" \
+  'zsh -l'
+
+# tmux select-window -t "$SESSION:1"

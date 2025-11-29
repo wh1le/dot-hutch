@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SESSION="obsidian"
+BASE="$HOME/obsidian/self-architect"
+
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+  exit 0
+fi
+
+tmux new-session -d -s "$SESSION" \
+  -n architect \
+  -c "$BASE" \
+  'zsh -l'
+
+tmux send-keys -t "$SESSION:architect" 'nvim ./Architect.md' C-m

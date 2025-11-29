@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+ICON="󰡨"
+
+# Need jq
+command -v jq >/dev/null 2>&1 || exit 0
+
+has_any=0
+user_running=0
+root_running=0
+
+# Rootless podman
+if podman info >/dev/null 2>&1; then
+  has_any=1
+  user_running=$(podman ps --filter status=running -q 2>/dev/null | wc -l)
+fi
+
+# Root podman via sudo -n (no password prompt)
+if sudo -n podman info >/dev/null 2>&1; then
+  has_any=1
+  root_running=$(sudo -n podman ps --filter status=running -q 2>/dev/null | wc -l)
+fi
+
+if [ "$has_any" -eq 0 ]; then
+  jq -nc --arg icon "$ICON" '{
+    "text": ($icon + " off"),
+    "tooltip": "podman not available (user or sudo -n)",
+    "class": "off"
+  }'
+  exit 0
+fi
+
+running=$((user_running + root_running))
+
+if [ "$running" -eq 0 ]; then
+  cls="idle"
+  tooltip="podman up, no running containers"
+else
+  cls="active"
+  tooltip="running containers: user='"$user_running"', root='"$root_running"'"
+fi
+
+jq -nc \
+  --arg icon "$ICON" \
+  --arg running "$running" \
+  --arg tooltip "$tooltip" \
+  --arg cls "$cls" \
+  '{
+    "text": ($icon + " " + $running),
+    "tooltip": $tooltip,
+    "class": $cls
+  }'

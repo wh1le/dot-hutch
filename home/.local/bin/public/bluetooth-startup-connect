@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+DEVICES_MSI=(
+  "1C:1D:D3:74:6C:A9:Magic Keyboard"
+  "80:99:E7:E0:4B:A5:WH-1000XM6"
+  # "28:9A:4B:AA:AE:10:Rival 3 Mouse"
+)
+
+DEVICES_USB=()
+
+CONTROLLER_MSI="DC:46:28:57:AC:CD"
+# CONTROLLER_USB="8C:90:2D:8E:73:A6"
+
+connect_device() {
+  local MAC=${1:? "MAC required"}
+  local NAME=${2:? "NAME required"}
+  local CONTROLLER=${3:? "CONTROLLER required"}
+
+  echo "MAC: ${MAC}"
+  echo "NAME: ${NAME}"
+  echo "CONTROLLER: ${CONTROLLER}"
+
+  if bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
+    echo "$NAME already connected"
+
+    notify-send "Bluetooth" "$NAME already connected"
+
+    return 0
+  fi
+
+  bluetoothctl select "$CONTROLLER"
+  bluetoothctl power on
+
+  if bluetoothctl connect "$MAC"; then
+    notify-send "Bluetooth" "$NAME connected."
+  else
+    notify-send "Bluetooth" "Failed to connect to $NAME"
+  fi
+}
+
+for entry in "${DEVICES_MSI[@]}"; do
+  MAC=${entry%:*}
+  NAME=${entry##*:}
+
+  connect_device "$MAC" "$NAME" "$CONTROLLER_MSI"
+done

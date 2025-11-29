@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# TODO: Remove after reboot
+: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
+: "${KITTY_LAUNCHER_SOCKET_PATH:=/tmp/kitty-launcher}"
+# TODO: Remove after reboot
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/spawn-kitty"
+
+option=${1-}
+
+if [ -z "$option" ]; then
+  spawn-kitty "$LAUNCHER_SCRIPTS_PATH/launch-menu"
+else
+  spawn-kitty "$LAUNCHER_SCRIPTS_PATH/options/$option"
+fi

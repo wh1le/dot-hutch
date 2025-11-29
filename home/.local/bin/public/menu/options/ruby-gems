@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
+: "${KITTY_LAUNCHER_CLASS:=launcher}"
+: "${KITTY_LAUNCHER_SOCKET_PATH:=/tmp/kitty-launcher}"
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+  hyprctl dispatch resizeactive 100 100
+  hyprctl dispatch centerwindow
+  kitty @ --to unix:/tmp/kitty-launcher set-font-size 10
+fi
+
+choice=$(
+  # list all remote gems (names only)
+  gem search --remote --no-versions '' |
+    fzf-with-options \
+      --exact \
+      --margin="0,0,0,0" \
+      --preview 'gem info --remote {}' \
+      --scheme history \
+      --preview-window=top,55%,wrap \
+      --preview-label='docs' \
+      --preview-label-pos=1
+)
+
+notify-send "RubyGems: gem copied" "$choice"
+
+printf '%s' "$choice" | wl-copy
+
+if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+  kitty @ --to unix:$KITTY_LAUNCHER_SOCKET_PATH close-window
+fi
