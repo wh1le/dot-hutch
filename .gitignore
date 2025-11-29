@@ -1,5 +1,4 @@
 *.DS_Store
-config/tmux/plugins/*
-config/tmux/plugins/tpm
-bin/lazy.nvim
-config/zsh/.zcompdump
+home/.config/tmux/plugins/*
+home/.config/tmux/plugins/tpm
+home/.config/zsh/.zcompdump
