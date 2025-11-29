@@ -11,6 +11,26 @@ return {
 				-- false → :tcd (tab-local cwd)     :contentReference[oaicite:2]{index=2}
 			},
 		},
+		renderer = {
+			icons = {
+				git_placement = "after",
+				web_devicons = {
+					file = {
+						enable = true,
+						color = true,
+					},
+					folder = {
+						enable = false,
+						color = true,
+					},
+				},
+			},
+		},
+		git = {
+			enable = false,
+			-- show_on_dirs = false,
+			-- show_on_open_dirs = false,
+		},
 		sort = {
 			sorter = "case_sensitive",
 		},
@@ -23,7 +43,7 @@ return {
 			group_empty = true,
 		},
 		filters = {
-			dotfiles = false, -- false == show dotfiles
+			dotfiles = true, -- false == show dotfiles
 		},
 	},
 	keys = {

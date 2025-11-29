@@ -4,14 +4,21 @@ return {
 		formatters_by_ft = {
 			["_"] = { "trim_whitespace" },
 			["*"] = { "codespell" },
-			lua = { "stylua" },
-			python = { "isort", "black", stop_after_first = true },
+
 			bash = { "shfmt" },
+			zsh = { "shfmt" },
+			sh = { "shfmt" },
+
 			ruby = { "rubocop" },
-			nix = { "nixfmt" },
+			python = { "isort", "black", stop_after_first = true },
+			lua = { "stylua" },
+
 			javascript = { "prettierd", stop_after_first = true },
 			typescript = { "prettierd" },
 			typescriptreact = { "prettierd" },
+
+			nix = { "nixfmt" },
+
 			json = { "prettierd" },
 			yaml = { "prettierd" },
 			markdown = { "prettierd" },

@@ -18,6 +18,12 @@ return {
 			local lspkind = require("lspkind")
 			local buffer = require("cmp_buffer")
 
+			luasnip.add_snippets("all", {
+				luasnip.snippet("!", {
+					luasnip.text_node({ "#!/usr/bin/env bash", "" }),
+				}),
+			})
+
 			cmp.setup({
 				performance = {
 					debounce = 1000, -- ms to wait before showing / updating menu

@@ -7,6 +7,7 @@ require("helpers.language_providers")
 require("helpers.lazy")
 require("helpers.quit")
 require("helpers.statusline")
+require("helpers.create_file")
 
 require("config.system_providers")
 require("config.core")

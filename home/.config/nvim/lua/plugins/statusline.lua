@@ -20,8 +20,8 @@ return {
 					"mode",
 					fmt = NM.statusline.current_mode,
 					color = {
-						fg = NM.statusline.colors.foregroundColor,
-						bg = NM.statusline.colors.backgroundColor,
+						fg = "black",
+						bg = "#ffffff",
 						gui = "NONE",
 					},
 				},
@@ -47,6 +47,8 @@ return {
 					NM.statusline.diagnostic_summary,
 					color = {
 						gui = "bold",
+						fg = "black",
+						bg = "#ffffff",
 					},
 					cond = function()
 						return vim.fn.winwidth(0) > 60
@@ -57,8 +59,8 @@ return {
 				{
 					NM.statusline.total_lines,
 					color = {
-						fg = "gray",
-						bg = "Black",
+						fg = "black",
+						bg = "#ffffff",
 						gui = "bold",
 					},
 				},
@@ -66,8 +68,8 @@ return {
 				{
 					NM.statusline.lsp_state_icon,
 					color = {
-						fg = "gray",
-						bg = "Black",
+						fg = "black",
+						bg = "#ffffff",
 						gui = "bold",
 					},
 				},
@@ -82,8 +84,8 @@ return {
 						return " "
 					end,
 					color = {
-						fg = "gray",
-						bg = "#000000",
+						fg = "black",
+						bg = "#ffffff",
 						gui = "NONE",
 					},
 				},
