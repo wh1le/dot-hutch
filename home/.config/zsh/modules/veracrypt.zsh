@@ -1,8 +1,9 @@
 # Mount: args = <source> <mountpoint>
 helper-veracrypt-mount() {
-  src="$1"; mnt="$2"
+  src="$1"
+  mnt="$2"
   sudo mkdir -p "$mnt"
-  sudo veracrypt --text --pim=0 --keyfiles="" --mount  "$src" "$mnt"
+  sudo veracrypt --text --pim=0 --keyfiles="" --mount "$src" "$mnt"
 }
 
 # Unmount by mountpoint
@@ -21,7 +22,7 @@ helper-veracrypt-fix-umount() {
 # Show who holds a path or mapper
 helper-veracrypt-used-by() {
   mnt="$1"
-    if command -v fuser >/dev/null; then
+  if command -v fuser >/dev/null; then
     sudo fuser -vm "$tgt"
   fi
   if command -v lsof >/dev/null; then

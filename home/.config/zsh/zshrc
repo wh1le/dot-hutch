@@ -1,109 +1,27 @@
-source $HOME/.config/zsh/functions.zsh
-source $HOME/.config/zsh/aliases.zsh
-source $HOME/.config/zsh/bindings.zsh
 source $HOME/.cache/wal/colors.sh
+source $HOME/.config/zsh/modules/path.zsh
 
-export HISTSIZE=100000
-export HISTFILE="$HOME/.history"
-export SAVEHIST=$HISTSIZE
+source $HOME/.config/zsh/modules/fzf.zsh
 
-setopt AUTO_PARAM_SLASH        # tab completing directory appends a slash
-setopt AUTO_PUSHD              # [default] cd automatically pushes old dir onto dir stack
-setopt AUTO_RESUME             # allow simple commands to resume backgrounded jobs
-setopt CLOBBER                 # allow clobbering with >, no need to use >!
-
-setopt NO_FLOW_CONTROL         # disable start (C-s) and stop (C-q) characters
-setopt NO_HIST_IGNORE_ALL_DUPS # don't filter duplicates from history
-setopt NO_HIST_IGNORE_DUPS     # don't filter contiguous duplicates from history
-setopt HIST_FIND_NO_DUPS       # don't show dupes when searching
-setopt HIST_IGNORE_SPACE       # [default] don't record commands starting with a space
-setopt HIST_VERIFY             # confirm history expansion (!$, !!, !foo)
-setopt IGNORE_EOF              # [default] prevent accidental C-d from exiting shell
-setopt INTERACTIVE_COMMENTS    # [default] allow comments, even in interactive shells
-setopt LIST_PACKED             # make completion lists more densely packed
-setopt MENU_COMPLETE           # auto-insert first possible ambiguous completion
-setopt NO_NOMATCH              # [default] unmatched patterns are left unchanged
-setopt PRINT_EXIT_VALUE        # [default] for non-zero exit status
-setopt PUSHD_IGNORE_DUPS       # don't push multiple copies of same dir onto stack
-setopt PUSHD_SILENT            # [default] don't print dir stack after pushing/popping
-setopt SHARE_HISTORY           # share history across shells
-
-source <(fzf --zsh)
-
-bindkey -e
-
-# Remapping
-alias bat="bat --theme=base16"
-eval "$(direnv hook zsh)"
-
-# Until .argc exists...
-# (https://github.com/ggreer/the_silver_searcher/pull/709)
-function ag() {
-  emulate -L zsh
-
-  # italic blue paths, pink line numbers, underlined purple matches
-  command ag --pager="less -iFMRSX" --color-path=34\;3 --color-line-number=35 --color-match=35\;1\;4 "$@"
-}
-
-# TODO: Revisit integration of tmux to ssh
-# function ssh() {
-#   emulate -L zsh
-#
-#   if [[ -z "$@" ]]; then
-#     # common case: getting to my workstation
-#     command ssh dev
-#   else
-#     local LOCAL_TERM=$(echo -n "$TERM" | sed -e s/tmux/screen/)
-#     env TERM=$LOCAL_TERM command ssh "$@"
-#   fi
-# }
-#
-# function tmux() {
-#   emulate -L zsh
-
-#   # Make sure even pre-existing tmux sessions use the latest SSH_AUTH_SOCK.
-#   # (Inspired by: https://gist.github.com/lann/6771001)
-#   local SOCK_SYMLINK=~/.ssh/ssh_auth_sock
-#   if [ -r "$SSH_AUTH_SOCK" -a ! -L "$SSH_AUTH_SOCK" ]; then
-#     ln -sf "$SSH_AUTH_SOCK" $SOCK_SYMLINK
-#   fi
-
-#   # If provided with args, pass them through.
-#   if [[ -n "$@" ]]; then
-#     env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux "$@"
-#     return
-#   fi
-
-#   # Check for .tmux file (poor man's Tmuxinator).
-#   if [ -x .tmux ]; then
-#     # Prompt the first time we see a given .tmux file before running it.
-#     local DIGEST="$(openssl sha -sha512 .tmux)"
-#     if ! grep -q "$DIGEST" ~/..tmux.digests 2> /dev/null; then
-#       cat .tmux
-#       read -k 1 -r \
-#         'REPLY?Trust (and run) this .tmux file? (t = trust, otherwise = skip) '
-#       echo
-#       if [[ $REPLY =~ ^[Tt]$ ]]; then
-#         echo "$DIGEST" >> ~/..tmux.digests
-#         ./.tmux
-#         return
-#       fi
-#     else
-#       ./.tmux
-#       return
-#     fi
-#   fi
-
-#   # Attach to existing session, or create one, based on current directory.
-#   local SESSION_NAME=$(basename "${$(pwd)//[.:]/_}")
-#   env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux new -A -s "$SESSION_NAME"
-# }
-
-NEWLINE=$'\n'
-PROMPT="${NEWLINE}%K{#2E3440}%F{#E5E9F0}$(date +%_I:%M%P) %K{#3b4252}%F{#ECEFF4} %n %K{#4c566a} %~ %f%k ❯ "
-
-export LS_COLORS="di=1;34:ln=1;36:ow=30;47:ln=01;36:$LS_COLORS"
-
-unset FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS
-export FZF_DEFAULT_OPTS=$'--style=minimal --layout=reverse --height=30% --no-preview --color=fg:black,bg:#ededed,fg+:black,bg+:#ffffff,hl:#005fcc,hl+:#005fcc,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black'
-export FZF_CTRL_R_OPTS=$'--style=minimal --info=inline --no-sort --exact --no-preview --color=fg:black,bg:#ededed,fg+:black,bg+:#ffffff,hl:#005fcc,hl+:#005fcc,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black'
+# source $HOME/.config/zsh/modules/colors.zsh
+source $HOME/.config/zsh/modules/functions.zsh
+source $HOME/.config/zsh/modules/autocomplete.zsh
+source $HOME/.config/zsh/modules/ls_colors.zsh
+source $HOME/.config/zsh/modules/diff_so_fancy.zsh
+source $HOME/.config/zsh/modules/prompt.zsh
+source $HOME/.config/zsh/modules/direnv.zsh
+source $HOME/.config/zsh/modules/history.zsh
+source $HOME/.config/zsh/modules/jobs.zsh
+source $HOME/.config/zsh/modules/search.zsh
+source $HOME/.config/zsh/modules/settings.zsh
+source $HOME/.config/zsh/modules/bat.zsh
+source $HOME/.config/zsh/modules/git.zsh
+source $HOME/.config/zsh/modules/nix.zsh
+source $HOME/.config/zsh/modules/edit_command_line.zsh
+source $HOME/.config/zsh/modules/hotkeys.zsh
+source $HOME/.config/zsh/modules/aliases.zsh
+source $HOME/.config/zsh/modules/veracrypt.zsh
+source $HOME/.config/zsh/modules/media.zsh
+source $HOME/.config/zsh/modules/exports.zsh
+source $HOME/.config/zsh/modules/xdg-open.zsh
+source $HOME/.config/zsh/modules/python.zsh

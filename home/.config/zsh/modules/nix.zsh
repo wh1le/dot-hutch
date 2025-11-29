@@ -1,3 +1,5 @@
+export NIX_SHELL_PRESERVE_PROMPT=1
+
 # Nix
 alias nix_test="sudo nixos-rebuild test --flake /etc/nixos#$(shell hostnamectl --static 2>/dev/null || hostname) --update-input PUBLIC"
 alias nix_switch="sudo nixos-rebuild switch --flake /etc/nixos#$(shell hostnamectl --static 2>/dev/null || hostname) --update-input PUBLIC"
@@ -6,9 +8,12 @@ alias nix_boot="sudo nixos-rebuild boot --flake /etc/nixos#$(shell hostnamectl -
 
 nix_dependencies() {
   local pkg="$1"
-  [[ -z "$pkg" ]] && { echo "usage: nix_dependencies <attr>"; return 2; }
+  [[ -z "$pkg" ]] && {
+    echo "usage: nix_dependencies <attr>"
+    return 2
+  }
   NIX_CONFIG="experimental-features = nix-command flakes" \
-  nix why-depends /tmp/sys \
+    nix why-depends /tmp/sys \
     "$(nix build --no-link --print-out-paths "nixpkgs#$pkg")"
 }
 

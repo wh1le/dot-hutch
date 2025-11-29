@@ -5,19 +5,7 @@ function fd() {
   DIR=$(bfs ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$DIR"
 }
 
-# fh - "find [in] history"
 # From: https://github.com/junegunn/fzf/wiki/examples#command-history
-function fh() {
-  print -z $(fc -l 1 | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
-
-function history() {
-  emulate -L zsh
-
-  # This is a function because Zsh aliases can't take arguments.
-  fc -l 1
-}
-
 function mvim() {
   emulate -L zsh
 
@@ -208,68 +196,53 @@ function kill_by_name() {
   ps ax | grep $1 | grep -v grep | awk '{print $1}' | xargs kill
 }
 
-function helper-git-diff() {
-  git diff $1 $2 --color | diff-so-fancy | less
-}
 
-function helper-git-history() {
-  local out shas sha q k
-  while out=$(
-      git log --graph --color=always \
-          --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-      fzf --ansi --multi --no-sort --reverse --query="$q" \
-          --print-query --expect=ctrl-d --toggle-sort=\`); do
-    q=$(head -1 <<< "$out")
-    k=$(head -2 <<< "$out" | tail -1)
-    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
-    [ -z "$shas" ] && continue
-    if [ "$k" = ctrl-d ]; then
-      git diff --color $shas | diff-so-fancy | less
-    else
-      for sha in $shas; do
-        git show --color $sha | diff-so-fancy | less
-      done
-    fi
-  done
-}
+# TODO: Revisit integration of tmux to ssh
+# function ssh() {
+#   emulate -L zsh
+#
+#   if [[ -z "$@" ]]; then
+#     # common case: getting to my workstation
+#     command ssh dev
+#   else
+#     local LOCAL_TERM=$(echo -n "$TERM" | sed -e s/tmux/screen/)
+#     env TERM=$LOCAL_TERM command ssh "$@"
+#   fi
+# }
+#
+# function tmux() {
+#   emulate -L zsh
 
-function helper-python-watch() {
-  nodemon --quiet --exec 'clear; echo "[reloaded]"; python3 -m friendly' "$1"
-}
+#   # Make sure even pre-existing tmux sessions use the latest SSH_AUTH_SOCK.
+#   # (Inspired by: https://gist.github.com/lann/6771001)
+#   local SOCK_SYMLINK=~/.ssh/ssh_auth_sock
+#   if [ -r "$SSH_AUTH_SOCK" -a ! -L "$SSH_AUTH_SOCK" ]; then
+#     ln -sf "$SSH_AUTH_SOCK" $SOCK_SYMLINK
+#   fi
 
-function python_repl {
-  python3 -i -c "import friendly; friendly.set_formatter('plain'); friendly.install()"
-}
+#   # If provided with args, pass them through.
+#   if [[ -n "$@" ]]; then
+#     env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux "$@"
+#     return
+#   fi
 
-incognito() {
-  fc -p /dev/null 0 0
-  setopt NO_INC_APPEND_HISTORY NO_SHARE_HISTORY
-  echo "history: off"
-}
+#   # Check for .tmux file (poor man's Tmuxinator).
+#   if [ -x .tmux ]; then
+#     # Prompt the first time we see a given .tmux file before running it.
+#     local DIGEST="$(openssl sha -sha512 .tmux)"
+#     if ! grep -q "$DIGEST" ~/..tmux.digests 2> /dev/null; then
+#       cat .tmux
+#       read -k 1 -r \
+#         'REPLY?Trust (and run) this .tmux file? (t = trust, otherwise = skip) '
+#       echo
+#       if [[ $REPLY =~ ^[Tt]$ ]]; then
+#         echo "$DIGEST" >> ~/..tmux.digests
+#         ./.tmux
+#         return
+#       fi
+#     else
+#       ./.tmux
+#       return
+#     fi
+#   fi
 
-quick-edit-directory() {
-  if [[ $# -eq 1 ]]; then
-    selected=$1
-  else
-    selected=$(find ~/obsidian ~/projects  ~/.config ~/dot -mindepth 1 -maxdepth 1 -xtype d | fzf)
-  fi
-
-  if [[ -z $selected ]]; then
-    exit 0
-  fi
-
-  selected_name=$(basename "$selected" | tr . _)
-
-  cd $selected && nvim .
-}
-
-quick_edit_directory_widget() {
-  zle -I                     # suspend ZLE so fzf draws cleanly
-  quick-edit-directory || return
-  zle reset-prompt           # refresh prompt after cd
-}
-
-zle -N quick_edit_directory_widget
-bindkey -M emacs '^O' quick_edit_directory_widget
-bindkey -M viins '^O' quick_edit_directory_widget
-bindkey -M vicmd '^O' quick_edit_directory_widget

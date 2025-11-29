@@ -1,8 +1,6 @@
-export PAGER=less
+export PAGER=nvimpager
 
-# Old with bat
-
-if which nvim &> /dev/null; then
+if which nvim &>/dev/null; then
   export EDITOR=$(which nvim)
 elif [ -x "$HOME/bin/vim" ]; then
   # PATH isn't set yet (.zsh/path depends on this file), so we do this check
@@ -12,28 +10,28 @@ else
   export EDITOR=vim
 fi
 
-case "$(uname)" in
-  Darwin*)
-    if [ -x /usr/libexec/java_home ]; then
-      if /usr/libexec/java_home &> /dev/null ; then
-        export JAVA_HOME=$(/usr/libexec/java_home)
-      fi
-    fi
-    ;;
-  Linux*)
-    export JAVA_HOME=/usr/lib/jvm/jre-1.6.0-openjdk.x86_64
-    ;;
-esac
+# case "$(uname)" in
+# Darwin*)
+#   if [ -x /usr/libexec/java_home ]; then
+#     if /usr/libexec/java_home &>/dev/null; then
+#       export JAVA_HOME=$(/usr/libexec/java_home)
+#     fi
+#   fi
+#   ;;
+# Linux*)
+#   export JAVA_HOME=/usr/lib/jvm/jre-1.6.0-openjdk.x86_64
+#   ;;
+# esac
 
 # usually this means running on a machine with a statically-linked, hand-built
 # tmux (and ncurses)
-if [ -d "$HOME/share/terminfo" ]; then
-  export TERMINFO=$HOME/share/terminfo
-fi
+# if [ -d "$HOME/share/terminfo" ]; then
+#   export TERMINFO=$HOME/share/terminfo
+# fi
 
 # filename (if known), line number if known, falling back to percent if known,
 # falling back to byte offset, falling back to dash
-export LESSPROMPT='?f%f .?ltLine %lt:?pt%pt\%:?btByte %bt:-...'
+# export LESSPROMPT='?f%f .?ltLine %lt:?pt%pt\%:?btByte %bt:-...'
 
 # i = case-insensitive searches, unless uppercase characters in search string
 # F = exit immediately if output fits on one screen
@@ -66,10 +64,9 @@ export CLICOLOR=true
 
 # export GOPATH=~/code/go
 
-export LC_ALL=en_US.UTF-8
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+export LC_ALL=en_US.UTF-8
+# export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm

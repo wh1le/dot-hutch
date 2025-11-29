@@ -1,2 +1,0 @@
-alias yt_audio="yt-dlp -x --audio-format mp3 --embed-thumbnail"
-alias yt_video="yt-dlp"

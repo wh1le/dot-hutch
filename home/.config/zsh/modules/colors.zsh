@@ -1,7 +1,3 @@
-#
-# Colors
-#
-
 __NIKITA[BASE16_CONFIG]=~/.config/.base16
 
 # Takes a hex color in the form of "RRGGBB" and outputs its luma (0-255, where
