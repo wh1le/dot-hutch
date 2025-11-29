@@ -1,32 +1,28 @@
 # Props to https://github.com/BreadOnPenguins
 
 export EDITOR="nvim"
-export TERM="kitty"
-export TERMINAL="kitty"
+# export TERM="kitty"
+# export TERMINAL="kitty"
+export TERMINAL="wezterm"
 export BROWSER="firefox"
 
-# export XCURSOR_SIZE="50"
-# export HYPRCURSOR_SIZE="50"
-# export ELECTRON_OZONE_PLATFORM_HINT="wayland"
-# export NIXOS_OZONE_WL=1
-# export GDK_BACKEND="wayland"
-# export QT_QPA_PLATFORM="wayland"
-# export GDK_SCALE=2
-# export GDK_DPI_SCALE=1.0
-# export QT_SCALE_FACTOR=2
-# export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-# export OBSIDIAN_USE_WAYLAND=1
+export PAGER="nvimpager"    # colored man pages
+export MANPAGER="nvimpager" # colored man pages
 
 export USER_SCRIPTS_PATH="$HOME/.config/scripts"
+export LAUNCHER_SCRIPTS_PATH="$HOME/.config/scripts/menu"
 
-export SEARCH_DIRECTORIES_PATHS="$HOME/projects $HOME/obsidian $HOME/.config $HOME/dot"
+export KITTY_LAUNCHER_CLASS="launcher"
+export KITTY_LAUNCHER_SOCKET_PATH="/tmp/kitty-launcher"
+
+export SEARCH_DIRECTORIES_PATHS="$HOME/Projects $HOME/code $HOME/obsidian $HOME/.config $HOME/dot"
 
 # follow XDG base dir specification
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-export SCREENSHOT_PATH="$HOME/pictures/screenshots"
+export SCREENSHOT_PATH="$HOME/Pictures/screenshots"
 
 # bootstrap .zshrc to ~/.config/zsh/zshrc, any other zsh config files can also reside here
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh/"
@@ -36,12 +32,14 @@ export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
 export PYTHON_HISTORY="$XDG_DATA_HOME/python/history"
 
 # add scripts to path
-export PATH="$XDG_CONFIG_HOME/scripts:$PATH"
+# export PATH="$XDG_CONFIG_HOME/scripts:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.local/bin/private:$HOME/.local/bin/public:$PATH"
 
-# moving other files and some other vars
+# X11 support for different desktop env
 export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 export XPROFILE="$XDG_CONFIG_HOME/x11/xprofile"
 export XRESOURCES="$XDG_CONFIG_HOME/x11/xresources"
+
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" # gtk 3 & 4 are XDG compliant
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
@@ -66,8 +64,6 @@ export FZF_CTRL_R_OPTS="--style=minimal --info=inline --no-sort --no-preview --c
 # export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --no-preview"
 # export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview" # separate opts for history widget
 
-export MANPAGER="less -R --use-color -Dd+r -Du+b" # colored man pages
-
 # colored less + termcap vars
 export LESS="R --use-color -Dd+r -Du+b"
 export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
@@ -77,9 +73,3 @@ export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"
 export LESS_TERMCAP_se="$(printf '%b' '[0m')"
 export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
 export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
-
-if [ -z "$TMUX" ] && [ -z "$WAYLAND_DISPLAY" ] && [ -z "$DISPLAY" ]; then
-  case "$XDG_VTNR" in
-    1) exec tmux new-session -A -s local ;;
-  esac
-fi

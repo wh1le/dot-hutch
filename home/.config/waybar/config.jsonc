@@ -25,6 +25,7 @@
       "group/audio",
       "custom/mic_used_by_app",
       "battery",
+      "custom/language",
       "custom/date_neuro",
       "custom/date_month",
       "custom/date_time"

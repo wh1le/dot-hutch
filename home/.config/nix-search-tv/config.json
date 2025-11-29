@@ -1,5 +1,3 @@
 {
-  "indexes": ["nixpkgs"],
-  "update_interval": "1d",
-  "enable_waiting_message": true
+  "enable_waiting_message": false
 }

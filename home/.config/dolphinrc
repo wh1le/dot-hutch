@@ -1,22 +1,53 @@
+MenuBar=Disabled
+
+[CompactMode]
+MaximumTextWidthIndex=1
+UseSystemFont=false
+ViewFont=JetBrainsMono Nerd Font,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+
+[ContentDisplay]
+DirectorySizeMode=ContentSize
+RecursiveDirectorySizeLimit=20
+
+[ContextMenu]
+ShowMoveToOtherSplitView=false
+
+[DetailsMode]
+IconSize=32
+PreviewSize=80
+UseSystemFont=false
+ViewFont=JetBrainsMono Nerd Font,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+
 [General]
+OpenExternallyCalledFolderInNewTab=true
+RememberOpenedTabs=false
+ShowFullPathInTitlebar=true
+ShowStatusBar=FullWidth
+UseTabForSwitchingSplitView=true
 Version=202
 ViewPropsTimestamp=2025,10,3,17,23,33.486
 
 [IconsMode]
-PreviewSize=48
+IconSize=128
+PreviewSize=176
+TextWidthIndex=0
+UseSystemFont=false
+
+[InformationPanel]
+dateFormat=ShortFormat
 
 [KFileDialog Settings]
 Places Icons Auto-resize=false
-Places Icons Static Size=32
+Places Icons Static Size=16
 
 [MainWindow]
 MenuBar=Disabled
 
 [PlacesPanel]
-IconSize=32
+IconSize=16
 
 [PreviewSettings]
-Plugins=appimagethumbnail,audiothumbnail,blenderthumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,mobithumbnail,opendocumentthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs
+Plugins=audiothumbnail,comicbookthumbnail,ebookthumbnail,directorythumbnail,imagethumbnail,jpegthumbnail,mobithumbnail,rawthumbnail,ffmpegthumbs
 
 [VersionControl]
 enabledPlugins=Git

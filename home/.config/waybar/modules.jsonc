@@ -2,7 +2,7 @@
   "custom/logo": {
     "format": "<span font='15'>{icon}</span>",
     "format-icons": "󰯉",
-    "on-click": "pkill wofi; ~/.config/scripts/wofi"
+    "on-click": "pkill wofi; ~/.local/bin/public/wofi"
   },
 
   "hyprland/submap": {
@@ -11,7 +11,7 @@
   },
 
   "custom/surf": {
-    "exec": "pkill wofi; ~/.config/scripts/weather/surf",
+    "exec": "pkill wofi; ~/.local/bin/public/weather/surf",
     "format": "{text}",
     "tooltip": false,
     "interval": 3600
@@ -56,7 +56,7 @@
 
   "custom/mic_used_by_app": {
     "interval": 1,
-    "exec": "~/.config/scripts/waybar/is-mic-used",
+    "exec": "~/.local/bin/public/waybar/is-mic-used",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "tooltip": false
   },
@@ -87,16 +87,16 @@
   },
 
   "custom/date_neuro": {
-    "exec": "~/.config/scripts/waybar/date-time neuro",
+    "exec": "~/.local/bin/public/waybar/date-time neuro",
     "interval": 60
   },
 
   "custom/date_month": {
-    "exec": "~/.config/scripts/waybar/date-time month",
+    "exec": "~/.local/bin/public/waybar/date-time month",
     "interval": 60
   },
   "custom/date_time": {
-    "exec": "~/.config/scripts/waybar/date-time time",
+    "exec": "~/.local/bin/public/waybar/date-time time",
     "interval": 60
   },
 
@@ -132,7 +132,7 @@
   },
 
   "custom/weather": {
-    "exec": "~/.config/scripts/waybar/weather-forecast waybar",
+    "exec": "~/.local/bin/public/waybar/weather-forecast waybar",
     "return-type": "json",
     "interval": 400,
     "format": "{text}",
@@ -143,14 +143,14 @@
   },
 
   "custom/openvpn": {
-    "exec": "~/.config/scripts/waybar/openvpn-status",
+    "exec": "~/.local/bin/public/waybar/openvpn-status",
     "interval": 1,
     "format": "{text}",
     "tooltip": false,
   },
 
   "custom/veracrypt": {
-    "exec": "~/.config/scripts/waybar/veracrypt-status",
+    "exec": "~/.local/bin/public/waybar/veracrypt-status",
     "interval": 10,
     "format": "{text}",
     "tooltip": false,
@@ -158,7 +158,7 @@
   },
 
   "custom/podman": {
-    "exec": "~/.config/scripts/waybar/podman-status",
+    "exec": "~/.local/bin/public/waybar/podman-status",
     "return-type": "json",
     "interval": 10,
     "format": "{text}",
@@ -166,7 +166,7 @@
   },
 
   "custom/language": {
-    "exec": "~/.config/scripts/waybar/current-langauge",
+    "exec": "~/.local/bin/public/waybar/current-langauge",
     // "interval": 1,
     "format": "{text}",
     "tooltip": false,
@@ -176,7 +176,7 @@
   },
 
   "custom/weather-eink": {
-    "exec": "~/.config/scripts/waybar/weather-forecast waybar eink",
+    "exec": "~/.local/bin/public/waybar/weather-forecast waybar eink",
     "return-type": "json",
     "interval": 400,
     "format": "{text}",
