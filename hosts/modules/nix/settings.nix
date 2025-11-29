@@ -18,6 +18,6 @@
     auto-optimise-store = true;
     max-jobs = "auto";
     cores = 0;
+    warn-dirty = false;
   };
-
 }

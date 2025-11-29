@@ -37,13 +37,8 @@
     pkgs.nil
     pkgs.typos-lsp
 
-    # Neovim python package
     (pkgs.python3.withPackages (ps: [
-      # NeoVim
       ps.pynvim
-      ps.debugpy
-
-      ps.requests
     ]))
 
     # Formatters

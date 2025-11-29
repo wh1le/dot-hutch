@@ -29,6 +29,10 @@ in
     fi
 
     ln -sfn $destination/home/.zprofile ${home}/.zprofile
+    ln -sfn $destination/home/.zshenv ${home}/.zshenv
+
+    mkdir -p "${home}/.local/bin"
+    ln -sfn "${home}/dot/files/home/.local/bin/public" "${home}/.local/bin/public"
 
     src="$destination/home/.config"
     dst="${home}/.config"

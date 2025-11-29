@@ -12,6 +12,7 @@
       # "gemma3n:e4b"
       # "deepcoder:14b"
       # "qwen3:14b"
+      "nomic-embed-text"
       "qwen3-coder:30b"
       # "nomic-embed-text"
     ];
@@ -24,11 +25,13 @@
     host = "127.0.0.1";
   };
 
+  nixpkgs.config.cudaSupport = true;
+
   # services.caddy.virtualHosts."openwebui.local".extraConfig = ''
   #   reverse_proxy http://192.168.50.1
   # '';
 
-  networking.hosts."127.0.0.1" = [ "openwebui.local" ];
+  # networking.hosts."127.0.0.1" = [ "openwebui.local" ];
 
   environment.systemPackages = [
     pkgs.oterm # TUI chat client for Ollama models.

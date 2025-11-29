@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
 
 {
+  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     wireplumber.enable = true;
@@ -10,7 +11,7 @@
     jack.enable = false; # Uncomment the following line if you want to use JACK applications
 
     extraConfig.pipewire."context.properties" = {
-      "default.clock.rate" = 48000;
+      "default.clock.rate" = 44100;
       "default.allowed-rates" = [
         44100
         48000
@@ -29,10 +30,11 @@
 
   services.upower.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    alsa-utils
-    pavucontrol
-    ncmpcpp
-    pulseaudio
+  environment.systemPackages = [
+    pkgs.alsa-utils
+    pkgs.pavucontrol
+    pkgs.ncmpcpp
+    pkgs.pulseaudio
+    unstable.pulsemeeter
   ];
 }

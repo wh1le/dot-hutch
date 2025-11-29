@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
 {
   environment.variables.HYPRCURSOR_SIZE = 40;
   environment.variables.XCURSOR_SIZE = 40;
@@ -37,5 +37,6 @@
     pkgs.dunst
 
     pkgs.wf-recorder
+    pkgs.xclip
   ];
 }

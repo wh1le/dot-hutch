@@ -12,7 +12,7 @@
     ];
 
     # Fix assigning static IP
-    # interfaces = {
+    # interfaces  {
     #   eth0 = {
     #     useDHCP = lib.mkForce false;
     #

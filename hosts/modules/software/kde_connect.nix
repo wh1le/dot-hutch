@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  programs.kdeconnect.enable = true;
+  programs.kdeconnect.enable = false;
   networking.firewall.allowedTCPPortRanges = [
     {
       from = 1714;

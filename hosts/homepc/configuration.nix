@@ -7,7 +7,14 @@
 {
   system.stateVersion = "25.05";
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    ffmpeg = {
+      enableLibx264 = true;
+      enableLibx265 = true;
+      enableNonfree = true;
+    };
+  };
 
   networking.hostName = "homepc";
 
@@ -21,6 +28,7 @@
   environment.systemPackages = [
     pkgs.google-chrome
     pkgs.nix-search
+    pkgs.socat
     unstable.yewtube
     unstable.yt-dlp
     unstable.ytfzf
@@ -47,7 +55,8 @@
     ../modules/security/anti_virus.nix
     ../modules/security/firewall.nix
     ../modules/security/geo.nix
-    ../modules/security/network.nix
+    # ../modules/security/network_dnscrypt-proxy2.nix
+    ../modules/security/network_pi_hole.nix
     ../modules/security/security.nix
     ../modules/security/vpn.nix
     ../modules/security/sops.nix
@@ -58,7 +67,12 @@
     ../modules/software/virtualisation/docker.nix
     ../modules/software/virtualisation/podman.nix
 
-    ../modules/software/databases.nix
+    ../modules/software/databases/sqlite.nix
+    ../modules/software/databases/redis.nix
+    ../modules/software/databases/postgresql.nix
+
+    ../modules/software/languages/ruby.nix
+    ../modules/software/languages/python.nix
 
     ../modules/software/desktop.nix
     ../modules/software/devops.nix

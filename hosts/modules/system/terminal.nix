@@ -32,7 +32,11 @@
 
     pkgs.fastfetch
     pkgs.tldr
+
     unstable.yazi
+    unstable.diff-so-fancy
+    unstable.eza
+    unstable.nvimpager
 
     pkgs.manix # nix documentation searcher
     unstable.nix-search-tv
