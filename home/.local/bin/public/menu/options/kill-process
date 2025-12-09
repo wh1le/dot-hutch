@@ -18,7 +18,8 @@ fi
 choice=$(
   ps -eo pid,user,comm --sort=-pid |
     awk 'NR>1 {printf "%-7s %-12s %s\n", $1, $2, $3}' |
-    fzf-with-options --prompt='Kill> ' --header='Select process to kill'
+    fzf-with-options \
+      --prompt="Kill » "
 ) || exit 0 # ESC in fzf
 
 # First column is PID

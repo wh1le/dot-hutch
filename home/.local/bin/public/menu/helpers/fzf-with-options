@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-unset FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS
+unset FZF_DEFAULT_OPTS
 
 fzf-with-options() {
   fzf \
@@ -12,14 +12,15 @@ fzf-with-options() {
     --color="gutter:-1,border:238,scrollbar:238" \
     --prompt="> " \
     --bind 'esc:abort' \
-    --bind 'ctrl-d:half-page-down+preview-half-page-down' \
-    --bind 'ctrl-u:half-page-up+preview-half-page-up' \
-    --bind 'ctrl-f:page-down+preview-page-down' \
-    --bind 'ctrl-b:page-up+preview-page-up' \
+    --bind 'ctrl-d:preview-half-page-down' \
+    --bind 'ctrl-u:preview-half-page-up' \
+    --bind 'ctrl-f:preview-page-down' \
+    --bind 'ctrl-b:preview-page-up' \
     "$@"
 }
-    #--with-nth=2 \
-		#--delimeter=":" \
-    #--no-info \
+
+#--with-nth=2 \
+#--delimeter=":" \
+#--no-info \
 
 export -f fzf-with-options

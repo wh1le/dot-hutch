@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 # TODO: Remove after reboot
 : "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
@@ -8,10 +7,18 @@ set -euo pipefail
 
 source "$LAUNCHER_SCRIPTS_PATH/helpers/spawn-kitty"
 
+run() {
+  local output
+  if ! output=$("$@" 2>&1); then
+    notify-send -u critical "Launcher Error" "$*\n\n$output"
+    exit 1
+  fi
+}
+
 option=${1-}
 
 if [ -z "$option" ]; then
-  spawn-kitty "$LAUNCHER_SCRIPTS_PATH/launch-menu"
+  run spawn-kitty "$LAUNCHER_SCRIPTS_PATH/launch-menu"
 else
-  spawn-kitty "$LAUNCHER_SCRIPTS_PATH/options/$option"
+  run spawn-kitty "$LAUNCHER_SCRIPTS_PATH/options/$option"
 fi
