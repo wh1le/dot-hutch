@@ -74,3 +74,8 @@ tooltip {
   opacity: 0.8;
   border-radius: 8px;
 }
+
+.module#custom-veracrypt,
+.module#custom-openvpn {
+  padding-right: 13px;
+}

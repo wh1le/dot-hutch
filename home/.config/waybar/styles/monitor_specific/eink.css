@@ -31,8 +31,8 @@
 .eink * {
   color: white;
   border: none;
-  font-family: "Iosevka Nerd Font", "Symbols Nerd Font",
-    "Symbols Nerd Font Mono";
+  font-family:
+    "Iosevka Nerd Font", "Symbols Nerd Font", "Symbols Nerd Font Mono";
   font-weight: bold;
   font-size: 13px;
   min-height: 0;

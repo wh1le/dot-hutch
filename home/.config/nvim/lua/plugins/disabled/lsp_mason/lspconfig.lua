@@ -10,7 +10,7 @@ return {
 		{"K", function() vim.lsp.buf.hover() end, desc = "Built-in: vim.lsp.buf.hover()", },
 		{ "gd", function() vim.lsp.buf.definition() end, desc = "Go to def", },
 		{ "gr", function() vim.lsp.buf.references() end, desc = "Ref", },
-		{ "<leader>rn", function() vim.lsp.buf.rename() end, desc = "Rename",
+		-- { "<leader>rn", function() vim.lsp.buf.rename() end, desc = "Rename",
 		},
     { "<leader>ca", function() vim.lsp.buf.code_action() end, desc = "Code action", },
 		{ "<leader>de", function() vim.diagnostic.open_float( nil, { focus = false, border = "rounded", source = "always", scope = "cursor" }) end, desc = "Explain diagnostic under cursor", },

@@ -8,10 +8,11 @@ require("helpers.lazy")
 require("helpers.quit")
 require("helpers.statusline")
 require("helpers.create_file")
+require("helpers.colors")
+require("helpers.lualine-config")
 
 require("config.system_providers")
 require("config.core")
-require("config.colors")
 require("config.bindings")
 require("config.callbacks")
 require("config.copypaste")
@@ -34,3 +35,13 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.wo.conceallevel = 0
 	end,
 })
+
+vim.opt.scrolloff = 8
+
+vim.defer_fn(function()
+	vim.cmd([[colorscheme pywal16]])
+end, 10)
+
+vim.opt.termguicolors = true
+
+vim.g.kitty_fast_forwarded_modifiers = true

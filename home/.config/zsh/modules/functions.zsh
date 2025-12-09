@@ -17,18 +17,18 @@ function mvim() {
   fi
 }
 
-function ssh() {
-  emulate -L zsh
-
-  if [[ -z "$@" ]]; then
-    # common case: getting to my workstation
-    command ssh dev
-  else
-    local LOCAL_TERM=$(echo -n "$TERM" | sed -e s/tmux/screen/)
-    env TERM=$LOCAL_TERM command ssh "$@"
-  fi
-}
-
+# function ssh() {
+#   emulate -L zsh
+#
+#   if [[ -z "$@" ]]; then
+#     # common case: getting to my workstation
+#     command ssh dev
+#   else
+#     local LOCAL_TERM=$(echo -n "$TERM" | sed -e s/tmux/screen/)
+#     env TERM=$LOCAL_TERM command ssh "$@"
+#   fi
+# }
+#
 # regmv = regex + mv (mv with regex parameter specification)
 #   example: regmv '/\.tif$/.tiff/' *
 #   replaces .tif with .tiff for all files in current dir

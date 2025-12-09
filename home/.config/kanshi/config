@@ -24,26 +24,32 @@ profile home_rotated {
   # output $EINK position 1280,0
   # output $LG transform 90 position 0,720
 
-  exec $HOME/.config/scripts/monitors/bin/set-profile home_rotated lg,eink
+  exec $HOME/.local/bin/public/monitors/bin/set-profile home_rotated lg,eink
 }
 
 profile home {
   output "DSC Paperlike13K 0x00003400" enable mode 3200x2400@37.001Hz scale 2.5 position 0,195
   output "LG Electronics LG HDR 4K 0x00013533" enable mode 3840x2160@59.997Hz scale 1.6 position 1280,0 transform normal
 
-  exec $HOME/.config/scripts/monitors/bin/set-profile home lg,eink
+  exec $HOME/.local/bin/public/monitors/bin/set-profile home lg,eink
 }
 
 profile home_eink_only {
   output $EINK
 
-  exec $HOME/.config/scripts/monitors/bin/set-profile home_eink_only eink
+  exec $HOME/.local/bin/public/monitors/bin/set-profile home_eink_only eink
 }
 
 profile home_lg_only {
   output $LG enable transform normal
 
-  exec $HOME/.config/scripts/monitors/bin/set-profile home_lg_only lg
+  exec $HOME/.local/bin/public/monitors/bin/set-profile home_lg_only lg
+}
+
+profile home_lg_only_rotated {
+  output $LG enable transform 90
+
+  exec $HOME/.local/bin/public/monitors/bin/set-profile home_lg_only lg
 }
 
 profile home_tv {

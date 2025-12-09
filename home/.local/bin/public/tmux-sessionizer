@@ -2,28 +2,18 @@
 
 # Script from https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
-# search_directories=${SEARCH_DIRECTORIES_PATHS:-"$HOME/Projects $HOME/code $HOME/obsidian $HOME/.config $HOME/dot"}
-search_directories=(
-  "$HOME/Projects"
-  "$HOME/code"
-  "$HOME/obsidian"
-  "$HOME/.config"
-  "$HOME/dot"
-  "$HOME/.local/bin"
-)
-
-activeSessions=($(tmux list-sessions -F '#S' 2>/dev/null))
+search_directories=(${SEARCH_DIRECTORIES_PATHS//:/ })
+active_sessions=($(tmux list-sessions -F '#S' 2>/dev/null))
 
 if [[ $# -eq 1 ]]; then
   selected=$1
 else
   # selected=$(find $search_directories -mindepth 1 -maxdepth 1 -xtype d | fzf)
   directories=$(find "${search_directories[@]}" -mindepth 1 -maxdepth 1 -xtype d 2>/dev/null)
-  directories+=("${activeSessions[@]}")
+  # directories+=("${active_sessions[@]}")
+  selected=$(printf "%s\n" "${active_sessions[@]}" "$directories" | fzf)
 
-  echo "$directories"
-
-  selected=$(printf "%s\n" "${directories[@]}" | fzf)
+  # selected=$(printf "%s\n" "${directories[@]}" | fzf)
 fi
 
 if [[ -z $selected ]]; then

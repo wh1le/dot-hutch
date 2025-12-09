@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# TODO: Remove after reboot
 : "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
+: "${KITTY_LAUNCHER_CLASS:=launcher}"
 : "${KITTY_LAUNCHER_SOCKET_PATH:=/tmp/kitty-launcher}"
-# TODO: Remove after reboot
 
 source "$LAUNCHER_SCRIPTS_PATH/helpers/spawn-kitty"
 

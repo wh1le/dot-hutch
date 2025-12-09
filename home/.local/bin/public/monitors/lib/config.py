@@ -30,7 +30,7 @@ MONITORS = {
     "lg": {
         "name":"LG Electronics LG HDR 4K 0x00013533",
         "port":"DP-1",
-        # "theme": "$HOME/.config/wal/colorschemes/dark/purple_high.json",
+        "theme": "$HOME/.config/wal/colorschemes/dark/purple_high.json",
         "default_wallpaper": "$HOME/.config/wallpapers/forest.jpg",
         "hyprland_settings": [
             # "gapsin:6,",

@@ -3,16 +3,19 @@
 set -euo pipefail
 
 spawn-kitty() {
-	if [ -n "$KITTY_LAUNCHER_SOCKET_PATH" ] && [ -S "$KITTY_LAUNCHER_SOCKET_PATH" ]; then
-		kitty @ --to "unix:$KITTY_LAUNCHER_SOCKET_PATH" close-window
-	fi
+  if [ -n "$KITTY_LAUNCHER_SOCKET_PATH" ] && [ -S "$KITTY_LAUNCHER_SOCKET_PATH" ]; then
+    kitty @ --to "unix:$KITTY_LAUNCHER_SOCKET_PATH" close-window
+  fi
 
-  kitty -o allow_remote_control=yes \
+  env \
+    LAUNCHER_SCRIPTS_PATH="$LAUNCHER_SCRIPTS_PATH" \
+    KITTY_LAUNCHER_CLASS="$KITTY_LAUNCHER_CLASS" \
+    KITTY_LAUNCHER_SOCKET_PATH="$KITTY_LAUNCHER_SOCKET_PATH" \
+    kitty -o allow_remote_control=yes \
     --listen-on "unix:${KITTY_LAUNCHER_SOCKET_PATH}" \
     -o font_size=13 \
     --single-instance \
     --class launcher \
-    bash -lc "exec $1"
-    # bash -lc "$1"
+    zsh -lc "exec $1"
 }
 export -f spawn-kitty

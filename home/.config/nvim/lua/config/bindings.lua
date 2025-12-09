@@ -25,6 +25,9 @@ vim.keymap.set({ "n", "x", "s", "o" }, "<C-k>", "<C-w>k")
 vim.keymap.set({ "n", "x", "s", "o" }, "<C-h>", "<C-w>h")
 vim.keymap.set({ "n", "x", "s", "o" }, "<C-l>", "<C-w>l")
 
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<C-[>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
 -- Buffers
 -- vim.keymap.set("n", "<leader>bn", ":bnext<CR>")
 -- vim.keymap.set("n", "<leader>bp", ":bprevious<CR>")

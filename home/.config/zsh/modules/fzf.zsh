@@ -1,7 +1,38 @@
 source <(fzf --zsh)
 
-export FZF_DEFAULT_OPTS=$'--style=minimal --layout=reverse --height=30% --no-preview --color=fg:black,bg:#ededed,fg+:black,bg+:#ffffff,hl:#005fcc,hl+:#005fcc,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black'
-export FZF_CTRL_R_OPTS=$'--style=minimal --info=inline --no-sort --exact --no-preview --color=fg:black,bg:#ededed,fg+:black,bg+:#ffffff,hl:#005fcc,hl+:#005fcc,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black'
+export FZF_DEFAULT_OPTS="
+  $FZF_DEFAULT_COLORS_PYWAL
+  --style=minimal
+  --layout=reverse
+  --ansi 
+  --margin=1,1,1,1 
+  --cycle 
+  --height=50%
+  --color=gutter:-1,border:238,scrollbar:238 
+	--prompt='> '
+  --bind esc:abort 
+  --bind ctrl-d:preview-half-page-down 
+  --bind ctrl-u:preview-half-page-up 
+  --bind ctrl-f:preview-page-down 
+  --bind ctrl-b:preview-page-up 
+"
+
+export FZF_CTRL_R_OPTS="
+  $FZF_DEFAULT_COLORS_PYWAL
+  --style=minimal
+  --info=inline
+  --no-sort
+  --exact
+  --no-preview
+  --color=gutter:-1,border:238,scrollbar:238
+  --height=50%
+  --prompt='> '
+  --margin=1,1,1,1
+  --layout=reverse
+  --ansi
+"
+
+bindkey '^r' fzf-history-widget
 
 function fzf-quick-edit() {
   local dir file
@@ -23,11 +54,11 @@ quick-edit-directory() {
   if [[ $# -eq 1 ]]; then
     selected=$1
   else
-    selected=$(find ~/obsidian ~/projects ~/.config ~/dot -mindepth 1 -maxdepth 1 -xtype d | fzf)
+    selected=$(find ${(@s/:/)SEARCH_DIRECTORIES_PATHS} -mindepth 1 -maxdepth 1 -xtype d 2>/dev/null | fzf)
   fi
 
   if [[ -z $selected ]]; then
-    exit 0
+    return
   fi
 
   selected_name=$(basename "$selected" | tr . _)

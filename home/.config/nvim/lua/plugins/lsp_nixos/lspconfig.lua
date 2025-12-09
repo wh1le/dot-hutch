@@ -30,13 +30,22 @@ return {
 			"<leader>rn",
 			function()
 				vim.lsp.buf.rename()
+				vim.defer_fn(function()
+					for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+						if vim.api.nvim_buf_is_loaded(bufnr) and vim.api.nvim_buf_get_option(bufnr, "modified") then
+							vim.api.nvim_buf_call(bufnr, function()
+								vim.cmd("write")
+							end)
+						end
+					end
+				end, 200)
 			end,
 			desc = "Rename",
 		},
 		{
 			"<leader>ca",
 			function()
-				vim.lsp.buf.code_action()
+				vim.lsp.buf.rename()
 			end,
 			desc = "Code action",
 		},

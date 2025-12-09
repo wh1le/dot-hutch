@@ -8,7 +8,7 @@
     "cursor": "#cccccc"
   },
   "colors": {
-    "color0": "#f5f5f5",
+    "color0": "#f0f0f0",
     "color1": "#f0f0f0",
     "color2": "#cccccc",
     "color3": "#999999",
@@ -21,8 +21,8 @@
     "color10": "#000000",
     "color11": "#000000",
     "color12": "#000000",
-    "color13": "#000000",
-    "color14": "#000000",
-    "color15": "#000000"
+    "color13": "#e0e0e0",
+    "color14": "#cccccc",
+    "color15": "#f0f0f0"
   }
 }

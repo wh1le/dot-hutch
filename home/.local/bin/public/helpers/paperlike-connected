@@ -1,0 +1,1 @@
+hyprctl monitors -j | jq -e '.[] | select(.description | contains("Paperlike"))' > /dev/null 2>&1

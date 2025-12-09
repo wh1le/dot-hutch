@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+for socket in /tmp/kitty-*; do
+  [ -S "$socket" ] && kitty @ --to "unix:$socket" set-colors --all ~/.cache/wal/colors-kitty.conf 2>/dev/null
+done
+
+tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true

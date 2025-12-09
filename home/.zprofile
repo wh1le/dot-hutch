@@ -1,21 +1,34 @@
 # Props to https://github.com/BreadOnPenguins
 
+# export COLORTERM=truecolor
+
 export EDITOR="nvim"
-# export TERM="kitty"
-# export TERMINAL="kitty"
-export TERMINAL="wezterm"
+export VISUAL=nvim
+export TERMINAL="kitty"
 export BROWSER="firefox"
 
 export PAGER="nvimpager"    # colored man pages
 export MANPAGER="nvimpager" # colored man pages
 
-export USER_SCRIPTS_PATH="$HOME/.config/scripts"
-export LAUNCHER_SCRIPTS_PATH="$HOME/.config/scripts/menu"
+export USER_SCRIPTS_PATH="$HOME/.local/bin/public"
+export LAUNCHER_SCRIPTS_PATH="$HOME/.local/bin/public/menu"
 
 export KITTY_LAUNCHER_CLASS="launcher"
 export KITTY_LAUNCHER_SOCKET_PATH="/tmp/kitty-launcher"
 
-export SEARCH_DIRECTORIES_PATHS="$HOME/Projects $HOME/code $HOME/obsidian $HOME/.config $HOME/dot"
+# export SEARCH_DIRECTORIES_PATHS="$HOME/Projects $HOME/code $HOME/obsidian $HOME/.config $HOME/dot $HOME/.local/bin"
+_search_dirs=(
+  "$HOME/Projects"
+  "$HOME/code"
+  "$HOME/obsidian"
+  "$HOME/.config"
+  "$HOME/dot"
+  "$HOME/.local/bin"
+  "$HOME/virtualization"
+  "$HOME/Music"
+)
+
+export SEARCH_DIRECTORIES_PATHS="${(j/:/)_search_dirs}"
 
 # follow XDG base dir specification
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -58,11 +71,6 @@ export FFMPEG_DATADIR="$XDG_CONFIG_HOME/ffmpeg"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 
 # NOTE: you messed with the --exact flag for FZF_CTRL_R_OPTS don't forget to add it back or rule out
-
-export FZF_DEFAULT_OPTS="--style=minimal --layout=reverse --height=30% --no-preview --color=16,fg:black,bg:7,fg+:black,bg+:15,hl:4,hl+:4,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black"
-export FZF_CTRL_R_OPTS="--style=minimal --info=inline --no-sort --no-preview --color=16,fg:black,bg:7,fg+:black,bg+:15,hl:4,hl+:4,info:black,prompt:black,spinner:black,pointer:black,marker:black,header:black"
-# export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --no-preview"
-# export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview" # separate opts for history widget
 
 # colored less + termcap vars
 export LESS="R --use-color -Dd+r -Du+b"

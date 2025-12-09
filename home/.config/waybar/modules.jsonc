@@ -76,7 +76,10 @@
   "tray": {
     "icon-size": 15,
     "spacing": 7,
-    "icon-theme": ["Papirus"]
+    "icon-theme": ["Papirus"],
+    "icons": {
+      "openvpn": "󰈔"
+    },
   },
 
   "clock": {

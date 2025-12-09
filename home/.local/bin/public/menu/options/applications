@@ -3,34 +3,3 @@
 set -euo pipefail
 
 sway-launcher-desktop
-
-# : "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
-# : "${KITTY_LAUNCHER_CLASS:=launcher}"
-# : "${KITTY_LAUNCHER_SOCKET_PATH:=/tmp/kitty-launcher}"
-#
-# source "$USER_SCRIPTS_PATH/menu/helpers/fzf-with-options"
-#
-# paths=(
-#   /run/current-system/sw/bin
-#   /etc/profiles/per-user/$USER/bin
-#   "$HOME/.nix-profile/bin"
-# )
-#
-# if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
-#   hyprctl dispatch centerwindow
-# fi
-#
-# apps=$(
-#   for d in "${paths[@]}"; do
-#     [ -d "$d" ] || continue
-#     find "$d" -maxdepth 1 -mindepth 1 -executable -printf '%f\n' 2>/dev/null
-#   done | sort -u
-# )
-#
-# choice=$(printf '%s\n' "$apps" | fzf-with-options)
-#
-# nohup bash -lc "$choice" </dev/null >/dev/null 2>&1 &
-#
-# if [ -n "$KITTY_LAUNCHER_SOCKET_PATH" ] && [ -S "$KITTY_LAUNCHER_SOCKET_PATH" ]; then
-#   kitty @ --to "unix:$KITTY_LAUNCHER_SOCKET_PATH" close-window
-# fi

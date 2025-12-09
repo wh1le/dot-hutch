@@ -11,8 +11,6 @@ setopt SHARE_HISTORY           # share history across shells
 setopt INC_APPEND_HISTORY      # add commands to history immediately, not at shell exit
 setopt NO_EXTENDED_HISTORY
 
-bindkey '^r' fzf-history-widget
-
 function history() {
   emulate -L zsh
 

@@ -3,7 +3,7 @@ return {
 	lazy = false,
 	config = function()
 		vim.g.grepper = {
-			tools = { "rg", "vimgrep", "grep" }, -- Order of preference
+			tools = { "rg", "vimgrep", "grep", "git" }, -- Order of preference
 			searchreg = 1, -- Use last search register
 			highlight = 1, -- Highlight matches
 			quickfix = 1, -- Use quickfix list

@@ -50,7 +50,6 @@ vim.opt.showcmd = false
 vim.opt.visualbell = false
 vim.opt.relativenumber = true
 -- vim.opt.ttyscroll = 3
-vim.opt.scrolloff = 0
 vim.opt.incsearch = false
 
 -- if NM.os.is_wsl() then

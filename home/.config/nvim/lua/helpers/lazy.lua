@@ -1,6 +1,6 @@
 NM.lazy = {
 	setup = function()
-		NM.lazy.verify_plugin_and_load()
+		NM.lazy._load_lazy_source()
 
 		local spec = {
 			{ import = "plugins" },
@@ -15,28 +15,40 @@ NM.lazy = {
 
 		require("lazy").setup({
 			spec = spec,
-			install = { colorscheme = { "habamax" } },
+			install = { colorscheme = { "pywal16" } },
 			change_detection = {
 				enabled = true,
 				notify = false,
+			},
+			ui = {
+				backdrop = 100,
+				border = "rounded",
+				-- Use a light colorscheme for lazy UI
+				custom_keys = {},
 			},
 			checker = { enabled = false },
 		})
 	end,
 
-	verify_plugin_and_load = function()
-		local lazypath = vim.fn.expand("~/.nvim/lazy.nvim")
+	_load_lazy_source = function()
+		-- try nixos package first
+		local lazy_path = vim.fn.expand("@lazy_nvim@")
 
-		if not (vim.uv or vim.loop).fs_stat(lazypath) then
-			NM.lazy._clone(lazypath)
+		-- clone manually if not found
+		if not (vim.uv or vim.loop).fs_stat(lazy_path) then
+			lazy_path = vim.fn.expand("~/.local/share/nvim/lazy/lazy.nvim")
+
+			if not (vim.uv or vim.loop).fs_stat(lazy_path) then
+				NM.lazy._clone(lazy_path)
+			end
 		end
 
-		vim.opt.rtp:prepend(lazypath)
+		vim.opt.rtp:prepend(lazy_path)
 	end,
 
-	_clone = function(lazypath)
+	_clone = function(lazy_path)
 		local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-		local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+		local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazy_path })
 		if vim.v.shell_error ~= 0 then
 			vim.api.nvim_echo({
 				{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+LOCK="/tmp/hypr-nav.lock"
+
+# Prevent re-entry
+if [[ -f "$LOCK" ]]; then
+  exit 0
+fi
+
+direction=$1
+
+window_info=$(hyprctl activewindow -j)
+active_class=$(echo "$window_info" | jq -r '.initialTitle')
+window_pid=$(echo "$window_info" | jq -r '.pid')
+
+if [[ "$active_class" =~ ^(kitty|alacritty|wezterm)$ ]]; then
+  if pstree -p "$window_pid" | grep -q 'tmux'; then
+    touch "$LOCK"
+
+    case $direction in
+    l) tmux send-keys C-h ;;
+    d) tmux send-keys C-j ;;
+    u) tmux send-keys C-k ;;
+    r) tmux send-keys C-l ;;
+    esac
+
+    rm -f "$LOCK"
+    exit 0
+  fi
+fi
+
+hyprctl dispatch movefocus "$direction"

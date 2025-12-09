@@ -1,11 +1,18 @@
-source $HOME/.cache/wal/colors.sh
+source ~/.zprofile
+
+source $HOME/.cache/wal/colors-zsh.sh
+
 source $HOME/.config/zsh/modules/path.zsh
+source $HOME/.config/zsh/modules/hotkeys.zsh
 
+# order is important
+# source $HOME/.config/zsh/modules/autocomplete.zsh
+source $HOME/.config/zsh/modules/suggestions.zsh
 source $HOME/.config/zsh/modules/fzf.zsh
-
 # source $HOME/.config/zsh/modules/colors.zsh
+
+source $HOME/.config/zsh/modules/exports.zsh
 source $HOME/.config/zsh/modules/functions.zsh
-source $HOME/.config/zsh/modules/autocomplete.zsh
 source $HOME/.config/zsh/modules/ls_colors.zsh
 source $HOME/.config/zsh/modules/diff_so_fancy.zsh
 source $HOME/.config/zsh/modules/prompt.zsh
@@ -18,10 +25,20 @@ source $HOME/.config/zsh/modules/bat.zsh
 source $HOME/.config/zsh/modules/git.zsh
 source $HOME/.config/zsh/modules/nix.zsh
 source $HOME/.config/zsh/modules/edit_command_line.zsh
-source $HOME/.config/zsh/modules/hotkeys.zsh
 source $HOME/.config/zsh/modules/aliases.zsh
 source $HOME/.config/zsh/modules/veracrypt.zsh
 source $HOME/.config/zsh/modules/media.zsh
-source $HOME/.config/zsh/modules/exports.zsh
 source $HOME/.config/zsh/modules/xdg-open.zsh
 source $HOME/.config/zsh/modules/python.zsh
+source $HOME/.config/zsh/modules/pywal.zsh
+
+if [[ -n "$TMUX" ]]; then
+  export TERM="tmux-256color"
+else
+  export TERM="xterm-256color"
+fi
+
+# Block garbage escape sequences from becoming commands
+preexec() {
+  [[ "$1" =~ '^_G|Ptmux|^\[' ]] && return 1
+}

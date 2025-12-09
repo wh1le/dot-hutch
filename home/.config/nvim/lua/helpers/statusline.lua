@@ -1,4 +1,49 @@
 NM.statusline = {
+	pywal_colors = function()
+		return require("pywal16.core").get_colors()
+	end,
+
+	lua_line_theme = function()
+		local colors = NM.statusline.pywal_colors()
+
+		return {
+			normal = {
+				a = { fg = colors.foreground, bg = colors.background },
+				b = { fg = colors.foreground, bg = colors.background },
+				c = { fg = colors.foreground, bg = colors.background },
+			},
+			insert = {
+				a = { fg = colors.foreground, bg = colors.background },
+				b = { fg = colors.foreground, bg = colors.background },
+				c = { fg = colors.foreground, bg = colors.background },
+			},
+			visual = {
+				a = { fg = colors.foreground, bg = colors.background },
+				b = { fg = colors.foreground, bg = colors.background },
+				c = { fg = colors.foreground, bg = colors.background },
+			},
+			replace = {
+				a = { fg = colors.foreground, bg = colors.background },
+				b = { fg = colors.foreground, bg = colors.background },
+				c = { fg = colors.foreground, bg = colors.background },
+			},
+			command = {
+				a = { fg = colors.foreground, bg = colors.background },
+				b = { fg = colors.foreground, bg = colors.background },
+				c = { fg = colors.foreground, bg = colors.background },
+			},
+			inactive = {
+				a = { fg = colors.foreground, bg = colors.background },
+				b = { fg = colors.foreground, bg = colors.background },
+				c = { fg = colors.foreground, bg = colors.background },
+			},
+		}
+	end,
+
+	colors = function()
+		return {}
+	end,
+
 	current_mode = function()
 		local m = vim.fn.mode()
 
@@ -181,22 +226,6 @@ NM.statusline = {
 			return list
 		end,
 
-		-- _get_available_servers_for = function(filetype)
-		-- 	local ok, servers = pcall(require, "lspconfig.server_configurations")
-		-- 	if not ok then
-		-- 		return {}
-		-- 	end
-		--
-		-- 	local list = {}
-		-- 	for name, c in pairs(servers) do
-		-- 		local dc = c.default_config
-		-- 		if dc and dc.filetypes and vim.tbl_contains(dc.filetypes, filetype) then
-		-- 			table.insert(list, name)
-		-- 		end
-		-- 	end
-		-- 	return list
-		-- end,
-
 		_get_attached_servers = function(buffer)
 			local attached = {}
 
@@ -218,22 +247,14 @@ NM.statusline = {
 		end,
 
 		get_icon = function(available, attached)
-			return "available: " .. table.concat(available, ", ") .. " attached: " .. table.concat(attached, ", ")
+			if #attached == 0 then
+				return ""
+			else
+				return ""
+			end
 
-			-- local set = {}
-			--
-			-- for _, a in ipairs(available) do
-			-- 	set[a] = true
-			-- end
-			--
-			--
-			-- for _, name in ipairs(attached) do
-			-- 	if not set[name] then
-			-- 		return "not ok"
-			-- 	end
-			-- end
-			--
-			-- return "ok"
+			-- return " lsp " .. "(" .. attached .. "/" .. available .. ")" .. ": " .. table.concat(attached, ", ")
+			return string.format(" lsp: %s (%d/%d)", table.concat(attached, ", "), #attached, #available)
 		end,
 	},
 	lsp_state_icon = function()
@@ -243,12 +264,6 @@ NM.statusline = {
 
 		local available_servers = NM.statusline.lsp._get_available_servers_for(vim.bo.filetype)
 		local attached_servers = NM.statusline.lsp._get_attached_servers()
-
-		-- return table.concat(attached_servers, ", ")
-
-		-- if #available_servers == 0 then
-		-- 	return ""
-		-- end
 
 		return NM.statusline.lsp.get_icon(available_servers, attached_servers)
 	end,

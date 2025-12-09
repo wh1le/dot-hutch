@@ -15,24 +15,24 @@ command -v systemctl >/dev/null 2>&1 || {
 # running count (user/system)
 count_running() {
   scope="$1" # "" or "--user"
-  systemctl $scope list-units --type=service --state=running --no-legend --no-pager 2>/dev/null \
-    | awk '$1 ~ /^(podman-|docker-)/ {print $1}' \
-    | wc -l
+  systemctl $scope list-units --type=service --state=running --no-legend --no-pager 2>/dev/null |
+    awk '$1 ~ /^(podman-|docker-)/ {print $1}' |
+    wc -l
 }
 
 # any defined podman-/docker- services (user/system)
 count_any() {
   scope="$1"
-  systemctl $scope list-unit-files --type=service --no-legend --no-pager 2>/dev/null \
-    | awk '$1 ~ /^(podman-|docker-)/ {print $1}' \
-    | wc -l
+  systemctl $scope list-unit-files --type=service --no-legend --no-pager 2>/dev/null |
+    awk '$1 ~ /^(podman-|docker-)/ {print $1}' |
+    wc -l
 }
 
 # collect running names, flattened to one line
 list_running_flat() {
   scope="$1"
-  systemctl $scope list-units --type=service --state=running --no-legend --no-pager 2>/dev/null \
-    | awk '$1 ~ /^(podman-|docker-)/ {print $1}'
+  systemctl $scope list-units --type=service --state=running --no-legend --no-pager 2>/dev/null |
+    awk '$1 ~ /^(podman-|docker-)/ {print $1}'
 }
 
 user_running=$(count_running --user)
@@ -79,13 +79,17 @@ else
   tooltip="$services"
 fi
 
-jq -nc \
-  --arg icon "$ICON" \
-  --arg running "$running" \
-  --arg tooltip "$tooltip" \
-  --arg cls "$cls" \
-  '{
+if [[ "$running" -eq 0 ]]; then
+  echo '{}'
+else
+  jq -nc \
+    --arg icon "$ICON" \
+    --arg running "$running" \
+    --arg tooltip "$tooltip" \
+    --arg cls "$cls" \
+    '{
     "text": ($icon + " " + $running),
     "tooltip": $tooltip,
     "class": $cls
   }'
+fi

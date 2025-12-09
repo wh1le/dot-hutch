@@ -2,6 +2,7 @@
 setopt AUTO_PUSHD        # [default] cd automatically pushes old dir onto dir stack
 setopt PUSHD_IGNORE_DUPS # don't push multiple copies of same dir onto stack
 setopt PUSHD_SILENT      # [default] don't print dir stack after pushing/popping
+setopt AUTO_CD
 
 # shell
 setopt CLOBBER              # allow clobbering with >, no need to use >!

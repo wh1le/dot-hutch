@@ -18,12 +18,6 @@ return {
 			local lspkind = require("lspkind")
 			local buffer = require("cmp_buffer")
 
-			luasnip.add_snippets("all", {
-				luasnip.snippet("!", {
-					luasnip.text_node({ "#!/usr/bin/env bash", "" }),
-				}),
-			})
-
 			cmp.setup({
 				performance = {
 					debounce = 1000, -- ms to wait before showing / updating menu
@@ -34,7 +28,25 @@ return {
 					["<C-n>"] = cmp.mapping.select_next_item(),
 					["<C-space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.close(),
-					["<tab>"] = cmp.mapping.confirm({ select = true }),
+					-- ["<tab>"] = cmp.mapping.confirm({ select = true }),
+					["<tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.confirm({ select = true })
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+
+					-- Shift-Tab: jump back in snippet
+					["<S-tab>"] = cmp.mapping(function(fallback)
+						if luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 					-- ["<C-b>"] = cmp.mapping.scroll_docs(-4), -- safe: noop if no docs
 					-- ["<C-f>"] = cmp.mapping.scroll_docs(4),
 					-- ["<C-j>"] = cmp.mapping(function()

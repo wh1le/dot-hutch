@@ -7,14 +7,19 @@ ViewFont=JetBrainsMono Nerd Font,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 
 [ContentDisplay]
 DirectorySizeMode=ContentSize
-RecursiveDirectorySizeLimit=20
+ElidingMode=Right
+UsePermissionsFormat=NumericFormat
 
 [ContextMenu]
+ShowAddToPlaces=false
+ShowCopyToOtherSplitView=false
 ShowMoveToOtherSplitView=false
+ShowOpenInSplitView=false
+ShowViewMode=false
 
 [DetailsMode]
 IconSize=32
-PreviewSize=80
+PreviewSize=32
 UseSystemFont=false
 ViewFont=JetBrainsMono Nerd Font,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 
@@ -23,15 +28,15 @@ OpenExternallyCalledFolderInNewTab=true
 RememberOpenedTabs=false
 ShowFullPathInTitlebar=true
 ShowStatusBar=FullWidth
+SortingChoice=CaseInsensitiveSorting
 UseTabForSwitchingSplitView=true
 Version=202
 ViewPropsTimestamp=2025,10,3,17,23,33.486
 
 [IconsMode]
 IconSize=128
-PreviewSize=176
+PreviewSize=144
 TextWidthIndex=0
-UseSystemFont=false
 
 [InformationPanel]
 dateFormat=ShortFormat
@@ -47,7 +52,4 @@ MenuBar=Disabled
 IconSize=16
 
 [PreviewSettings]
-Plugins=audiothumbnail,comicbookthumbnail,ebookthumbnail,directorythumbnail,imagethumbnail,jpegthumbnail,mobithumbnail,rawthumbnail,ffmpegthumbs
-
-[VersionControl]
-enabledPlugins=Git
+Plugins=audiothumbnail,comicbookthumbnail,ebookthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,mobithumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs
