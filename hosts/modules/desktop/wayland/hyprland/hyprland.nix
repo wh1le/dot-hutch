@@ -53,10 +53,10 @@ in
     hyprland.withUWSM = true;
   };
 
-  programs.hyprlock.enable = true;
-  programs.hyprlock.package = hyprland_packages.hyprlock;
-  services.hypridle.enable = true;
-  services.hypridle.package = hyprland_packages.hypridle;
+  # programs.hyprlock.enable = true;
+  # programs.hyprlock.package = hyprland_packages.hyprlock;
+  # services.hypridle.enable = true;
+  # services.hypridle.package = hyprland_packages.hypridle;
 
   environment.systemPackages = [
     pkgs.tuigreet
