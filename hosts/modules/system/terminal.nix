@@ -1,8 +1,4 @@
-{
-  pkgs,
-  unstable,
-  ...
-}:
+{ pkgs, unstable, ... }:
 {
   programs.zsh.enable = true;
 
@@ -42,7 +38,7 @@
     unstable.nix-search-tv
 
     pkgs.mutt # TODO: Mail client
-    pkgs.dooit # TODO: todos
-    pkgs.astroterm # fun
+    # pkgs.dooit # TODO: todos
+    pkgs.astroterm
   ];
 }

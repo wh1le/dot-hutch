@@ -1,12 +1,8 @@
-{ modulesPath
-, pkgs
-, unstable
-, ...
-}:
+{ modulesPath, pkgs, unstable, ... }:
 {
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 
-  networking.hostName = "homepc";
+  networking.hostName = "thinkpad";
 
   environment.variables.USER_SCRIPTS_PATH = "$HOME/.local/bin/public";
 
@@ -29,12 +25,10 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
 
-    # ../modules/hardware/homepc/videocards/nvidia.nix
-    # ../modules/hardware/homepc/videocards/radeon.nix
-    ../modules/hardware/homepc/videocards/dual_gpu.nix
-    ../modules/hardware/homepc/nzxt_kraken.nix
-    ../modules/hardware/homepc/boot.nix
-    ../modules/hardware/homepc/monitors.nix
+    ../modules/hardware/thinkpad/boot.nix
+    ../modules/hardware/thinkpad/wifi.nix
+    ../modules/hardware/thinkpad/keyboard.nix
+    # ../modules/hardware/thinkpad/monitors.nix
 
     ../modules/hardware/audio.nix
     # ../modules/hardware/dasung_paperlike.nix
@@ -49,7 +43,6 @@
     ../modules/security/firewall.nix
     ../modules/security/geo.nix
     # ../modules/security/network_dnscrypt-proxy2.nix
-    ../modules/security/network_pi_hole.nix
     ../modules/security/security.nix
     ../modules/security/vpn.nix
     ../modules/security/sops.nix
@@ -76,12 +69,11 @@
     ../modules/software/flatpaks.nix
     # ../modules/software/llms.nix
     # ../modules/software/n8n.nix
-    ../modules/software/steam.nix
+    # ../modules/software/steam.nix
     # ../modules/software/searx.nix
     # ../modules/software/reverse_proxy.nix
 
     ../modules/system/filesystem.nix
-    ../modules/system/keyboard.nix
     ../modules/system/languages.nix
     ../modules/system/locales.nix
     ../modules/system/terminal.nix

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  unstable,
-  ...
-}:
+{ pkgs, unstable, ... }:
 
 {
   environment.variables.OBSIDIAN_USE_WAYLAND = 1;
@@ -17,5 +13,10 @@
     pkgs.blanket
     pkgs.joplin-desktop
     pkgs.gnome-calculator
+    pkgs.nsxiv
+    # nwg-look
+    glib
+    pkgs.conky
+    pkgs.htop
   ];
 }

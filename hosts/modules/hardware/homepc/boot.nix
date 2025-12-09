@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

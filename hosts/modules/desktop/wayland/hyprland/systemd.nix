@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  unstable,
-  ...
+{ config
+, pkgs
+, unstable
+, ...
 }:
 let
   home = config.users.users.wh1le.home;

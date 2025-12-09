@@ -1,6 +1,5 @@
-{
-  pkgs,
-  ...
+{ pkgs
+, ...
 }:
 
 {
@@ -11,7 +10,6 @@
   # users.groups.podman = {
   #   name = "podman";
   # };
-  users.users.wh1le.extraGroups = [ "podman" ];
 
   environment.systemPackages = with pkgs; [
     podman

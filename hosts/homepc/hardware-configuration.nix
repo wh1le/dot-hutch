@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
-
+{ config, lib, ... }:
 {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
@@ -24,5 +19,13 @@
     options = [ "umask=0077" ];
   };
 
-  swapDevices = [ { device = "/dev/disk/by-uuid/9572a97b-f3aa-408d-aad5-bdcaeb019c91"; } ];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/9572a97b-f3aa-408d-aad5-bdcaeb019c91"; }
+  ];
+
+  # TODO: Temp for building cuda and nvidia
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50; # Use up to 50% of RAM for compressed swap
+  };
 }

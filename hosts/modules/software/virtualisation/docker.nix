@@ -16,7 +16,6 @@
   '';
 
   virtualisation.docker.enable = true;
-  users.users.wh1le.extraGroups = [ "docker" ];
   virtualisation.docker.storageDriver = "overlay2";
   virtualisation.docker.daemon.settings.experimental = true;
 

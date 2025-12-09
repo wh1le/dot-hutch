@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 {
   environment.variables.GDK_BACKEND = "wayland,x11,*";
-  # Override in radeon config
-  # environment.variables.GDK_SCALE = "1.5";
   environment.variables.WLR_NO_HARDWARE_CURSORS = 1;
   environment.variables.NVIDIA_CARD_PRIMARY = 1;
 
@@ -43,6 +41,6 @@
   environment.systemPackages = with pkgs; [
     nvidia-vaapi-driver
     lshw
-    glxinfo
+    mesa-demos
   ];
 }

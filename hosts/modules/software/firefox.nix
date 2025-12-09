@@ -1,7 +1,6 @@
-{
-  pkgs,
-  unstable,
-  ...
+{ pkgs
+, unstable
+, ...
 }:
 {
   environment.variables = {
@@ -15,10 +14,21 @@
   #   '';
   # };
 
-  environment.sessionVariables.DEFAULT_BROWSER = "${pkgs.firefox}/bin/firefox";
+  environment.sessionVariables.DEFAULT_BROWSER = "${unstable.firefox}/bin/firefox";
 
   environment.systemPackages = [
+    (pkgs.makeDesktopItem {
+      name = "Firefox (Work Profile)";
+      desktopName = "Firefox (Work Profile)";
+      comment = "Firefox";
+      exec = "firefox -p work";
+      icon = "firefox";
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
+    })
+
     unstable.firefox
-    unstable.librewolf
   ];
 }

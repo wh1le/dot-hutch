@@ -1,6 +1,5 @@
-{
-  pkgs,
-  ...
+{ pkgs
+, ...
 }:
 {
   # 1. Add the udev rule
@@ -10,13 +9,6 @@
     GROUP="video",
     MODE="0660"
   '';
-
-  users.users.wh1le = {
-    extraGroups = [
-      "wheel"
-      "video"
-    ];
-  };
 
   environment.systemPackages = with pkgs; [
     paperlike-go

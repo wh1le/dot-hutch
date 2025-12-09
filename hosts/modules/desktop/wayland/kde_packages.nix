@@ -32,29 +32,17 @@
     kdePackages.kservice
     kdePackages.systemsettings
     kdePackages.qtwayland
+    kdePackages.kde-cli-tools
     # qt6.qtwayland # Qt6 Wayland platform plugin
     egl-wayland
     qt6.qtwayland
-
-    # kdePackages.breeze
-    # kdePackages.breeze-gtk
-
-    # TODO: Consider to remove
-    # kdePackages.qtstyleplugin-kvantum # styling
-    # kdePackages.qtwayland
-    # libsForQt5.qt5.qtwayland
-    # libsForQt5.plasma-wayland-protocols
-    # kdePackages.qt6ct # configuration
-    # libsForQt5.qt5ct # configuration
-    # libsForQt5.qtstyleplugin-kvantum
-    # libsForQt5.qt5.qtwayland # Qt5 Wayland platform plugin
-    # kdePackages.polkit-kde-agent-1 # some polkit agent is required
+    kdePackages.qt6gtk2
+    # kdePackages.qt6.full TODO: got removed 25.11 replace with new dependencies
 
     shared-mime-info # database of common mime types
     desktop-file-utils
 
     at-spi2-atk # accessibility bridge, safe and used by Qt/GTK apps
-    # playerctl # media key control; works with KDE media players
 
     cliphist
     gifsicle # GIF optimization

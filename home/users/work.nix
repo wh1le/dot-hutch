@@ -1,15 +1,14 @@
-{ inputs, pkgs, ... }:
+{ ... }:
 {
   home = {
-    username = "wh1le";
-    homeDirectory = "/home/wh1le";
+    username = "work";
+    homeDirectory = "/home/work";
     stateVersion = "25.11";
   };
 
   imports = [
     ../modules/link_dotfiles.nix
     ../modules/programs/git.nix
-    ../modules/hyprland-plugins.nix
     # ../modules/programs/keepassxc.nix
   ];
 }

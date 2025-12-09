@@ -1,19 +1,31 @@
-{
-  inputs,
-  pkgs,
-  unstable,
-  ...
-}:
+{ inputs, pkgs, unstable, ... }:
 
 let
   # [ "default" "hyprland" "hyprland-cross" "hyprland-debug" "hyprland-debug-cross" "hyprland-unwrapped" "hyprtester" "xdg-desktop-portal-hyprland" ]
   hyprland_packages = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
+  # https://wiki.hypr.land/Nix/Cachix/
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];
+    trusted-substituters = [ "https://hyprland.cachix.org" ];
     trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
+
+  services.playerctld.enable = true;
+
+  # TODO: https://wiki.hypr.land/Nix/Hyprland-on-NixOS/
+  # programs.dconf.profiles.user.databases = [
+  #   {
+  #     settings."org/gnome/desktop/interface" = {
+  #       gtk-theme = "Adwaita";
+  #       icon-theme = "Flat-Remix-Red-Dark";
+  #       font-name = "Noto Sans Medium 11";
+  #       document-font-name = "Noto Sans Medium 11";
+  #       monospace-font-name = "Noto Sans Mono Medium 11";
+  #     };
+  #   }
+  # ];
 
   programs.uwsm.waylandCompositors = {
     hyprland = {
@@ -27,9 +39,7 @@ in
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet \                                                                                                                    
-          --time --time-format '%I:%M %p | %a • %h | %F' \                                                                                                                   
-           --cmd 'uwsm start hyprland'";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd 'uwsm start hyprland'";
         user = "wh1le";
       };
     };
@@ -43,13 +53,13 @@ in
     hyprland.withUWSM = true;
   };
 
-  # programs.hyprlock = { enable = true; };
-  # services.hypridle = { enable = true; };
+  programs.hyprlock.enable = true;
+  services.hypridle.enable = true;
 
   environment.systemPackages = [
-    pkgs.greetd.tuigreet
+    pkgs.tuigreet
 
-    pkgs.waybar # TODO: Switch to unstable
+    unstable.waybar # TODO: Switch to unstable
     pkgs.inotify-tools # livereload on waybar config edit
 
     pkgs.hyprshot # TODO: switch to unstable
@@ -59,11 +69,17 @@ in
 
     pkgs.hyprcursor # TODO: switch to unstable,
     pkgs.hyprsunset # TODO: switch to unstable night light (temperature control)
+
     # unstable.hyprpolkitagent
 
-    pkgs.pywal16
-    pkgs.pywalfox-native
+    unstable.pywal16
+    unstable.pywalfox-native
 
-    unstable.swww # https://github.com/LGFae/swww/issues/398#issuecomment-2907991263
+    unstable.swww
+    unstable.playerctl
+    unstable.brightnessctl
+    pkgs.yad
+    pkgs.libappindicator-gtk3
+    (pkgs.python3.withPackages (ps: [ ps.pygobject3 ]))
   ];
 }

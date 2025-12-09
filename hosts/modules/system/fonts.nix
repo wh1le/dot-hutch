@@ -16,7 +16,6 @@
 
       nerd-fonts.jetbrains-mono
       noto-fonts-color-emoji
-      noto-fonts-emoji
 
       # Trying fonts
       nerd-fonts.fantasque-sans-mono

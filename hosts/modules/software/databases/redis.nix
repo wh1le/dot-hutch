@@ -1,8 +1,7 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  services.redis = {
+  services.redis.servers."" = {
     enable = true;
-    package = pkgs.redis;
     port = 6379;
   };
 }

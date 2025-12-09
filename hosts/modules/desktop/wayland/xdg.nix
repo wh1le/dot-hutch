@@ -1,20 +1,21 @@
-{
-  pkgs,
-  inputs,
-  ...
+{ pkgs
+, inputs
+, ...
 }:
 let
   # hyprland_packages = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
-  environment.variables.XDG_CURRENT_DESKTOP = "Hyprland";
-  environment.variables.XDG_SESSION_DESKTOP = "Hyprland";
+  # when luanched with greetd
+  # environment.variables.XDG_CURRENT_DESKTOP = "Hyprland";
+  # environment.variables.XDG_SESSION_DESKTOP = "Hyprland";
 
   xdg.portal.enable = true;
   xdg.icons.enable = true;
   xdg.menus.enable = true;
   xdg.mime.enable = true;
-  xdg.sounds.enable = true; # TODO: see if you like it
+  xdg.sounds.enable = true; # TODO: troubleshoot pipewire issue
+  xdg.portal.wlr.enable = true;
 
   xdg.terminal-exec = {
     enable = true;
@@ -30,6 +31,7 @@ in
     pkgs.xdg-desktop-portal
     # hyprland_packages.xdg-desktop-portal-hyprland
     pkgs.kdePackages.xdg-desktop-portal-kde
+    pkgs.xdg-desktop-portal-gtk
     # TODO: bring back if firefox file opener brakes
     # pkgs.xdg-desktop-portal-gtk
   ];
@@ -43,6 +45,7 @@ in
       default = [
         "hyprland"
         "kde"
+        "gtk"
       ];
       "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
       "org.freedesktop.impl.portal.OpenURI" = [ "kde" ];

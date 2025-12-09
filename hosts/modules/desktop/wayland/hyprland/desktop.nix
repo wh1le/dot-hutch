@@ -23,11 +23,7 @@
 
   services.dbus.enable = true;
   services.dbus.implementation = "broker";
-  users.groups.dbus-monitor = { };
-  users.users.wh1le.extraGroups = [ "dbus-monitor" ];
 
-  # Remove or disable nvidia-vaapi-driver if installed, or keep it and set LIBVA_DRIVER_NAME=disabled for Firefox.
-  # Test WLR_RENDERER=vulkan if your Hyprland build supports the Vulkan renderer. If stability worsens, revert. (Follow Hyprland NVIDIA page closely
   programs.uwsm.enable = true;
 
   environment.systemPackages = [
@@ -36,7 +32,8 @@
     pkgs.libnotify
     pkgs.dunst
 
-    pkgs.wf-recorder
     pkgs.xclip
+    unstable.wf-recorder
+    unstable.slurp
   ];
 }
