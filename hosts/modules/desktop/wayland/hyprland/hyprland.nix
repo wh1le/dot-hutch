@@ -54,9 +54,9 @@ in
   };
 
   programs.hyprlock.enable = true;
-  programs.hyprlock.package = hyprland_packages.hyprlock;
+  programs.hyprlock.package = unstable.hyprlock;
   services.hypridle.enable = true;
-  services.hypridle.package = hyprland_packages.hypridle;
+  services.hypridle.package = unstable.hypridle;
 
   environment.systemPackages = [
     pkgs.tuigreet
