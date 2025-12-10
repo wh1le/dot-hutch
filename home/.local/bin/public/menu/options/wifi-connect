@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+wifi_if=$(nmcli -t -f DEVICE,TYPE device | grep ':wifi$' | cut -d: -f1)
+current=$(nmcli -t -f NAME,DEVICE connection show --active 2>/dev/null | awk -F: -v dev="$wifi_if" '$2==dev {print $1}')
+
+if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+  hyprctl dispatch resizeactive 100 100
+  hyprctl dispatch centerwindow
+  kitty @ --to unix:/tmp/kitty-launcher set-font-size 10
+fi
+
+choice=$(
+  {
+    [[ -n "$current" ]] && echo "󰤭 Disconnect ($current)"
+    nmcli -t -f SSID,SIGNAL,SECURITY device wifi list --rescan yes | grep -v '^:'
+  } |
+    sort -t: -k2 -nr |
+    fzf-with-options \
+      --exact \
+      --delimiter=':' \
+      --with-nth=1,2,3 \
+      --preview 'nmcli device wifi list | grep -i {1}' \
+      --preview-window=top,30%,wrap \
+      --preview-label='info' \
+      --preview-label-pos=1
+)
+
+[[ -z "$choice" ]] && exit 0
+
+if [[ "$choice" == "󰤭 Disconnect"* ]]; then
+  nmcli device disconnect "$wifi_if"
+  notify-send "WiFi" "Disconnected from $current"
+else
+  ssid=$(echo "$choice" | cut -d':' -f1)
+
+  if nmcli -t -f NAME connection show | grep -qx "$ssid"; then
+    nmcli connection up "$ssid" ifname "$wifi_if"
+    notify-send "WiFi" "Connected to $ssid"
+  else
+    read -rsp "Password for $ssid: " pass
+    echo
+    nmcli device wifi connect "$ssid" password "$pass" ifname "$wifi_if" &&
+      notify-send "WiFi" "Connected to $ssid" ||
+      notify-send "WiFi" "Failed to connect"
+  fi
+fi
+
+if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+  kitty @ --to unix:$KITTY_LAUNCHER_SOCKET_PATH close-window
+fi

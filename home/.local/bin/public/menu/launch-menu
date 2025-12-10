@@ -16,6 +16,7 @@ OPTIONS=(
   "clipboard-history: Clipboard"
   "openvpn-connect:󱠾 OpenVPN Connect"
   "browser-history:󰖟 Browser History"
+  "wifi-connect:󰤨 Wi-Fi connect"
   "nix-switch: Nix - Switch"
   "nix-search-packages: Nix - Packages"
   "nix-search-options: Nix - Options"
