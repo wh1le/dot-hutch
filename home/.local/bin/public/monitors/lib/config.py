@@ -42,6 +42,22 @@ MONITORS = {
             # "bordersize:2,",
         ],
         "windowrulev2_settings": [ ]
+    },
+    "thinkpad": {
+        "name":"Lenovo Group Limited 0x403A",
+        "port":"eDP-1",
+        "theme": "$HOME/.config/wal/colorschemes/dark/forest.json",
+        "default_wallpaper": "$HOME/.config/wallpapers/forest.jpg",
+        "hyprland_settings": [
+            # "gapsin:6,",
+            # "gapsout:17,",
+            # "rounding:4,", 
+            # "shadow:0,",
+            # "bluring:3,",
+            # "animation:0,",
+            # "bordersize:2,",
+        ],
+        "windowrulev2_settings": [ ]
     }
 }
 
@@ -57,5 +73,8 @@ MONITORS_CONFIG = {
 
     "home_office_lg": [
         {**MONITORS["lg"], "workspaces": ["1","2","3","4","5","6","7","8","9","10"]},
+    ],
+    "thinkpad_default": [
+        {**MONITORS["thinkpad"], "workspaces": ["1","2","3","4","5","6","7","8","9","10"]},
     ],
 }

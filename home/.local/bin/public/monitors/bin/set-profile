@@ -11,7 +11,7 @@ from lib.cmd_helper import available_profiles, show_notification
 from lib.outputs.eink import eink_commands
 from lib.outputs.lg import lg_commands
 
-VALID_MONITORS = ['lg', 'eink']
+VALID_MONITORS = ['lg', 'eink', 'thinkpad']
 
 ERROR_MESSAGES = {
     "args_length":"Invalid args. example: ./set_profile home lg, eink",
