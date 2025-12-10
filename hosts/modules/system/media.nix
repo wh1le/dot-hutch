@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     pkgs.imagemagick
-    pkgs.gimp
+    # pkgs.gimp
 
     pkgs.ffmpeg_6-full
     pkgs.ffmpeg

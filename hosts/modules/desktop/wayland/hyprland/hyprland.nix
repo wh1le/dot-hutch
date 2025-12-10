@@ -46,16 +46,16 @@ in
   };
 
   programs = {
-    hyprland.enable = true;
-    hyprland.package = hyprland_packages.default;
-    hyprland.portalPackage = hyprland_packages.xdg-desktop-portal-hyprland;
-    hyprland.xwayland.enable = true;
-    hyprland.withUWSM = true;
-  };
+     hyprland.enable = true;
+     hyprland.package = hyprland_packages.default;
+     hyprland.portalPackage = hyprland_packages.xdg-desktop-portal-hyprland;
+     hyprland.xwayland.enable = true;
+     hyprland.withUWSM = true;
+   };
 
-  # programs.hyprlock.enable = true;
+   programs.hyprlock.enable = true;
   # programs.hyprlock.package = hyprland_packages.hyprlock;
-  # services.hypridle.enable = true;
+  services.hypridle.enable = true;
   # services.hypridle.package = hyprland_packages.hypridle;
 
   environment.systemPackages = [

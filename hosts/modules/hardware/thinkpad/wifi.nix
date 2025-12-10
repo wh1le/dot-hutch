@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+
+{
   networking = {
     networkmanager = {
       enable = true;
@@ -7,6 +9,7 @@
         backend = "iwd";
       };
     };
+    wireless.iwd.enable = true;
   };
 
   hardware.firmware = [ pkgs.linux-firmware ];

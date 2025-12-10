@@ -20,13 +20,12 @@
       submodules = true;
     };
 
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins/v0.52.0";
-      inputs.hyprland.follows = "hyprland";
-    };
+   hyprland-plugins = {
+     url = "github:hyprwm/hyprland-plugins/v0.52.0";
+     inputs.hyprland.follows = "hyprland";
+   };
 
-    hypr-darkwindow = {
-      # NOTE: Don't forget to update version!
+   hypr-darkwindow = {
       url = "github:micha4w/Hypr-DarkWindow/v0.52.0";
       inputs.hyprland.follows = "hyprland";
     };
