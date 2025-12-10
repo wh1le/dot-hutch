@@ -10,11 +10,22 @@ output "DSC Paperlike13K 0x00003400" {
   alias $LG
 }
 
-
 output "TV" {
 	mode 4096x2160@59.94Hz
 	scale 2.2
 	alias $TV
+}
+
+output "Thinkpad Monitor" {
+  mode 1920x1200@60Hz
+  scale 1.0
+  alias $thinkpad
+}
+
+profile thinkpad_default {
+  output eDP-1 mode 1920x1200@60Hz scale 1.333
+
+  exec $HOME/.local/bin/public/monitors/bin/set-profile thinkpad_default thinkpad
 }
 
 profile home_rotated {
