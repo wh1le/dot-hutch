@@ -8,7 +8,7 @@
 
 #waybar.eink .module#workspaces.main button {
   padding: 0;
-  margin: 2;
+  margin: 2px;
 }
 
 .eink tooltip {
@@ -35,7 +35,7 @@
     "Iosevka Nerd Font", "Symbols Nerd Font", "Symbols Nerd Font Mono";
   font-weight: bold;
   font-size: 13px;
-  min-height: 0;
+  min-height: 0px;
 }
 
 .eink .module {

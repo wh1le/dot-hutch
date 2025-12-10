@@ -2,9 +2,10 @@
 
 pkill waybar
 
-inotifywait -mr -e close_write,move,create,delete ~/.config/waybar/* \
-| while read -r; do
+inotifywait -mr -e close_write,move,create,delete ~/.config/waybar |
+  while read -r; do
     pkill waybar
     while pgrep -x waybar >/dev/null; do sleep 0.05; done
-    waybar & disown
+    waybar &
+    disown
   done

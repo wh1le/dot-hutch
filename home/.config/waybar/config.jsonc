@@ -71,5 +71,42 @@
       "~/.config/waybar/modules.jsonc",
       "~/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc"
     ]
-  }
+  },
+  {
+    "name": "eink",
+    "output": ["eDP-1"],
+    // "height": 20,
+    "spacing": 5,
+    "layer": "top",
+    "position": "top",
+    "margin": "9px 18px 0 18px",
+    "modules-left": [
+      "custom/logo",
+      "hyprland/workspaces#main",
+      "custom/weather-eink",
+      "custom/surf",
+      // "hyprland/workspaces#app_tray",
+      "hyprland/submap"
+    ],
+    "modules-center": [ ],
+    "modules-right": [
+      "tray",
+      "custom/podman",
+      "custom/openvpn",
+      "custom/veracrypt",
+      "temperature",
+      "group/audio",
+      "custom/mic_used_by_app",
+      "custom/language",
+      "network",
+      "custom/date_neuro",
+      "custom/date_month",
+      "custom/date_time",
+      "battery",
+    ],
+    "include": [
+      "~/.config/waybar/modules.jsonc",
+      "~/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc"
+    ]
+  },
 ]

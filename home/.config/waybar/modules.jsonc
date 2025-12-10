@@ -236,17 +236,17 @@
   },
 
   "battery": {
-    "states": {
-      "good": 95,
-      "warning": 30,
-      "critical": 20
-    },
-    "format": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
-    "format-plugged": " {capacity}%",
-    "format-alt": "{time} {icon}",
-    "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+  "states": {
+    "good": 95,
+    "warning": 30,
+    "critical": 20
   },
+  "format": "{icon} {capacity}%",
+  "format-charging": "󰂄 {capacity}%",
+  "format-plugged": "󰚥 {capacity}%",
+  "format-alt": "{time} {icon}",
+  "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+},
 
   "pulseaudio": {
     "format": "{icon} {volume} {format_source}",
@@ -277,5 +277,13 @@
       "custom/veracrypt",
       "temperature",
     ]
-  }
+  },
+  "network": {
+    "interface": "wlan0",
+    "format-wifi": "{icon}",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format-disconnected": "󰤭",
+    "tooltip-format-wifi": "{essid}\n{ipaddr}\n{signalStrength}%",
+    "on-click": "~/.local/bin/public/menu/options/wifi-connect"
+  },
 }

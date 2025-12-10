@@ -79,3 +79,7 @@ tooltip {
 .module#custom-openvpn {
   padding-right: 13px;
 }
+
+#battery {
+  -gtk-icon-transform: rotate(90deg);
+}
