@@ -1,0 +1,29 @@
+{
+    "checksum": "454e782597dc084afacf9c924abe66cf",
+    "wallpaper": "/home/wh1le/dot/files/assets/wallpapers/forest.jpg",
+    "alpha": "100",
+
+    "special": {
+        "background": "#090e15",
+        "foreground": "#c1c2c4",
+        "cursor": "#c1c2c4"
+    },
+    "colors": {
+        "color0": "#090e15",
+        "color1": "#327289",
+        "color2": "#4C7686",
+        "color3": "#667C83",
+        "color4": "#5195AC",
+        "color5": "#6599A7",
+        "color6": "#5CA0B5",
+        "color7": "#c1c2c4",
+        "color8": "#58616c",
+        "color9": "#327289",
+        "color10": "#4C7686",
+        "color11": "#667C83",
+        "color12": "#5195AC",
+        "color13": "#6599A7",
+        "color14": "#5CA0B5",
+        "color15": "#c1c2c4"
+    }
+}
