@@ -1,22 +1,11 @@
-@define-color moduleBackground #1e1e2e;
-@define-color moduleBackgroundLighter #2a2a3a;
 @define-color inactive dimgray;
 
-#waybar.eink {
-  background: rgba(21, 18, 27, 0);
-}
-
-#waybar.eink .module#workspaces.main button {
+.eink .module#workspaces.main button {
   padding: 0;
   margin: 2px;
 }
 
-.eink tooltip {
-  background-color: @moduleBackground;
-}
-
 .eink window#waybar {
-  background: @moduleBackground;
   color: @foreground;
 }
 
@@ -38,26 +27,8 @@
   min-height: 0px;
 }
 
-.eink .module {
-  background: @moduleBackground;
-}
-
 .eink window#waybar {
   background: black;
-}
-
-.eink .module {
-  padding: 0px 10px 0px 10px;
-}
-
-.eink .module#custom-mic_used_by_app {
-  color: white;
-  background-color: red;
-}
-
-.eink .module#submap {
-  background-color: gray;
-  color: yellow;
 }
 
 .eink .module#custom-logo {

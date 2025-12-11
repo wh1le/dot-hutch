@@ -1,0 +1,7 @@
+.thinkpad * {
+  border: none;
+  font-family: "Iosevka Nerd Font", "Twitter Color Emoji";
+  font-weight: bold;
+  font-size: 14px;
+  min-height: 0;
+}

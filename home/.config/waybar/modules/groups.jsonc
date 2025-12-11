@@ -1,0 +1,33 @@
+{
+  "group/power_group": {
+    "orientation": "horizontal",
+    "modules": ["custom/lock_screen", "custom/power_btn"]
+  },
+
+  "group/weather_group": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/weather",
+      "custom/surf",
+    ]
+  },
+
+  "group/system_group": {
+    "orientation": "horizontal",
+    "modules": [
+      "pulseaudio",
+      "network",
+      "battery",
+    ]
+  },
+
+  "group/status_group": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/podman",
+      "custom/openvpn",
+      "custom/veracrypt",
+      "custom/podman",
+    ]
+  },
+}

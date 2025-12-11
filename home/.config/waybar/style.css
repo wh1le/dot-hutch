@@ -1,24 +1,53 @@
 @import url("/home/wh1le/.cache/wal/colors-waybar.css");
 @import url("/home/wh1le/.config/waybar/styles/monitor_specific/big_screen.css");
 @import url("/home/wh1le/.config/waybar/styles/monitor_specific/eink.css");
-@import url("/home/wh1le/.config/waybar/styles/monitor_specific/laptop.css");
+@import url("/home/wh1le/.config/waybar/styles/monitor_specific/thinkpad.css");
 
-/* base00: Main Background (The darkest color) */
-/* base01: Lighter Background (e.g., for status bars, line highlights) */
-/* base02: Selection Background / Subtle UI elements */
-/* base03: Comments, Low-contrast Foreground (The "middle grey") */
-/* base04: Dark Foreground (e.g., for UI elements that shouldn't pop) */
-/* base05: Main Foreground (The primary text color, high contrast with base00) */
-/* base06: Light Foreground (e.g., for less important text) */
-/* base07: Light Background / High-contrast Foreground (The lightest color) */
-/* base08 (Red): Used for errors, deletions in git diff, variable names in some languages. */
-/* base09 (Orange): Used for numbers, constants, warnings. */
-/* base0A (Yellow): Used for strings, warnings. */
-/* base0B (Green): Used for strings, success messages, additions in git diff. */
-/* base0C (Cyan): Used for types, class names, special characters. */
-/* base0D (Blue): Used for functions, keywords, namespaces. */
-/* base0E (Magenta): Used for keywords, operators, built-in constants (like true, false). */
-/* base0F (Brown/Maroon): A "catch-all" accent, often for variables or constants. Its usage is the least standardized. */
+@define-color background #1e1e2e;
+
+window#waybar {
+  color: @foreground;
+  background: rgba(21, 18, 27, 0);
+}
+
+tooltip {
+  background-color: #1e1e2e;
+}
+
+#weather_group,
+#power_group,
+#system_group,
+#status_group {
+  background: #1e1e2e;
+  opacity: 0.8;
+  color: #cdd6f4;
+  border-radius: 8px;
+  padding: 0 0px;
+  padding-right: 2px;
+}
+
+.module {
+  opacity: 0.8;
+  border-radius: 7px;
+  padding: 0px 10px 0px 10px;
+  background: @background;
+}
+
+/* padding right fixes */
+.module#custom-logo {
+  padding: 0px 18px 0px 10px;
+}
+
+.module#network {
+  padding-right: 12px;
+}
+
+.module#custom-veracrypt,
+.module#custom-openvpn {
+  padding-right: 12px;
+}
+
+/* general settings */
 
 tooltip {
   opacity: 1;
@@ -26,60 +55,47 @@ tooltip {
   border-radius: 5px;
 }
 
-.module {
-  opacity: 0.8;
-  border-radius: 5px;
-}
+/* .module#workspaces.main { */
+/*   padding: 0px 5px 0px 5px; */
+/* } */
 
-/* ICONS offset correction */
-.module#custom-logo,
-/* .module#language, */
-
-.module#custom-lock_screen {
-  padding: 0px 18px 0px 10px;
-}
-
-.module#submap {
-  border: 2px solid yellow;
-}
-
-.module#workspaces.main {
-  /* background: transparent; */
-  /* padding: 0px 5px 0px 5px; */
+.modules-left {
+  color: @foreground;
 }
 
 .modules-center {
-  margin-right: 30px;
+  color: @foreground;
 }
 
-/* .module#workspaces.main button { */
-/*   color: @color9; */
-/*   border-radius: 40px; */
-/* } */
+.modules-right {
+  color: @foreground;
+}
 
-/* .module#workspaces.app_tray button.active { */
-/*   color: @peach; */
-/*   border-radius: 10px; */
-/*   padding-left: 8px; */
-/*   padding-right: 8px; */
-/*   animation: gradient_f 20s ease-in infinite; */
-/*   transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682); */
-/* } */
+#workspaces button {
+  margin: 0 -1px;
+  padding-left: 3px;
+  padding-right: 3px;
+
+  color: inherit;
+  box-shadow: none;
+  transition: none;
+  background: transparent;
+  background-color: transparent;
+}
+
+#workspaces button.active {
+  padding-left: 0px;
+  color: @color5;
+}
 
 .module#custom-mic_used_by_app {
-  border: 2px solid white;
+  color: black;
+  background-color: @color5;
+  padding: 0 8px;
+  border: none;
 }
-
-.module#clock {
-  opacity: 0.8;
-  border-radius: 8px;
-}
-
-.module#custom-veracrypt,
-.module#custom-openvpn {
-  padding-right: 13px;
-}
-
-#battery {
-  -gtk-icon-transform: rotate(90deg);
+.module#submap {
+  color: @color5;
+  padding: 2px 5px;
+  border: 2px solid @color5;
 }
