@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if ip link show tun0 >/dev/null 2>&1; then
-  echo "󱠾"
+  echo "󰩠"
 fi
 
 # if ip link show tun0 >/dev/null 2>&1; then
