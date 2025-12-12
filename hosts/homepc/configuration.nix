@@ -66,7 +66,7 @@
     ../modules/software/languages/python.nix
 
     ../modules/software/syncthing/server.nix
-    ../modules/software/input_leap.nix
+    # ../modules/software/input_leap.nix
 
     ../modules/software/desktop.nix
     ../modules/software/devops.nix
