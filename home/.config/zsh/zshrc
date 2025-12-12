@@ -31,6 +31,7 @@ source $HOME/.config/zsh/modules/media.zsh
 source $HOME/.config/zsh/modules/xdg-open.zsh
 source $HOME/.config/zsh/modules/python.zsh
 source $HOME/.config/zsh/modules/pywal.zsh
+source $HOME/.config/zsh/modules/tmux.zsh
 
 if [[ -n "$TMUX" ]]; then
   export TERM="tmux-256color"
