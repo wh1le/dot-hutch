@@ -4,12 +4,12 @@
     user = "wh1le";
     group = "users";
     dataDir = "/home/wh1le/.syncthing";
-
     overrideDevices = false;
+
     settings = {
       devices = {
         "homepc" = {
-          id = "BT2GQFC-QZNRJXI-7PHIHPD-TFW7LCU-CFZBYNX-JIF7ZRJ-E6JB2WH-6QVIPAI ";
+          id = "BT2GQFC-QZNRJXI-7PHIHPD-TFW7LCU-CFZBYNX-JIF7ZRJ-E6JB2WH-6QVIPAI";
           autoAcceptFolders = true;
         };
       };
@@ -33,8 +33,6 @@
 
       };
       options = {
-        maxSendKbps = 0; # Unlimited upload
-        maxRecvKbps = 0; # Unlimited download
         urAccepted = -1;
         defaultFolderPath = "~";
       };
