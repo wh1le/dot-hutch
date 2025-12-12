@@ -26,9 +26,9 @@
           fsWatcherEnabled = true;
         };
 
-        options = {
-          urAccepted = -1;
-        };
+      };
+      options = {
+        urAccepted = -1;
       };
 
       openDefaultPorts = true;
