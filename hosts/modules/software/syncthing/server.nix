@@ -4,7 +4,7 @@
     user = "wh1le";
     group = "users";
     dataDir = "/home/wh1le/.syncthing";
-
+    overrideDevices = false;
     settings = {
       devices = {
         "thinkpad" = { id = "VD4AZ5X-CNJNUPW-EIYE7ET-3FBPEA5-IXMRR3T-POX64IF-XR3E5AJ-LSE3UQZ"; };

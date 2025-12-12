@@ -5,6 +5,7 @@
     group = "users";
     dataDir = "/home/wh1le/.syncthing";
 
+    overrideDevices = false;
     settings = {
       devices = {
         "homepc" = {
