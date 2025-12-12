@@ -28,7 +28,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
-    ../modules/hardware/homepc/videocards/hardware-configuration.nix
+    ../modules/hardware/homepc/hardware-configuration.nix
     ../modules/hardware/homepc/videocards/dual_gpu.nix
     ../modules/hardware/homepc/nzxt_kraken.nix
     ../modules/hardware/homepc/boot.nix
