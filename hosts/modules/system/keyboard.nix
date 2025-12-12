@@ -13,6 +13,20 @@
     layout = "us";
   };
 
+  console.useXkbConfig = true;
+
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings.main = {
+        "`" = "102nd"; # ` becomes 
+        "102nd" = "`"; # < becomes `
+      };
+    };
+  };
+
+
   # services.xserver.xkb = {
   #   model = "applealu_iso"; # important
   #   layout = "us,ru";
