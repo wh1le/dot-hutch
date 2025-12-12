@@ -32,6 +32,7 @@ local function updateBackground(themeEngine)
 
 	vim.api.nvim_set_hl(0, "Normal", { fg = colors.foreground, bg = colors.background })
 end
+
 local function reloadPlugins()
 	local plugins = require("lazy").plugins()
 	local plugin_names = {
@@ -55,13 +56,30 @@ end
 
 local function subscribeToGlobalThemeChange(themeEngine)
 	local uv = vim.loop
-	local wal_file = vim.fn.expand("~/.cache/wal/colors-wal.vim")
+
+	local wal_file = vim.fn.expand("~/.cache/wal/colors.json")
+
 	local h = uv.new_fs_event()
 
 	h:start(wal_file, {}, function()
-		vim.schedule(function()
-			updateBackground(themeEngine)
-			reloadPlugins()
+		if debounce_timer then
+			debounce_timer:stop()
+			debounce_timer:close()
+		end
+
+		debounce_timer = uv.new_timer()
+
+		debounce_timer:start(300, 0, function()
+			vim.schedule(function()
+				local current_mtime = uv.fs_stat(wal_file).mtime.sec
+				if current_mtime ~= last_mtime then
+					last_mtime = current_mtime
+
+					updateBackground(themeEngine)
+
+					-- reloadPlugins()
+				end
+			end)
 		end)
 	end)
 end
