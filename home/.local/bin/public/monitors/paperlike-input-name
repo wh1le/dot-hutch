@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+PAPERLIKE_INPUT_NAME=$(hyprctl monitors -j | jq -r '.[] | select(.description | contains("Paperlike")) | .name')
+
+if [[ -n "$PAPERLIKE_INPUT_NAME" ]]; then
+  echo "$PAPERLIKE_INPUT_NAME"
+  exit 0
+else
+  exit 1
+fi

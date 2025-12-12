@@ -42,9 +42,9 @@ class NeuroDivergentTime:
 
     def month_string(self, version=2):
         if version == 1:
-            print(f"{self.get_month_emoji()} {self.date:%B}")
+            print(f"<span fallback='true'>{self.get_month_emoji()} {self.date:%B}</span>")
         else:
-            print(f"{self.get_month_emoji()} {self.date:%m}/12 {self.date:%B}")
+            print(f"<span fallback='true'>{self.get_month_emoji()} {self.date:%m}/12 {self.date:%B}</span>")
 
 
     def time_string(self):
