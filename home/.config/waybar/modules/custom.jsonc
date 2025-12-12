@@ -26,17 +26,20 @@
 
   "custom/date_neuro": {
     "exec": "~/.local/bin/public/waybar/date-time neuro",
-    "interval": 60
+    "interval": 60,
+    "escape": false,
   },
 
   "custom/date_month": {
     "exec": "~/.local/bin/public/waybar/date-time month",
     "interval": 60,
+    "escape": false,
   },
 
   "custom/date_time": {
     "exec": "~/.local/bin/public/waybar/date-time time",
-    "interval": 60
+    "interval": 60,
+    "escape": false,
   },
 
   // "language-big": {

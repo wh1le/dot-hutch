@@ -1,7 +1,6 @@
 @import url("/home/wh1le/.cache/wal/colors-waybar.css");
 @import url("/home/wh1le/.config/waybar/styles/monitor_specific/big_screen.css");
 @import url("/home/wh1le/.config/waybar/styles/monitor_specific/eink.css");
-@import url("/home/wh1le/.config/waybar/styles/monitor_specific/thinkpad.css");
 
 @define-color background #1e1e2e;
 
@@ -12,6 +11,14 @@ window#waybar {
 
 tooltip {
   background-color: #1e1e2e;
+}
+
+* {
+  font-family: "Iosevka Nerd Font", "Twitter Color Emoji";
+  font-weight: 600;
+  font-size: 15px;
+  min-height: 0;
+  border: none;
 }
 
 #weather_group,

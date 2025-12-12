@@ -1,5 +1,15 @@
 @define-color inactive dimgray;
 
+.eink * {
+  color: white;
+  border: none;
+  font-family:
+    "Iosevka Nerd Font", "Symbols Nerd Font", "Symbols Nerd Font Mono";
+  font-weight: bold;
+  font-size: 15px;
+  min-height: 0px;
+}
+
 .eink .module#workspaces.main button {
   padding: 0;
   margin: 2px;
@@ -15,16 +25,6 @@
 
 .eink .module#workspaces.main button.active {
   color: black;
-}
-
-.eink * {
-  color: white;
-  border: none;
-  font-family:
-    "Iosevka Nerd Font", "Symbols Nerd Font", "Symbols Nerd Font Mono";
-  font-weight: bold;
-  font-size: 13px;
-  min-height: 0px;
 }
 
 .eink window#waybar {

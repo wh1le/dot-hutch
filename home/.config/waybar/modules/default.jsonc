@@ -1,6 +1,6 @@
 {
   "network": {
-    "interface": "wlan0",
+    "interface": "wlp1s0",
     "format-wifi": "{icon}",
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format-disconnected": "󰤭",
@@ -51,8 +51,8 @@
   },
 
   "temperature": {
-    "thermal-zone": 1,
-    "interval": 1,
+    "thermal-zone": 0,
+    "interval": 5,
     "format": " {temperatureC}°C",
     "critical-threshold": 70,
     "format-critical": " {temperatureC}°C",
