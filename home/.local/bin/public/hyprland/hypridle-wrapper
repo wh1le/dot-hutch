@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+ln -sf $HOME/.config/hypr/hypridle/hypridle-$(hostname).conf $HOME/.config/hypr/hypridle.conf
+
+exec hypridle "$@"
