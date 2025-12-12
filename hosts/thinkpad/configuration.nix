@@ -70,6 +70,7 @@
     ../modules/software/kde_connect.nix
     ../modules/software/utils.nix
     ../modules/software/flatpaks.nix
+    ../modules/software/syncthing/client.nix
     # ../modules/software/steam.nix
     # ../modules/software/searx.nix
     # ../modules/software/reverse_proxy.nix

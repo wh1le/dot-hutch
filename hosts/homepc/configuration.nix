@@ -65,7 +65,7 @@
     ../modules/software/languages/ruby.nix
     ../modules/software/languages/python.nix
 
-    ../modules/software/syncthing.nix
+    ../modules/software/syncthing/server.nix
 
     ../modules/software/desktop.nix
     ../modules/software/devops.nix

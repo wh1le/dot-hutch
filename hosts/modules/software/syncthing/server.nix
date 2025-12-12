@@ -13,15 +13,19 @@
         "Music" = {
           path = "/home/wh1le/Music";
           devices = [ "thinkpad" ];
+          fsWatcherEnabled = true;
         };
         "Stereo" = {
           path = "/home/wh1le/Stereo";
           devices = [ "thinkpad" ];
+          fsWatcherEnabled = true;
         };
         "Documents" = {
           path = "/home/wh1le/Documents";
           devices = [ "thinkpad" ];
+          fsWatcherEnabled = true;
         };
+
         options = {
           urAccepted = -1;
         };
@@ -32,5 +36,8 @@
 
   };
 
-  networking.firewall.allowedTCPPorts = [ 8384 ];
+  networking.firewall = {
+    allowedTCPPorts = [ 8384 22000 ];
+    allowedUDPPorts = [ 22000 21027 ];
+  };
 }
