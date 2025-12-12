@@ -65,6 +65,8 @@
     ../modules/software/languages/ruby.nix
     ../modules/software/languages/python.nix
 
+    ../modules/software/syncthing.nix
+
     ../modules/software/desktop.nix
     ../modules/software/devops.nix
     ../modules/software/firefox.nix
