@@ -23,7 +23,7 @@ output "Thinkpad Monitor" {
 }
 
 profile thinkpad_default {
-  output eDP-1 mode 1920x1200@60Hz scale 1.333
+  output eDP-1 mode 1920x1200@60Hz scale 1.2
 
   exec $HOME/.local/bin/public/monitors/bin/set-profile thinkpad_default thinkpad
 }
