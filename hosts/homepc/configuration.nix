@@ -66,7 +66,7 @@
     ../modules/software/languages/python.nix
 
     ../modules/software/syncthing/server.nix
-    ../modules/software/synergy/client.nix
+    ../modules/software/rkvm/client.nix
 
     ../modules/software/desktop.nix
     ../modules/software/devops.nix

@@ -72,7 +72,7 @@
     ../modules/software/flatpaks.nix
 
     ../modules/software/syncthing/client.nix
-    ../modules/software/synergy/server.nix
+    ../modules/software/rkvm/server.nix
 
     # ../modules/software/steam.nix
     # ../modules/software/searx.nix
