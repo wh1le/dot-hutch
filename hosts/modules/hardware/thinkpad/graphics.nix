@@ -1,5 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
+  hardware.amdgpu.initrd.enable = lib.mkDefault true;
 
   hardware.graphics = {
     enable = true;
@@ -8,6 +10,6 @@
 
   hardware.graphics.extraPackages = with pkgs; [
     amdvlk
-    rocmPackages.clr.icd # OpenCL
+    # rocmPackages.clr.icd
   ];
 }

@@ -46,14 +46,14 @@ in
   };
 
   programs = {
-     hyprland.enable = true;
-     hyprland.package = hyprland_packages.default;
-     hyprland.portalPackage = hyprland_packages.xdg-desktop-portal-hyprland;
-     hyprland.xwayland.enable = true;
-     hyprland.withUWSM = true;
-   };
+    hyprland.enable = true;
+    hyprland.package = hyprland_packages.default;
+    hyprland.portalPackage = hyprland_packages.xdg-desktop-portal-hyprland;
+    hyprland.xwayland.enable = true;
+    hyprland.withUWSM = true;
+  };
 
-   programs.hyprlock.enable = true;
+  programs.hyprlock.enable = true;
   # programs.hyprlock.package = hyprland_packages.hyprlock;
   services.hypridle.enable = true;
   # services.hypridle.package = hyprland_packages.hypridle;
@@ -82,6 +82,5 @@ in
     unstable.brightnessctl
     pkgs.yad
     pkgs.libappindicator-gtk3
-    (pkgs.python3.withPackages (ps: [ ps.pygobject3 ]))
   ];
 }

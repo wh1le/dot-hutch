@@ -9,10 +9,6 @@
     pkgs.lua54Packages.luarocks
     pkgs.tree-sitter
 
-    (pkgs.python3.withPackages (ps: [
-      ps.pynvim
-    ]))
-
     # LSP Servers
     pkgs.lua-language-server
     pkgs.bash-language-server

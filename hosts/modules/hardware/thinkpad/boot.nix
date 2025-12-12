@@ -1,13 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  # services.firmware.enable = true;
 
-  boot.kernelModules = [
-    "hid_apple"
-    "kvm-amd"
-    "btusb"
-    "thinkpad_acpi"
-  ];
+  # Recommendation for thinkpad if it doesn't completely turns off
+  boot.kernelParams = [ "apm=power_off" ];
+
+  boot.kernelModules = [ "hid_apple" "kvm-amd" "btusb" "thinkpad_acpi" ];
 
   boot.extraModprobeConfig = ''
     options hid_apple iso_layout=0 fnmode=2
@@ -16,9 +15,7 @@
 
   boot.initrd = {
     systemd.enable = true;
-    kernelModules = [
-      "amdgpu" # early KMS for 780M
-    ];
+    kernelModules = [ "amdgpu" ]; # early KMS for 780M
     availableKernelModules = [
       "xhci_pci"
       "nvme"

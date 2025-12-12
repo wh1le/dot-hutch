@@ -23,11 +23,14 @@
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ./hardware-configuration.nix
 
+    ../modules/hardware/thinkpad/hardware-configuration.nix
+    ../modules/hardware/thinkpad/boot-amd.nix
     ../modules/hardware/thinkpad/boot.nix
-    ../modules/hardware/thinkpad/wifi.nix
+    ../modules/hardware/thinkpad/network.nix
     ../modules/hardware/thinkpad/keyboard.nix
+    ../modules/hardware/thinkpad/power-management.nix
+    ../modules/hardware/thinkpad/cooling.nix
     # ../modules/hardware/thinkpad/monitors.nix
 
     ../modules/hardware/audio.nix
@@ -67,8 +70,6 @@
     ../modules/software/kde_connect.nix
     ../modules/software/utils.nix
     ../modules/software/flatpaks.nix
-    # ../modules/software/llms.nix
-    # ../modules/software/n8n.nix
     # ../modules/software/steam.nix
     # ../modules/software/searx.nix
     # ../modules/software/reverse_proxy.nix

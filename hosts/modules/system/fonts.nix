@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-
+{ pkgs, ... }:
 {
   # List installed fonts:
   # fc-list |  cut -d: -f2 | cut -d',' -f1  | sed 's/^[[:space:]]*//'  | sort -u
@@ -13,6 +9,7 @@
     packages = with pkgs; [
       atkinson-hyperlegible-next
       atkinson-hyperlegible-mono
+      twitter-color-emoji
 
       nerd-fonts.jetbrains-mono
       noto-fonts-color-emoji
@@ -38,7 +35,8 @@
         "Atkinson Hyperlegible Next"
         "JetBrainsMono Nerd Font"
       ];
-      emoji = [ "Noto Color Emoji" ];
+      # emoji = [ "Noto Color Emoji" ];
+      emoji = [ "Twitter Color Emoji" ];
     };
 
     # generates at /etc/fonts/local.conf

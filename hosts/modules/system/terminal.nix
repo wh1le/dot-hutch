@@ -17,7 +17,7 @@
     pkgs.lm_sensors
     pkgs.fzf
     pkgs.btop
-    pkgs.tmux
+    unstable.tmux
     pkgs.tree
     pkgs.buku # bookmarks
 
