@@ -2,3 +2,4 @@
 home/.config/tmux/plugins/*
 home/.config/tmux/plugins/tpm
 home/.config/zsh/.zcompdump
+home/.config/hypr/hypridle.conf
