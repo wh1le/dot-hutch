@@ -1,7 +1,34 @@
 #!/usr/bin/env bash
 
+# Kitty
+
 for socket in /tmp/kitty-*; do
   [ -S "$socket" ] && kitty @ --to "unix:$socket" set-colors --all ~/.cache/wal/colors-kitty.conf 2>/dev/null
 done
 
+# Tmux
+
 tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true
+
+# Waybar
+
+touch ~/.config/waybar/live-reload
+
+$HOME/.config/wal/postrun/generate-hyprland-border-colors
+
+# hyprland
+
+COLORS_FILE="$HOME/.cache/wal/colors-hyprland-borders.conf"
+border_active1=$(grep 'border_active1' "$COLORS_FILE" | cut -d'=' -f2 | xargs)
+border_active2=$(grep 'border_active2' "$COLORS_FILE" | cut -d'=' -f2 | xargs)
+border_inactive=$(grep 'border_inactive' "$COLORS_FILE" | cut -d'=' -f2 | xargs)
+
+border_active1="${border_active1#0xff}"
+border_active2="${border_active2#0xff}"
+border_inactive="${border_inactive#0xff}"
+
+hyprctl keyword general:col.active_border "0xff${border_active2} 0xff${border_active1} 45deg"
+hyprctl keyword general:col.inactive_border "0xff${border_inactive}"
+
+# notifications
+swaync-client -rs

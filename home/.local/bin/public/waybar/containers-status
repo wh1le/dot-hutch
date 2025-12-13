@@ -80,7 +80,7 @@ else
 fi
 
 if [[ "$running" -eq 0 ]]; then
-  echo '{}'
+  exit 0
 else
   jq -nc \
     --arg icon "$ICON" \
