@@ -1,5 +1,41 @@
 [
   {
+    "name": "thinkpad",
+    "output": ["eDP-1"],
+    // "height": 20,
+    "spacing": 5,
+    "layer": "top",
+    "position": "top",
+    "margin": "9px 18px 0 18px",
+    "modules-left": [
+      "custom/logo",
+      "hyprland/workspaces#main",
+			"group/status_group",
+      // "hyprland/workspaces#app_tray",
+      "hyprland/submap",
+      "custom/mic_used_by_app",
+    ],
+    "modules-center": [
+      "group/weather_group",
+      "group/system_group",
+		],
+    "modules-right": [
+      "tray",
+      "custom/language",
+      "temperature",
+      "custom/date_neuro",
+      "custom/date_month",
+      "custom/date_time",
+      "custom/notification",
+    ],
+    "include": [
+      "~/.config/waybar/modules/custom.jsonc",
+      "~/.config/waybar/modules/groups.jsonc",
+      "~/.config/waybar/modules/default.jsonc",
+      "~/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc"
+    ]
+  },
+  {
     "name": "eink",
     "output": ["HDMI-A-1", "DP-1"],
     "spacing": 5,
@@ -32,40 +68,5 @@
       "~/.config/waybar/modules/default.jsonc",
       "~/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc"
     ]
-  },
-  {
-    "name": "thinkpad",
-    "output": ["eDP-1"],
-    // "height": 20,
-    "spacing": 5,
-    "layer": "top",
-    "position": "top",
-    "margin": "9px 18px 0 18px",
-    "modules-left": [
-      "custom/logo",
-      "hyprland/workspaces#main",
-			"group/status_group",
-      // "hyprland/workspaces#app_tray",
-      "hyprland/submap",
-      "custom/mic_used_by_app",
-    ],
-    "modules-center": [
-      "group/weather_group",
-      "group/system_group",
-		],
-    "modules-right": [
-      "tray",
-      "custom/language",
-      "temperature",
-      "custom/date_neuro",
-      "custom/date_month",
-      "custom/date_time",
-    ],
-    "include": [
-      "~/.config/waybar/modules/custom.jsonc",
-      "~/.config/waybar/modules/groups.jsonc",
-      "~/.config/waybar/modules/default.jsonc",
-      "~/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc"
-    ]
-  },
+  }
 ]

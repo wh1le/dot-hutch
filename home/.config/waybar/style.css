@@ -4,6 +4,9 @@
 
 @define-color background #1e1e2e;
 
+@define-color active @color3;
+@define-color muted @color8;
+
 window#waybar {
   color: @foreground;
   background: rgba(21, 18, 27, 0);
@@ -31,6 +34,11 @@ tooltip {
   border-radius: 8px;
   padding: 0 0px;
   padding-right: 2px;
+  min-width: 0;
+}
+
+#status_group.empty {
+  background: none;
 }
 
 .module {
@@ -43,21 +51,31 @@ tooltip {
 /* padding right fixes */
 .module#custom-logo {
   padding: 0px 18px 0px 10px;
+  color: @active;
 }
 
-.module#network {
-  padding-right: 12px;
-}
+/* .module#network { padding-right: 12px;  } */
 
 .module#custom-veracrypt,
 .module#custom-openvpn {
   padding-right: 12px;
 }
 
+.module#battery {
+  padding-left: 8px;
+}
+
+.module#custom-weather {
+  padding-right: 5;
+}
+.module#custom-surf {
+  padding-left: 0px;
+}
+
 /* general settings */
 
 tooltip {
-  opacity: 1;
+  opacity: 0.8;
   padding-top: 20px;
   border-radius: 5px;
 }
@@ -92,7 +110,11 @@ tooltip {
 
 #workspaces button.active {
   padding-left: 0px;
-  color: @color5;
+  color: @active;
+}
+
+#workspaces button:hover {
+  color: @active;
 }
 
 .module#custom-mic_used_by_app {
@@ -105,4 +127,32 @@ tooltip {
   color: @color5;
   padding: 2px 5px;
   border: 2px solid @color5;
+}
+
+#custom-notification {
+  font-family: "Iosevka Nerd Font";
+  font-size: 13px;
+  padding-right: 13px;
+}
+
+#weather_group {
+  color: @foreground;
+}
+
+#status_group,
+#system_group,
+#custom-language,
+#temperature {
+  color: @muted;
+}
+
+#custom-notification {
+  color: @active;
+}
+
+#system_group .module:hover,
+#temperature:hover,
+#custom-language:hover,
+#custom-openvpn:hover {
+  color: @active;
 }

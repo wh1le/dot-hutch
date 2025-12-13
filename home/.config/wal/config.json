@@ -1,3 +1,4 @@
 {
-  "skip_terminal": true
+  "skip_terminal": true,
+  "backend": "wal"
 }

@@ -1,11 +1,18 @@
 [global]
-    frame_color = "{color8}"
+    frame_color = "{color4}"
     separator_color = "{color8}"
 
 [urgency_low]
-    background = "{color0}"
-    foreground = "{color7}"
+    background = "{background}"
+    foreground = "{color8}"
+    frame_color = "{color8}"
 
 [urgency_normal]
+    background = "{background}"
+    foreground = "{foreground}"
+    frame_color = "{color4}"
+
+[urgency_critical]
     background = "{color1}"
-    foreground = "{color15}"
+    foreground = "{background}"
+    frame_color = "{color1}"

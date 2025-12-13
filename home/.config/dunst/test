@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-notify-send -u low "Low Urgency" "This is a low priority notification"
-notify-send -u normal "Normal Urgency" "This is a normal priority notification"
-notify-send -u critical "Critical Urgency" "This is a critical priority notification"

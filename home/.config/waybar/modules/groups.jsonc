@@ -1,4 +1,14 @@
 {
+
+  "group/status_group": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/containers",
+      "custom/veracrypt",
+      "custom/openvpn",
+    ]
+  },
+
   "group/power_group": {
     "orientation": "horizontal",
     "modules": ["custom/lock_screen", "custom/power_btn"]
@@ -17,17 +27,8 @@
     "modules": [
       "pulseaudio",
       "network",
+      "bluetooth",
       "battery",
-    ]
-  },
-
-  "group/status_group": {
-    "orientation": "horizontal",
-    "modules": [
-      "custom/podman",
-      "custom/openvpn",
-      "custom/veracrypt",
-      "custom/podman",
     ]
   },
 }

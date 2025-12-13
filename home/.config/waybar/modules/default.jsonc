@@ -1,21 +1,26 @@
 {
   "network": {
-    "interface": "wlp1s0",
-    "format-wifi": "{icon}",
-    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-    "format-disconnected": "󰤭",
-    "tooltip-format-wifi": "{essid}\n{ipaddr}\n{signalStrength}%",
-    "on-click": "~/.local/bin/public/menu/options/wifi-connect"
-  },
+  // Remove "interface" line - auto-detects active connection
+  "format-wifi": "{icon}",
+  "format-ethernet": "󰈀",
+  "format-linked": "󰈀",
+  "format-disconnected": "󰤭",
+  "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+  "tooltip-format-wifi": "{essid} ({ifname})\n{ipaddr}\n{signalStrength}%",
+  "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}",
+  "tooltip-format-disconnected": "Disconnected",
+  "on-click": "~/.local/bin/public/menu/launch-kitty wifi-connect"
+},
 
-  "bluetooth": {
-    "format": " {status}",
-    "format-disabled": "",
-    "format-connected": " {num_connections} connected",
-    "tooltip-format": "{controller_alias}\t{controller_address}",
-    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
-  },
+"bluetooth": {
+  "format": "󰂯",
+  "format-disabled": "󰂲",
+  "format-connected": "󰂱",
+  "tooltip-format": "{status}",
+  "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
+  "tooltip-format-enumerate-connected": "{device_alias} - {device_battery_percentage}%",
+  "on-click": "blueman-manager"
+},
 
   // "wireplumber#mic": {
   //   "node-type": "Audio/Source",

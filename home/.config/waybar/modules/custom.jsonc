@@ -7,11 +7,11 @@
   "custom/logo": {
     "format": "<span font='15'>{icon}</span>",
     "format-icons": "󰯉",
-    "on-click": "pkill wofi; ~/.local/bin/public/wofi"
+    "on-click": "$HOME/.local/bin/public/menu/launch-kitty"
   },
 
   "custom/surf": {
-    "exec": "pkill wofi; ~/.local/bin/public/weather/surf",
+    "exec": "$HOME/.local/bin/public/waybar/surf-forecast",
     "format": "{text}",
     "tooltip": false,
     "interval": 3600
@@ -19,25 +19,25 @@
 
   "custom/mic_used_by_app": {
     "interval": 1,
-    "exec": "~/.local/bin/public/waybar/is-mic-used",
+    "exec": "$HOME/.local/bin/public/waybar/is-mic-used",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "tooltip": false
   },
 
   "custom/date_neuro": {
-    "exec": "~/.local/bin/public/waybar/date-time neuro",
+    "exec": "$HOME/.local/bin/public/waybar/date-time neuro",
     "interval": 60,
     "escape": false,
   },
 
   "custom/date_month": {
-    "exec": "~/.local/bin/public/waybar/date-time month",
+    "exec": "$HOME/.local/bin/public/waybar/date-time month",
     "interval": 60,
     "escape": false,
   },
 
   "custom/date_time": {
-    "exec": "~/.local/bin/public/waybar/date-time time",
+    "exec": "$HOME/.local/bin/public/waybar/date-time time",
     "interval": 60,
     "escape": false,
   },
@@ -48,12 +48,6 @@
   //   "format": "{short}"
   // },
 
-  "custom/powermenu": {
-    "on-click": "~/.config/wofi/scripts/wofipowermenu.py",
-    "format": "",
-    "tooltip": false
-  },
-
   "custom/lock_screen": {
     "format-icons": "",
     "format": "<span font='16'>{icon}</span>",
@@ -62,7 +56,7 @@
   },
 
   "custom/weather": {
-    "exec": "~/.local/bin/public/waybar/weather-forecast waybar",
+    "exec": "$HOME/.local/bin/public/waybar/weather-forecast waybar",
     "return-type": "json",
     "interval": 400,
     "format": "{text}",
@@ -73,22 +67,23 @@
   },
 
   "custom/openvpn": {
-    "exec": "~/.local/bin/public/waybar/openvpn-status",
-    "interval": 1,
+    "exec": "$HOME/.local/bin/public/waybar/openvpn-status",
+    "interval": 10,
     "format": "{text}",
     "tooltip": false,
+    "on-click": "~/.local/bin/public/menu/launch-kitty openvpn-connect"
   },
 
   "custom/veracrypt": {
-    "exec": "~/.local/bin/public/waybar/veracrypt-status",
+    "exec": "$HOME/.local/bin/public/waybar/veracrypt-status",
     "interval": 10,
     "format": "{text}",
     "tooltip": false,
     "onclick": "veracrypt --text --dismount",
   },
 
-  "custom/podman": {
-    "exec": "~/.local/bin/public/waybar/podman-status",
+  "custom/containers": {
+    "exec": "$HOME/.local/bin/public/waybar/containers-status",
     "return-type": "json",
     "interval": 10,
     "format": "{text}",
@@ -96,7 +91,7 @@
   },
 
   "custom/language": {
-    "exec": "~/.local/bin/public/waybar/current-langauge",
+    "exec": "$HOME/.local/bin/public/waybar/current-langauge",
     // "interval": 1,
     "format": "{text}",
     "tooltip": false,
@@ -106,11 +101,31 @@
   },
 
   "custom/weather-eink": {
-    "exec": "~/.local/bin/public/waybar/weather-forecast waybar eink",
+    "exec": "$HOME/.local/bin/public/waybar/weather-forecast waybar eink",
     "return-type": "json",
     "interval": 400,
     "format": "{text}",
     "tooltip": true,
     "markup": "pango",
   },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂚",
+      "dnd-notification": "",
+      "dnd-none": "",
+      "inhibited-notification": "󱅫",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  }
 }

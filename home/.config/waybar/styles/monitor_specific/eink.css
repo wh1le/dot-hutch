@@ -10,6 +10,10 @@
   min-height: 0px;
 }
 
+.eink tooltip {
+  opacity: 1;
+}
+
 .eink .module#workspaces.main button {
   padding: 0;
   margin: 2px;
