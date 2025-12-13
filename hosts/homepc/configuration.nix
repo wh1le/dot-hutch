@@ -1,29 +1,7 @@
-{ modulesPath
-, pkgs
-, unstable
-, ...
-}:
+{ modulesPath, pkgs, unstable, ... }:
 {
   system.stateVersion = "25.05";
-
   networking.hostName = "homepc";
-
-  environment.variables.USER_SCRIPTS_PATH = "$HOME/.local/bin/public";
-
-  services.fwupd.enable = true;
-
-  # TODO: remove
-  programs.dconf.enable = true;
-
-  environment.systemPackages = [
-    pkgs.google-chrome
-    pkgs.nix-search
-    pkgs.socat
-    unstable.yewtube
-    unstable.yt-dlp
-    unstable.ytfzf
-    pkgs.lshw
-  ];
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -81,23 +59,31 @@
     # ../modules/software/searx.nix
     # ../modules/software/reverse_proxy.nix
 
-    ../modules/system/filesystem.nix
-    ../modules/system/keyboard.nix
-    ../modules/system/languages.nix
-    ../modules/system/locales.nix
-    ../modules/system/terminal.nix
-    ../modules/system/coding.nix
-    ../modules/system/users.nix
-    ../modules/system/fonts.nix
-    ../modules/system/media.nix
-    ../modules/system/trash_cleaning.nix
+    ../modules/filesystem.nix
+    ../modules/keyboard.nix
+    ../modules/languages.nix
+    ../modules/locales.nix
+    ../modules/terminal.nix
+    ../modules/coding.nix
+    ../modules/users.nix
+    ../modules/fonts.nix
+    ../modules/media.nix
+    ../modules/trash.nix
 
-    ../modules/desktop/wayland/hyprland/hyprland.nix
-    ../modules/desktop/wayland/hyprland/desktop.nix
-    ../modules/desktop/wayland/hyprland/systemd.nix
-    ../modules/desktop/wayland/hyprland/icons.nix
-    ../modules/desktop/wayland/kde_packages.nix
-    ../modules/desktop/wayland/pointer.nix
+    ../modules/desktop/greetd.nix
+    ../modules/desktop/wayland/notifications.nix
+    ../modules/desktop/wayland/uwsm.nix
+    ../modules/desktop/wayland/desktop.nix
     ../modules/desktop/wayland/xdg.nix
+    ../modules/desktop/wayland/hyprland.nix
+    ../modules/desktop/wayland/waybar.nix
+    ../modules/desktop/wayland/dolphin.nix
+    ../modules/desktop/wayland/icons.nix
+    ../modules/desktop/wayland/playerctld.nix
+    ../modules/desktop/wayland/pointer.nix
+    ../modules/desktop/wayland/qt.nix
+    ../modules/desktop/wayland/systemd.nix
+    ../modules/desktop/wayland/theme.nix
+    ../modules/desktop/wayland/gdk.nix
   ];
 }

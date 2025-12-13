@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.virt-manager.enable = true;
 
@@ -6,7 +6,7 @@
   virtualisation.spiceUSBRedirection.enable = true;
 
   virtualisation.libvirtd = {
-    enable = true;
+    enable = config.networking.hostName == "homepc";
     qemu = {
       package = pkgs.qemu_kvm;
       swtpm.enable = true;

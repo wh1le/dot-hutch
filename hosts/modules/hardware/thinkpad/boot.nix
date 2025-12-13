@@ -5,6 +5,7 @@
 
   # Recommendation for thinkpad if it doesn't completely turns off
   boot.kernelParams = [ "apm=power_off" ];
+  boot.extraModulePackages = [ ];
 
   boot.kernelModules = [ "hid_apple" "kvm-amd" "btusb" "thinkpad_acpi" ];
 

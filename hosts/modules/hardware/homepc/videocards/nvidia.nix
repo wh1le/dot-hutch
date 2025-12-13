@@ -3,6 +3,7 @@
   environment.variables.GDK_BACKEND = "wayland,x11,*";
   environment.variables.WLR_NO_HARDWARE_CURSORS = 1;
   environment.variables.NVIDIA_CARD_PRIMARY = 1;
+  environment.variables.WLR_DRM_NO_ATOMIC = 1;
 
   environment.sessionVariables = {
     NVD_BACKEND = "direct";
@@ -42,5 +43,6 @@
     nvidia-vaapi-driver
     lshw
     mesa-demos
+    egl-wayland # NVIDIA's EGL external platform library for Wayland compositors.
   ];
 }

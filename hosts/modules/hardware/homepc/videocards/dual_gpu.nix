@@ -73,6 +73,7 @@
     pkgs.pciutils
     pkgs.vulkan-tools
     pkgs.mesa-demos
+    pkgs.egl-wayland # NVIDIA's EGL external platform library for Wayland compositors.
 
     pkgs.cudaPackages.cudatoolkit
     unstable.nvidia-vaapi-driver

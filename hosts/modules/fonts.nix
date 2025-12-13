@@ -40,6 +40,6 @@
     };
 
     # generates at /etc/fonts/local.conf
-    fontconfig.localConf = builtins.readFile (../../../assets/fontconfig-local.xml);
+    fontconfig.localConf = builtins.readFile ../../assets/fontconfig-local.xml;
   };
 }

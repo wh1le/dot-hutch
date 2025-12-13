@@ -1,24 +1,24 @@
-{ pkgs
-, lib
-, ...
-}:
+{ ... }:
 {
   services.thinkfan = {
     enable = true;
     sensors = [
-      { type = "tpacpi"; query = "/proc/acpi/ibm/thermal"; }
+      { type = "tpacpi"; query = "/proc/acpi/ibm/thermal"; indices = [ 0 ]; }
     ];
+
     fans = [
       { type = "tpacpi"; query = "/proc/acpi/ibm/fan"; }
     ];
+
     levels = [
-      [ 0 0 55 ]
-      [ 1 48 60 ]
-      [ 2 50 61 ]
-      [ 3 52 63 ]
-      [ 4 56 65 ]
-      [ 5 59 66 ]
-      [ 7 63 32767 ]
+      [ 1 0 35 ] # Fan off until 35°C
+      [ 2 30 45 ] # Level 1: 30-45°C (starts at 35°C)
+      [ 3 40 55 ] # Level 2: 40-55°C
+      [ 4 50 60 ] # Level 3: 50-60°C
+      [ 6 55 65 ] # Level 4: 55-65°C
+      [ 7 60 70 ] # Level 5: 60-70°C
+      [ 7 65 75 ] # Level 6: 65-75°C
+      [ 7 70 32767 ] # Full speed: 70°C+
     ];
   };
 }

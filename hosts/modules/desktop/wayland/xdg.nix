@@ -1,15 +1,5 @@
-{ pkgs
-, inputs
-, ...
-}:
-let
-  # hyprland_packages = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
-in
+{ pkgs, inputs, ... }:
 {
-  # when luanched with greetd
-  # environment.variables.XDG_CURRENT_DESKTOP = "Hyprland";
-  # environment.variables.XDG_SESSION_DESKTOP = "Hyprland";
-
   xdg.portal.enable = true;
   xdg.icons.enable = true;
   xdg.menus.enable = true;
@@ -27,13 +17,9 @@ in
   };
 
   xdg.portal.extraPortals = [
-    # pkgs.xdg-desktop-portal-hyprland
     pkgs.xdg-desktop-portal
-    # hyprland_packages.xdg-desktop-portal-hyprland
     pkgs.kdePackages.xdg-desktop-portal-kde
     pkgs.xdg-desktop-portal-gtk
-    # TODO: bring back if firefox file opener brakes
-    # pkgs.xdg-desktop-portal-gtk
   ];
 
   xdg.portal.config = {
@@ -65,6 +51,6 @@ in
     pkgs.xdg-utils
     pkgs.xdgmenumaker
     pkgs.desktop-file-utils
+    pkgs.shared-mime-info # database of common mime types
   ];
-
 }

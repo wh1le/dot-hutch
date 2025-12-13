@@ -1,10 +1,19 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
 
-   wayland.windowManager.hyprland.plugins = [
-     inputs.hyprspace.packages.${pkgs.system}.Hyprspace
-     inputs.hypr-darkwindow.packages.${pkgs.system}.Hypr-DarkWindow
-     inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-   ];
+let
+  system = pkgs.stdenv.hostPlatform.system;
+
+  hyprspace = inputs.hyprspace.packages.${system}.Hyprspace;
+  dark_window = inputs.hypr-darkwindow.packages.${system}.Hypr-DarkWindow;
+  hyprbars = inputs.hyprland-plugins.packages.${system}.hyprbars;
+in
+{
+
+  wayland.windowManager.hyprland.plugins = [
+    hyprspace
+    dark_window
+    hyprbars
+  ];
 
   # https://github.com/hyprland-community/pyprland
   # https://github.com/VirtCode/hypr-dynamic-cursors
@@ -14,7 +23,7 @@
   # https://github.com/hyprwm/hyprland-plugins
   # https://github.com/hyprwm/hyprland-plugins/tree/main/hyprexpo
 
-   home.file.".local/share/hypr-plugins/Hypr-DarkWindow.so".source = "${inputs.hypr-darkwindow.packages.${pkgs.system}.Hypr-DarkWindow}/lib/libHypr-DarkWindow.so";
-   home.file.".local/share/hypr-plugins/Hyprspace.so".source = "${inputs.hyprspace.packages.${pkgs.system}.Hyprspace}/lib/libHyprspace.so";
-   home.file.".local/share/hypr-plugins/hyprbars.so".source = "${inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars}/lib/libhyprbars.so";
+  home.file.".local/share/hypr-plugins/Hypr-DarkWindow.so".source = "${dark_window}/lib/libHypr-DarkWindow.so";
+  home.file.".local/share/hypr-plugins/Hyprspace.so".source = "${hyprspace}/lib/libHyprspace.so";
+  home.file.".local/share/hypr-plugins/hyprbars.so".source = "${hyprbars}/lib/libhyprbars.so";
 }

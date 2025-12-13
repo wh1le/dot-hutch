@@ -1,6 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  services.fwupd.enable = true;
 
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
@@ -28,4 +30,8 @@
     enable = true;
     memoryPercent = 50; # Use up to 50% of RAM for compressed swap
   };
+
+  environment.systemPackages = [
+    pkgs.lshw
+  ];
 }

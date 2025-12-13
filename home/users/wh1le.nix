@@ -10,6 +10,7 @@
     ../modules/link_dotfiles.nix
     ../modules/programs/git.nix
     ../modules/hyprland-plugins.nix
+    ../modules/firefox.nix
     # ../modules/programs/keepassxc.nix
   ];
 }
