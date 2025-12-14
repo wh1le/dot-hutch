@@ -43,3 +43,4 @@ fi
 preexec() {
   [[ "$1" =~ '^_G|Ptmux|^\[' ]] && return 1
 }
+[ -f ~/.cache/wal/colors.sh ] && source ~/.cache/wal/colors.sh
