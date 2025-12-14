@@ -11,24 +11,27 @@ done
 tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true
 
 # Waybar
-
-touch ~/.config/waybar/live-reload
+hyprctl keyword debug:watchconfig false
 
 $HOME/.config/wal/postrun/generate-hyprland-border-colors
+
+touch ~/.config/waybar/live-reload
 
 # hyprland
 
 COLORS_FILE="$HOME/.cache/wal/colors-hyprland-borders.conf"
-border_active1=$(grep 'border_active1' "$COLORS_FILE" | cut -d'=' -f2 | xargs)
-border_active2=$(grep 'border_active2' "$COLORS_FILE" | cut -d'=' -f2 | xargs)
-border_inactive=$(grep 'border_inactive' "$COLORS_FILE" | cut -d'=' -f2 | xargs)
+# border_active1=$(grep 'border_active1' "$COLORS_FILE" | cut -d'=' -f2 | xargs)
+# border_active2=$(grep 'border_active2' "$COLORS_FILE" | cut -d'=' -f2 | xargs)
+# border_inactive=$(grep 'border_inactive' "$COLORS_FILE" | cut -d'=' -f2 | xargs)
+#
+# border_active1="${border_active1#0xff}"
+# border_active2="${border_active2#0xff}"
+# border_inactive="${border_inactive#0xff}"
 
-border_active1="${border_active1#0xff}"
-border_active2="${border_active2#0xff}"
-border_inactive="${border_inactive#0xff}"
+# hyprctl keyword general:col.active_border "0xff${border_active2} 0xff${border_active1} 45deg"
+# hyprctl keyword general:col.inactive_border "0xff${border_inactive}"
 
-hyprctl keyword general:col.active_border "0xff${border_active2} 0xff${border_active1} 45deg"
-hyprctl keyword general:col.inactive_border "0xff${border_inactive}"
+hyprctl reload
 
 # notifications
 swaync-client -rs
