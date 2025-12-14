@@ -53,6 +53,7 @@ in
 
   environment.systemPackages = [
     pkgs.lshw
+    # pkgs.libinput-gestures
   ];
 }
 
