@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-[[ "$(hostname)" != "thinkpad" ]] && return 0
+[[ "$(hostname)" == "thinkpad" ]] && return 0
 
 hyprctl keyword general:border_size 2
 hyprctl keyword general:gaps_out 20

@@ -5,7 +5,7 @@ thinkpad)
   hyprctl keyword input:kb_model thinkpad
   hyprctl keyword input:kb_options "ctrl:swapcaps,ctrl:nocaps,grp:win_space_toggle,ctrl:nocaps,altwin:swap_lalt_lwin"
   ;;
-desktop)
+homepc)
   hyprctl keyword input:kb_model apple
   hyprctl keyword input:kb_options "ctrl:swapcaps,ctrl:nocaps,grp:win_space_toggle"
   ;;
