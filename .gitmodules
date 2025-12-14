@@ -4,3 +4,6 @@
 [submodule "deliver/dotbot"]
 	path = deliver/dotbot
 	url = https://github.com/anishathalye/dotbot
+[submodule "home/.config/zsh/zsh-autosuggestions"]
+	path = home/.config/zsh/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
