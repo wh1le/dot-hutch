@@ -1,8 +1,10 @@
-{ inputs, pkgs, unstable, ... }:
+{ inputs, pkgs, unstable, config, ... }:
 
 {
-  environment.variables.HYPRCURSOR_SIZE = 40;
-  environment.variables.XCURSOR_SIZE = 40;
+  environment.variables.XCURSOR_SIZE = if config.networking.hostName == "homepc" then "40" else "30";
+  environment.sessionVariables = {
+    XDG_CURRENT_DESKTOP = "hyprland:Hyprland";
+  };
 
   nix.settings = {
     # https://wiki.hypr.land/Nix/Cachix/

@@ -53,6 +53,7 @@
     ../modules/software/kde_connect.nix
     ../modules/software/utils.nix
     ../modules/software/flatpaks.nix
+    ../modules/software/yazi.nix
     # ../modules/software/llms.nix
     # ../modules/software/n8n.nix
     ../modules/software/steam.nix

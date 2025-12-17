@@ -7,10 +7,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "kde";
-    # style = "Breeze";
   };
-
 
   environment.systemPackages = [
     pkgs.qt6.qtwayland

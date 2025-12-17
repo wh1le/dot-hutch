@@ -1,7 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }:
 let
   home = config.home.homeDirectory;
@@ -33,6 +32,7 @@ in
 
     mkdir -p "${home}/.local/bin"
     ln -sfn "${home}/dot/files/home/.local/bin/public" "${home}/.local/bin/public"
+    ln -sfn "${home}/dot/files/home/.local/share/darkman" "${home}/.local/share/darkman"
 
     src="$destination/home/.config"
     dst="${home}/.config"

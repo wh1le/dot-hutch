@@ -20,12 +20,12 @@
       submodules = true;
     };
 
-   hyprland-plugins = {
-     url = "github:hyprwm/hyprland-plugins/v0.52.0";
-     inputs.hyprland.follows = "hyprland";
-   };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins/v0.52.0";
+      inputs.hyprland.follows = "hyprland";
+    };
 
-   hypr-darkwindow = {
+    hypr-darkwindow = {
       url = "github:micha4w/Hypr-DarkWindow/v0.52.0";
       inputs.hyprland.follows = "hyprland";
     };
@@ -34,6 +34,10 @@
       url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
     };
+
+    viu-anime.url = "github:viu-media/viu";
+
+    yazi.url = "github:sxyazi/yazi";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, hyprland, flatpaks, ... }@inputs:

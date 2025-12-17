@@ -81,6 +81,7 @@
     # ../modules/software/kde_connect.nix
     ../modules/software/utils.nix
     ../modules/software/flatpaks.nix
+    ../modules/software/yazi.nix
     # ../modules/software/input_leap.nix
     # ../modules/software/steam.nix
     # ../modules/software/reverse_proxy.nix
