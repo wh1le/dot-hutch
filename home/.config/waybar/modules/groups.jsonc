@@ -25,9 +25,9 @@
   "group/system_group": {
     "orientation": "horizontal",
     "modules": [
-      "pulseaudio",
       "network",
       "bluetooth",
+      "pulseaudio",
       "battery",
     ]
   },

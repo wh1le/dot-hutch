@@ -4,7 +4,7 @@
 
 @define-color background #1e1e2e;
 
-@define-color active @color3;
+@define-color active @color1;
 @define-color muted @color8;
 
 window#waybar {
@@ -155,4 +155,18 @@ tooltip {
 #custom-language:hover,
 #custom-openvpn:hover {
   color: @active;
+}
+
+.module#pulseaudio,
+.module#network,
+.module#bluetooth,
+.module#battery {
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-right: 0px;
+}
+
+#system_group {
+  padding-left: 10px;
+  padding-right: 0px;
 }
