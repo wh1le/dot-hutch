@@ -1,7 +1,7 @@
 [
   {
     "name": "eink",
-    "output": ["HDMI-A-1", "DP-1"],
+    "output": ["HDMI-A-1"],
     // "height": 20,
     "spacing": 5,
     "layer": "top",
@@ -9,7 +9,7 @@
     "margin": "9px 18px 0 18px",
     "modules-left": [
       "custom/logo",
-      "hyprland/workspaces#main",
+      "hyprland/workspaces#eink",
 			"group/status_group",
       // "hyprland/workspaces#app_tray",
       "hyprland/submap",
@@ -36,7 +36,7 @@
   },
   {
     "name": "big",
-    "output": ["DP-2"],
+    "output": ["DP-1","DP-2"],
     "height": 38,
     "spacing": 12,
     "layer": "top",

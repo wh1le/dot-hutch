@@ -3,7 +3,7 @@ class GenerateConfigFiles:
         self.configuration = MONITORS_CONFIG[setup]
 
     def write_config_files(self):
-        self.__write_hyprland()
+        # self.__write_hyprland()
         self.__write_waybar()
 
     def __write_hyprland(self):

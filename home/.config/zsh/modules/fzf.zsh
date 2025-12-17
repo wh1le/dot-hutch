@@ -1,15 +1,34 @@
 source <(fzf --zsh)
 
+# export FZF_DEFAULT_OPTS="
+#   $FZF_DEFAULT_COLORS_PYWAL
+#   --style=minimal
+#   --layout=reverse
+#   --ansi 
+#   --margin=1,1,1,1 
+#   --cycle 
+#   --height=50%
+#   --color=gutter:-1,border:238,scrollbar:238 
+# 	--prompt='> '
+#   --bind esc:abort 
+#   --bind ctrl-d:preview-half-page-down 
+#   --bind ctrl-u:preview-half-page-up 
+#   --bind ctrl-f:preview-page-down 
+#   --bind ctrl-b:preview-page-up 
+# "
 export FZF_DEFAULT_OPTS="
-  $FZF_DEFAULT_COLORS_PYWAL
   --style=minimal
   --layout=reverse
   --ansi 
   --margin=1,1,1,1 
   --cycle 
   --height=50%
-  --color=gutter:-1,border:238,scrollbar:238 
-	--prompt='> '
+  --color=fg:7,bg:0,hl:1
+  --color=fg+:15,bg+:8,hl+:1
+  --color=info:3,prompt:1,pointer:5
+  --color=marker:2,spinner:5,header:4
+  --color=gutter:-1,border:8,scrollbar:8
+  --prompt='> '
   --bind esc:abort 
   --bind ctrl-d:preview-half-page-down 
   --bind ctrl-u:preview-half-page-up 
@@ -18,19 +37,32 @@ export FZF_DEFAULT_OPTS="
 "
 
 export FZF_CTRL_R_OPTS="
-  $FZF_DEFAULT_COLORS_PYWAL
   --style=minimal
   --info=inline
   --no-sort
   --exact
   --no-preview
-  --color=gutter:-1,border:238,scrollbar:238
   --height=50%
   --prompt='> '
   --margin=1,1,1,1
   --layout=reverse
   --ansi
 "
+
+# export FZF_CTRL_R_OPTS="
+#   $FZF_DEFAULT_COLORS_PYWAL
+#   --style=minimal
+#   --info=inline
+#   --no-sort
+#   --exact
+#   --no-preview
+#   --color=gutter:-1,border:238,scrollbar:238
+#   --height=50%
+#   --prompt='> '
+#   --margin=1,1,1,1
+#   --layout=reverse
+#   --ansi
+# "
 
 bindkey '^r' fzf-history-widget
 

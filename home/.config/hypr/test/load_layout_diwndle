@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Kill windows
+hyprctl clients -j | jq -r '.[] | select(.workspace.id == 4) | .address' | xargs -I {} hyprctl dispatch closewindow address:{}
+
+resize() {
+  local wp=${1:-0} hp=${2:-0}
+  local mon=$(hyprctl monitors -j | jq '.[0] | "\(.width) \(.height)"' -r)
+  local mw=${mon% *} mh=${mon#* }
+  local px_w=$((mw * wp / 100)) px_h=$((mh * hp / 100))
+  hyprctl dispatch resizeactive $px_w $px_h
+}
+
+launch_exact() {
+  kitty --class "$1" -e "$2" &
+
+  local addr=""
+  while [ -z "$addr" ]; do
+    sleep 0.1
+    addr=$(hyprctl clients -j | jq -r ".[] | select(.class == \"$1\") | .address")
+  done
+}
+hyprctl dispatch workspace 4
+hyprctl keyword general:layout dwindle
+hyprctl keyword dwindle:preserve_split true
+hyprctl keyword dwindle:force_split 0
+
+launch_exact "kitty-cava" "cava"
+hyprctl dispatch focuswindow class:kitty-cava
+hyprctl dispatch layoutmsg preselect down
+launch_exact "kitty-rmpc" "rmpc"

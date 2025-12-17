@@ -1,12 +1,8 @@
 NM.lualine_config = {
 	get = function()
-		theme = NM.colors.lua_line_theme()
-		colors = NM.colors.pywal_colors()
-
 		return {
 			options = {
-				theme = theme,
-
+				theme = "16color",
 				disabled_filetypes = {
 					statusline = {
 						"aerial",
@@ -21,96 +17,51 @@ NM.lualine_config = {
 					{
 						"mode",
 						fmt = NM.statusline.current_mode,
-						color = {
-							fg = colors.background,
-							bg = colors.color1,
-						},
+						color = { fg = 0, gui = "bold" },
 					},
 				},
 				lualine_b = {},
 				lualine_c = {
-					{
-						"filetype",
-						icon_only = true,
-						padding = { left = 1, right = 0 },
-					},
-					{
-						NM.statusline.current_file_name,
-						color = {
-							fg = colors.foreground,
-							bg = colors.background,
-							gui = "bold",
-						},
-					},
+					{ "filetype", icon_only = true, padding = { left = 1, right = 0 } },
+					{ NM.statusline.current_file_name },
 				},
 				lualine_x = {},
 				lualine_y = {
 					{
 						NM.statusline.diagnostic_summary,
-						color = {
-							gui = "bold",
-							fg = colors.foreground,
-							bg = colors.background,
-						},
 						cond = function()
 							return vim.fn.winwidth(0) > 60
 						end,
 					},
 				},
 				lualine_z = {
-
 					{
 						NM.statusline.lsp_state_icon,
+						color = { bg = "none", gui = "bold" },
+						separator = { left = "", right = "" },
 					},
 					{
 						NM.statusline.total_lines,
-						color = {
-							fg = colors.background,
-							bg = colors.color1,
-							gui = "bold",
-						},
+						color = { fg = 0, gui = "bold" },
 					},
 				},
 			},
-
 			inactive_sections = {
 				lualine_a = {
 					{
 						"mode",
-						fmt = function()
-							return " "
-						end,
-						color = {
-							fg = colors.foreground,
-							bg = colors.color8,
-							gui = "NONE",
-						},
+						fmt = NM.statusline.current_mode,
 					},
 				},
 				lualine_b = {},
 				lualine_c = {
-					{
-						"filetype",
-						icon_only = true,
-						padding = { left = 1, right = 0 },
-					},
-					{
-						NM.statusline.current_file_name,
-						color = {
-							fg = colors.color8,
-							bg = colors.background,
-							gui = "bold",
-						},
-					},
+					{ "filetype", icon_only = true, padding = { left = 1, right = 0 } },
+					{ NM.statusline.current_file_name },
 				},
 				lualine_z = {
 					{
 						NM.statusline.total_lines,
-						color = {
-							fg = colors.background,
-							bg = colors.color8,
-							gui = "bold",
-						},
+						separator = { left = "" },
 					},
 				},
 				lualine_x = {},

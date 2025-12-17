@@ -4,10 +4,10 @@ set -euo pipefail
 EINK_MONITOR="HDMI-A-1" # swww query
 EINK_DEFAULT_WALLPAPER="$HOME/dot/files/assets/wallpapers/white.jpg"
 
-if $USER_SCRIPTS_PATH/helpers/paperlike-connected; then
+if $HOME/.local/bin/public/monitors/paperlike-connected; then
   wal -esnt --theme ~/.config/wal/colorschemes/light/eink.json
 
   swww img --outputs "$EINK_MONITOR" --transition-type none "$EINK_DEFAULT_WALLPAPER"
 
-  $USER_SCRIPTS_PATH/wallpaper/apply-colors-globally
+  $HOME/.local/bin/public/wallpaper/apply-colors-globally
 fi

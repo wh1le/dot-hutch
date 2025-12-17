@@ -15,7 +15,9 @@ NM.lazy = {
 
 		require("lazy").setup({
 			spec = spec,
-			install = { colorscheme = { "pywal16" } },
+			install = {
+				-- colorscheme = { "pywal16" }
+			},
 			change_detection = {
 				enabled = true,
 				notify = false,

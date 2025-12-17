@@ -1,3 +1,4 @@
+typeset -A __NIKITA
 __NIKITA[BASE16_CONFIG]=~/.config/.base16
 
 # Takes a hex color in the form of "RRGGBB" and outputs its luma (0-255, where
@@ -40,7 +41,7 @@ color() {
   emulate -L zsh
 
   local SCHEME="$1"
-  local BASE16_DIR=~/.zsh/base16-shell/scripts
+  local BASE16_DIR=~/.config/zsh/base16-shell/scripts
   local BASE16_CONFIG_PREVIOUS="${__NIKITA[BASE16_CONFIG]}.previous"
   local STATUS=0
 
@@ -139,3 +140,5 @@ function () {
   fi
 }
 
+autoload -U colors
+colors

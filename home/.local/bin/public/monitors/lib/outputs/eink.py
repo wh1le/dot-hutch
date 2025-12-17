@@ -6,9 +6,9 @@ def eink_commands(profile):
     config = MONITORS["eink"]
 
     # execute("hyprctl reload")
-    execute(f"wal -esnt --theme {config["theme"]}")
-    execute(f"swww img --transition-type none --outputs {config['port']} {config["default_wallpaper"]}")
-    execute(f"touch {CONFIG_PATHS["waybar_config"]}")
-    execute("~/.local/bin/public/wallpaper/set-ink")
+    # execute(f"wal -esnt --theme {config["theme"]}")
+    # execute(f"swww img --transition-type none --outputs {config['port']} {config["default_wallpaper"]}")
+    # execute(f"touch {CONFIG_PATHS["waybar_config"]}")
+    # execute("~/.local/bin/public/wallpaper/set-ink")
 
     show_notification("E-ink connected", "Default settings are applied")

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Function to launch and move
+# Usage: launch_app <class> <command> <x> <y> <w> <h>
+launch_app() {
+  # Launch terminal with a unique class
+  kitty --class "$1" -e "$2" &
+
+  # Give Hyprland a moment to register the window
+  sleep 0.5
+
+  # Move and Resize using pixel precision
+  hyprctl dispatch movewindowpixel exact "$3 $4,class:^($1)$"
+  hyprctl dispatch resizewindowpixel exact "$5 $6,class:^($1)$"
+}
+
+# 1. Switch to workspace 4
+hyprctl dispatch workspace 4
+
+# 2. Execute based on your JSON values [X, Y, Width, Height]
+launch_app "kitty-btop" "btop" 17 54 779 461
+launch_app "kitty-zsh" "zsh" 804 54 779 274
+launch_app "kitty-cava" "cava" 804 336 779 647
+launch_app "kitty-rmpc" "rmpc" 17 523 386 460
+launch_app "kitty-viu" "viu" 411 523 385 460
+
+# Add your 6th app here following the same pattern:
+# launch_app "kitty-app6" "command" X Y W H

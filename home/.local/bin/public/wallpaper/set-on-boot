@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+EINK_DEFAULT_WALLPAPER="$HOME/dot/files/assets/wallpapers/white.jpg"
+
+pkill -x swww-daemon
+swww-daemon
+sleep 1
+swww img -o eDP-1 ~/.current_wallpaper
+
+if $HOME/.local/bin/public/monitors/paperlike-connected; then
+  swww img --outputs $(../monitors/paperlike-input-name) --transition-type none "$EINK_DEFAULT_WALLPAPER"
+fi
+echo "wallpaper set"

@@ -1,6 +1,6 @@
 output "DSC Paperlike13K 0x00003400" {
   mode 3200x2400@37.001Hz
-  scale 2.5
+  scale 2.0
   alias $EINK
 }
 
@@ -28,8 +28,15 @@ profile thinkpad_default {
   exec $HOME/.local/bin/public/monitors/bin/set-profile thinkpad_default thinkpad
 }
 
+profile thinkpad_with_eink {
+  output "DSC Paperlike13K 0x00003400" enable mode 3200x2400@37.001Hz scale 2.0 position 0,720
+  output eDP-1 mode 1920x1200@60Hz scale 1.2
+
+  exec $HOME/.local/bin/public/monitors/bin/set-profile thinkpad_with_eink thinkpad,eink
+}
+
 profile home_rotated {
-  output "DSC Paperlike13K 0x00003400" enable mode 3200x2400@37.001Hz scale 2.5 position 0,720
+  output "DSC Paperlike13K 0x00003400" enable mode 3200x2400@37.001Hz scale 2.0 position 0,720
   output "LG Electronics LG HDR 4K 0x00013533" enable mode 3840x2160@59.997Hz scale 1.6 transform 90 position 1280,0
 
   # output $EINK position 1280,0

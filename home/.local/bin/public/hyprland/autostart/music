@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+#!/bin/bash
+
+WS=4
+
+# 1. zsh (master left)
+hyprctl dispatch exec "[workspace $WS silent] kitty --class kitty-zsh"
+hyprctl dispatch exec "[workspace $WS silent] kitty --class kitty-btop -e btop"
+
+hyprctl dispatch workspace $WS
+sleep 0.2
+
+# Adjust main split ~40/60
+hyprctl dispatch splitratio -0.2
+
+# 3. cava (focus zsh, split below)
+hyprctl dispatch focuswindow class:kitty-zsh
+sleep 0.1
+hyprctl dispatch exec "[workspace $WS silent] kitty --class kitty-cava -e cava"
+sleep 0.3
+
+# Adjust zsh/cava ratio ~73/27
+hyprctl dispatch focuswindow class:kitty-cava
+hyprctl dispatch splitratio -0.4
+
+# 4. rmpc (focus btop, split below)
+hyprctl dispatch focuswindow class:kitty-btop
+sleep 0.1
+hyprctl dispatch exec "[workspace $WS silent] kitty --class kitty-rmpc -e rmpc"
+sleep 0.3
+
+# 5. viu (focus rmpc, split right)
+hyprctl dispatch focuswindow class:kitty-rmpc
+sleep 0.1
+hyprctl dispatch exec "[workspace $WS silent] kitty --class kitty-viu -e viu"
+sleep 0.3
+
+# Adjust rmpc/viu 50/50 (should be default)

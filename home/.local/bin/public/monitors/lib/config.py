@@ -32,15 +32,7 @@ MONITORS = {
         "port":"DP-1",
         "theme": "$HOME/.config/wal/colorschemes/dark/purple_high.json",
         "default_wallpaper": "$HOME/.config/wallpapers/forest.jpg",
-        "hyprland_settings": [
-            # "gapsin:6,",
-            # "gapsout:17,",
-            # "rounding:4,", 
-            # "shadow:0,",
-            # "bluring:3,",
-            # "animation:0,",
-            # "bordersize:2,",
-        ],
+        "hyprland_settings": [ ],
         "windowrulev2_settings": [ ]
     },
     "thinkpad": {
@@ -48,15 +40,7 @@ MONITORS = {
         "port":"eDP-1",
         "theme": "$HOME/.config/wal/colorschemes/dark/forest.json",
         "default_wallpaper": "$HOME/.config/wallpapers/forest.jpg",
-        "hyprland_settings": [
-            # "gapsin:6,",
-            # "gapsout:17,",
-            # "rounding:4,", 
-            # "shadow:0,",
-            # "bluring:3,",
-            # "animation:0,",
-            # "bordersize:2,",
-        ],
+        "hyprland_settings": [ ],
         "windowrulev2_settings": [ ]
     }
 }
@@ -74,7 +58,13 @@ MONITORS_CONFIG = {
     "home_office_lg": [
         {**MONITORS["lg"], "workspaces": ["1","2","3","4","5","6","7","8","9","10"]},
     ],
+
     "thinkpad_default": [
         {**MONITORS["thinkpad"], "workspaces": ["1","2","3","4","5","6","7","8","9","10"]},
+    ],
+
+    "thinkpad_with_eink": [
+        {**MONITORS["eink"], "workspaces": ["1","2","3"]},
+        {**MONITORS["lg"],   "workspaces": ["4","5","6","7","8","9","10"]},
     ],
 }

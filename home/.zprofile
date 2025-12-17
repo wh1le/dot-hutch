@@ -26,6 +26,7 @@ _search_dirs=(
   "$HOME/.local/bin"
   "$HOME/virtualization"
   "$HOME/Music"
+  "$HOME/dot/files/home/"
 )
 
 export SEARCH_DIRECTORIES_PATHS="${(j/:/)_search_dirs}"

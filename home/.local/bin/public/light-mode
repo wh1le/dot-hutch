@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-plasma-apply-colorscheme BreezeLight
-wal -n --theme ~/.config/wal/colorschemes/light/eink.json
-
-gsettings set org.gnome.desktop.interface gtk-theme "YOUR_DARK_GTK3_THEME" # for GTK3 apps
-gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"       # for GTK4 apps

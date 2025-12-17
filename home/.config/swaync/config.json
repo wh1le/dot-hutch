@@ -27,5 +27,6 @@
   "transition-time": 200,
   "hide-on-clear": false,
   "hide-on-action": true,
-  "script-fail-notify": false
+  "script-fail-notify": false,
+  "icon-theme": "Papirus-Dark"
 }

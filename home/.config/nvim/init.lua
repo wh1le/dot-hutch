@@ -1,14 +1,12 @@
 NM = {}
 
 require("helpers.os")
-require("helpers.path")
-require("helpers.tests")
+-- require("helpers.tests")
 require("helpers.language_providers")
 require("helpers.lazy")
 require("helpers.quit")
 require("helpers.statusline")
 require("helpers.create_file")
-require("helpers.colors")
 require("helpers.lualine-config")
 
 require("config.system_providers")
@@ -18,10 +16,7 @@ require("config.callbacks")
 require("config.copypaste")
 require("config.spell")
 require("config.system_notifications")
-
 require("config.lsp")
--- require("config.lsp.typescript")
--- require("config.lsp.json_ls")
 
 NM.lazy.setup()
 
@@ -38,10 +33,13 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.opt.scrolloff = 8
 
-vim.defer_fn(function()
-	vim.cmd([[colorscheme pywal16]])
-end, 10)
-
-vim.opt.termguicolors = true
-
+vim.opt.termguicolors = false
 vim.g.kitty_fast_forwarded_modifiers = true
+
+vim.cmd("hi Normal ctermfg=NONE ctermbg=NONE")
+vim.cmd("hi SignColumn ctermbg=NONE")
+vim.cmd("hi LineNr ctermfg=8")
+vim.cmd("hi Comment ctermfg=8")
+vim.cmd("hi Visual ctermbg=8")
+
+vim.cmd("colorscheme noctu")

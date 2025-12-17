@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+paperlike=$(~/.local/bin/public/monitors/paperlike-input-name)
+current=$(hyprctl activeworkspace -j | jq -r '.monitor')
+
+echo "current: $current"
+echo "paperlike: $paperlike"
+
+if [[ "$current" == "$paperlike" ]]; then
+  kitty -o "include /home/wh1le/.cache/wal/eink-kitty-theme.conf"
+else
+  kitty
+fi

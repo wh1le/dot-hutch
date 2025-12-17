@@ -43,6 +43,9 @@ def apply_settings_per_output(monitor, profile):
             lg_commands(profile)
         case "eink":
             eink_commands(profile)
+        case "thinkpad":
+            pass
+            # thinkpad_commands(profile)
 
 def set_profile():
     validate_args(sys.argv)

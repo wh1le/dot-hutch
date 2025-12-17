@@ -62,8 +62,6 @@ class UpdateHyprlandStyleSettings:
 
     # return execute(command)
 
-
-
 # def apps_running():
 #     command = execute("hyprctl clients -j | jq '.[] | (.workspace.name + \":\" + .initialClass)'")
 #     result = command.split('\n')

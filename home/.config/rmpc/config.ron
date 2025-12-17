@@ -1,0 +1,41 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+
+ConfigFile(
+  theme: "theme.ron",
+  keybinds: (
+    clear: false, // This ensures defaults are KEPT
+    global: {
+      "S": ExternalCommand(
+        command: ["sh", "-c", "mpc lsplaylists | fzf --height 40% --reverse --header 'Add current song to:' | xargs -I {} mpc addplaylist '{}' \"$(mpc current -f %file%)\""],
+        description: "Add current song to playlist"
+      ),
+    },
+    navigation: {
+      "d": Delete,
+      "A": Save(kind: Modal(all: true, duplicates_strategy: Ask)),
+    },
+  ),
+  tabs: [
+  (
+      name: "Queue",
+      pane: Split(
+        direction: Horizontal,
+        panes: [(size: "60%", pane: Pane(Queue)), (size: "40%", pane: Pane(AlbumArt))],
+      ),
+    ),
+  (
+      name: "Playlists",
+      pane: Pane(Playlists),
+    ),
+  (
+      name: "Directories",
+      pane: Pane(Directories),
+    ),
+  (
+      name: "Search",
+      pane: Pane(Search),
+    ),
+  ]
+)

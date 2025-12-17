@@ -2,7 +2,7 @@ return {
 	"L3MON4D3/LuaSnip",
 	dependencies = {
 		"rafamadriz/friendly-snippets",
-		"folke/which-key.nvim",
+		-- "folke/which-key.nvim",
 		"honza/vim-snippets",
 	},
 	build = "make install_jsregexp",

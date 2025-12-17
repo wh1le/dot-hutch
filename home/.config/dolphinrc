@@ -32,6 +32,8 @@ SortingChoice=CaseInsensitiveSorting
 UseTabForSwitchingSplitView=true
 Version=202
 ViewPropsTimestamp=2025,10,3,17,23,33.486
+ColorScheme=BreezeDark
+
 
 [IconsMode]
 IconSize=128

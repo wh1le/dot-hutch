@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+
+if [[ "$1" != "skip-notification" ]]; then
+  notify-send --app-name="darkman" --urgency=low --icon="weather-clear-night" "switching to dark mode"
+fi

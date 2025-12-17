@@ -35,3 +35,5 @@ hyprctl reload
 
 # notifications
 swaync-client -rs
+
+pywalfox update

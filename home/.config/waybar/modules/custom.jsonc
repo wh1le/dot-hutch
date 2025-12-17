@@ -9,7 +9,6 @@
     "format-icons": "󰯉",
     "on-click": "$HOME/.local/bin/public/menu/launch-kitty"
   },
-
   "custom/surf": {
     "exec": "$HOME/.local/bin/public/waybar/surf-forecast",
     "format": "{text}",

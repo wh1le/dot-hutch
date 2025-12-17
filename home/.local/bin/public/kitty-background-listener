@@ -1,7 +1,7 @@
-DASUNG_BG="#ffffff"
-DASUNG_FG="#000000"
-NORMAL_BG="#1a1b26"
-NORMAL_FG="#c0caf5"
+#!/usr/bin/env bash
+
+EINK_THEME="/home/wh1le/.cache/wal/eink-kitty-theme.conf"
+REGULAR_THEME="/home/wh1le/.cache/wal/colors-kitty.conf"
 
 SOCKET_PATH="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
 if [[ ! -S "$SOCKET_PATH" ]]; then
@@ -24,9 +24,9 @@ socat -u UNIX-CONNECT:$SOCKET_PATH - | while read -r line; do
       kitty_socket="/tmp/kitty-$pid"
 
       if [[ "$monitor_name" =~ [Dd]asung|[Pp]aperlike ]]; then
-        kitty @ --to unix:$kitty_socket set-colors background="$DASUNG_BG" foreground="$DASUNG_FG"
+        kitty @ --to unix:$kitty_socket set-colors -a "$EINK_THEME"
       else
-        kitty @ --to unix:$kitty_socket set-colors background="$NORMAL_BG" foreground="$NORMAL_FG"
+        kitty @ --to unix:$kitty_socket set-colors -a "$REGULAR_THEME"
       fi
     fi
   fi

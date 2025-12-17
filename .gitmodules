@@ -10,3 +10,6 @@
 [submodule "home/.config/zsh/base16-shell"]
 	path = home/.config/zsh/base16-shell
 	url = https://github.com/chriskempson/base16-shell
+[submodule "home/.config/yazi/plugins"]
+	path = home/.config/yazi/plugins
+	url = https://github.com/yazi-rs/plugins.git
