@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
 
+  environment.variables.CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
   # https://wiki.nixos.org/wiki/Laptop#Power_management
 
   systemd.services.hibernate-lock = {
@@ -26,6 +28,12 @@
   services.logind.settings.Login.HoldoffTimeoutSec = 0;
 
   services.logind.settings.Login.IdleAction = "ignore";
+
+  # This issue seems to be caused by bug #1184262 . It is not related to the networking as such, but to power management.
+  # https://bugs.launchpad.net/ubuntu/+source/systemd-shim/+bug/1184262
+  powerManagement.resumeCommands = ''
+    ${pkgs.networkmanager}/bin/nmcli nm sleep false
+  '';
 
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=10m

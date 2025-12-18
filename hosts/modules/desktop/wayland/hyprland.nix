@@ -30,6 +30,7 @@
     pkgs.libappindicator-gtk3
 
     pkgs.hypridle
+    pkgs.hyprlock
     pkgs.hyprshot
     pkgs.hyprcursor
     pkgs.hyprsunset
