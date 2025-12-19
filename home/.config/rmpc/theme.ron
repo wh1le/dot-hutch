@@ -33,7 +33,7 @@ UiConfigFile(
     ],
   ),
   progress_bar: (
-    symbols: ["", "", "⭘", " ", " "],
+    symbols: ["", "", "⭘", "-", "-"],
     track_style: (bg: "#1e2030"),
     elapsed_style: (fg: "#c6a0f6", bg: "#1e2030"),
     thumb_style: (fg: "#c6a0f6", bg: "#1e2030"),
@@ -45,7 +45,6 @@ UiConfigFile(
     ends_style: (),
     thumb_style: (fg: "#b7bdf8"),
   ),
-
   browser_column_widths: [1, 38, 42],
   text_color: "#cad3f5",
   background_color: "#24273a",
@@ -91,9 +90,18 @@ UiConfigFile(
           )
         ],
         right: [
-        (kind: Text("Vol: "), style: (fg: "#b7bdf8", modifiers: "Bold")),
-        (kind: Property(Status(Volume)), style: (fg: "#b7bdf8", modifiers: "Bold")),
-        (kind: Text("% "), style: (fg: "#b7bdf8", modifiers: "Bold"))
+          (kind: Text("🔊 "), style: (fg: "#b7bdf8")),
+          (kind: Property(Status(Volume)), style: (fg: "#b7bdf8", modifiers: "Bold")),
+          (kind: Text("% "), style: (fg: "#b7bdf8", modifiers: "Bold")),
+          (kind: Text(" | "), style: (fg: "#6e738d")),
+          (kind: Text(" 🔁"), style: (fg: "#6e738d")),
+          (kind: Property(Status(Repeat)), style: (fg: "#a6da95")),
+          (kind: Text(" 🔀"), style: (fg: "#6e738d")),
+          (kind: Property(Status(Random)), style: (fg: "#a6da95")),
+          (kind: Text(" 🔂"), style: (fg: "#6e738d")),
+          (kind: Property(Status(Single)), style: (fg: "#a6da95")),
+          (kind: Text(" 🗑"), style: (fg: "#6e738d")),
+            (kind: Property(Status(Consume)), style: (fg: "#a6da95")),
         ]
       )
     ],
