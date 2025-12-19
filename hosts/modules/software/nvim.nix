@@ -16,6 +16,7 @@
     pkgs.yaml-language-server
     pkgs.ruby_3_4
     pkgs.typescript-language-server
+    pkgs.clippy
 
     # typescript
     pkgs.vscode-langservers-extracted
@@ -37,6 +38,9 @@
     pkgs.shellcheck
     pkgs.nixfmt-rfc-style
     pkgs.nixpkgs-fmt
+
+    # rust
+    pkgs.rustfmt
 
     # kulala plugin
     pkgs.libxml2_13

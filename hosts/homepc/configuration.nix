@@ -11,8 +11,8 @@
     ../modules/hardware/homepc/nzxt_kraken.nix
     ../modules/hardware/homepc/boot.nix
     ../modules/hardware/homepc/monitors.nix
+    ../modules/hardware/homepc/audio.nix
 
-    ../modules/hardware/audio.nix
     # ../modules/hardware/dasung_paperlike.nix
     ../modules/hardware/bluetooth.nix
     ../modules/hardware/usb.nix
@@ -46,6 +46,8 @@
     ../modules/software/syncthing/server.nix
     # ../modules/software/input_leap.nix
 
+
+    ../modules/software/mpd.nix
     ../modules/software/desktop.nix
     ../modules/software/devops.nix
     ../modules/software/firefox.nix

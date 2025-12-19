@@ -20,4 +20,8 @@
   # };
 
   hardware.firmware = [ pkgs.linux-firmware ];
+
+  networking.timeServers = [ "0.nixos.pool.ntp.org" ];
+
+  networking.wireless.extraConfig = ''country=PT'';
 }

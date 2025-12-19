@@ -41,7 +41,6 @@
     HibernateState=disk
   '';
 
-  powerManagement.powertop.enable = true;
   services.power-profiles-daemon.enable = false;
 
   services.tlp = {
@@ -74,4 +73,9 @@
       STOP_CHARGE_THRESH_BAT0 = 91;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    htop
+    powerstat
+  ];
 }

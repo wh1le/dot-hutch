@@ -3,6 +3,10 @@
   system.stateVersion = "25.11";
   networking.hostName = "thinkpad";
 
+  environment.systemPackages = [
+    unstable.qutebrowser
+  ];
+
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
@@ -24,10 +28,11 @@
     ../modules/hardware/thinkpad/boot.nix
     ../modules/hardware/thinkpad/network.nix
     ../modules/hardware/thinkpad/keyboard.nix
-    ../modules/hardware/thinkpad/power-management.nix
+    # ../modules/hardware/thinkpad/power-management.nix
+    ../modules/hardware/thinkpad/power-management-powertop.nix
     ../modules/hardware/thinkpad/cooling.nix
+    ../modules/hardware/thinkpad/audio.nix
     ../modules/hardware/printers.nix
-    ../modules/hardware/audio.nix
     ../modules/hardware/bluetooth.nix
     ../modules/hardware/usb.nix
     # ../modules/hardware/thinkpad/monitors.nix
@@ -74,6 +79,7 @@
     ../modules/software/languages/ruby.nix
     ../modules/software/languages/python.nix
 
+    ../modules/software/mpd.nix
     ../modules/software/desktop.nix
     ../modules/software/devops.nix
     ../modules/software/firefox.nix
