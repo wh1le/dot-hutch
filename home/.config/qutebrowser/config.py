@@ -144,4 +144,3 @@ c.content.blocking.adblock.lists = [
     "https://github.com/uBlockOrigin/uAssets/raw/master/filters/resource-abuse.txt",
     "https://github.com/uBlockOrigin/uAssets/raw/master/filters/unbreak.txt"
 ]
-

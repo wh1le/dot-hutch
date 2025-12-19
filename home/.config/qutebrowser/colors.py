@@ -115,4 +115,17 @@ def apply_colors(c):
     c.colors.webpage.darkmode.algorithm = 'lightness-cielab'
     c.colors.webpage.darkmode.policy.images = 'never'
 
+    
+    user_css = Path("~/.config/qutebrowser/user.css").expanduser()
+
+    user_css.write_text(f"""
+    html, body, body > *, #page, #content, main, .container {{
+      background-color: {wal["special"]["background"]} !important;
+      background-image: none !important;
+    }}
+    """)
+
+    
+    c.content.user_stylesheets = [str(user_css)]
+
     return c

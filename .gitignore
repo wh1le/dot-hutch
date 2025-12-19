@@ -3,3 +3,5 @@ home/.config/tmux/plugins/*
 home/.config/tmux/plugins/tpm
 home/.config/zsh/.zcompdump
 home/.config/hypr/hypridle.conf
+home/.config/qutebrowser/__pycache__/
+home/.config/qutebrowser/user.css
