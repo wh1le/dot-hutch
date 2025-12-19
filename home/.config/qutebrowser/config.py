@@ -86,7 +86,8 @@ c.content.cookies.accept = "no-3rdparty"
 c.tabs.min_width = 80     # minimum when shrinking
 c.tabs.max_width = 300    # maximum width
 
-c.tabs.position = "left"
+c.zoom.default = "90%"
+c.tabs.position = "right"
 # c.tabs.width = 36
 # c.tabs.show = "multiple"
 # c.tabs.max_width = 240
