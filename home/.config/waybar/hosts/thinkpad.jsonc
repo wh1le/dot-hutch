@@ -36,11 +36,10 @@
   {
     "name": "thinkpad",
     "output": ["eDP-1"],
-    // "height": 20,
-    "spacing": 5,
     "layer": "top",
+    "spacing": 5,
     "position": "top",
-    "margin": "9px 18px 0 18px",
+    "padding": "px",
     "modules-left": [
       "custom/logo",
       "hyprland/workspaces#main",
@@ -62,6 +61,7 @@
       "custom/date_month",
       "custom/date_time",
       "custom/notification",
+      "custom/power"
     ],
     "include": [
       "~/.config/waybar/modules/custom.jsonc",

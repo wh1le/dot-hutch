@@ -5,11 +5,23 @@
 @define-color background #1e1e2e;
 
 @define-color active @color1;
-@define-color muted @color8;
+@define-color muted @color5;
+
+window {
+  padding: 5px;
+}
 
 window#waybar {
   color: @foreground;
-  background: rgba(21, 18, 27, 0);
+  /* background: black; */
+  background-color: alpha(#0a080e, 0.8);
+  padding: 4px 0;
+}
+
+window#waybar > box {
+  margin: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 tooltip {
@@ -19,9 +31,10 @@ tooltip {
 * {
   font-family: "Iosevka Nerd Font", "Twitter Color Emoji";
   font-weight: 600;
-  font-size: 15px;
+  font-size: 13px;
   min-height: 0;
   border: none;
+  background: transparent;
 }
 
 #weather_group,
@@ -31,7 +44,7 @@ tooltip {
   background: #1e1e2e;
   opacity: 0.8;
   color: #cdd6f4;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 0 0px;
   padding-right: 2px;
   min-width: 0;
@@ -43,7 +56,7 @@ tooltip {
 
 .module {
   opacity: 0.8;
-  border-radius: 7px;
+  border-radius: 4px;
   padding: 0px 10px 0px 10px;
   background: @background;
 }
@@ -166,7 +179,24 @@ tooltip {
   margin-right: 0px;
 }
 
+.module {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 #system_group {
   padding-left: 10px;
   padding-right: 0px;
+}
+
+#custom-logo {
+  padding-left: 13px;
+  margin-left: 4px;
+}
+
+#custom-power {
+  padding-right: 13px;
+  margin-right: 4px;
 }

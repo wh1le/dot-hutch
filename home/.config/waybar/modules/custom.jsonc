@@ -18,7 +18,7 @@
   },
 
   "custom/mic_used_by_app": {
-    "interval": 1,
+    "interval": 10,
     "exec": "$HOME/.local/bin/public/waybar/is-mic-used",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "tooltip": false
@@ -79,18 +79,17 @@
   "custom/containers": {
     "exec": "$HOME/.local/bin/public/waybar/containers-status",
     "return-type": "json",
-    "interval": 10,
+    "interval": 20,
     "format": "{text}",
     "tooltip": true,
   },
 
   "custom/language": {
     "exec": "$HOME/.local/bin/public/waybar/current-langauge",
-    // "interval": 1,
+    "signal": 6,
     "format": "{text}",
     "tooltip": false,
-    "signal": 6,
-    "interval": 1,
+    "interval": 60,
     "on-click": "$HOME/.local/bin/public/switch-layout"
   },
 
@@ -121,5 +120,10 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
-  }
+  },
+    "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "~/.local/bin/public/menu/launch-kitty power-management"
+}
 }
