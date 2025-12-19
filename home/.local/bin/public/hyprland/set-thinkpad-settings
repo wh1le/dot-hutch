@@ -3,5 +3,7 @@
 [[ "$(hostname)" == "thinkpad" ]] && return 0
 
 hyprctl keyword general:border_size 2
-hyprctl keyword general:gaps_out 20
+hyprctl keyword general:gaps_out 10
 hyprctl keyword general:gaps_in 10
+
+pactl set-card-profile bluez_card.80_99_E7_E0_4B_A5 a2dp-sink-aac
