@@ -30,6 +30,8 @@ return {
 			scss = { "prettierd" },
 			html = { "prettierd" },
 			toml = { "taplo" },
+			rust = { "rustfmt" },
+			ron = { "topiary" },
 		},
 		format_on_save = {
 			lsp_format = "fallback",

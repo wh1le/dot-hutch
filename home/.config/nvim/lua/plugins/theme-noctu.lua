@@ -1,1 +1,3 @@
-return { "noahfrederick/vim-noctu" }
+return {
+	"noahfrederick/vim-noctu",
+}

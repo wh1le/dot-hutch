@@ -23,7 +23,6 @@ return {
 	end,
 	keys = {
 		{ "<leader>g", desc = "Grepper search" },
-		{ "<leader>g", desc = "Search word" },
 		{ "<leader>sb", desc = "Search buffers" },
 	},
 }

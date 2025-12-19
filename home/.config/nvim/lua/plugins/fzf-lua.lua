@@ -1,19 +1,33 @@
 return {
 	"ibhagwan/fzf-lua",
-	lazy = false,
 	dependencies = { "echasnovski/mini.icons" },
 	opts = {
 		defaults = {
 			previewer = false,
 		},
+		fzf_bin = "fzf",
 		files = { fzf_opts = { ["--layout"] = "default" } }, -- show search on low pos
+		-- winopts = {
+		-- 	fullscreen = false,
+		-- 	split = "below 15new",
+		-- 	height = 0.2,
+		-- 	border = "rounded",
+		-- 	treesitter = {
+		-- 		enabled = false,
+		-- 	},
+		-- },
 		winopts = {
-			fullscreen = false,
-			split = "below 15new",
-			height = 0.2,
+			width = 1.0,
+			height = 0.30,
+			row = 0.95,
+			col = 0.50,
 			border = "rounded",
+			fullscreen = false,
 			treesitter = {
-				enabled = true,
+				enabled = false,
+			},
+			preview = {
+				hidden = true,
 			},
 		},
 		buffers = {

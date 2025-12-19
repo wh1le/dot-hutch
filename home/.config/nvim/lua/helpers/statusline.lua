@@ -170,15 +170,15 @@ NM.statusline = {
 		end
 	end,
 
-	lsp_saga_breadcrumbs = function()
-		local breadcrumbs = require("lspsaga.symbol.winbar").get_bar
-
-		if breadcrumbs == nil or breadcrumbs == "" then
-			return NM.statusline.current_file_name()
-		else
-			return breadcrumbs
-		end
-	end,
+	-- lsp_saga_breadcrumbs = function()
+	-- 	local breadcrumbs = require("lspsaga.symbol.winbar").get_bar
+	--
+	-- 	if breadcrumbs == nil or breadcrumbs == "" then
+	-- 		return NM.statusline.current_file_name()
+	-- 	else
+	-- 		return breadcrumbs
+	-- 	end
+	-- end,
 
 	-- lsp_state_icon = function()
 	-- 	-- local clients = vim.lsp.get_clients({ bufnr = 0 })
@@ -210,21 +210,21 @@ NM.statusline = {
 	-- end,
 
 	lsp = {
-		_get_available_servers_for = function(filetype)
-			local ok, cfgs = pcall(require, "lspconfig.configs")
-			if not ok then
-				return {}
-			end
-
-			local list = {}
-			for name, c in pairs(cfgs) do
-				local dc = c.document_config and c.document_config.default_config
-				if dc and dc.filetypes and vim.tbl_contains(dc.filetypes, filetype) then
-					table.insert(list, name)
-				end
-			end
-			return list
-		end,
+		-- _get_available_servers_for = function(filetype)
+		-- 	local ok, cfgs = pcall(require, "lspconfig.configs")
+		-- 	if not ok then
+		-- 		return {}
+		-- 	end
+		--
+		-- 	local list = {}
+		-- 	for name, c in pairs(cfgs) do
+		-- 		local dc = c.document_config and c.document_config.default_config
+		-- 		if dc and dc.filetypes and vim.tbl_contains(dc.filetypes, filetype) then
+		-- 			table.insert(list, name)
+		-- 		end
+		-- 	end
+		-- 	return list
+		-- end,
 
 		_get_attached_servers = function(buffer)
 			local attached = {}
@@ -257,6 +257,7 @@ NM.statusline = {
 			return string.format(" lsp: %s (%d/%d)", table.concat(attached, ", "), #attached, #available)
 		end,
 	},
+
 	lsp_state_icon = function()
 		if not vim.bo.filetype or vim.bo.filetype == "" then
 			return ""

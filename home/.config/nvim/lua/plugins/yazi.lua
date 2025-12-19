@@ -1,7 +1,6 @@
 return {
 	"mikavilpas/yazi.nvim",
 	version = "*",
-	event = "VeryLazy",
 	dependencies = {
 		{ "nvim-lua/plenary.nvim", lazy = true },
 	},
@@ -17,7 +16,6 @@ return {
 	opts = {
 		keymaps = false,
 		open_for_directories = false,
-		-- keymaps = {},
 	},
 	init = function()
 		vim.g.loaded_netrwPlugin = 1

@@ -1,5 +1,6 @@
 return {
 	"stevearc/overseer.nvim",
+	cmd = { "OverseerRun", "OverseerToggle", "OverseerInfo" },
 	opts = {
 		strategy = "terminal",
 		version = "v1.6.0",
