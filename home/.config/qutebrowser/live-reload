@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 inotifywait -mr -e close_write,move,create,delete \
-	~/.config/qutebrowser/modules/ \
-	-e close_write ~/.config/qutebrowser/config.py |
-	while read -r; do
-		qutebrowser --untrusted-args --target=auto ':config-source'
-		echo "qutebrowser reloaded"
-	done
+  ~/.config/qutebrowser/modules/ \
+  -e close_write ~/.config/qutebrowser/config.py |
+  while read -r; do
+    qutebrowser --target=auto ':config-source'
+    echo "qutebrowser reloaded"
+  done
