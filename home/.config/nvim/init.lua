@@ -43,3 +43,23 @@ vim.cmd("hi Comment ctermfg=8")
 vim.cmd("hi Visual ctermbg=8")
 
 vim.cmd("colorscheme noctu")
+
+vim.filetype.add({
+	filename = {
+		[".config/kanshi/config"] = "conf",
+	},
+	pattern = {
+		[".*/%.config/kanshi/.*"] = "conf",
+		[".*"] = {
+			function(path, bufnr)
+				local content = vim.api.nvim_buf_get_lines(bufnr, 0, 20, false)
+				for _, line in ipairs(content) do
+					if line:match("^%s*profile%s+") or line:match("^%s*output%s+") then
+						return "kanshi"
+					end
+				end
+			end,
+			priority = -math.huge,
+		},
+	},
+})

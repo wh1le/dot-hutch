@@ -1,21 +1,48 @@
 @import url("/home/wh1le/.cache/wal/colors-waybar.css");
-@import url("/home/wh1le/.config/waybar/styles/monitor_specific/big_screen.css");
-@import url("/home/wh1le/.config/waybar/styles/monitor_specific/eink.css");
+@import url("/home/wh1le/.config/waybar/styles/big.css");
+@import url("/home/wh1le/.config/waybar/styles/eink.css");
 
 @define-color background #1e1e2e;
 
 @define-color active @color1;
-@define-color muted @color5;
+@define-color icon @color1;
+
+* {
+  font-family: "Iosevka Nerd Font", "Twitter Color Emoji";
+  font-weight: 600;
+  font-size: 13px;
+  min-height: 0;
+  border: none;
+  background: transparent;
+}
 
 window {
   padding: 5px;
 }
 
 window#waybar {
-  color: @foreground;
-  /* background: black; */
-  background-color: alpha(#0a080e, 0.8);
   padding: 4px 0;
+}
+
+window#waybar.default,
+window#waybar.big {
+  color: @foreground;
+  background-color: alpha(#0a080e, 0.8);
+}
+
+window#waybar.default,
+window#waybar.big #status_group,
+window#waybar #system_group,
+window#waybar #custom-language,
+window#waybar #temperature {
+  color: @icon;
+}
+
+window#waybar.default,
+window#waybar.big .modules-left,
+.modules-center,
+.modules-right {
+  color: @foreground;
 }
 
 window#waybar > box {
@@ -28,22 +55,11 @@ tooltip {
   background-color: #1e1e2e;
 }
 
-* {
-  font-family: "Iosevka Nerd Font", "Twitter Color Emoji";
-  font-weight: 600;
-  font-size: 13px;
-  min-height: 0;
-  border: none;
-  background: transparent;
-}
-
 #weather_group,
 #power_group,
 #system_group,
 #status_group {
   background: #1e1e2e;
-  opacity: 0.8;
-  color: #cdd6f4;
   border-radius: 4px;
   padding: 0 0px;
   padding-right: 2px;
@@ -55,6 +71,13 @@ tooltip {
 }
 
 .module {
+  opacity: 0.8;
+  border-radius: 4px;
+  padding: 0px 10px 0px 10px;
+  background: @background;
+}
+
+.big .module {
   opacity: 0.8;
   border-radius: 4px;
   padding: 0px 10px 0px 10px;
@@ -97,18 +120,6 @@ tooltip {
 /*   padding: 0px 5px 0px 5px; */
 /* } */
 
-.modules-left {
-  color: @foreground;
-}
-
-.modules-center {
-  color: @foreground;
-}
-
-.modules-right {
-  color: @foreground;
-}
-
 #workspaces button {
   margin: 0 -1px;
   padding-left: 3px;
@@ -150,13 +161,6 @@ tooltip {
 
 #weather_group {
   color: @foreground;
-}
-
-#status_group,
-#system_group,
-#custom-language,
-#temperature {
-  color: @muted;
 }
 
 #custom-notification {

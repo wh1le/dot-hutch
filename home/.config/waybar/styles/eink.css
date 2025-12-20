@@ -1,12 +1,29 @@
 @define-color inactive dimgray;
 
+window#waybar.eink {
+  color: @foreground;
+  background-color: white;
+}
+
+window#waybar.eink #status_group,
+window#waybar #system_group,
+window#waybar #custom-language,
+window#waybar #temperature {
+  color: white;
+}
+window#waybar.eink .modules-left,
+.modules-center,
+.modules-right {
+  color: white;
+}
+
 .eink * {
   color: white;
   border: none;
   font-family:
     "Iosevka Nerd Font", "Symbols Nerd Font", "Symbols Nerd Font Mono";
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14px;
   min-height: 0px;
 }
 

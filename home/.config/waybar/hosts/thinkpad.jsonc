@@ -34,7 +34,7 @@
     ]
   },
   {
-    "name": "thinkpad",
+    "name": "default",
     "output": ["eDP-1"],
     "layer": "top",
     "spacing": 5,

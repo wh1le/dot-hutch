@@ -1,6 +1,3 @@
-# from pathlib import Path
-# home_path =  Path.home()
-
 CONFIG_PATHS = {
     "waybar_custom":   "$HOME/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc",
     "hyprland_custom": "$HOME/.config/hypr/generated_by_scripts/workspaces_per_monitor.conf",
@@ -14,13 +11,13 @@ MONITORS = {
         "theme":             "$HOME/.config/wal/colorschemes/dark/eink.json",
         "default_wallpaper": "$HOME/.config/wallpapers/white.jpg",
         "hyprland_settings": [
-            "gapsin:2,",
-            "gapsout:15,",
-            "rounding:4,",
-            "shadow:0,",
-            "bluring:0,",
-            "animation:0,",
-            "bordersize:2,",
+            # "gapsin:2,",
+            # "gapsout:15,",
+            # "rounding:4,",
+            # "shadow:0,",
+            # "bluring:0,",
+            # "animation:0,",
+            # "bordersize:2,",
         ],
         "windowrulev2_settings": [
             "'bordercolor 0xFF808080 0xFFF5F5F5,",
@@ -47,7 +44,7 @@ MONITORS = {
 
 MONITORS_CONFIG = {
     "home_office": [
-        {**MONITORS["eink"], "workspaces": ["1","2","3","4","5","6","7"]},
+        {**MONITORS["eink"], "workspaces": ["1","2","3","4","5"]},
         {**MONITORS["lg"],   "workspaces": ["8","9","10"]},
     ],
 

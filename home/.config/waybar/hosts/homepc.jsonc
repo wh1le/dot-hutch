@@ -1,12 +1,10 @@
 [
   {
     "name": "eink",
-    "output": ["HDMI-A-1"],
-    // "height": 20,
+    "output": ["HDMI-A-1", "HDMI-A-2"],
     "spacing": 5,
     "layer": "top",
     "position": "top",
-    "margin": "9px 18px 0 18px",
     "modules-left": [
       "custom/logo",
       "hyprland/workspaces#eink",
@@ -31,17 +29,15 @@
       "~/.config/waybar/modules/custom.jsonc",
       "~/.config/waybar/modules/groups.jsonc",
       "~/.config/waybar/modules/default.jsonc",
-      "~/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc"
     ]
   },
   {
     "name": "big",
     "output": ["DP-1","DP-2"],
-    "height": 38,
+    "height": 20,
     "spacing": 12,
     "layer": "top",
     "position": "top",
-    "margin": "9px 18px 0 18px",
     "modules-left": [
       "custom/logo",
       "hyprland/workspaces#main",
@@ -66,7 +62,6 @@
       "~/.config/waybar/modules/custom.jsonc",
       "~/.config/waybar/modules/groups.jsonc",
       "~/.config/waybar/modules/default.jsonc",
-      "~/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc"
     ]
   },
 ]

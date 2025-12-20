@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+[[ "$(hostname)" == "homepc" ]] && return 0
+
+hyprctl keyword input:kb_model apple
+hyprctl keyword input:kb_options "ctrl:swapcaps,ctrl:nocaps,grp:win_space_toggle"

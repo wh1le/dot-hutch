@@ -4,6 +4,9 @@ return {
 	config = function()
 		vim.g.grepper = {
 			tools = { "rg", "vimgrep", "grep", "git" }, -- Order of preference
+			rg = {
+				grepprg = "rg -H --no-heading --vimgrep --hidden",
+			},
 			searchreg = 1, -- Use last search register
 			highlight = 1, -- Highlight matches
 			quickfix = 1, -- Use quickfix list
