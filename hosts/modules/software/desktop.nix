@@ -3,6 +3,10 @@
 {
   environment.variables.OBSIDIAN_USE_WAYLAND = 1;
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0" # Obsidian dependency
+  ];
+
   environment.systemPackages = with pkgs; [
     unstable.kitty
     unstable.wezterm
