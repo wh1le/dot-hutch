@@ -42,5 +42,6 @@
     pkgs.mutt # TODO: Mail client
     # pkgs.dooit # TODO: todos
     pkgs.astroterm
+    pkgs.socat
   ];
 }

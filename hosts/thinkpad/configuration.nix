@@ -17,7 +17,6 @@
     ../modules/fonts.nix
     ../modules/media.nix
     ../modules/trash.nix
-    ../modules/system_packages.nix
 
     ../modules/hardware/thinkpad/hardware-configuration.nix
     ../modules/hardware/thinkpad/boot-amd.nix
