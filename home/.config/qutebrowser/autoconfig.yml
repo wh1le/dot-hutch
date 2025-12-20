@@ -6,9 +6,5 @@
 
 config_version: 2
 settings:
-  tabs.min_width:
-    global: 300
-  tabs.show:
-    global: always
-  tabs.title.format:
-    global: '{index}: {current_title}'
+  content.javascript.clipboard:
+    https://claude.ai: access-paste

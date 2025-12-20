@@ -1,0 +1,5 @@
+{
+  "ignore": ["modules"],
+  "reportMissingImports": false,
+  "reportUndefinedVariable": false
+}

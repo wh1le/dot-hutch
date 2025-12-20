@@ -7,3 +7,5 @@ home/.config/qutebrowser/__pycache__/
 home/.config/qutebrowser/user.css
 home/.config/qutebrowser/bookmarks/*
 *.sqlite
+home/.config/qutebrowser/modules/__pycache__
+home/.config/qutebrowser/qsettings/QtProject.conf
