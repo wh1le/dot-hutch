@@ -50,7 +50,7 @@
     ../modules/software/mpd.nix
     ../modules/software/desktop.nix
     ../modules/software/devops.nix
-    ../modules/software/firefox.nix
+    ../modules/software/browser.nix
     ../modules/software/nvim.nix
     ../modules/software/kde_connect.nix
     ../modules/software/utils.nix

@@ -3,10 +3,6 @@
   system.stateVersion = "25.11";
   networking.hostName = "thinkpad";
 
-  environment.systemPackages = [
-    unstable.qutebrowser
-  ];
-
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
@@ -82,7 +78,7 @@
     ../modules/software/mpd.nix
     ../modules/software/desktop.nix
     ../modules/software/devops.nix
-    ../modules/software/firefox.nix
+    ../modules/software/browser.nix
     ../modules/software/nvim.nix
     # ../modules/software/kde_connect.nix
     ../modules/software/utils.nix

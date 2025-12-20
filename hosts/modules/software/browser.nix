@@ -7,13 +7,6 @@
     BROWSER = "firefox";
   };
 
-  # TODO: Configure pywallfox
-  # system.activationScripts.pywalfox = {
-  #   text = ''
-  #     runuser -l ${settings.mainUser} -c '${pkgs.pywalfox-native}/bin/pywalfox update || true
-  #   '';
-  # };
-
   programs.firefox = {
     enable = true;
 
@@ -39,7 +32,9 @@
       ];
     })
 
-    unstable.tridactyl-native
+    # unstable.tridactyl-native
     unstable.firefox
+
+    unstable.qutebrowser
   ];
 }
