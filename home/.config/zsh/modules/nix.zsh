@@ -8,8 +8,13 @@ export NIX_CONFIG="experimental-features = nix-command flakes"
 # alias nix_boot="sudo nixos-rebuild boot --flake /etc/nixos#$(shell hostnamectl --static 2>/dev/null || hostname) --update-input PUBLIC"
 
 ns() {
-  sudo nix --extra-experimental-features "nix-command flakes" flake update PUBLIC --flake /etc/nixos &&
-    sudo nixos-rebuild switch --flake "/etc/nixos#$(hostnamectl --static 2>/dev/null || hostname)"
+  if sudo nix --extra-experimental-features "nix-command flakes" flake update PUBLIC --flake /etc/nixos &&
+    sudo nixos-rebuild switch --flake "/etc/nixos#$(hostnamectl --static 2>/dev/null || hostname)"; then
+    local gen=$(readlink /nix/var/nix/profiles/system | sed 's/.*-\([0-9]*\)-link/\1/')
+    notify-send -i system-software-update "NixOS Build Number #${gen} Released" "$generation"
+  else
+    notify-send -u critical -i dialog-error "NixOS" "Build failed"
+  fi
 }
 
 nix_find_bin() {
