@@ -16,7 +16,7 @@ choice=$(
     [[ -n "$current" ]] && echo "󰤭 Disconnect ($current)"
     nmcli -t -f SSID,SIGNAL,SECURITY device wifi list --rescan yes | grep -v '^:'
   } |
-    sort -t: -k2 -nr |
+    # sort -t: -k2 -nr |
     fzf-with-options \
       --exact \
       --delimiter=':' \
