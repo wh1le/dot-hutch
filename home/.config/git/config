@@ -5,3 +5,6 @@
 
 [commit]
   gpgsign = false
+
+[core]
+  excludesfile = ~/.config/git/ignore
