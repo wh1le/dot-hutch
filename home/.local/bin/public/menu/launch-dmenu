@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
+: "${KITTY_LAUNCHER_CLASS:=launcher}"
+: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
+
+output_file=$(mktemp)
+input_file=$(mktemp)
+trap 'rm -f "$output_file" "$input_file"' EXIT
+
+# Save stdin to temp file
+if [ ! -t 0 ]; then
+  cat >"$input_file"
+fi
+
+env \
+  LAUNCHER_SCRIPTS_PATH="$LAUNCHER_SCRIPTS_PATH" \
+  KITTY_LAUNCHER_CLASS="$KITTY_LAUNCHER_CLASS" \
+  OUTPUT_FILE="$output_file" \
+  INPUT_FILE="$input_file" \
+  kitty -o font_size=13 \
+  --class launcher \
+  bash -c "
+    source '$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options'
+    input=\$(cat '$input_file')
+    [ -z \"\$input\" ] && exit 0
+    echo \"\$input\" | fzf-with-options --prompt='${1:-select> }' --no-multi > '$output_file'
+  "
+
+cat "$output_file"

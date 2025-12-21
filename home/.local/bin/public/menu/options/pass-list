@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+PASSWORDS_PATH="$HOME/.secrets/passwords"
+
+# password_list=$(cd $HOME/.secrets/passwords && find . -name '*.gpg' -type f | sed 's|^\./||; s|\.gpg$||' | sort || true)
+password_list=$(find "$PASSWORDS_PATH" -name '*.gpg' -type f -printf '%P\n' | sed 's|\.gpg$||' | sort || true)
+
+[ -z "$password_list" ] && exit 0
+
+choice=$(
+  printf '%s\n' "$password_list" |
+    fzf-with-options \
+      --prompt="select> " \
+      --no-multi
+)
+
+# gpg --pinentry-mode loopback --decrypt "$HOME/.secrets/passwords/$choice.gpg" 2>/dev/null | head -n1 | tr -d '\n' | wl-copy
+# gpg --decrypt "$HOME/.secrets/passwords/$choice.gpg" 2>/dev/null | head -n1 | tr -d '\n' | wl-copy
+
+# password=$(gpg --decrypt "$HOME/.secrets/passwords/$choice.gpg" 2>/dev/null | head -n1 | tr -d '\n')
+password=$(gpg --decrypt "$HOME/.secrets/passwords/$choice.gpg" 2>/dev/null | head -n1 | tr -d '\n')
+wl-copy <<<"$password"
+
+(
+  sleep 20
+  current=$(wl-paste)
+  if [ "$current" = "$password" ]; then
+    wl-copy --clear
+  fi
+) </dev/null >/dev/null 2>&1 &
+disown
+
+# gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
+# gpg --decrypt "$HOME/.secrets/passwords/$choice.gpg" 2>/dev/null | head -n1 | tr -d '\n' | wl-copy
+#
+# # clear clipboard after 20 seconds
+# (
+#   sleep 20
+#   current=$(wl-paste)
+#   if [ "$current" = "$choice" ]; then
+#     wl-copy --clear
+#   fi
+# ) >/dev/null 2>&1 &
+# disown
+
+notify-send "Password" "Copied to clipboard (clears in 20s)"
+
+if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+  kitty @ --to "unix:$KITTY_LAUNCHER_SOCKET_PATH" close-window
+fi

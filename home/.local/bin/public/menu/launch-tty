@@ -22,18 +22,22 @@ OPTIONS=(
   "nix-search-options: Nix - Options"
   "nix-search-home-options: Nix - Home Options"
   # "browser-bookmarks:󰖟 Browser Bookmarks"
-  # "pass: Passwords"
+  "pass-list: Passwords"
   #"connect-bluetooth: Connect Bluetooth"
   #"connect-bluetooth:󰖩 Connect Wi-Fi"
   #"search-youtube:󰕧 Search Youtube"
 )
 
-choice="$(
-  printf '%s\0' "${OPTIONS[@]}" |
-    fzf --read0 --delimiter=':' --with-nth=2
-)" || exit 0
+if [[ -n "${1:-}" ]]; then
+  key="$1"
+else
+  choice="$(
+    printf '%s\0' "${OPTIONS[@]}" |
+      fzf --read0 --delimiter=':' --with-nth=2
+  )" || exit 0
+  key="${choice%%:*}"
+fi
 
-key="${choice%%:*}"
 script="${SCRIPT_DIR}/${key}"
 
 if [[ -x "$script" ]]; then

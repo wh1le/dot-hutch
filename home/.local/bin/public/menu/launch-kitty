@@ -17,7 +17,7 @@ run() {
 option=${1-}
 
 if [ -z "$option" ]; then
-  run spawn-kitty "$LAUNCHER_SCRIPTS_PATH/launch-menu"
+  run spawn-kitty "$LAUNCHER_SCRIPTS_PATH/launch-tty"
 else
   run spawn-kitty "$LAUNCHER_SCRIPTS_PATH/options/$option"
 fi
