@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-[[ "$(hostname)" == "thinkpad" ]] && return 0
+[[ "$(hostname)" != "thinkpad" ]] && exit 0
 
 hyprctl keyword input:kb_model thinkpad
 hyprctl keyword input:kb_options "ctrl:swapcaps,ctrl:nocaps,grp:win_space_toggle,ctrl:nocaps,altwin:swap_lalt_lwin"
 
-pactl set-card-profile bluez_card.80_99_E7_E0_4B_A5 a2dp-sink-aac
+if pactl list cards short | grep -q "bluez_card.80_99_E7_E0_4B_A5"; then
+  pactl set-card-profile bluez_card.80_99_E7_E0_4B_A5 a2dp-sink-aac
+fi

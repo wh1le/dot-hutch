@@ -4,6 +4,7 @@ EINK_THEME="/home/wh1le/.cache/wal/eink-kitty-theme.conf"
 REGULAR_THEME="/home/wh1le/.cache/wal/colors-kitty.conf"
 
 SOCKET_PATH="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+
 if [[ ! -S "$SOCKET_PATH" ]]; then
   SOCKET_PATH=$(echo /tmp/hypr/*/.socket2.sock)
 fi

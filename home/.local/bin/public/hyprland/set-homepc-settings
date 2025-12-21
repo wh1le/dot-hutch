@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
-[[ "$(hostname)" == "homepc" ]] && return 0
+[[ "$(hostname)" != "homepc" ]] && exit 0
 
 hyprctl keyword input:kb_model apple
 hyprctl keyword input:kb_options "ctrl:swapcaps,ctrl:nocaps,grp:win_space_toggle"
+
+# if ! mountpoint -q /mnt/windows_drive; then
+#   sudo mount -t auto /dev/nvme0n1p3 /mnt/windows_drive
+# fi
+
+# if ! mountpoint -q /mnt/shared_with_windows; then
+#   sudo mount -t auto /dev/nvme0n1p5 /mnt/shared_with_windows
+# fi
