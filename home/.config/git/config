@@ -1,1 +1,7 @@
-/nix/store/c4sbavy0jqdga4qglrppdgshhlm8vymj-home-manager-files/.config/git/config
+[user]
+  name = "wh1le"
+  email = "nmiloserdov@proton.me"
+  signingkey = 653068EC5157A4C0
+
+[commit]
+  gpgsign = false

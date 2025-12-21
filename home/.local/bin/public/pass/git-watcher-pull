@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PASSWORD_STORE_DIR="${PASSWORD_STORE_DIR:-$HOME/.secrets/passwords}"
+[ ! -d "$PASSWORD_STORE_DIR" ] && exit 0
+
+cd "$PASSWORD_STORE_DIR"
+
+output=$(git pull --rebase 2>&1)
+
+if echo "$output" | grep -q 'Fast-forward\|Successfully rebased'; then
+  notify-send -i emblem-synchronizing "Password Store" "Synced from remote"
+elif echo "$output" | grep -q 'CONFLICT\|error: could not apply'; then
+  notify-send -u critical -i emblem-error "Password Store" "Merge conflict! Manual resolution needed"
+  git rebase --abort
+fi

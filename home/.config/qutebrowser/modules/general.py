@@ -26,8 +26,10 @@ def apply_general(c, config):
     # content
     c.content.autoplay = False
     c.content.pdfjs = True
-    config.set("content.webgl", False, "*")
-    config.set("content.canvas_reading", False)
+
+    config.set("content.webgl", True, "*://*.cloudflare.com")
+    config.set("content.canvas_reading", True, "*://*.cloudflare.com")
+
     config.set("content.cookies.accept", "all")
     config.set("content.cookies.store", True)
     config.set("content.webrtc_ip_handling_policy", "default-public-interface-only")

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+PASSWORD_STORE_DIR="${PASSWORD_STORE_DIR:-$HOME/.secrets/passwords}"
+
+[ ! -d "$PASSWORD_STORE_DIR" ] && exit 0
+
+inotifywait -q -m -r -e close_write,move,create,delete \
+  "$PASSWORD_STORE_DIR" --exclude '.git' --format '%w%f' |
+  while read -r file; do
+    cd "$PASSWORD_STORE_DIR"
+    git add -A
+    if ! git diff-index --quiet HEAD -- 2>/dev/null; then
+      if git commit -m "autocommit: $(basename "$file")" && git push; then
+        notify-send -i dialog-password "Password Store" "Synced: $(basename "$file")"
+      else
+        notify-send -u critical -i dialog-error "Password Store" "Failed to sync: $(basename "$file")"
+      fi
+    fi
+  done

@@ -22,7 +22,7 @@
 }
 
 .floating-notifications.background .notification-row .notification-background {
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   background-color: @color0;
   color: @foreground;
   border: 1px solid @border_active2;
@@ -33,7 +33,7 @@
   .notification-background
   .notification {
   padding: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
 }
 
 .floating-notifications.background
@@ -80,7 +80,7 @@
   > *:last-child
   > *
   .notification-action {
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   color: @foreground;
   background-color: @color0;
   border: 1px solid @color8;
@@ -112,7 +112,7 @@
   .close-button {
   margin: 0.5rem;
   padding: 0.25rem;
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   color: @foreground;
   background-color: #eb6f92;
 }
@@ -132,7 +132,7 @@
 }
 
 .control-center {
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   margin: 1rem;
   color: @foreground;
   padding: 1rem;
@@ -146,7 +146,7 @@
 }
 
 .control-center .widget-title button {
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   color: @foreground;
   background-color: @color0;
   border: 1px solid @color8;
@@ -162,7 +162,7 @@
 }
 
 .control-center .notification-row .notification-background {
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   margin: 0.5rem 0;
   background-color: @color0;
   color: @foreground;
@@ -171,7 +171,7 @@
 
 .control-center .notification-row .notification-background .notification {
   padding: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
 }
 
 .control-center
@@ -226,7 +226,7 @@
   > *:last-child
   > *
   .notification-action {
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   color: @foreground;
   background-color: @color0;
   border: 1px solid @color8;
@@ -255,7 +255,7 @@
 .control-center .notification-row .notification-background .close-button {
   margin: 0.5rem;
   padding: 0.25rem;
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   color: @foreground;
   background-color: #eb6f92;
 }
@@ -274,7 +274,7 @@
 progressbar,
 progress,
 through {
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
 }
 
 .notification.critical progress {
@@ -296,12 +296,12 @@ through {
 
 .control-center-dnd {
   margin: 1rem 0;
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
 }
 
 .control-center-dnd slider {
   background: @color8;
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
 }
 
 .widget-dnd {
@@ -309,7 +309,7 @@ through {
 }
 
 .widget-dnd > switch {
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   background: @color8;
   border: 1px solid @color4;
 }
@@ -320,6 +320,6 @@ through {
 
 .widget-dnd > switch slider {
   background: @color4;
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   margin: 0.25rem;
 }
