@@ -16,10 +16,10 @@ output "TV" {
 	alias $TV
 }
 
-output "Thinkpad Monitor" {
-  mode 1920x1200@60Hz
+output "eDP-1" {
+  mode 1920x1200@60.00300
   scale 1.2
-  alias $thinkpad
+  alias $THINKPAD
 }
 
 # Home
@@ -44,12 +44,12 @@ profile homepc_lg {
 # Thinkpad
 
 profile thinkpad {
-  output $thinkpad enable
+  output $THINKPAD enable
 }
 
 profile thinkpad_eink {
   output $EINK enable position 0,720
-  output $thinkpad enable
+  output $THINKPAD enable
 }
 
  # TV
