@@ -10,7 +10,12 @@
   };
 
   environment.systemPackages = [
-    unstable.openssl
     pkgs.hyprpolkitagent
+    unstable.openssl
+
+    unstable.cryptsetup # luks
+
+    unstable.git-crypt
+    unstable.git-remote-gcrypt
   ];
 }

@@ -1,3 +1,13 @@
 result
 *.qcow2
 nix/secrets.nix
+
+# Block all GPG private keys
+*.key
+*.asc
+**/private-keys-v1.d/**
+**/openpgp-revocs.d/**
+**/*secring*
+**/*secret*
+*.gpg
+*.kbx

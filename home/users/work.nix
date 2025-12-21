@@ -8,7 +8,6 @@
 
   imports = [
     ../modules/link_dotfiles.nix
-    ../modules/programs/git.nix
     # ../modules/programs/keepassxc.nix
   ];
 }

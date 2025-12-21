@@ -1,4 +1,9 @@
 { pkgs, ... }: {
+  systemd.tmpfiles.rules = [
+    "d /home/wh1le/Music 0700 wh1le users -"
+    "d /home/wh1le/Music/mpd_playlists 0700 wh1le users -"
+  ];
+
   services.mpd = {
     enable = true;
     user = "wh1le";
@@ -17,21 +22,10 @@
   };
 
   systemd.services.mpd.environment = {
-    XDG_RUNTIME_DIR = "/run/user/1000"; # Run 'id -u' to confirm this is 1000
+    XDG_RUNTIME_DIR = "/run/user/1000";
   };
-  #
-  # systemd.services.mpd2 = {
-  #   description = "Music Player Daemon (Stereo)";
-  #   after = [ "network.target" "sound.target" ];
-  #   wantedBy = [ "multi-user.target" ];
-  #   environment = {
-  #     XDG_RUNTIME_DIR = "/run/user/1000";
-  #   };
-  #   serviceConfig = {
-  #     User = "wh1le";
-  #     ExecStart = "${pkgs.mpd}/bin/mpd --no-daemon /home/wh1le/.config/mpd/stereo.conf";
-  #     Type = "notify";
-  #     Restart = "on-failure";
-  #   };
-  # };
+
+  environment.systemPackages = [
+    pkgs.mpdris2 # playerctl mpd helper
+  ];
 }

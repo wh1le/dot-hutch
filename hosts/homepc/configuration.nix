@@ -21,7 +21,11 @@
     ../modules/nix/auto-upgrade.nix
     ../modules/nix/nixpkgs.nix
 
+    ../modules/cron.nix
+
     ../modules/security/anti_virus.nix
+    ../modules/security/gpg.nix
+    ../modules/security/pass.nix
     ../modules/security/firewall.nix
     ../modules/security/geo.nix
     # ../modules/security/network_dnscrypt-proxy2.nix

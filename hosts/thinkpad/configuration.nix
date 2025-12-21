@@ -6,18 +6,6 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
-    ./caddy.nix
-
-    ../modules/filesystem.nix
-    ../modules/languages.nix
-    ../modules/locales.nix
-    ../modules/terminal.nix
-    ../modules/coding.nix
-    ../modules/users.nix
-    ../modules/fonts.nix
-    ../modules/media.nix
-    ../modules/trash.nix
-
     ../modules/hardware/thinkpad/disable-backlight.nix
     ../modules/hardware/thinkpad/hardware-configuration.nix
     ../modules/hardware/thinkpad/boot-amd.nix
@@ -34,12 +22,29 @@
     # ../modules/hardware/thinkpad/monitors.nix
     # ../modules/hardware/dasung_paperlike.nix
 
+
+    ../modules/cron.nix
+
+    ../modules/filesystem.nix
+    ../modules/languages.nix
+    ../modules/locales.nix
+    ../modules/terminal.nix
+    ../modules/coding.nix
+    ../modules/users.nix
+    ../modules/fonts.nix
+    ../modules/media.nix
+    ../modules/trash.nix
+
     ../modules/nix/settings.nix
     ../modules/nix/auto-upgrade.nix
     ../modules/nix/nixpkgs.nix
 
+    ./caddy.nix
+
     # ../modules/security/network_dnscrypt-proxy2.nix
     ../modules/security/anti_virus.nix
+    ../modules/security/gpg.nix
+    ../modules/security/pass.nix
     ../modules/security/firewall.nix
     ../modules/security/geo.nix
     ../modules/security/security.nix
