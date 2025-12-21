@@ -9,3 +9,13 @@ home/.config/qutebrowser/bookmarks/*
 *.sqlite
 home/.config/qutebrowser/modules/__pycache__
 home/.config/qutebrowser/qsettings/QtProject.conf
+
+# Block all GPG private keys
+*.key
+*.asc
+**/private-keys-v1.d/**
+**/openpgp-revocs.d/**
+**/*secring*
+**/*secret*
+*.gpg
+*.kbx
