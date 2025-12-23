@@ -17,11 +17,21 @@ return {
 			paths = { "~/.config/nvim/lua/snippets" },
 		})
 
-		luasnip.add_snippets("all", {
-			luasnip.snippet("!", {
-				luasnip.text_node({ "#!/usr/bin/env bash", "" }),
-			}),
-		})
+		for _, ft in ipairs({ "sh", "bash", "zsh" }) do
+			luasnip.add_snippets(ft, {
+				luasnip.snippet("!", { luasnip.text_node({ "#!/usr/bin/env bash", "" }) }),
+				luasnip.snippet("dn", { luasnip.text_node("&>/dev/null") }),
+			})
+		end
+
+		-- luasnip.add_snippets("sh", {
+		-- 	luasnip.snippet("!", {
+		-- 		luasnip.text_node({ "#!/usr/bin/env bash", "" }),
+		-- 	}),
+		-- 	luasnip.snippet("dn", {
+		-- 		luasnip.text_node({ "&>/dev/null", "" }),
+		-- 	}),
+		-- })
 
 		luasnip.config.set_config({
 			history = true,
