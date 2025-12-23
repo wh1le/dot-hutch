@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+PASSWORDS_PATH="$HOME/.secrets/passwords"
+
+export PASSWORD_STORE_DIR="$PASSWORDS_PATH"
+export GPG_TTY=$(tty)
+
+password_list=$(find "$PASSWORDS_PATH" -name '*.otp.gpg' -type f -printf '%P\n' | sed 's|\.gpg$||' | sort || true)
+
+[ -z "$password_list" ] && exit 0
+
+choice=$(
+  printf '%s\n' "$password_list" |
+    fzf-with-options \
+      --prompt="select> " \
+      --no-multi
+)
+
+if ! password=$(pass show "$choice" 2>&1); then
+  notify-send -u critical "Pass Error" "$password"
+  read -p "Press enter..."
+  exit 1
+fi
+
+password=$(pass otp "$choice" | head -n1 | tr -d '\n')
+
+wl-copy <<<"$password"
+sleep 0.1
+cliphist delete-query "$password"
+
+notify-send -i dialog-password "Password" "Copied to clipboard (clears in 20s)"
+
+if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+  kitty @ --to "unix:$KITTY_LAUNCHER_SOCKET_PATH" close-window
+fi

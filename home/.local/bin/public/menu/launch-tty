@@ -9,7 +9,7 @@ SCRIPT_DIR="$LAUNCHER_SCRIPTS_PATH/options"
 
 declare -A OPTIONS=(
   ["󰣆 Applications"]="applications"
-  [" 2FA"]="pass"
+  [" 2FA OTP"]="pass-otp"
   [" Ruby Gems"]="ruby-gems"
   ["󰧻 Kill Process"]="kill-process"
   ["󰐥 Power Management"]="power-management"
@@ -27,6 +27,7 @@ declare -A OPTIONS=(
   [" Nix - Home Options"]="nix-search-home-options"
   [" Bluetooth"]="bluetooth"
   ["󰣌 Wallpaper"]="wallpaper"
+  [" Scan OTP"]="pass-scan-otp"
   # "browser-bookmarks:󰖟 Browser Bookmarks"
   #"connect-bluetooth: Connect Bluetooth"
   #"connect-bluetooth:󰖩 Connect Wi-Fi"
@@ -44,7 +45,11 @@ else
   [[ "$args" == "$value" ]] && args=""
 fi
 
-script="${SCRIPT_DIR}/${key}"
+if [[ "$key" == /* ]]; then
+  script="$key"
+else
+  script="${SCRIPT_DIR}/${key}"
+fi
 
 if [[ -x "$script" ]]; then
   exec "$script" $args
