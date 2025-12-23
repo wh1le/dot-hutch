@@ -1,23 +1,22 @@
 { pkgs, ... }: {
   systemd.tmpfiles.rules = [
     "d /home/wh1le/Music 0700 wh1le users -"
-    "d /home/wh1le/Music/mpd_playlists 0700 wh1le users -"
+    "d /home/wh1le/Music/mpd 0700 wh1le users -"
+    "d /home/wh1le/Music/mpd/playlists 0700 wh1le users -"
   ];
 
   services.mpd = {
     enable = true;
     user = "wh1le";
     musicDirectory = "/home/wh1le/Music";
-    dbFile = "/home/wh1le/Music/mpd_database";
+    dbFile = "/home/wh1le/Music/mpd/database";
+    dataDir = "/home/wh1le/Music/mpd";
     extraConfig = ''
-      			playlist_directory  "/home/wh1le/Music/mpd_playlists"
-      			state_file          "/home/wh1le/.cache/mpd/state"
-      			sticker_file        "/home/wh1le/Music/mpd_sticker.sql"
-            audio_output {
-              type    "pipewire"
-              name    "PipeWire Sound Server"
+      audio_output {
+        type    "pipewire"
+        name    "PipeWire Sound Server"
 
-            }
+      }
     '';
   };
 

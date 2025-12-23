@@ -31,6 +31,7 @@
     pkgs.mpd
     pkgs.mpc
     pkgs.blanket
+    pkgs.wiremix
 
     unstable.vlc
     unstable.mpv
