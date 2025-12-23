@@ -35,7 +35,7 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    viu-anime.url = "github:viu-media/viu";
+    viu-anime.url = "github:viu-media/viu/20ce2f6ca3a06118aec6462dc99d9517ea7cd79e";
 
     yazi.url = "github:sxyazi/yazi/e7cd66370fbc7786132c675999d026671ac364a6";
 

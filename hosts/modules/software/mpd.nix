@@ -25,6 +25,7 @@
   };
 
   environment.systemPackages = [
-    pkgs.mpdris2 # playerctl mpd helper
+    # pkgs.mpdris2 
+    pkgs.mpd-mpris # playerctl mpd helper
   ];
 }

@@ -1,6 +1,5 @@
-{
-  pkgs,
-  ...
+{ pkgs
+, ...
 }:
 {
 
@@ -19,7 +18,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    blueman
+    # blueman
     bluez
     bluetui
 

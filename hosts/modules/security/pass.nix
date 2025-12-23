@@ -5,6 +5,8 @@
   ];
 
   environment.systemPackages = [
+    pkgs.qrtool
+
     (unstable.pass.withExtensions (exts: [
       exts.pass-import
       exts.pass-update
