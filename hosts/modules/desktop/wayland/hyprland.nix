@@ -26,6 +26,8 @@
     LOCKER = "${pkgs.hyprlock}/bin/hyprlock";
   };
 
+  services.hypridle.enable = false; # we start it manually from hyprland autostart
+
   environment.systemPackages = [
     pkgs.libappindicator-gtk3
 
