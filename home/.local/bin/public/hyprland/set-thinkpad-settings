@@ -8,3 +8,5 @@ hyprctl keyword input:kb_options "ctrl:swapcaps,ctrl:nocaps,grp:win_space_toggle
 if pactl list cards short | grep -q "bluez_card.80_99_E7_E0_4B_A5"; then
   pactl set-card-profile bluez_card.80_99_E7_E0_4B_A5 a2dp-sink-aac
 fi
+
+ssh-add ~/.ssh/nixos

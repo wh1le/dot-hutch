@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+STATE_FILE="/tmp/hyprsunset-state"
+
+if [ -z "$1" ]; then
+	echo "Usage: $0 [state|toggle]"
+	exit 1
+fi
+
+case $1 in
+state)
+	if [ -f "$STATE_FILE" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+	;;
+toggle)
+	if [ -f "$STATE_FILE" ]; then
+		hyprsunset -t 6500
+		rm "$STATE_FILE"
+		[[ "$2" == "-n" ]] && notify-send '󰖨 Sunset' 'Night mode disabled.'
+	else
+		hyprsunset -t 4500
+		touch "$STATE_FILE"
+		[[ "$2" == "-n" ]] && notify-send '󰖛 Sunset' 'Night mode enabled.'
+	fi
+	;;
+*)
+	echo "Invalid command. Usage: $0 [state|toggle]"
+	;;
+esac
