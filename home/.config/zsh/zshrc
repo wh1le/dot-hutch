@@ -53,3 +53,5 @@ preexec() {
 bindkey -s ';f' 'nvim -c "FzfLua files"\n'
 
 export PASSWORD_STORE_DIR="$HOME/.secrets/passwords"
+
+bindkey -s '^f' 'tmux attach \; run-shell "tmux send-keys C-f"\n'
