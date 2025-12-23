@@ -7,25 +7,26 @@ source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
 
 SCRIPT_DIR="$LAUNCHER_SCRIPTS_PATH/options"
 
-OPTIONS=(
-  "applications:󰣆 Applications"
-  "pass: 2FA"
-  "ruby-gems: Ruby Gems"
-  "kill-process:󰧻 Kill Process"
-  "power-management:󰐥 Power Management"
-  "pass-list: Passwords"
-  "audio: Audio"
-  "nix-search-packages: Nix - Packages"
-  "nix-search-options: Nix - Options"
-  "clipboard-history: Clipboard"
-  "openvpn-connect:󱠾 OpenVPN Connect"
-  "browser-history:󰖟 Browser History"
-  "wifi-connect:󰤨 Wi-Fi connect"
-  "nix-switch: Nix - Switch"
-  "kanshi-profiles:󰍹 Display Profiles (Kanshi)"
-  "nix-search-home-options: Nix - Home Options"
-  "bluetooth: Bluetooth"
-  "wallpaper: Wallpaper"
+declare -A OPTIONS=(
+  ["󰣆 Applications"]="applications"
+  [" 2FA"]="pass"
+  [" Ruby Gems"]="ruby-gems"
+  ["󰧻 Kill Process"]="kill-process"
+  ["󰐥 Power Management"]="power-management"
+  [" Passwords"]="pass-list:--safe-mode"
+  [" Passwords (All)"]="pass-list"
+  [" Audio"]="audio"
+  [" Nix - Packages"]="nix-search-packages"
+  [" Nix - Options"]="nix-search-options"
+  [" Clipboard"]="clipboard-history"
+  ["󱠾 OpenVPN Connect"]="openvpn-connect"
+  ["󰖟 Browser History"]="browser-history"
+  ["󰤨 Wi-Fi connect"]="wifi-connect"
+  [" Nix - Switch"]="nix-switch"
+  ["󰍹 Display Profiles (Kanshi)"]="kanshi-profiles"
+  [" Nix - Home Options"]="nix-search-home-options"
+  [" Bluetooth"]="bluetooth"
+  ["󰣌 Wallpaper"]="wallpaper"
   # "browser-bookmarks:󰖟 Browser Bookmarks"
   #"connect-bluetooth: Connect Bluetooth"
   #"connect-bluetooth:󰖩 Connect Wi-Fi"
@@ -34,20 +35,21 @@ OPTIONS=(
 
 if [[ -n "${1:-}" ]]; then
   key="$1"
+  args=""
 else
-  choice="$(
-    printf '%s\0' "${OPTIONS[@]}" |
-      fzf --read0 --delimiter=':' --with-nth=2
-  )" || exit 0
-  key="${choice%%:*}"
+  label="$(printf '%s\n' "${!OPTIONS[@]}" | fzf)" || exit 0
+  value="${OPTIONS[$label]}"
+  key="${value%%:*}"
+  args="${value#*:}"
+  [[ "$args" == "$value" ]] && args=""
 fi
 
 script="${SCRIPT_DIR}/${key}"
 
 if [[ -x "$script" ]]; then
-  exec "$script"
+  exec "$script" $args
 elif [[ -f "$script" ]]; then
-  exec bash "$script"
+  exec bash "$script" $args
 else
   printf "script not found: %s\n" "$script" >&2
   exit 1

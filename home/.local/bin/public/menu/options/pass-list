@@ -9,7 +9,25 @@ PASSWORDS_PATH="$HOME/.secrets/passwords"
 export PASSWORD_STORE_DIR="$PASSWORDS_PATH"
 export GPG_TTY=$(tty)
 
+PRIVATE_MODE=false
+
 password_list=$(find "$PASSWORDS_PATH" -name '*.gpg' -type f -printf '%P\n' | sed 's|\.gpg$||' | sort || true)
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  --safe-mode)
+    PRIVATE_MODE=true
+    shift
+    ;;
+  *)
+    shift
+    ;;
+  esac
+done
+
+if [[ "$PRIVATE_MODE" == "true" ]]; then
+  password_list=$(printf '%s\n' "$password_list" | grep -v '^private/')
+fi
 
 [ -z "$password_list" ] && exit 0
 
