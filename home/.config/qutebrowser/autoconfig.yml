@@ -8,7 +8,9 @@ config_version: 2
 settings:
   content.javascript.clipboard:
     https://claude.ai: access-paste
+    https://github.com: access-paste
   content.notifications.enabled:
     https://mail.proton.me: false
   content.register_protocol_handler:
+    https://mail.google.com?extsrc=mailto&url=%25s: false
     https://mail.proton.me#mailto=%25s: false

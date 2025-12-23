@@ -8,6 +8,8 @@ def apply_privacy(c, config):
 
     config.set("content.headers.accept_language", "en-US,en;q=0.5")
 
+    c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
     config.set("content.headers.custom", {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
     })
