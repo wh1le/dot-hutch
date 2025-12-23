@@ -95,7 +95,7 @@ quick-edit-directory() {
 
   selected_name=$(basename "$selected" | tr . _)
 
-  cd $selected && nvim .
+  cd $selected 
 }
 
 quick_edit_directory_widget() {

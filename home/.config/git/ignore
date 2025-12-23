@@ -5,5 +5,4 @@
 **/openpgp-revocs.d/**
 **/*secring*
 **/*secret*
-*.gpg
 *.kbx
