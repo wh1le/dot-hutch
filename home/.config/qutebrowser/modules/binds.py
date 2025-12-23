@@ -17,6 +17,7 @@ def apply_binds(c, config):
     # config.bind('tT', 'config-cycle tabs.position top left')
 
     # config.bind("<Alt-t>", "config-cycle tabs.min_width 80 300")
+
     config.bind('M', "spawn --detach mpv --ytdl-format='bestvideo+bestaudio' {url}")
 
     # tabs
@@ -35,28 +36,16 @@ def apply_binds(c, config):
 
     config.bind('T', 'cmd-set-text -s :open -t {url}')
 
-    # pass integration
-    # config.bind('<z><l>', 'spawn --userscript qute-pass')
-    # config.bind('<z><u>', 'spawn --userscript qute-pass --username-only')
-    # config.bind('<z><p>', 'spawn --userscript qute-pass --password-only')
-    # config.bind('<z><o>', 'spawn --userscript qute-pass --otp-only')
+    # passthrough
+    config.unbind('<Ctrl-v>')
+    config.bind('<Shift-Escape>', 'mode-enter passthrough')
+    config.bind('<Shift-Escape>', 'mode-leave', mode='passthrough')
 
+    # passwords
     c.qt.environ = {
         'PASSWORD_STORE_DIR': '/home/wh1le/.secrets/passwords',
-        'GNUPGHOME': '/home/wh1le/.local/share/gnupg',
     }
-    # config.bind('<z><l>', 'spawn --userscript qute-pass --username-target secret --username-pattern "login: (.+)" --unfiltered --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
-    # config.bind('<z><u>', 'spawn --userscript qute-pass --username-only --username-target secret --username-pattern "login: (.+)" --unfiltered --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
-    # config.bind('<z><p>', 'spawn --userscript qute-pass --password-only --unfiltered --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
 
     config.bind('<z><l>', 'spawn --userscript qute-pass --unfiltered --username-target secret --username-pattern "login: (.+)" --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
     config.bind('<z><u>', 'spawn --userscript qute-pass --unfiltered --username-only --username-target secret --username-pattern "login: (.+)" --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
     config.bind('<z><p>', 'spawn --userscript qute-pass --unfiltered --password-only --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
-
-
-
-
-    # config.bind('<z><l>', 'spawn --userscript qute-pass --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
-    # config.bind('<z><u>', 'spawn --userscript qute-pass --username-only --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
-    # config.bind('<z><p>', 'spawn --userscript qute-pass --password-only --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
-    # config.bind('<z><o>', 'spawn --userscript qute-pass --otp-only --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')

@@ -130,8 +130,10 @@ def apply_colors(c, config):
     c.colors.statusbar.normal.fg = "#f8f8f2"
     c.colors.statusbar.command.bg = "#282a36"
     c.colors.statusbar.command.fg = "#f8f8f2"
-    c.colors.statusbar.insert.bg = "#44475a"  # darker gray
+
+    c.colors.statusbar.insert.bg = "#7a8a4a"
     c.colors.statusbar.insert.fg = "#f8f8f2"
+
     c.colors.statusbar.passthrough.bg = "#6272a4"  # medium gray
     c.colors.statusbar.passthrough.fg = "#f8f8f2"
     c.colors.statusbar.private.bg = "#ff5555"  # red (keep distinct)
