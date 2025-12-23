@@ -36,8 +36,12 @@ def apply_binds(c, config):
 
     config.bind('T', 'cmd-set-text -s :open -t {url}')
 
+
     # passthrough
     config.unbind('<Ctrl-v>')
+
+    config.bind('<Ctrl-v>', 'mode-enter insert ;; fake-key <Ctrl-v>', mode='normal')
+
     config.bind('<Shift-Escape>', 'mode-enter passthrough')
     config.bind('<Shift-Escape>', 'mode-leave', mode='passthrough')
 
