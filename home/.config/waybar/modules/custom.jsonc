@@ -10,6 +10,24 @@
     "on-click": "$HOME/.local/bin/public/menu/launch-kitty"
   },
 
+  "custom/stimulants": {
+    "exec": "$HOME/.local/bin/public/waybar/status/stimulants",
+    "return-type": "json",
+    "interval": 30,
+    "format": "{}",
+    "tooltip": false,
+    "on-click": "~/.local/bin/public/caffeine toggle"
+  },
+
+  "custom/sunset": {
+    "exec": "$HOME/.local/bin/public/waybar/status/sunset",
+    "return-type": "json",
+    "interval": 30,
+    "format": "{}",
+    "tooltip": false,
+    "on-click": "~/.local/bin/public/sunset toggle"
+  },
+
   "custom/surf": {
     "exec": "$HOME/.local/bin/public/waybar/surf-forecast",
     "format": "{text}",
@@ -61,23 +79,25 @@
   },
 
   "custom/openvpn": {
-    "exec": "$HOME/.local/bin/public/waybar/openvpn-status",
-    "interval": 10,
+    "exec": "$HOME/.local/bin/public/waybar/status/openvpn",
+    "return-type": "json",
+    "interval": 20,
     "format": "{text}",
     "tooltip": false,
     "on-click": "~/.local/bin/public/menu/launch-kitty openvpn-connect"
   },
 
   "custom/veracrypt": {
-    "exec": "$HOME/.local/bin/public/waybar/veracrypt-status",
-    "interval": 10,
+    "exec": "$HOME/.local/bin/public/waybar/status/veracrypt",
+    "return-type": "json",
+    "interval": 20,
     "format": "{text}",
     "tooltip": false,
     "onclick": "veracrypt --text --dismount",
   },
 
   "custom/containers": {
-    "exec": "$HOME/.local/bin/public/waybar/containers-status",
+    "exec": "$HOME/.local/bin/public/waybar/status/containers",
     "return-type": "json",
     "interval": 20,
     "format": "{text}",

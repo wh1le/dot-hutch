@@ -3,6 +3,8 @@
   "group/status_group": {
     "orientation": "horizontal",
     "modules": [
+      "custom/stimulants",
+      "custom/sunset",
       "custom/containers",
       "custom/veracrypt",
       "custom/openvpn",

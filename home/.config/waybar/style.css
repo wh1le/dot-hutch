@@ -1,4 +1,5 @@
 @import url("/home/wh1le/.cache/wal/colors-waybar.css");
+
 @import url("/home/wh1le/.config/waybar/styles/big.css");
 @import url("/home/wh1le/.config/waybar/styles/eink.css");
 
@@ -36,6 +37,10 @@ window#waybar #system_group,
 window#waybar #custom-language,
 window#waybar #temperature {
   color: @icon;
+}
+
+.module.active {
+  color: @color1;
 }
 
 window#waybar.default,
@@ -88,13 +93,6 @@ tooltip {
 .module#custom-logo {
   padding: 0px 18px 0px 10px;
   color: @active;
-}
-
-/* .module#network { padding-right: 12px;  } */
-
-.module#custom-veracrypt,
-.module#custom-openvpn {
-  padding-right: 12px;
 }
 
 .module#battery {
@@ -174,6 +172,10 @@ tooltip {
   color: @active;
 }
 
+.module#custom-openvpn {
+  padding-left: 5px;
+}
+
 .module#pulseaudio,
 .module#network,
 .module#bluetooth,
@@ -181,13 +183,6 @@ tooltip {
   margin-left: 0px;
   padding-left: 0px;
   margin-right: 0px;
-}
-
-.module {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
 }
 
 #system_group {
