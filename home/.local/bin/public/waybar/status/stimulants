@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if pgrep hypridle >/dev/null; then
+  echo '{"text": "<span>󰛊</span>", "class": ""}'
+else
+  echo '{"text": "<span>󰛊</span>", "class": "active"}'
+fi

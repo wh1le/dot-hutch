@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+PROCESS_NAME="hyprsunset"
+PID=$(pgrep -x $PROCESS_NAME)
+if [ -z "$PID" ]; then
+	echo '{"text": "󰖨", "class": ""}'
+else
+	echo '{"text": "󰖛", "class": "active"}'
+fi
