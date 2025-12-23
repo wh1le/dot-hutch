@@ -25,6 +25,7 @@ OPTIONS=(
   "kanshi-profiles:󰍹 Display Profiles (Kanshi)"
   "nix-search-home-options: Nix - Home Options"
   "bluetooth: Bluetooth"
+  "wallpaper: Wallpaper"
   # "browser-bookmarks:󰖟 Browser Bookmarks"
   #"connect-bluetooth: Connect Bluetooth"
   #"connect-bluetooth:󰖩 Connect Wi-Fi"

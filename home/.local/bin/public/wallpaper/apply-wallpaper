@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+WALLPAPERS_PATH=~/dot/wallpapers/default-collection
+
+CHOICE="$1"
+
+MONITORS=$(hyprctl monitors -j | jq -r '.[] | select(.description | contains("Paperlike") | not) | .name')
+
+for monitor in $MONITORS; do
+	swww img --outputs "$monitor" --transition-type wipe --transition-angle 45 --transition-duration 0.8 "$CHOICE"
+done
+
+ln -s -f "$CHOICE" ~/.current_wallpaper
+wal -esnti "$CHOICE"
+
+if $USER_SCRIPTS_PATH/monitors/paperlike-connected; then
+	EINK_MONITOR=$($USER_SCRIPTS_PATH/monitors/paperlike-input-name)
+	EINK_DEFAULT_WALLPAPER="$HOME/dot/files/assets/wallpapers/white.jpg"
+
+	swww img --outputs "$EINK_MONITOR" --transition-type none "$EINK_DEFAULT_WALLPAPER"
+fi
+
+$HOME/.local/bin/public/wallpaper/apply-colors-globally
