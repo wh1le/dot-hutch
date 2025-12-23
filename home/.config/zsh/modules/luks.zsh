@@ -2,7 +2,7 @@ luks-list() {
   blkid -t TYPE=crypto_LUKS -o full
 }
 
-luks-mount() {
+secrets-mount() {
   local dev="${1:-/dev/sda}"
 
   sudo mkdir -p /mnt/secrets || return 1
@@ -12,8 +12,9 @@ luks-mount() {
   echo "✓ Secrets unlocked at /mnt/secrets"
 }
 
-luks-close() {
+secrets-close() {
   sudo umount -f /mnt/secrets 2>/dev/null || sudo umount -l /mnt/secrets
+  sync
   sudo cryptsetup close secrets &&
     echo "✓ Secrets locked"
 }
