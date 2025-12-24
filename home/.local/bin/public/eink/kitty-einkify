@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+EINK_THEME="/home/wh1le/.cache/wal/eink-kitty-theme.conf"
+REGULAR_THEME="/home/wh1le/.cache/wal/colors-kitty.conf"
+
+SOCKET_PATH="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+
+if [[ ! -S "$SOCKET_PATH" ]]; then
+  SOCKET_PATH=$(echo /tmp/hypr/*/.socket2.sock)
+fi
+
+socat -u UNIX-CONNECT:$SOCKET_PATH - | while read -r line; do
+  [[ "$line" != movewindow\>\>* ]] && continue
+
+  if [[ "$line" =~ ^movewindow\>\> ]]; then
+    window_addr=$(echo "$line" | cut -d',' -f1 | cut -d'>' -f3)
+    window_info=$(hyprctl clients -j | jq -r ".[] | select(.address == \"0x$window_addr\")")
+    window_class=$(echo "$window_info" | jq -r '.initialTitle')
+    monitor_id=$(echo "$window_info" | jq -r '.monitor')
+    pid=$(echo "$window_info" | jq -r '.pid')
+
+    # Get monitor name from monitor ID
+    monitor_name=$(hyprctl monitors -j | jq -r ".[] | select(.id == $monitor_id) | .description")
+
+    if [[ "$window_class" == "kitty" ]]; then
+      kitty_socket="/tmp/kitty-$pid"
+
+      if [[ "$monitor_name" =~ [Dd]asung|[Pp]aperlike ]]; then
+        kitty @ --to unix:$kitty_socket set-colors -a "$EINK_THEME"
+        tmux source-file ~/.config/tmux/colors/eink.conf
+      else
+        kitty @ --to unix:$kitty_socket set-colors -a "$REGULAR_THEME"
+        tmux source-file ~/.config/tmux/colors/rgb.conf
+      fi
+
+      pkill -SIGUSR1 nvim
+    fi
+  fi
+done
