@@ -9,7 +9,6 @@ source $HOME/.config/zsh/modules/hotkeys.zsh
 # source $HOME/.config/zsh/modules/autocomplete.zsh
 source $HOME/.config/zsh/modules/suggestions.zsh
 source $HOME/.config/zsh/modules/fzf.zsh
-# source $HOME/.config/zsh/modules/colors.zsh
 
 source $HOME/.config/zsh/modules/exports.zsh
 source $HOME/.config/zsh/modules/functions.zsh
@@ -48,10 +47,11 @@ fi
 preexec() {
   [[ "$1" =~ '^_G|Ptmux|^\[' ]] && return 1
 }
-# [ -f ~/.cache/wal/colors.sh ] && source ~/.cache/wal/colors.sh
 
 bindkey -s ';f' 'nvim -c "FzfLua files"\n'
 
 export PASSWORD_STORE_DIR="$HOME/.secrets/passwords"
 
 bindkey -s '^f' 'tmux attach \; run-shell "tmux send-keys C-f"\n'
+
+export LS_COLORS="${LS_COLORS}:su=30;41:ow=30;42:st=30;44:"

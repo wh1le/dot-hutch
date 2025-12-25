@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+PAPERLIKE_INPUT=$(~/.local/bin/public/eink/paperlike-input-name)
+
+ACRIVE_INPUT=$(hyprctl activeworkspace -j | jq -r '.monitor')
+
+if [[ "$PAPERLIKE_INPUT" == "$ACRIVE_INPUT" ]]; then
+  kitty -o "include /home/wh1le/.cache/wal/eink-kitty-theme.conf"
+else
+  kitty
+fi

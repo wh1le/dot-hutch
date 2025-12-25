@@ -34,13 +34,13 @@ color15='{color15}'
 #     --color=pointer:{background},marker:{color1},header:{color4}
 # "
 
-export FZF_DEFAULT_COLORS_PYWAL="
-    --color=fg:{foreground},bg:{background},hl:{color3}
-    --color=fg+:{foreground},bg+:{color8},hl+:{foreground}
-    --color=info:{color8},prompt:{foreground},spinner:{color3}
-    --color=pointer:{foreground},marker:{foreground},header:{color3}
-    --color=border:{color8},gutter:{background}
-"
+# export FZF_DEFAULT_COLORS_PYWAL="
+#     --color=fg:{foreground},bg:{background},hl:{color3}
+#     --color=fg+:{foreground},bg+:{color8},hl+:{foreground}
+#     --color=info:{color8},prompt:{foreground},spinner:{color3}
+#     --color=pointer:{foreground},marker:{foreground},header:{color3}
+#     --color=border:{color8},gutter:{background}
+# "
 
 # Fix LS_COLORS being unreadable.
 export LS_COLORS="${{LS_COLORS}}:su=30;41:ow=30;42:st=30;44:"

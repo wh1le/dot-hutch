@@ -10,6 +10,8 @@ home/.config/qutebrowser/bookmarks/*
 home/.config/qutebrowser/modules/__pycache__
 home/.config/qutebrowser/qsettings/QtProject.conf
 
+home/.config/swaync/style.css
+
 # Block all GPG private keys
 *.key
 *.asc

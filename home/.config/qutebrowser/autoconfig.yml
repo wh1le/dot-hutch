@@ -7,8 +7,10 @@
 config_version: 2
 settings:
   content.javascript.clipboard:
+    https://chatgpt.com: access-paste
     https://claude.ai: access-paste
     https://github.com: access-paste
+    https://wiki.hypr.land: access-paste
   content.notifications.enabled:
     https://mail.proton.me: false
   content.register_protocol_handler:

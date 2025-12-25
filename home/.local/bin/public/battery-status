@@ -15,5 +15,5 @@ while true; do
     notified=0
   fi
 
-  sleep 60
+  sleep 120
 done

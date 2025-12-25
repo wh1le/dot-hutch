@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-pkill hypridle
-exec hypridle -c $HOME/.config/hypr/hypridle/hypridle-$(hostname).conf

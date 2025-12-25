@@ -17,6 +17,7 @@ require("config.copypaste")
 require("config.spell")
 require("config.system_notifications")
 require("config.lsp")
+require("config.einkify")
 
 NM.lazy.setup()
 
@@ -63,3 +64,4 @@ vim.filetype.add({
 		},
 	},
 })
+vim.o.showtabline = 1

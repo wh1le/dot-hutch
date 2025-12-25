@@ -11,6 +11,7 @@ def read_pywal():
 def apply_colors(c, config):
     wal = read_pywal()
     config.set('colors.webpage.darkmode.enabled', False, 'file://*')
+    c.colors.webpage.preferred_color_scheme = "dark"
 
     c.colors.webpage.darkmode.enabled = True
     c.colors.webpage.darkmode.policy.images = "never"
@@ -148,3 +149,9 @@ def apply_colors(c, config):
     c.colors.statusbar.url.hover.fg = "#8be9fd"  # brighter on hover
 
     return c
+
+# When called from live reload function
+try:
+    apply_colors(c, config)
+except NameError:
+    pass

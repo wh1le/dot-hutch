@@ -1,21 +1,24 @@
 source <(fzf --zsh)
 
-# export FZF_DEFAULT_OPTS="
-#   $FZF_DEFAULT_COLORS_PYWAL
-#   --style=minimal
-#   --layout=reverse
-#   --ansi 
-#   --margin=1,1,1,1 
-#   --cycle 
-#   --height=50%
-#   --color=gutter:-1,border:238,scrollbar:238 
-# 	--prompt='> '
-#   --bind esc:abort 
-#   --bind ctrl-d:preview-half-page-down 
-#   --bind ctrl-u:preview-half-page-up 
-#   --bind ctrl-f:preview-page-down 
-#   --bind ctrl-b:preview-page-up 
-# "
+# | Option         | What it colors                   | 
+# |----------------|----------------------------------|
+# | fg:7           | Normal item text                 |
+# | bg:0           | Background                       |
+# | hl:3           | Matched chars (normal)           |
+# | fg+:15         | Selected item text               |
+# | bg+:8          | Selected item background         |
+# | hl+:11         | Matched chars (selected)         |
+# | info:3         | Result count (`4/100`)           |
+# | prompt:1       | The `>` prompt                   |
+# | pointer:5      | Arrow `>` on current line        |
+# | marker:2       | Multi-select marker              |
+# | spinner:5      | Loading spinner                  |
+# | header:4       | Header text                      |
+# | gutter:-1      | Left margin                      |
+# | border:8       | Border                           |
+# | scrollbar:8    | Scrollbar                        |
+
+
 export FZF_DEFAULT_OPTS="
   --style=minimal
   --layout=reverse
@@ -23,10 +26,12 @@ export FZF_DEFAULT_OPTS="
   --margin=1,1,1,1 
   --cycle 
   --height=50%
-  --color=fg:7,bg:0,hl:1
-  --color=fg+:15,bg+:8,hl+:1
+  --color=hl:3,hl+:11
+  --color=fg:7,bg:2
+  --color=fg+:15,bg+:8
   --color=info:3,prompt:1,pointer:5
-  --color=marker:2,spinner:5,header:4
+  --color=marker:2,spinner:5
+  --color=header:15,bg:0
   --color=gutter:-1,border:8,scrollbar:8
   --prompt='> '
   --bind esc:abort 
@@ -50,7 +55,6 @@ export FZF_CTRL_R_OPTS="
 "
 
 # export FZF_CTRL_R_OPTS="
-#   $FZF_DEFAULT_COLORS_PYWAL
 #   --style=minimal
 #   --info=inline
 #   --no-sort

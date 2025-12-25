@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-direction=$1
-
-floating=$(hyprctl activewindow -j | jq -r '.floating')
-
-if [ "$floating" = "true" ]; then
-  hyprctl dispatch focuswindow tiled
-fi

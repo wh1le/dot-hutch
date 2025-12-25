@@ -7,7 +7,7 @@ swww-daemon
 sleep 1
 swww img -o eDP-1 ~/.current_wallpaper
 
-if $HOME/.local/bin/public/monitors/paperlike-connected; then
-  swww img --outputs $(../monitors/paperlike-input-name) --transition-type none "$EINK_DEFAULT_WALLPAPER"
+if $HOME/.local/bin/public/eink/paperlike-connected; then
+  swww img --outputs $($HOME/.local/bin/public/eink/paperlike-input-name) --transition-type none "$EINK_DEFAULT_WALLPAPER"
 fi
 echo "wallpaper set"

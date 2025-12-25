@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+is_eink=$1
+eink_colors="$HOME/.config/qutebrowser/modules/eink_colors.py"
+rgb_colors="$HOME/.config/qutebrowser/modules/colors.py"
+
+if $is_eink; then
+  qutebrowser ":config-source $eink_colors"
+else
+  qutebrowser ":config-source $rgb_colors"
+fi

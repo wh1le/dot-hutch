@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+hyprctl monitors -j | jq -e '.[] | select(.description | contains("Paperlike"))' >/dev/null && echo true || echo false
