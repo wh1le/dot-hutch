@@ -1,0 +1,109 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+(
+  default_album_art_path: None,
+  draw_borders: false,
+  show_song_table_header: false,
+  symbols: (song: "🎵", dir: "📁", playlist: "🎼", marker: "\u{{e0b0}}"),
+  layout: Split(
+    direction: Vertical,
+    panes: [
+    (
+      pane: Pane(Header),
+      size: "1",
+    ),
+    (
+      pane: Pane(TabContent),
+      size: "100%",
+    ),
+    (
+      pane: Pane(ProgressBar),
+      size: "1",
+    ),
+    (
+      pane: Pane(Tabs),
+      size: "1",
+    ),
+    ],
+  ),
+  cava: (
+    bar_width: 2,
+    bar_spacing: 1,
+    orientation: Bottom,
+    bar_color: Single("{color5}"),
+  ),
+  progress_bar: (
+    symbols: ["", "", "⭘", "-", "-"],
+    track_style: (bg: "{color0}"),
+    elapsed_style: (fg: "{color5}", bg: "{color0}"),
+    thumb_style: (fg: "{color5}", bg: "{color0}"),
+  ),
+  scrollbar: (
+    symbols: ["│", "█", "▲", "▼"],
+    track_style: (),
+    ends_style: (),
+    thumb_style: (fg: "{color4}"),
+  ),
+  browser_column_widths: [1, 38, 42],
+  text_color: "{foreground}",
+  background_color: "{background}",
+  header_background_color: "{color0}",
+  modal_background_color: "{background}",
+  modal_backdrop: false,
+  tab_bar: (active_style: (fg: "{background}", bg: "{color5}", modifiers: "Bold"), inactive_style: ()),
+  borders_style: (fg: "{color8}"),
+  highlighted_item_style: (fg: "{color5}", modifiers: "Bold"),
+  current_item_style: (fg: "{background}", bg: "{color4}", modifiers: "Bold"),
+  highlight_border_style: (fg: "{color4}"),
+  song_table_format: [
+  (
+      prop: (kind: Property(Artist), style: (fg: "{color4}"), default: (kind: Text("Unknown"))),
+      width: "50%",
+      alignment: Right,
+    ),
+  (
+      prop: (kind: Text("-"), style: (fg: "{color4}"), default: (kind: Text("Unknown"))),
+      width: "1",
+      alignment: Center,
+    ),
+  (
+      prop: (kind: Property(Title), style: (fg: "{color6}"), default: (kind: Text("Unknown"))),
+      width: "50%",
+    ),
+  ],
+  header: (
+    rows: [
+    (
+        left: [
+        (kind: Text("["), style: (fg: "{color4}", modifiers: "Bold")),
+        (kind: Property(Status(State)), style: (fg: "{color4}", modifiers: "Bold")),
+        (kind: Text("]"), style: (fg: "{color4}", modifiers: "Bold"))
+        ],
+        center: [
+        (kind: Property(Song(Artist)), style: (fg: "{color3}", modifiers: "Bold"),
+            default: (kind: Text("Unknown"), style: (fg: "{color3}", modifiers: "Bold"))
+          ),
+        (kind: Text(" - ")),
+        (kind: Property(Song(Title)), style: (fg: "{color6}", modifiers: "Bold"),
+            default: (kind: Text("No Song"), style: (fg: "{color6}", modifiers: "Bold"))
+          )
+        ],
+        right: [
+          (kind: Text("🔊 "), style: (fg: "{color4}")),
+          (kind: Property(Status(Volume)), style: (fg: "{color4}", modifiers: "Bold")),
+          (kind: Text("% "), style: (fg: "{color4}", modifiers: "Bold")),
+          (kind: Text(" | "), style: (fg: "{color8}")),
+          (kind: Text(" 🔁"), style: (fg: "{color8}")),
+          (kind: Property(Status(Repeat)), style: (fg: "{color2}")),
+          (kind: Text(" 🔀"), style: (fg: "{color8}")),
+          (kind: Property(Status(Random)), style: (fg: "{color2}")),
+          (kind: Text(" 🔂"), style: (fg: "{color8}")),
+          (kind: Property(Status(Single)), style: (fg: "{color2}")),
+          (kind: Text(" 🗑"), style: (fg: "{color8}")),
+          (kind: Property(Status(Consume)), style: (fg: "{color2}")),
+        ]
+      )
+    ],
+  ),
+)
