@@ -38,7 +38,7 @@ ConfigFile(
       ),
     },
     navigation: {
-      "d": Delete,
+      "D": Delete(kind: Modal(title: "Delete?", description: "Are you sure?")),
       "A": Save(kind: Modal(all: true, duplicates_strategy: Ask)),
     },
   ),
