@@ -18,6 +18,14 @@ local light_gray_color = "#D3D3D3"
 local gray_color = "#D3D3D3"
 local gray = "#BEBEBE"
 
+local black_color = 0
+local white_color = 7
+local old_lace_color = 15
+local gray95_color = 8
+local light_gray_color = 7
+local gray_color = 7
+local gray = 8
+
 local function hl(grp, spec)
 	vim.api.nvim_set_hl(0, grp, spec)
 end
@@ -25,7 +33,7 @@ end
 -- For newbies: fg is text, bg is background color
 
 vim.o.background = "light"
-vim.o.termguicolors = true
+-- vim.o.termguicolors = true
 -- vim.g.base16colorspace = 256
 -- vim.cmd("syntax sync minlines=256")
 -- vim.env.TERM = "tmux-256color" -- Needs to be removed, because it should be set either by wezterm or tmux

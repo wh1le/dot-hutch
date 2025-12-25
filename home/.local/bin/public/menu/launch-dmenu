@@ -19,7 +19,7 @@ env \
   KITTY_LAUNCHER_CLASS="$KITTY_LAUNCHER_CLASS" \
   OUTPUT_FILE="$output_file" \
   INPUT_FILE="$input_file" \
-  kitty -o font_size=13 \
+  $HOME/.local/bin/public/applications/kitty-eink -o font_size=13 \
   --class launcher \
   bash -c "
     source '$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options'

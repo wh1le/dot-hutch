@@ -6,5 +6,5 @@ function helper-git-diff() {
     -c color.ui=always \
     diff --include-untracked $1 $2 | diff-so-fancy --no-strip-leading-symbols | $PAGER
 }
-
-alias gd='helper-git-diff'
+#
+# alias gd='helper-git-diff'

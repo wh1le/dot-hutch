@@ -1,23 +1,6 @@
 source <(fzf --zsh)
 
-# | Option         | What it colors                   | 
-# |----------------|----------------------------------|
-# | fg:7           | Normal item text                 |
-# | bg:0           | Background                       |
-# | hl:3           | Matched chars (normal)           |
-# | fg+:15         | Selected item text               |
-# | bg+:8          | Selected item background         |
-# | hl+:11         | Matched chars (selected)         |
-# | info:3         | Result count (`4/100`)           |
-# | prompt:1       | The `>` prompt                   |
-# | pointer:5      | Arrow `>` on current line        |
-# | marker:2       | Multi-select marker              |
-# | spinner:5      | Loading spinner                  |
-# | header:4       | Header text                      |
-# | gutter:-1      | Left margin                      |
-# | border:8       | Border                           |
-# | scrollbar:8    | Scrollbar                        |
-
+# https://minsw.github.io/fzf-color-picker/
 
 export FZF_DEFAULT_OPTS="
   --style=minimal
@@ -26,12 +9,12 @@ export FZF_DEFAULT_OPTS="
   --margin=1,1,1,1 
   --cycle 
   --height=50%
-  --color=hl:3,hl+:11
-  --color=fg:7,bg:2
-  --color=fg+:15,bg+:8
+  --color=fg:2,fg+:4
+  --color=hl:3:bold,hl+:3:bold
+  --color=bg:-1,bg+:1
   --color=info:3,prompt:1,pointer:5
   --color=marker:2,spinner:5
-  --color=header:15,bg:0
+  --color=header:15
   --color=gutter:-1,border:8,scrollbar:8
   --prompt='> '
   --bind esc:abort 

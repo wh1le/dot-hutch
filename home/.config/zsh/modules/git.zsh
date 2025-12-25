@@ -29,8 +29,6 @@ function helper-git-diff() {
     diff $1 $2 | diff-so-fancy --no-strip-leading-symbols | $PAGER
 }
 
-alias gd='helper-git-diff'
-
 # Git
 alias g=git
 alias gl="git log --oneline"
@@ -38,3 +36,7 @@ alias gs='git status'
 alias gc='git checkout'
 alias gr='git rebase -i'
 alias gh='helper-git-history'
+
+gd() {
+  git diff --color=always "$@" | $PAGER
+}

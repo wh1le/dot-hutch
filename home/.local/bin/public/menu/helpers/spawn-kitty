@@ -2,9 +2,21 @@
 
 set -euo pipefail
 
+get_current_monitor_is_eink() {
+  local monitor_name=$(hyprctl activeworkspace -j | jq -r '.monitor')
+  local monitor_desc=$(hyprctl monitors -j | jq -r --arg name "$monitor_name" '.[] | select(.name == $name) | .description')
+  [[ "$monitor_desc" =~ [Dd]asung|[Pp]aperlike ]]
+}
+
 spawn-kitty() {
   if [ -n "$KITTY_LAUNCHER_SOCKET_PATH" ] && [ -S "$KITTY_LAUNCHER_SOCKET_PATH" ]; then
     kitty @ --to "unix:$KITTY_LAUNCHER_SOCKET_PATH" close-window
+  fi
+
+  if get_current_monitor_is_eink; then
+    theme="-o include=$HOME/.cache/wal/eink-kitty-theme.conf"
+  else
+    theme=""
   fi
 
   env \
@@ -14,6 +26,7 @@ spawn-kitty() {
     kitty -o allow_remote_control=yes \
     --listen-on "unix:${KITTY_LAUNCHER_SOCKET_PATH}" \
     -o font_size=13 \
+    $theme \
     --single-instance \
     --class launcher \
     zsh -lc "exec $1"

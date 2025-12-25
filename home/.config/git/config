@@ -1,10 +1,32 @@
+[core]
+  excludesfile = ~/.config/git/ignore
+  # pager = nvimpager
+
 [user]
   name = "wh1le"
   email = "nmiloserdov@proton.me"
   signingkey = 653068EC5157A4C0
 
+[pull]
+  rebase = true
+
 [commit]
   gpgsign = false
 
-[core]
-  excludesfile = ~/.config/git/ignore
+[color "status"]
+  added = 2
+  changed = 3
+  untracked = 2
+  deleted = 0
+
+[color "branch"]
+  current = 2
+  local = 4
+  remote = 1
+
+[color]
+  ui = always
+  pager = true
+  diff = always
+  status = always
+  branch = always

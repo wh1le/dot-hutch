@@ -251,7 +251,7 @@ local function apply_eink()
 	-- For newbies: fg is text, bg is background color
 
 	vim.o.background = "light"
-	vim.o.termguicolors = true
+	-- vim.o.termguicolors = true
 	-- vim.g.base16colorspace = 256
 	-- vim.cmd("syntax sync minlines=256")
 	-- vim.env.TERM = "tmux-256color" -- Needs to be removed, because it should be set either by wezterm or tmux
