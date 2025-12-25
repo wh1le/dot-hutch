@@ -45,5 +45,7 @@ pywalfox update
 echo "firefox reloaded"
 
 qutebrowser --target=auto ':config-source'
-
 echo "qutebrowser reloaded"
+
+touch ~/.config/rmpc/config.ron
+echo "rmpc reloaded"
