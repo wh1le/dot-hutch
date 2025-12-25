@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+HYPRLAND_SOCKET="${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock"
+
+[[ ! -S "$HYPRLAND_SOCKET" ]] && HYPRLAND_SOCKET=/tmp/hypr/*/.socket2.sock
+
+toggle_apps_colors() {
+  local initial_title=$1
+  local is_eink=$2
+  local pid=$3
+
+  case "$initial_title" in
+  kitty)
+    $HOME/.local/bin/public/eink/einkify/kitty "$pid" "$is_eink"
+    ;;
+  *qutebrowser*)
+    $HOME/.local/bin/public/eink/einkify/qutebrowser "$is_eink"
+    ;;
+  swaync)
+    $HOME/.local/bin/public/eink/einkify/swaync "$is_eink"
+    ;;
+  esac
+}
+
+move_window_event() {
+  local line="$1"
+  local window_addr="${line#*>>}"
+  window_addr="${window_addr%%,*}"
+  local window_info=$(hyprctl clients -j | jq -r --arg addr "0x$window_addr" '.[] | select(.address == $addr)')
+  local initial_title=$(jq -r '.initialTitle' <<<"$window_info")
+  local window_class=$(jq -r '.class' <<<"$window_info")
+  local monitor_id=$(jq -r '.monitor' <<<"$window_info")
+  local pid=$(jq -r '.pid' <<<"$window_info")
+  local monitor_name=$(hyprctl monitors -j | jq -r --argjson id "$monitor_id" '.[] | select(.id == $id) | .description')
+  local is_eink=false
+  [[ "$monitor_name" =~ [Dd]asung|[Pp]aperlike ]] && is_eink=true
+
+  toggle_apps_colors "$initial_title" "$is_eink" "$pid"
+}
+
+monitor_added() {
+  $HOME/.local/bin/public/eink/paperlike-input-name &>/dev/null || return
+  local line="$1"
+  local is_eink=true
+  local monitor_name="${line#*>>}"
+
+  toggle_apps_colors "qutebrowser" "$is_eink"
+  toggle_apps_colors "swaync" "$is_eink"
+
+  local monitor_id=$(hyprctl monitors -j | jq -r --arg name "$monitor_name" '.[] | select(.name == $name) | .id')
+  hyprctl clients -j | jq -r --argjson mon "$monitor_id" '.[] | select(.initialTitle == "kitty" and .monitor == $mon) | .pid' | while read -r pid; do
+    toggle_apps_colors "kitty" "$is_eink" "$pid"
+  done
+}
+
+monitor_removed() {
+  local is_eink=false
+
+  toggle_apps_colors "qutebrowser" "$is_eink"
+  toggle_apps_colors "swaync" "$is_eink"
+
+  hyprctl clients -j | jq -r '.[] | select(.initialTitle == "kitty") | .pid' | while read -r pid; do
+    toggle_apps_colors "kitty" "$is_eink" "$pid"
+  done
+}
+
+socat -u UNIX-CONNECT:"$HYPRLAND_SOCKET" - | while read -r line; do
+  [[ ! "$line" =~ ^(movewindow|monitoradded|monitorremoved)\>\> ]] && continue
+
+  event="${line%%>>*}"
+
+  case "$event" in
+  movewindow)
+    move_window_event "$line"
+    ;;
+  monitoradded)
+    monitor_added "$line"
+    ;;
+  monitorremoved)
+    monitor_removed "$line"
+    ;;
+  esac
+done

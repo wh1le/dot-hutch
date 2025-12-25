@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# ~/.config/hypr/modules/hosts/homepc.conf
+# ~/.config/hypr/modules/hosts/thinkpad.conf
+
+hyprctl keyword source ~/.config/hypr/modules/hosts/$(hostname).conf
