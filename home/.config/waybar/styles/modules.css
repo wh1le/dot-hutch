@@ -1,0 +1,84 @@
+.big .module.active,
+.default .module.active {
+  color: @color1;
+}
+
+#system_group .module:hover,
+#temperature:hover,
+#custom-language:hover,
+#custom-openvpn:hover,
+#workspaces button:hover {
+  color: @active;
+}
+
+.module#custom-logo,
+.module#custom-notification {
+  color: @active;
+}
+
+.module {
+  opacity: 0.8;
+  border-radius: 4px;
+  padding: 0px 10px 0px 10px;
+  background: @background;
+}
+
+.module#submap {
+  color: @color5;
+}
+
+.module#custom-mic_used_by_app {
+  color: black;
+  background-color: @color5;
+  border: none;
+}
+
+.module#submap {
+  padding: 2px 5px;
+  border: 2px solid @color5;
+}
+
+#workspaces button {
+  margin: 0 -1px;
+  padding-left: 3px;
+  padding-right: 3px;
+
+  color: inherit;
+  box-shadow: none;
+  transition: none;
+  background: transparent;
+  background-color: transparent;
+}
+
+#workspaces button.active {
+  padding-left: 0px;
+  color: @active;
+}
+
+/* padding-fixes */
+
+#custom-logo {
+  padding-left: 13px;
+  margin-left: 4px;
+}
+
+#custom-power {
+  padding-right: 15px;
+}
+
+.module#custom-mic_used_by_app,
+.module#battery,
+.module#custom-openvpn {
+  padding-left: 8px;
+}
+
+.module#custom-weather {
+  padding-right: 5;
+}
+.module#custom-surf {
+  padding-left: 0px;
+}
+
+.module#custom-logo {
+  padding: 0px 18px 0px 10px;
+}

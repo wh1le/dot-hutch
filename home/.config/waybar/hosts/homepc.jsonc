@@ -7,9 +7,8 @@
     "position": "top",
     "modules-left": [
       "custom/logo",
-      "hyprland/workspaces#eink",
+      "hyprland/workspaces#homepc",
 			"group/status_group",
-      // "hyprland/workspaces#app_tray",
       "hyprland/submap",
       "custom/mic_used_by_app",
     ],
@@ -24,6 +23,8 @@
       "custom/date_neuro",
       "custom/date_month",
       "custom/date_time",
+      "custom/notification",
+      "custom/power"
     ],
     "include": [
       "~/.config/waybar/modules/custom.jsonc",
@@ -40,7 +41,7 @@
     "position": "top",
     "modules-left": [
       "custom/logo",
-      "hyprland/workspaces#main",
+      "hyprland/workspaces#homepc",
 			"group/status_group",
       // "hyprland/workspaces#app_tray",
       "hyprland/submap",
@@ -57,6 +58,8 @@
       "custom/date_neuro",
       "custom/date_month",
       "custom/date_time",
+      "custom/notification",
+      "custom/power"
     ],
     "include": [
       "~/.config/waybar/modules/custom.jsonc",

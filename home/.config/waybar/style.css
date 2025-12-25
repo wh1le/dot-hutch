@@ -1,12 +1,14 @@
 @import url("/home/wh1le/.cache/wal/colors-waybar.css");
 
-@import url("/home/wh1le/.config/waybar/styles/big.css");
-@import url("/home/wh1le/.config/waybar/styles/eink.css");
-
 @define-color background #1e1e2e;
-
 @define-color active @color1;
 @define-color icon @color1;
+
+@import url("/home/wh1le/.config/waybar/styles/modules.css");
+@import url("/home/wh1le/.config/waybar/styles/groups.css");
+
+@import url("/home/wh1le/.config/waybar/styles/big.css");
+@import url("/home/wh1le/.config/waybar/styles/eink.css");
 
 * {
   font-family: "Iosevka Nerd Font", "Twitter Color Emoji";
@@ -17,37 +19,18 @@
   background: transparent;
 }
 
-window {
-  padding: 5px;
-}
-
-window#waybar {
-  padding: 4px 0;
-}
-
 window#waybar.default,
 window#waybar.big {
   color: @foreground;
   background-color: alpha(#0a080e, 0.8);
 }
 
-window#waybar.default,
-window#waybar.big #status_group,
-window#waybar #system_group,
-window#waybar #custom-language,
-window#waybar #temperature {
-  color: @icon;
+window {
+  padding: 5px;
 }
 
-.module.active {
-  color: @color1;
-}
-
-window#waybar.default,
-window#waybar.big .modules-left,
-.modules-center,
-.modules-right {
-  color: @foreground;
+window#waybar {
+  padding: 4px 0;
 }
 
 window#waybar > box {
@@ -58,144 +41,7 @@ window#waybar > box {
 
 tooltip {
   background-color: #1e1e2e;
-}
-
-#weather_group,
-#power_group,
-#system_group,
-#status_group {
-  background: #1e1e2e;
-  border-radius: 4px;
-  padding: 0 0px;
-  padding-right: 2px;
-  min-width: 0;
-}
-
-#status_group.empty {
-  background: none;
-}
-
-.module {
-  opacity: 0.8;
-  border-radius: 4px;
-  padding: 0px 10px 0px 10px;
-  background: @background;
-}
-
-.big .module {
-  opacity: 0.8;
-  border-radius: 4px;
-  padding: 0px 10px 0px 10px;
-  background: @background;
-}
-
-/* padding right fixes */
-.module#custom-logo {
-  padding: 0px 18px 0px 10px;
-  color: @active;
-}
-
-.module#battery {
-  padding-left: 8px;
-}
-
-.module#custom-weather {
-  padding-right: 5;
-}
-.module#custom-surf {
-  padding-left: 0px;
-}
-
-/* general settings */
-
-tooltip {
   opacity: 0.8;
   padding-top: 20px;
   border-radius: 5px;
-}
-
-/* .module#workspaces.main { */
-/*   padding: 0px 5px 0px 5px; */
-/* } */
-
-#workspaces button {
-  margin: 0 -1px;
-  padding-left: 3px;
-  padding-right: 3px;
-
-  color: inherit;
-  box-shadow: none;
-  transition: none;
-  background: transparent;
-  background-color: transparent;
-}
-
-#workspaces button.active {
-  padding-left: 0px;
-  color: @active;
-}
-
-#workspaces button:hover {
-  color: @active;
-}
-
-.module#custom-mic_used_by_app {
-  color: black;
-  background-color: @color5;
-  padding: 0 8px;
-  border: none;
-}
-.module#submap {
-  color: @color5;
-  padding: 2px 5px;
-  border: 2px solid @color5;
-}
-
-#custom-notification {
-  font-family: "Iosevka Nerd Font";
-  font-size: 13px;
-  padding-right: 13px;
-}
-
-#weather_group {
-  color: @foreground;
-}
-
-#custom-notification {
-  color: @active;
-}
-
-#system_group .module:hover,
-#temperature:hover,
-#custom-language:hover,
-#custom-openvpn:hover {
-  color: @active;
-}
-
-.module#custom-openvpn {
-  padding-left: 5px;
-}
-
-.module#pulseaudio,
-.module#network,
-.module#bluetooth,
-.module#battery {
-  margin-left: 0px;
-  padding-left: 0px;
-  margin-right: 0px;
-}
-
-#system_group {
-  padding-left: 10px;
-  padding-right: 0px;
-}
-
-#custom-logo {
-  padding-left: 13px;
-  margin-left: 4px;
-}
-
-#custom-power {
-  padding-right: 13px;
-  margin-right: 4px;
 }

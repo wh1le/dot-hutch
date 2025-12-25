@@ -1,4 +1,16 @@
+@define-color muted_eink #1e1e2e;
+@define-color active_eink #1e1e2e;
+
 @define-color inactive dimgray;
+
+.eink .module#custom-notification {
+  color: white;
+  padding-right: 12px;
+}
+
+.eink .module#custom-weather {
+  color: white;
+}
 
 window#waybar.eink {
   color: @foreground;
@@ -14,6 +26,13 @@ window#waybar #temperature {
 window#waybar.eink .modules-left,
 .modules-center,
 .modules-right {
+  color: white;
+}
+
+.eink .module.active {
+  color: white;
+}
+.eink .module {
   color: white;
 }
 
@@ -37,25 +56,9 @@ window#waybar.eink .modules-left,
 }
 
 .eink window#waybar {
-  color: @foreground;
-}
-
-.eink .module#workspaces.main button.empty {
-  color: @inactive;
-}
-
-.eink .module#workspaces.main button.active {
-  color: black;
-}
-
-.eink window#waybar {
   background: black;
 }
 
 .eink .module#custom-logo {
-  color: #ffffff;
-}
-
-.eink .module#custom-weather {
-  color: #ffffff;
+  color: white;
 }

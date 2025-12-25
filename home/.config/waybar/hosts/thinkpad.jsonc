@@ -8,7 +8,7 @@
     "margin": "9px 18px 0 18px",
     "modules-left": [
       "custom/logo",
-      "hyprland/workspaces#eink",
+      "hyprland/workspaces#thinkpad",
 			"group/status_group",
       // "hyprland/workspaces#app_tray",
       "hyprland/submap",
@@ -30,7 +30,6 @@
       "~/.config/waybar/modules/custom.jsonc",
       "~/.config/waybar/modules/groups.jsonc",
       "~/.config/waybar/modules/default.jsonc",
-      "~/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc"
     ]
   },
   {
@@ -42,7 +41,7 @@
     "padding": "px",
     "modules-left": [
       "custom/logo",
-      "hyprland/workspaces#main",
+      "hyprland/workspaces#thinkpad",
 			"group/status_group",
       // "hyprland/workspaces#app_tray",
       "hyprland/submap",
@@ -67,7 +66,6 @@
       "~/.config/waybar/modules/custom.jsonc",
       "~/.config/waybar/modules/groups.jsonc",
       "~/.config/waybar/modules/default.jsonc",
-      "~/.config/waybar/generated_by_scripts/hyprland_workspaces.jsonc"
     ]
   },
 ]
