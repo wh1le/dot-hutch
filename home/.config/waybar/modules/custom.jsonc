@@ -195,7 +195,7 @@
       "10": "10"
     },
 
-    "active-only": true,
+    "active-only": false,
     "all-outputs": false,
     "persisted-only": true,
     "format": "{icon}",
@@ -225,7 +225,7 @@
       "10": "10"
     },
 
-    "active-only": true,
+    "active-only": false,
     "all-outputs": false,
     "persisted-only": true,
     "format": "{icon}",
@@ -234,7 +234,7 @@
 
     "persistent-workspaces": {
       "HDMI-A-1": [1,2,3],
-      "eDP-1": [4,5,6,7,8,9,10],
+      "eDP-1": [4,5,6,7,8,9,10]
     }
   }
 }
