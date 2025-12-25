@@ -8,6 +8,7 @@
       ps.debugpy
       ps.pygobject3
       ps.requests
+      ps.adblock
     ]))
   ];
 }
