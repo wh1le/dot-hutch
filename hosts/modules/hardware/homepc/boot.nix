@@ -39,7 +39,7 @@
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = false;
-  boot.loader.grub.configurationLimit = 10;
+  boot.loader.grub.configurationLimit = 5;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
