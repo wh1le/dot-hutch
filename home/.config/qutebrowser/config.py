@@ -20,6 +20,9 @@ apply_general(c, config)
 apply_privacy(c, config)
 apply_search_engines(c, config)
 
+# experimental
+c.qt.args = ["disable-gpu-compositing", "disable-accelerated-2d-canvas"]
+
 config.load_autoconfig()
 
 # c.url.start_pages = ""
