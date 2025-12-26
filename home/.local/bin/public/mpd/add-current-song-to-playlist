@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+read -r folder port <<<"$("$HOME"/.local/bin/public/mpd/active-servers)"
+
+[[ -z "$(mpc -p "$port" current)" ]] && exit 1
+
+playlist=$(mpc -p "$port" lsplaylists | fzf --prompt="Add to playlist: ") || exit 1
+current=$(mpc -p "$port" current -f "%file%")
+
+[[ -z "$current" ]] && echo "Nothing playing" && exit 1
+
+mpc -p "$port" playlist -f "%file%" "$playlist" | grep -qxF "$current" && echo "Already in playlist" && exit 1
+
+echo "$current" >>~/"${folder}"/mpd/playlists/"${playlist}".m3u
+
+echo "Added to ${playlist}"

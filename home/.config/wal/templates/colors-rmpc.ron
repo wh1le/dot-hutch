@@ -90,18 +90,21 @@
           )
         ],
         right: [
-          (kind: Text("🔊 "), style: (fg: "{color4}")),
           (kind: Property(Status(Volume)), style: (fg: "{color4}", modifiers: "Bold")),
           (kind: Text("% "), style: (fg: "{color4}", modifiers: "Bold")),
           (kind: Text(" | "), style: (fg: "{color8}")),
-          (kind: Text(" 🔁"), style: (fg: "{color8}")),
+          (kind: Text(" Loop: "), style: (fg: "{color8}")),
           (kind: Property(Status(Repeat)), style: (fg: "{color2}")),
-          (kind: Text(" 🔀"), style: (fg: "{color8}")),
+          (kind: Text(" | "), style: (fg: "{color8}")),
+          (kind: Text(" Random: "), style: (fg: "{color8}")),
           (kind: Property(Status(Random)), style: (fg: "{color2}")),
-          (kind: Text(" 🔂"), style: (fg: "{color8}")),
+          (kind: Text(" | "), style: (fg: "{color8}")),
+          (kind: Text(" Song Loop: "), style: (fg: "{color8}")),
           (kind: Property(Status(Single)), style: (fg: "{color2}")),
-          (kind: Text(" 🗑"), style: (fg: "{color8}")),
+          (kind: Text(" | "), style: (fg: "{color8}")),
+          (kind: Text(" 󰮯 "), style: (fg: "{color8}")),
           (kind: Property(Status(Consume)), style: (fg: "{color2}")),
+          (kind: Text("   "), style: (fg: "{color8}")),
         ]
       )
     ],

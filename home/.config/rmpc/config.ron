@@ -30,7 +30,7 @@ ConfigFile(
 ),
 
   keybinds: (
-    clear: false, // This ensures defaults are KEPT
+    clear: false,
     global: {
       "S": ExternalCommand(
         command: ["sh", "-c", "mpc lsplaylists | fzf --height 40% --reverse --header 'Add current song to:' | xargs -I {} mpc addplaylist '{}' \"$(mpc current -f %file%)\""],
@@ -38,7 +38,6 @@ ConfigFile(
       ),
     },
     navigation: {
-      "D": Delete(kind: Modal(title: "Delete?", description: "Are you sure?")),
       "A": Save(kind: Modal(all: true, duplicates_strategy: Ask)),
     },
   ),

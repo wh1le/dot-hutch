@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-read -rp "Playlist name: " name
-[[ -z "$name" ]] && exit 1
-mpc save "$name"

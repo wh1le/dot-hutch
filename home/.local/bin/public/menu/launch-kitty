@@ -20,4 +20,8 @@ if [ -z "$option" ]; then
   run spawn-kitty "$LAUNCHER_SCRIPTS_PATH/launch-tty"
 else
   run spawn-kitty "$LAUNCHER_SCRIPTS_PATH/options/$option"
+
+  if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+    kitty @ --to unix:$KITTY_LAUNCHER_SOCKET_PATH close-window
+  fi
 fi
