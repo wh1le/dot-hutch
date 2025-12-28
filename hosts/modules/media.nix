@@ -42,6 +42,8 @@
 
     pkgs.rmpc
     unstable.cava
+    pkgs.zathura
+    pkgs.imv
 
     inputs.viu-anime.packages.${pkgs.system}.default
   ];

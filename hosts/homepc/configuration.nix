@@ -55,6 +55,7 @@
 
     ../modules/cron.nix
 
+    ../modules/software/syncthing/client.nix
     ../modules/security/anti_virus.nix
     ../modules/security/gpg.nix
     ../modules/security/pass.nix

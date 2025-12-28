@@ -11,3 +11,4 @@ nix/secrets.nix
 **/*secret*
 *.gpg
 *.kbx
+secret/default.yaml

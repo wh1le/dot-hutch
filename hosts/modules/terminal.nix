@@ -43,5 +43,6 @@
     # pkgs.dooit # TODO: todos
     pkgs.astroterm
     pkgs.socat
+    pkgs.sysz
   ];
 }

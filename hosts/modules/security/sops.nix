@@ -1,23 +1,13 @@
-{
-  pkgs,
-  inputs,
-  config,
-  ...
-}:
+{ pkgs, inputs, ... }:
 {
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
-  sops.defaultSopsFile = ../../../secrets/default.yaml;
-  sops.defaultSopsFormat = "yaml";
-
+  sops.validateSopsFiles = false;
   sops.age.generateKey = false;
-  sops.age.keyFile = "/home/wh1le/.secrets/sops/age/keys.txt";
 
-  sops.secrets.openweathermap = {
-    owner = config.users.users.wh1le.name;
-    group = "users";
-    mode = "0400";
-  };
+  sops.defaultSopsFile = "/home/wh1le/.secrets/sops/nix.yaml";
+  sops.age.keyFile = "/home/wh1le/.secrets/sops/age/keys.txt";
+  sops.defaultSopsFormat = "yaml";
 
   environment.systemPackages = with pkgs; [
     sops
