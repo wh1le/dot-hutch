@@ -5,7 +5,7 @@
 export EDITOR="nvim"
 export VISUAL=nvim
 export TERMINAL="kitty"
-export BROWSER="firefox"
+export BROWSER="qutebrowser"
 
 export PAGER="nvimpager"    # colored man pages
 export MANPAGER="nvimpager" # colored man pages
@@ -28,6 +28,9 @@ _search_dirs=(
   "$HOME/Music"
   "$HOME/dot/files/home/"
 )
+
+export PASSWORD_STORE_DIR="$HOME/.secrets/passwords"
+export SOPS_AGE_KEY_FILE="$HOME/.secrets/sops/age/keys.txt"
 
 export SEARCH_DIRECTORIES_PATHS="${(j/:/)_search_dirs}"
 

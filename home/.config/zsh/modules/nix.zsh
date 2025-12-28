@@ -13,7 +13,7 @@ ns() {
     local gen=$(readlink /nix/var/nix/profiles/system | sed 's/.*-\([0-9]*\)-link/\1/')
     notify-send -i system-software-update "NixOS Build Number #${gen} Released" "$generation"
   else
-    notify-send -u critical -i dialog-error "NixOS" "Build failed"
+    notify-send -u critical --expire-time=5000 -i dialog-error "NixOS" "Build failed"
   fi
 }
 

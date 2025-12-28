@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-PASSWORDS_PATH="$HOME/.secrets/passwords"
-
-export PASSWORD_STORE_DIR="$PASSWORDS_PATH"
+export PASSWORD_STORE_DIR="$HOME/.secrets/passwords"
 
 QR_IMG="/tmp/otp_qr.png"
 trap 'rm -f "$QR_IMG"' EXIT

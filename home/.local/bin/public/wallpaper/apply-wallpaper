@@ -14,7 +14,7 @@ for monitor in $MONITORS; do
     --transition-type random \
     --transition-angle 45 \
     --resize fit \
-    --transition-duration 2 "$CHOICE"
+    --transition-duration 1 "$CHOICE"
 done
 
 ln -s -f "$CHOICE" ~/.current_wallpaper

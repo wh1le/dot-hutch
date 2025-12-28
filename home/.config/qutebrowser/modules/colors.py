@@ -29,7 +29,7 @@ def apply_colors(c, config):
     c.colors.statusbar.command.fg = wal["colors"]["color4"]  
 
     c.colors.statusbar.insert.bg = wal["colors"]["color2"]  
-    c.colors.statusbar.insert.fg = wal["colors"]["color0"]
+    c.colors.statusbar.insert.fg = "white"
 
     c.colors.statusbar.passthrough.bg = wal["colors"]["color5"]  
     c.colors.statusbar.passthrough.fg = wal["colors"]["color0"]
