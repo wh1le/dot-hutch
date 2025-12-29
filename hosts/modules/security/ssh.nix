@@ -12,4 +12,8 @@
   networking.firewall.allowedTCPPorts = [ 1234 ];
 
   programs.ssh.startAgent = true;
+  programs.ssh.extraConfig = ''
+    Host *
+      AddKeysToAgent yes
+  '';
 }

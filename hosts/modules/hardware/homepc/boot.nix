@@ -8,16 +8,16 @@
     "btusb"
   ];
 
-  boot.extraModprobeConfig = ''options hid_apple iso_layout=0 fnmode=2'';
+  boot.extraModprobeConfig = ''
+    options hid_apple iso_layout=0 fnmode=2
+  '';
 
   boot.initrd = {
     enable = true;
 
     systemd.enable = true;
 
-    kernelModules = [
-      "vmd"
-    ];
+    kernelModules = [ "vmd" ];
 
     availableKernelModules = [
       "xhci_pci" # USB3 controller (keyboards, mice, hubs)
@@ -27,15 +27,15 @@
       "usbhid" # Generic USB HID (keyboard, mouse)
       "sd_mod" # SCSI disk layer
       # "vmd" # Intel VMD / RAID path (safe to keep)
-
       # "i915"
     ];
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.timeout = 2;
+  boot.loader.systemd-boot.configurationLimit = 0;
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.timeout = 5;
 
-  # boot.loader.grub.enable = true;
+  boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = false;

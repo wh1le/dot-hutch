@@ -30,6 +30,7 @@
   services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
 
   hardware.nvidia-container-toolkit.enable = true;
+
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.open = false;
   hardware.nvidia.nvidiaSettings = true;
@@ -37,6 +38,11 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
   hardware.nvidia.powerManagement.enable = true;
   hardware.nvidia.powerManagement.finegrained = false;
+
+  virtualisation.docker = {
+    enableNvidia = true;
+  };
+
 
   hardware.nvidia.prime = {
     offload = {
