@@ -36,6 +36,7 @@ choice=$({
     --height 100% |
   cut -f2)
 
+echo "$choice"
 [[ -n "$choice" ]] && "$HOME/.local/bin/public/wallpaper/apply-wallpaper" "$choice"
 
 if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then

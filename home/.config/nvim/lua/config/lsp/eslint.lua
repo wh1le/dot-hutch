@@ -1,12 +1,9 @@
-vim.lsp.config("eslint", {
+vim.lsp.config.javascript = {
 	cmd = { "vscode-eslint-language-server", "--stdio" },
 	filetypes = {
 		"javascript",
 		"javascriptreact",
 		"javascript.jsx",
-		"typescript",
-		"typescriptreact",
-		"typescript.tsx",
 	},
 	root_markers = { ".eslintrc.json", "package.json", "tsconfig.json", ".git" },
 	-- settings = {
@@ -39,6 +36,6 @@ vim.lsp.config("eslint", {
 	-- 	validate = "on",
 	-- workingDirectory = { mode = "location" },
 	-- },
-})
+}
 
-vim.lsp.enable("eslint")
+vim.lsp.enable("javascript")

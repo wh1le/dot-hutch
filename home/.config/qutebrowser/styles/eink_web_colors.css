@@ -1,0 +1,57 @@
+html,
+body,
+body > *,
+#page,
+#content,
+main,
+.container,
+header,
+nav,
+.Header,
+.AppHeader,
+[data-color-mode] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color-scheme: light !important;
+}
+* {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-box-shadow: none !important;
+  -webkit-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+* {
+  color: #000000 !important;
+}
+a {
+  text-decoration: underline !important;
+}
+a:hover {
+  color: #000000 !important;
+}
+[data-color-mode="dark"],
+[data-dark-theme] {
+  color-scheme: light !important;
+  --color-canvas-default: #ffffff !important;
+  --color-fg-default: #000000 !important;
+}
+* {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+}
+a {
+  color: #000000 !important;
+  text-decoration: underline !important;
+}
+img,
+video,
+svg {
+  filter: grayscale(100%) contrast(1.2) !important;
+}

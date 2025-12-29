@@ -89,7 +89,14 @@ local inlayHints = {
 
 vim.lsp.config.typescript = {
 	cmd = { "typescript-language-server", "--stdio" },
-	filetypes = { "javascript", "typescript", "typescriptreact", "javascriptreact" },
+	filetypes = {
+		"javascript",
+		"typescript",
+		"typescriptreact",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+	},
 	root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
 	settings = {
 		typescript = {

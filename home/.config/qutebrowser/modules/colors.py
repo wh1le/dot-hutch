@@ -2,21 +2,43 @@ import json
 # import subprocess
 from pathlib import Path
 
+DEFAULT_USER_SCRIPTS = []
+DEFAULT_USER_STYLESHEETS = []
+USER_THEME_PATH = Path.home() / ".config/qutebrowser/styles/os_theme.css"
 
-def read_pywal():
-    wal_path = Path.home() / ".cache/wal/colors.json"
-    with open(wal_path) as f:
-        return json.load(f)
+class PyWallColors:
+    PYWAL_COLORS_PATH = Path.home() / ".cache/wal/colors.json" 
 
-def apply_colors(c, config):
-    wal = read_pywal()
-    config.set('colors.webpage.darkmode.enabled', False, 'file://*')
-    c.colors.webpage.preferred_color_scheme = "dark"
+    def __init__(self):
+        self._pywal_colors = None
 
-    c.colors.webpage.darkmode.enabled = True
-    c.colors.webpage.darkmode.policy.images = "never"
-    c.colors.webpage.darkmode.policy.page = "smart"
+    def read(self):
+        if self._pywal_colors is None:
+            with open(self.PYWAL_COLORS_PATH) as f:
+                self._pywal_colors = json.load(f)
 
+        return self._pywal_colors
+
+
+class EinkJSToggle:
+    GREASE_DIR = Path("~/.config/qutebrowser/greasemonkey").expanduser()
+    ENABLED_PATH = GREASE_DIR / "darkreader.js"
+    DISABLED_PATH = GREASE_DIR / "darkreader.js.disabled"
+
+    def enable_eink_js(self):
+        if self.ENABLED_PATH.exists():
+            return 
+        else:
+            self.DISABLED_PATH.rename(self.ENABLED_PATH)
+
+    def disable_eink_js(self):
+        if self.DISABLED_PATH.exists():
+            return
+        else:
+            self.ENABLED_PATH.rename(self.DISABLED_PATH)
+
+def browser_colors(c, config):
+    wal = PyWallColors().read()
 
     c.colors.statusbar.url.fg = wal["colors"]["color13"]
     c.colors.statusbar.url.success.https.fg = wal["colors"]["color13"]
@@ -112,18 +134,7 @@ def apply_colors(c, config):
     c.colors.webpage.darkmode.algorithm = 'lightness-cielab'
     c.colors.webpage.darkmode.policy.images = 'never'
 
-    user_css = Path("~/.config/qutebrowser/user.css").expanduser()
-
-    user_css.write_text(f"""
-    html, body, body > *, #page, #content, main, .container {{
-      background-color: {wal["special"]["background"]} !important;
-      background-image: none !important;
-    }}
-    """)
-    
-    c.content.user_stylesheets = [str(user_css)]
-
-    # Temporary override to try
+    # Temporary overrides to try
     c.colors.statusbar.url.fg = "#8be9fd"
     c.colors.statusbar.url.success.https.fg = "#8be9fd"
     c.colors.statusbar.url.hover.fg = "#bd93f9"
@@ -148,10 +159,43 @@ def apply_colors(c, config):
     c.colors.statusbar.url.success.https.fg = "#6272a4"
     c.colors.statusbar.url.hover.fg = "#8be9fd"  # brighter on hover
 
+def set_os_theme_css(c, config):
+    wal = PyWallColors().read()
+
+    user_css = Path(USER_THEME_PATH).expanduser()
+
+    user_css.write_text(f"""
+        html, body, body > *, #page, #content, main, .container {{
+          background-color: {wal["special"]["background"]} !important;
+          background-image: none !important;
+        }}
+    """)
+
+def settings(c, config):
+    config.set('colors.webpage.darkmode.enabled', False, 'file://*')
+    c.colors.webpage.darkmode.contrast = 0
+    c.colors.webpage.preferred_color_scheme = "dark"
+    c.colors.webpage.darkmode.enabled = True
+    c.colors.webpage.darkmode.policy.images = "never"
+    c.colors.webpage.darkmode.policy.page = "smart"
+
+def apply_colors(c, config):
+    browser_colors(c, config)
+    settings(c, config)
+    set_os_theme_css(c, config)
+
+    c.content.user_stylesheets = [
+        *DEFAULT_USER_STYLESHEETS,
+        str(USER_THEME_PATH)
+    ]
+
+    EinkJSToggle().disable_eink_js()
+
     return c
 
-# When called from live reload function
-try:
+# We need this to make sure script doesn't fail on startup and works with live reload
+# For example: qutebrowser ':config-source ~/.config/qutebrowser/modules/colors.py'
+try: 
     apply_colors(c, config)
 except NameError:
     pass

@@ -4,6 +4,7 @@ from modules.add_block import apply_add_block
 from modules.binds import apply_binds
 from modules.colors import apply_colors
 from modules.commands import apply_commands
+# from modules.eink_colors import apply_colors
 from modules.fonts import apply_fonts
 from modules.general import apply_general
 from modules.privacy import apply_privacy
@@ -11,6 +12,8 @@ from modules.search_engines import apply_search_engines
 
 c = c # noqa: F821
 config = config # noqa: F821
+
+config.load_autoconfig()
 
 apply_add_block(c, config)
 apply_binds(c, config)
@@ -23,6 +26,9 @@ apply_search_engines(c, config)
 
 config.load_autoconfig()
 
+# c.url.start_pages = ""
+# c.url.default_page = ""
+
 if socket.gethostname() == "thinkpad": # experimental battery optimization
     c.qt.args = [
         "ignore-gpu-blacklist", # remove if lags
@@ -31,7 +37,3 @@ if socket.gethostname() == "thinkpad": # experimental battery optimization
         "enable-accelerated-2d-canvas",
         "enable-zero-copy",
     ]
-
-
-# c.url.start_pages = ""
-# c.url.default_page = ""

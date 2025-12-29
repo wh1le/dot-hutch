@@ -1,6 +1,11 @@
 def apply_privacy(c, config):
     c.content.headers.do_not_track = True
     c.content.cookies.accept = "no-3rdparty"
+
+    c.content.notifications.enabled = False
+    c.content.register_protocol_handler = False
+    c.content.javascript.clipboard = 'access-paste'
+
     config.set("content.geolocation", False)
 
     # config.set("completion.cmd_history_max_items", 0)

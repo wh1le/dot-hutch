@@ -2,9 +2,6 @@
 set -euo pipefail
 source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
 
-wifi_if=$(nmcli -t -f DEVICE,TYPE device | grep ':wifi$' | cut -d: -f1)
-current=$(nmcli -t -f NAME,DEVICE connection show --active 2>/dev/null | awk -F: -v dev="$wifi_if" '$2==dev {print $1}')
-
 if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
   hyprctl dispatch resizeactive 100 100 &>/dev/null
   hyprctl dispatch centerwindow &>/dev/null

@@ -11,7 +11,6 @@ return {
 			["*"] = { "codespell" },
 
 			bash = { "shfmt" },
-			zsh = { "shfmt" },
 			sh = { "shfmt" },
 			nix = { "nixpkgs_fmt" },
 

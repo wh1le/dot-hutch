@@ -3,4 +3,4 @@ vim.lsp.config.yaml = {
 	filetypes = { "yaml" },
 }
 
-vim.lsp.enable("yamlls")
+vim.lsp.enable("yaml")

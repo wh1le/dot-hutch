@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+if $USER_SCRIPTS_PATH/eink/paperlike-connected; then
+  EINK_MONITOR=$($USER_SCRIPTS_PATH/eink/paperlike-input-name)
+  EINK_DEFAULT_WALLPAPER="$HOME/dot/files/assets/wallpapers/white.jpg"
+
+  swww img --outputs "$EINK_MONITOR" --transition-type none "$EINK_DEFAULT_WALLPAPER"
+fi

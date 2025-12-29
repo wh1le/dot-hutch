@@ -41,6 +41,12 @@ profile homepc_lg_rotated {
   exec $HOME/.local/bin/public/monitors/kanshi
 }
 
+profile homepc_lg_big {
+  output $LG enable transform 90 scale 2
+
+  exec $HOME/.local/bin/public/monitors/kanshi
+}
+
 profile homepc_lg {
   output $LG enable transform normal
 

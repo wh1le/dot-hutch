@@ -7,11 +7,7 @@ NM.lazy = {
 			{ import = "plugins.treesitter" },
 		}
 
-		if NM.os.are_we_under_nixos() then
-			table.insert(spec, { import = "plugins.lsp_nixos" })
-		else
-			table.insert(spec, { import = "plugins.lsp_mason" })
-		end
+		table.insert(spec, { import = "plugins.lsp" })
 
 		require("lazy").setup({
 			spec = spec,

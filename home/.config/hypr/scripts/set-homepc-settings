@@ -2,8 +2,9 @@
 
 [[ "$(hostname)" != "homepc" ]] && exit 0
 
-hyprctl keyword input:kb_model apple
-hyprctl keyword input:kb_options "ctrl:swapcaps,ctrl:nocaps,grp:win_space_toggle"
+# moved to hyprland
+# hyprctl keyword input:kb_model apple
+# hyprctl keyword input:kb_options "ctrl:swapcaps,ctrl:nocaps,grp:win_space_toggle"
 
 ssh-add ~/.ssh/nixos
 ssh-add ~/.ssh/id_rsa

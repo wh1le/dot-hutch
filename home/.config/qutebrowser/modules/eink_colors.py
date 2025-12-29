@@ -1,31 +1,38 @@
 import json
+import subprocess
 from pathlib import Path
 
+DEFAULT_USER_SCRIPTS = []
+DEFAULT_USER_STYLESHEETS = []
+EINK_WEB_COLORS_PATH = "~/.config/qutebrowser/styles/eink_web_colors.css"
 
-def read_pywal():
-    wal_path = Path.home() / ".cache/wal/colors.json"
-    with open(wal_path) as f:
-        return json.load(f)
+class EinkJSToggle:
+    GREASE_DIR = Path("~/.config/qutebrowser/greasemonkey").expanduser()
+    ENABLED_PATH = GREASE_DIR / "darkreader.js"
+    DISABLED_PATH = GREASE_DIR / "darkreader.js.disabled"
 
-def apply_colors(c, config):
-    wal = read_pywal()
-    config.set('colors.webpage.darkmode.enabled', False, 'file://*')
-    c.colors.webpage.preferred_color_scheme = "light"
-    c.colors.webpage.darkmode.contrast = 1.0
+    def enable_eink_js(self):
+        if self.ENABLED_PATH.exists():
+            return 
+        else:
+            self.DISABLED_PATH.rename(self.ENABLED_PATH)
 
-    # EINK: Disable dark mode for e-ink display
-    c.colors.webpage.darkmode.enabled = False
-    c.colors.webpage.darkmode.policy.images = "never"
-    c.colors.webpage.darkmode.policy.page = "smart"
+    def disable_eink_js(self):
+        if self.DISABLED_PATH.exists():
+            return
+        else:
+            self.ENABLED_PATH.rename(self.DISABLED_PATH)
 
-    # EINK colors
+# EINK_WEB_COLORS_PATH = Path.home() / ".config/qutebrowser/styles/eink_web_colors.css"
+
+def broser_colors(c, config):
     black = "#000000"
     white = "#ffffff"
-    light_gray = "#cccccc"
-    mid_gray = "#888888"
-    dark_gray = "#444444"
+    light_gray = "#f0f0f0"
+    mid_gray = "#F2F2F2"
+    dark_gray = "#9B9B9B"
 
-    c.colors.statusbar.url.fg = dark_gray
+    c.colors.statusbar.url.fg = black
     c.colors.statusbar.url.success.https.fg = dark_gray
     c.colors.statusbar.url.hover.fg = black
 
@@ -54,11 +61,12 @@ def apply_colors(c, config):
     c.colors.tabs.even.bg = white
     c.colors.tabs.odd.bg = white
 
-    c.colors.tabs.even.fg = mid_gray
-    c.colors.tabs.odd.fg = mid_gray
+    c.colors.tabs.even.fg = black
+    c.colors.tabs.odd.fg = black
 
-    c.colors.tabs.selected.even.bg = black
-    c.colors.tabs.selected.odd.bg = black
+    c.colors.tabs.selected.even.bg = dark_gray
+    c.colors.tabs.selected.odd.bg = dark_gray
+
     c.colors.tabs.selected.even.fg = white
     c.colors.tabs.selected.odd.fg = white
 
@@ -69,12 +77,14 @@ def apply_colors(c, config):
 
     # Pinned tabs
     c.colors.tabs.pinned.even.bg = light_gray
-    c.colors.tabs.pinned.even.fg = black
     c.colors.tabs.pinned.odd.bg = light_gray
+
+    c.colors.tabs.pinned.even.fg = black
     c.colors.tabs.pinned.odd.fg = black
 
-    c.colors.tabs.pinned.selected.even.bg = black
-    c.colors.tabs.pinned.selected.odd.bg = black
+    c.colors.tabs.pinned.selected.even.bg = dark_gray
+    c.colors.tabs.pinned.selected.odd.bg = dark_gray
+
     c.colors.tabs.pinned.selected.even.fg = white
     c.colors.tabs.pinned.selected.odd.fg = white
 
@@ -113,59 +123,82 @@ def apply_colors(c, config):
     c.colors.tooltip.bg = white
     c.colors.webpage.bg = white
 
-    # User CSS for eink
-    user_css = Path("~/.config/qutebrowser/user.css").expanduser()
+# def custom_css(c, config):
+#     user_css = Path(EINK_WEB_COLORS_PATH).expanduser()
+#
+#     user_css.write_text(f"""
+#         html, body, body > *, #page, #content, main, .container,
+#         header, nav, .Header, .AppHeader, [data-color-mode] {{
+#           background-color: #ffffff !important;
+#           background-image: none !important;
+#           color-scheme: light !important;
+#         }}
+#         * {{
+#           background-color: #ffffff !important;
+#           color: #000000 !important;
+#           border-color: #000000 !important;
+#           box-shadow: none !important;
+#           text-shadow: none !important;
+#           filter: none !important;
+#           backdrop-filter: none !important;
+#           -webkit-box-shadow: none !important;
+#           -webkit-filter: none !important;
+#           -webkit-backdrop-filter: none !important;
+#         }}
+#         * {{
+#           color: #000000 !important;
+#         }}
+#         a {{
+#           text-decoration: underline !important;
+#         }}
+#         a:hover {{
+#           color: #000000 !important;
+#         }}
+#         [data-color-mode="dark"], [data-dark-theme] {{
+#           color-scheme: light !important;
+#           --color-canvas-default: #ffffff !important;
+#           --color-fg-default: #000000 !important;
+#         }}
+#         * {{
+#           background-color: #ffffff !important;
+#           color: #000000 !important;
+#           border-color: #000000 !important;
+#         }}
+#         a {{
+#           color: #000000 !important;
+#           text-decoration: underline !important;
+#         }}
+#         img, video, svg {{
+#           filter: grayscale(100%) contrast(1.2) !important;
+#         }}
+#     """)
+#     c.content.user_stylesheets = [str(user_css)]
 
-    user_css.write_text(f"""
-        html, body, body > *, #page, #content, main, .container,
-        header, nav, .Header, .AppHeader, [data-color-mode] {{
-          background-color: #ffffff !important;
-          background-image: none !important;
-          color-scheme: light !important;
-        }}
-        * {{
-          background-color: #ffffff !important;
-          color: #000000 !important;
-          border-color: #000000 !important;
-          box-shadow: none !important;
-          text-shadow: none !important;
-          filter: none !important;
-          backdrop-filter: none !important;
-          -webkit-box-shadow: none !important;
-          -webkit-filter: none !important;
-          -webkit-backdrop-filter: none !important;
-        }}
-        * {{
-          color: #000000 !important;
-        }}
-        a {{
-          color: #444444 !important;
-          text-decoration: underline !important;
-        }}
-        a:hover {{
-          color: #000000 !important;
-        }}
-        [data-color-mode="dark"], [data-dark-theme] {{
-          color-scheme: light !important;
-          --color-canvas-default: #ffffff !important;
-          --color-fg-default: #000000 !important;
-        }}
-        * {{
-          background-color: #ffffff !important;
-          color: #000000 !important;
-          border-color: #000000 !important;
-        }}
-        a {{
-          color: #000000 !important;
-          text-decoration: underline !important;
-        }}
-        img, video, svg {{
-          filter: grayscale(100%) contrast(1.2) !important;
-        }}
-    """)
-    
-    c.content.user_stylesheets = [str(user_css)]
+def settings(c, config):
+    c.colors.webpage.darkmode.contrast = 1.0
+    c.colors.webpage.darkmode.enabled = False
+    # c.colors.webpage.darkmode.policy.images = "never"
+    c.colors.webpage.darkmode.policy.page = "smart"
+    c.colors.webpage.preferred_color_scheme = 'light'
+
+def apply_colors(c, config):
+    config.set('colors.webpage.darkmode.enabled', False, 'file://*')
+
+    broser_colors(c, config)
+    # custom_css(c, config)
+    # settings(c, config)
+
+    # c.content.user_stylesheets = [ EINK_WEB_COLORS_PATH ]
+    c.content.user_stylesheets = [ ]
+
+    EinkJSToggle().enable_eink_js()
 
     return c
 
-apply_colors(c, config)
+# We need this to make sure script doesn't fail on startup and works with live reload
+# For example: qutebrowser ':config-source ~/.config/qutebrowser/modules/colors.py'
+try: 
+    apply_colors(c, config)
+except NameError:
+    pass
+# apply_colors(c, config)

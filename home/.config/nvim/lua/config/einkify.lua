@@ -14,21 +14,21 @@ local function apply_eink()
 	-- gray70 (X11) — #B2B2B2
 	-- darkgray — #A9A9A9 (darker, included for context)
 
-	-- local black_color = "#000000"
-	-- local white_color = "#ffffff"
-	-- local old_lace_color = "#FDF5E6"
-	-- local gray95_color = "#F2F2F2"
-	-- local light_gray_color = "#D3D3D3"
-	-- local gray_color = "#D3D3D3"
-	-- local gray = "#BEBEBE"
+	local black_color = "#000000"
+	local white_color = "#ffffff"
+	local old_lace_color = "#FDF5E6"
+	local gray95_color = "#F2F2F2"
+	local light_gray_color = "#D3D3D3"
+	local gray_color = "#D3D3D3"
+	local gray = "#BEBEBE"
 
-	local black_color = 0
-	local white_color = 7
-	local old_lace_color = 15
-	local gray95_color = 8
-	local light_gray_color = 7
-	local gray_color = 7
-	local gray = 8
+	-- local black_color = 0
+	-- local white_color = 7
+	-- local old_lace_color = 15
+	-- local gray95_color = 8
+	-- local light_gray_color = 7
+	-- local gray_color = 7
+	-- local gray = 8
 
 	local function hl(grp, spec)
 		vim.api.nvim_set_hl(0, grp, spec)

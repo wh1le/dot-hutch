@@ -19,6 +19,9 @@ toggle_apps_colors() {
   swaync)
     $HOME/.local/bin/public/eink/einkify/swaync "$is_eink"
     ;;
+  *Obsidian*)
+    $HOME/.local/bin/public/eink/einkify/obsidian "$is_eink"
+    ;;
   esac
 }
 
@@ -46,6 +49,7 @@ monitor_added() {
 
   toggle_apps_colors "qutebrowser" "$is_eink"
   toggle_apps_colors "swaync" "$is_eink"
+  toggle_apps_colors "obsidian" "$is_eink"
 
   local monitor_id=$(hyprctl monitors -j | jq -r --arg name "$monitor_name" '.[] | select(.name == $name) | .id')
   hyprctl clients -j | jq -r --argjson mon "$monitor_id" '.[] | select(.initialTitle == "kitty" and .monitor == $mon) | .pid' | while read -r pid; do
@@ -58,6 +62,7 @@ monitor_removed() {
 
   toggle_apps_colors "qutebrowser" "$is_eink"
   toggle_apps_colors "swaync" "$is_eink"
+  toggle_apps_colors "obsidian" "$is_eink"
 
   hyprctl clients -j | jq -r '.[] | select(.initialTitle == "kitty") | .pid' | while read -r pid; do
     toggle_apps_colors "kitty" "$is_eink" "$pid"

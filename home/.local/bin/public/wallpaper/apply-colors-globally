@@ -41,8 +41,8 @@ echo "obsidian reloaded"
 swaync-client -rs
 echo "notifications reloaded"
 
-pywalfox update
-echo "firefox reloaded"
+# pywalfox update
+# echo "firefox reloaded"
 
 qutebrowser --target=auto ':config-source'
 echo "qutebrowser reloaded"

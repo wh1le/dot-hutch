@@ -16,11 +16,13 @@ export LAUNCHER_SCRIPTS_PATH="$HOME/.local/bin/public/menu"
 export KITTY_LAUNCHER_CLASS="launcher"
 export KITTY_LAUNCHER_SOCKET_PATH="/tmp/kitty-launcher"
 
-# export SEARCH_DIRECTORIES_PATHS="$HOME/Projects $HOME/code $HOME/obsidian $HOME/.config $HOME/dot $HOME/.local/bin"
+export PASSWORD_STORE_DIR="/home/wh1le/.secrets/passwords"
+
 _search_dirs=(
+  "/mnt"
   "$HOME/Projects"
   "$HOME/code"
-  "$HOME/obsidian"
+  "$HOME/Obsidian"
   "$HOME/.config"
   "$HOME/dot"
   "$HOME/.local/bin"

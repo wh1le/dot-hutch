@@ -4,8 +4,14 @@ is_eink=$1
 eink_colors="$HOME/.config/qutebrowser/modules/eink_colors.py"
 rgb_colors="$HOME/.config/qutebrowser/modules/colors.py"
 
+# if $is_eink; then
+#   qutebrowser ":config-source $eink_colors ;; greasemonkey-reload ;; reload ;; clear-messages"
+# else
+#   qutebrowser ":config-source $rgb_colors ;; greasemonkey-reload ;; reload ;; clear-messages"
+# fi
+
 if $is_eink; then
-  qutebrowser ":config-source $eink_colors"
+  qutebrowser ":config-source $eink_colors ;; greasemonkey-reload ;; clear-messages"
 else
-  qutebrowser ":config-source $rgb_colors"
+  qutebrowser ":config-source $rgb_colors ;; greasemonkey-reload ;; clear-messages"
 fi

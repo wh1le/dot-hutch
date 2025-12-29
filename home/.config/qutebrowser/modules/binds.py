@@ -1,7 +1,6 @@
 def apply_binds(c, config):
     # keybinding changes
     # config.bind('=', 'cmd-set-text -s :open')
-    config.bind('h', 'history')
     # config.bind('cc', 'hint images spawn sh -c "cliphist link {hint-url}"')
     # config.bind('cs', 'cmd-set-text -s :config-source')
     # config.bind('tH', 'config-cycle tabs.show multiple never')
@@ -19,6 +18,20 @@ def apply_binds(c, config):
     # config.bind("<Alt-t>", "config-cycle tabs.min_width 80 300")
 
     config.bind('M', "spawn --detach mpv --ytdl-format='bestvideo+bestaudio' {url}")
+    config.bind('<Ctrl-Shift-h>', ':open -t qute://history/')
+    config.bind('<Ctrl-m>', ':spawn --userscript view_in_mpv')
+
+    # passthrough
+    config.unbind('<Ctrl-v>')
+
+    config.unbind('d')
+    config.bind('<Ctrl-d>', ':tab-close')
+
+    config.bind(
+        '<Ctrl-a>',
+        'mode-enter insert ;; fake-key <Ctrl-a> ;; mode-leave',
+        mode='normal'
+    )
 
     # tabs
     config.bind('<Ctrl-p>', 'tab-pin ;; tab-move')
@@ -37,19 +50,13 @@ def apply_binds(c, config):
     config.bind('T', 'cmd-set-text -s :open -t {url}')
 
 
-    # passthrough
-    config.unbind('<Ctrl-v>')
-
     config.bind('<Ctrl-v>', 'mode-enter insert ;; fake-key <Ctrl-v>', mode='normal')
 
     config.bind('<Shift-Escape>', 'mode-enter passthrough')
     config.bind('<Shift-Escape>', 'mode-leave', mode='passthrough')
 
     # passwords
-    c.qt.environ = {
-        'PASSWORD_STORE_DIR': '/home/wh1le/.secrets/passwords',
-    }
-
+    c.qt.environ = { 'PASSWORD_STORE_DIR': '/home/wh1le/.secrets/passwords', }
     config.bind('<z><l>', 'spawn --userscript qute-pass --unfiltered --username-target secret --username-pattern "login: (.+)" --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
     config.bind('<z><u>', 'spawn --userscript qute-pass --unfiltered --username-only --username-target secret --username-pattern "login: (.+)" --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
     config.bind('<z><p>', 'spawn --userscript qute-pass --unfiltered --password-only --dmenu-invocation /home/wh1le/.local/bin/public/menu/launch-dmenu')
