@@ -1,20 +1,33 @@
+# Old mac leftovers
 *.DS_Store
+# Tmux
 home/.config/tmux/plugins/*
 home/.config/tmux/plugins/tpm
+
+# Zsh dumps
 home/.config/zsh/.zcompdump
+
+# Hypidle host specific config (need to have one otherwise crashing)
 home/.config/hypr/hypridle.conf
+
+# Qute browser
 home/.config/qutebrowser/__pycache__/
 home/.config/qutebrowser/user.css
 home/.config/qutebrowser/bookmarks/*
-*.sqlite
 home/.config/qutebrowser/modules/__pycache__
 home/.config/qutebrowser/qsettings/QtProject.conf
+*.sqlite
 
+# Nextcloud logs
 home/.config/Nextcloud/Logs
 
+# Sway
 home/.config/swaync/style.css
 
-# Block all GPG private keys
+# host specific settings for hyprland
+home/.config/hypr/modules/host_settings.conf
+
+# Gpg keys (just in case)
 *.key
 *.asc
 **/private-keys-v1.d/**
