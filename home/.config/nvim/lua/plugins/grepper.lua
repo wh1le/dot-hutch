@@ -5,11 +5,16 @@ return {
 		vim.g.grepper = {
 			tools = { "rg", "vimgrep", "grep", "git" }, -- Order of preference
 			rg = {
-				grepprg = "rg -H --no-heading --vimgrep --hidden",
+				grepprg = "rg -H --vimgrep --hidden -F",
+				-- -H            Always print filename (even for single file)
+				-- --no-heading  Don't group matches by file, print filename on each line
+				-- --vimgrep     Output format vim understands: file:line:col:match
+				-- --hidden      Search hidden files/dirs (dotfiles)
+				-- -F            Fixed string mode (literal match, no regex)
 			},
 			searchreg = 1, -- Use last search register
 			highlight = 1, -- Highlight matches
-			quickfix = 1, -- Use quickfix list
+			quickfix = 1,
 			open = 1, -- Auto-open quickfix
 			switch = 1, -- Switch to quickfix window
 			jump = 0, -- Don't auto-jump to first match
