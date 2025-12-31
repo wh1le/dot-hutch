@@ -24,17 +24,24 @@
 
   xdg.portal.config = {
     common = {
-      default = [ "hyprland" ];
-      # "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+      default = [ "gtk" ];
     };
     hyprland = {
-      default = [
-        "hyprland"
-        "kde"
-        "gtk"
-      ];
+      default = [ "gtk" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
+      "org.freedesktop.impl.portal.GlobalShortcuts" = [ "hyprland" ];
       "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
       "org.freedesktop.impl.portal.OpenURI" = [ "kde" ];
+      "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+      "org.freedesktop.impl.portal.AppChooser" = [ "kde" ];
+      "org.freedesktop.impl.portal.Notification" = [ "gtk" ];
+      "org.freedesktop.impl.portal.Inhibit" = [ "gtk" ];
+      "org.freedesktop.impl.portal.Access" = [ "gtk" ];
+      "org.freedesktop.impl.portal.Account" = [ "gtk" ];
+      "org.freedesktop.impl.portal.Email" = [ "gtk" ];
+      "org.freedesktop.impl.portal.Print" = [ "gtk" ];
+      "org.freedesktop.impl.portal.Background" = [ "gtk" ];
     };
   };
 
