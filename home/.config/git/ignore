@@ -6,3 +6,5 @@
 **/*secring*
 **/*secret*
 *.kbx
+.direnv/*
+.envrc

@@ -25,7 +25,7 @@
   remote = 1
 
 [color]
-  ui = always
+  ui = auto
   pager = true
   diff = always
   status = always
