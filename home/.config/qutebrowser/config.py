@@ -26,6 +26,10 @@ apply_search_engines(c, config)
 
 config.load_autoconfig()
 
+config.set('input.insert_mode.auto_enter', False)
+config.set('input.insert_mode.auto_leave', False)
+config.set('input.insert_mode.leave_on_load', False)
+
 # c.url.start_pages = ""
 # c.url.default_page = ""
 
