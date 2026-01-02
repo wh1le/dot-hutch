@@ -1,38 +1,9 @@
 { modulesPath, pkgs, unstable, inputs, ... }:
+
 {
   system.stateVersion = "25.11";
   networking.hostName = "thinkpad";
 
-  environment.systemPackages = with pkgs; [
-    below
-    nethack
-    oxker # docker
-    ctop
-    gum
-    gophertube # https://github.com/krishnassh/gophertube
-    # botany
-    cbonsai
-    # bonsai
-    brogue-ce
-    tty-solitaire
-    tabiew # https://github.com/shshemi/tabiew
-    inputs.h-m-m.packages.${pkgs.system}.default # https://github.com/nadrad/h-m-m
-    moon-buggy
-
-    abook
-    mutt # TODO: Mail client
-
-    # mopidy
-    # mopidy-soundcloud
-    # pyradio
-    manga-tui
-    # https://github.com/eklairs/tlock
-    wego
-    # unstable.wifitui
-    nemu # qemu
-    lnav
-    genact
-  ];
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ] ++ [
@@ -59,7 +30,6 @@
     ../modules/nix/nixpkgs.nix
   ] ++ [
     # system
-    ../modules/cron.nix
     ../modules/filesystem.nix
     ../modules/languages.nix
     ../modules/locales.nix
@@ -83,7 +53,7 @@
     ../modules/security/encryption.nix
     # ../modules/security/network_dnscrypt-proxy2.nix
   ] ++ [
-    # Window Manager
+    # Hyprland
     ../modules/desktop/greetd.nix
     ../modules/desktop/wayland/notifications.nix
     ../modules/desktop/wayland/uwsm.nix

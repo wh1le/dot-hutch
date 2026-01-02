@@ -46,5 +46,6 @@
     pkgs.imv
 
     inputs.viu-anime.packages.${pkgs.system}.default
+    pkgs.gophertube # https://github.com/krishnassh/gophertube
   ];
 }

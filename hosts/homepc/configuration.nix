@@ -3,38 +3,6 @@
   system.stateVersion = "25.05";
   networking.hostName = "homepc";
 
-  environment.systemPackages = with pkgs; [
-    below
-    nethack
-    oxker # docker
-    ctop
-    gum
-    gophertube # https://github.com/krishnassh/gophertube
-    # botany
-    cbonsai
-    # bonsai
-    brogue-ce
-    tty-solitaire
-    tabiew # https://github.com/shshemi/tabiew
-    inputs.h-m-m.packages.${pkgs.system}.default # https://github.com/nadrad/h-m-m
-    moon-buggy
-
-    abook
-    mutt # TODO: Mail client
-
-    # mopidy
-    # mopidy-soundcloud
-    # pyradio
-    manga-tui
-    # https://github.com/eklairs/tlock
-    wego
-    # unstable.wifitui
-    nemu # qemu
-    lnav
-    genact
-  ];
-
-
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
