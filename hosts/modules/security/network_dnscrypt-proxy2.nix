@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
-
+{ pkgs, lib, ... }:
 {
   networking = {
     nameservers = [

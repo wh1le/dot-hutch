@@ -109,7 +109,10 @@
     ../modules/fonts.nix
     ../modules/media.nix
     ../modules/trash.nix
-
+  ] ++ [
+    # Common
+    ../common/default.nix
+  ] ++ [
     ../modules/desktop/greetd.nix
     ../modules/desktop/wayland/notifications.nix
     ../modules/desktop/wayland/uwsm.nix

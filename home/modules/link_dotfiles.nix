@@ -28,6 +28,7 @@ in
     fi
 
     ln -sfn $destination/home/.zprofile ${home}/.zprofile
+    ln -sfn $destination/home/.zprofile ${home}/.profile # need this to propagate env variables to hyprland session so I can have env variibles on auto-start
     ln -sfn $destination/home/.zshenv ${home}/.zshenv
 
     mkdir -p "${home}/.local/bin"

@@ -9,9 +9,8 @@
     };
   };
 
-  # ensures the screen is cleared before tuigreet starts
   systemd.services.greetd.serviceConfig = {
-    Type = "idle"; # Wait for other services to finish logging
+    Type = "idle";
     StandardOutput = "tty";
   };
 }
