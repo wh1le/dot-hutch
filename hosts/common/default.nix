@@ -1,6 +1,7 @@
 { PUBLIC, pkgs, unstable, inputs, ... }: {
 
   environment.systemPackages = with pkgs; [
+    nemo
     below
     nethack
     oxker # docker
