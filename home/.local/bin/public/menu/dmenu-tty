@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$HOME/.local/bin/public/menu/helpers/fzf-with-options"
+
+input=$(cat)
+
+[ -z "$input" ] && exit 0
+
+selected=$(echo "$input" | fzf-with-options --prompt='-> ' --no-multi)
+
+echo "$selected"
+
+exit 0

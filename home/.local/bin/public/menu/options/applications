@@ -2,4 +2,10 @@
 
 set -euo pipefail
 
-sway-launcher-desktop
+j4-dmenu-desktop --dmenu "$HOME/.local/bin/public/menu/dmenu-tty" \
+  --wrapper="uwsm app --" \
+  --log-level=ERROR 2>/dev/null
+
+disown
+
+exit 0
