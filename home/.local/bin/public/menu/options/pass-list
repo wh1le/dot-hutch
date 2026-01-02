@@ -4,8 +4,7 @@ set -euo pipefail
 
 source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
 
-export PASSWORD_STORE_DIR="$HOME/.secrets/passwords"
-export GPG_TTY=$(tty)
+# export GPG_TTY=$(tty)
 
 PRIVATE_MODE=false
 

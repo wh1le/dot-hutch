@@ -7,7 +7,7 @@ source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
 # ["󰗽  Logout"]="hyprctl dispatch exit"
 declare -A actions=(
   ["󰌾  Lock"]="hyprlock"
-  ["󰗽  Logout"]="uwsm stop"
+  ['󰗽  Logout']='uwsm stop'
   ["󰤄  Suspend"]="systemctl suspend"
   ["󰒲  Hibernate"]="systemctl hibernate"
   ["󰜉  Reboot"]="systemctl reboot"

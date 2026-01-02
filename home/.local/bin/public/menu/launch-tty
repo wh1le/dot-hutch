@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
-
-source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
-
-SCRIPT_DIR="$LAUNCHER_SCRIPTS_PATH/options"
-
 declare -A OPTIONS=(
   ["󰣆 Applications"]="applications"
   [" 2FA OTP"]="pass-otp"
@@ -50,7 +44,7 @@ fi
 if [[ "$key" == /* ]]; then
   script="$key"
 else
-  script="${SCRIPT_DIR}/${key}"
+  script="${KITTY_LAUNCHER_SCRIPTS_PATH}/${key}"
 fi
 
 if [[ -x "$script" ]]; then

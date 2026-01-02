@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-: "${LAUNCHER_SCRIPTS_PATH:=$HOME/.local/bin/public/menu}"
-: "${KITTY_LAUNCHER_CLASS:=launcher}"
-: "${KITTY_LAUNCHER_SOCKET_PATH:=/tmp/kitty-launcher}"
-
 source "$LAUNCHER_SCRIPTS_PATH/helpers/spawn-kitty"
 
 run() {
