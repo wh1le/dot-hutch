@@ -2,6 +2,9 @@
 
 hostname | grep -qE "(thinkpad|laptop)" || exit 0
 
+# Not working right now
+exit 0
+
 upower --monitor | while read -r line; do
   while IFS= read -r card; do
     [[ -z "$card" ]] && continue
