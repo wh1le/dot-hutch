@@ -10,10 +10,15 @@
     qemu = {
       package = pkgs.qemu_kvm;
       swtpm.enable = true;
+      ovmf.enable = true;
     };
   };
 
+  # users.users.wh1le.extraGroups = [ "libvirtd" "kvm" "qemu-libvirtd" ];
+  users.users.wh1le.extraGroups = [ "kvm" ];
+
   environment.systemPackages = with pkgs; [
+    qemu_kvm
     samba
     libvirt
     qemu

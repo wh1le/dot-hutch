@@ -9,13 +9,20 @@
     "pcie_aspm=force" # Helps AMD power saving
     "amd_pstate=active" # Enable kernel features for power monitoring
     "initcall_debug" # Helps debug if drivers fail to load
+    # "amd_iommu=on"
+    # "iommu=pt"
   ];
 
   boot.kernel.sysctl = {
     "kernel.perf_event_paranoid" = -1; # Unlock the kernel stats for powertop 
   };
 
-  boot.kernelModules = [ "hid_apple" "kvm-amd" "btusb" "thinkpad_acpi" ];
+  boot.kernelModules = [
+    "hid_apple"
+    "kvm-amd"
+    "btusb"
+    "thinkpad_acpi"
+  ];
 
   boot.extraModulePackages = [ ];
 
