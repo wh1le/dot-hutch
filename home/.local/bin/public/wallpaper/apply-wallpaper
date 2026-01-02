@@ -3,8 +3,16 @@
 set -e
 
 WALLPAPERS_PATH=~/dot/wallpapers/default-collection
+CURRENT_WALLPAPER="$HOME/.current_wallpaper"
 
-CHOICE="$1"
+CHOICE="${1:-$CURRENT_WALLPAPER}"
+
+echo "$CHOICE"
+
+if [[ ! -e "$CHOICE" ]]; then
+  echo "No wallpaper set yet! Pick something fancy: $(basename "$0") /path/to/image"
+  exit 0
+fi
 
 MONITORS=$(hyprctl monitors -j | jq -r '.[] | select(.description | contains("Paperlike") | not) | "\(.name):\(.transform)"')
 
@@ -13,7 +21,8 @@ for entry in $MONITORS; do
   transform="${entry#*:}"
 
   resize_flag=""
-  [[ "$transform" -eq 0 ]] && resize_flag="--resize fit"
+
+  [[ "$transform" -eq 1 ]] && resize_flag="--resize fit"
 
   swww img \
     --outputs "$monitor" \
@@ -23,7 +32,10 @@ for entry in $MONITORS; do
     --transition-duration 1 "$CHOICE"
 done
 
-ln -s -f "$CHOICE" ~/.current_wallpaper
+if [[ "$CHOICE" != "$CURRENT_WALLPAPER" ]]; then
+  ln -s -f "$CHOICE" "$CURRENT_WALLPAPER"
+fi
+
 wal -esnti "$CHOICE"
 
 $HOME/.local/bin/public/wallpaper/apply-wallpaper-eink
