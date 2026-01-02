@@ -38,5 +38,5 @@ alias gr='git rebase -i'
 alias gh='helper-git-history'
 
 gd() {
-  git diff --color=always "$@" | $PAGER
+  git diff --color=always "$@" | $PAGER -p
 }
