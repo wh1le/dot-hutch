@@ -45,7 +45,7 @@ UiConfigFile(
     ],
   ),
   progress_bar: (
-    symbols: ["", "", "⭘", "-", "-"],
+    symbols: ["=", "=", "⭘", "=", "="],
     track_style: (bg: "{color0}"),
     elapsed_style: (fg: "{color5}", bg: "{color0}"),
     thumb_style: (fg: "{color5}", bg: "{color0}"),
