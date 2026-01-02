@@ -21,6 +21,7 @@
   hardware.graphics.package = unstable.mesa;
   hardware.graphics.package32 = unstable.pkgsi686Linux.mesa;
   hardware.graphics.extraPackages = with pkgs; [
+    unstable.mesa
     rocmPackages.clr.icd
 
     nvidia-vaapi-driver

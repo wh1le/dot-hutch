@@ -1,7 +1,6 @@
-{ pkgs
-, ...
-}:
-{
+{ pkgs, ... }: {
+
+  hardware.firmware = [ pkgs.rtl8761b-firmware ];
 
   hardware.bluetooth = {
     enable = true;

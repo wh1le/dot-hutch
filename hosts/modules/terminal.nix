@@ -11,7 +11,7 @@
 
   environment.systemPackages = [
 
-    unstable.sway-launcher-desktop
+    # unstable.sway-launcher-desktop
 
     pkgs.nix-search
 

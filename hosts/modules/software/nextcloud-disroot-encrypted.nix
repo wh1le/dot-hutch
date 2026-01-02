@@ -15,7 +15,7 @@
   sops.secrets."disroot/rclone/password" = { owner = "wh1le"; mode = "0400"; };
   sops.secrets."disroot/rclone/salt" = { owner = "wh1le"; mode = "0400"; };
 
-  systemd.services.disroot-rclone = {
+  systemd.user.services.disroot-rclone = {
     description = "Rclone Disroot encrypted mount";
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];

@@ -57,7 +57,6 @@
     ../modules/software/devops.nix
     ../modules/software/browser.nix
     ../modules/software/nvim.nix
-    ../modules/software/kde_connect.nix
     ../modules/software/utils.nix
     ../modules/software/flatpaks.nix
     ../modules/software/yazi.nix

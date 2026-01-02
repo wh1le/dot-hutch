@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
+
   services = {
+    colord.enable = true;
+
     printing = {
       enable = true;
       drivers = [
