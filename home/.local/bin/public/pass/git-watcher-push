@@ -2,9 +2,10 @@
 
 set -euo pipefail
 
-PASSWORD_STORE_DIR="${PASSWORD_STORE_DIR:-$HOME/.secrets/passwords}"
-
-[ ! -d "$PASSWORD_STORE_DIR" ] && exit 0
+if [ ! -d "$PASSWORD_STORE_DIR" ]; then
+  notify-send -u critical -i dialog-error "Password Store" "$PASSWORD_STORE_DIR is missing, please set your pass"
+  exit 1
+fi
 
 inotifywait -q -m -r -e close_write,move,create,delete \
   "$PASSWORD_STORE_DIR" --exclude '.git' --format '%w%f' |
