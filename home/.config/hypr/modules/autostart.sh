@@ -19,6 +19,10 @@ log() {
   done &
 }
 
+# log() {
+#   echo "[$(date '+%H:%M:%S')] [$1] $2" >>"$log_file"
+# }
+
 is_laptop() {
   [[ "$(hostname)" =~ ^(thinkpad|laptop_work)$ ]]
 }
@@ -63,7 +67,8 @@ log swww-daemon uwsm app -- swww-daemon &
 log wl-paste uwsm app -- wl-paste --watch cliphist store &
 
 log kbuildsycoca6 uwsm app -- kbuildsycoca6 &
-log mpd-mpris uwsm app -- mpd-mpris &
+
+pgrep -x mpd-mpris || log mpd-mpris uwsm app -- mpd-mpris &
 
 log pass-git-push-daemon uwsm app -- $HOME/.local/bin/public/pass/git-watcher-push &
 log einkify-daemon uwsm app -- $HOME/.config/hypr/scripts/daemons/einkify &
