@@ -7,7 +7,6 @@
   };
 
   imports = [
-    ../modules/link_dotfiles.nix
     # ../modules/programs/keepassxc.nix
   ];
 }

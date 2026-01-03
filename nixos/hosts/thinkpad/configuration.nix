@@ -8,8 +8,8 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ] ++ [
     # hardware
-    ../modules/hardware/thinkpad/disable-backlight.nix
     ../modules/hardware/thinkpad/hardware-configuration.nix
+    ../modules/hardware/thinkpad/disable-backlight.nix
     ../modules/hardware/thinkpad/boot-amd.nix
     ../modules/hardware/thinkpad/boot.nix
     ../modules/hardware/thinkpad/network.nix

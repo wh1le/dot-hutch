@@ -7,7 +7,6 @@
   };
 
   imports = [
-    ../modules/link_dotfiles.nix
     ../modules/hyprland-plugins.nix
     ../modules/firefox.nix
     # ../modules/programs/keepassxc.nix
