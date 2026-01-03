@@ -12,7 +12,7 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1"; # Use the latest version
+      url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -76,7 +76,7 @@
           ];
 
           specialArgs = {
-            inherit inputs self;
+            inherit inputs self lanzaboote;
             unstable = import nixpkgs-unstable {
               system = "x86_64-linux";
               config = { allowUnfree = true; };
@@ -97,7 +97,7 @@
           ];
 
           specialArgs = {
-            inherit inputs self;
+            inherit inputs self lanzaboote;
             unstable = import nixpkgs-unstable {
               system = "x86_64-linux";
               config = { allowUnfree = true; };
