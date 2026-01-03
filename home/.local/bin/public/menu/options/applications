@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
-
-j4-dmenu-desktop --dmenu "$HOME/.local/bin/public/menu/dmenu-tty" \
-  --wrapper="uwsm app --" \
-  --log-level=ERROR 2>/dev/null
-
-disown
-
-exit 0
+sway-launcher-desktop
+# set -euo pipefail
+#
+# choice=$(j4-dmenu-desktop --dmenu "$HOME/.local/bin/public/menu/dmenu-tty" \
+#   --no-exec \
+#   --log-level=ERROR 2>/dev/null)
+#
+# [ -n "$choice" ] && setsid -f sh -c "uwsm app -- $choice </dev/null >/dev/null 2>&1"
+#
+# exit 0
