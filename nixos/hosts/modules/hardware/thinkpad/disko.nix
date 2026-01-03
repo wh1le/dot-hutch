@@ -1,5 +1,45 @@
 { ... }:
+let
+  lanzaboote = import (builtins.fetchTarball "https://github.com/nix-community/lanzaboote/archive/master.tar.gz");
+in
 {
+  imports = [
+    lanzaboote.nixosModules.lanzaboote
+  ];
+
+  boot.initrd = {
+    systemd.enable = true;
+    kernelModules = [ "amdgpu" ];
+    availableKernelModules = [
+      "xhci_pci"
+      "nvme"
+      "usb_storage"
+      "usbhid"
+      "sd_mod"
+      "thunderbolt"
+
+      "tpm_tis"
+      "tpm_crb"
+    ];
+  };
+
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 5;
+    };
+    timeout = 1;
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+  };
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
+  };
+
   disko.devices.disk.main = {
     type = "disk";
     device = "/dev/nvme0n1";
