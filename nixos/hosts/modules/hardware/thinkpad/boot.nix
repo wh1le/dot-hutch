@@ -3,8 +3,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # services.firmware.enable = true;
 
-  # "amd_iommu=on"
-  # "iommu=pt"
   boot.kernelParams = [
     "apm=power_off"
     "pcie_aspm=force" # Helps AMD power saving
@@ -40,11 +38,35 @@
       "usbhid"
       "sd_mod"
       "thunderbolt"
+
+      "tpm_tis"
+      "tpm_crb"
     ];
+  };
+
+  boot.loader = {
+    systemd-boot = {
+      enable = false;
+      configurationLimit = 5;
+    };
+    timeout = 1;
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+  };
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
   };
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  environment.systemPackages = [
+    pkgs.sbctl # boot keys generation
+  ];
 }
