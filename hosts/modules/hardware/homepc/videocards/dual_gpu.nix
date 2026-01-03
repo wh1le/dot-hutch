@@ -7,8 +7,11 @@
   };
   nixpkgs.config.cudaSupport = true;
 
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelParams = [ "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" ];
+  boot.initrd.kernelModules = [ "amdgpu" "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.kernelParams = [
+    "nvidia_drm.modeset=1"
+    "nvidia_drm.fbdev=1"
+  ];
 
   # environment.sessionVariables.LIBVA_DRIVER_NAME = "radeonsi";
 
@@ -75,6 +78,8 @@
   environment.variables.AQ_DRM_DEVICES = "/dev/dri/amd-gpu";
 
   environment.systemPackages = [
+    pkgs.cudaPackages.cuda-samples
+
     pkgs.nvtopPackages.full
     pkgs.lshw
     pkgs.pciutils

@@ -3,6 +3,13 @@
   system.stateVersion = "25.05";
   networking.hostName = "homepc";
 
+  environment.systemPackages = [
+    pkgs.chntpw
+    pkgs.hivex
+    pkgs.sway-launcher-desktop
+    pkgs.protonup-qt
+  ];
+
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
