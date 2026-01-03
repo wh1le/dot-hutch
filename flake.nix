@@ -11,6 +11,11 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1"; # Use the latest version
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     viu-anime.url = "github:viu-media/viu/20ce2f6ca3a06118aec6462dc99d9517ea7cd79e";
@@ -44,7 +49,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, hyprland, flatpaks, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, hyprland, flatpaks, lanzaboote, ... }@inputs:
     {
       nixConfig = {
         extra-experimental-features = [
@@ -64,6 +69,7 @@
             inputs.sops-nix.nixosModules.sops
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
+            lanzaboote.nixosModules.lanzaboote
             {
               home-manager.users.wh1le = ./nixos/home/users/wh1le.nix;
             }
@@ -84,6 +90,7 @@
             inputs.sops-nix.nixosModules.sops
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
+            lanzaboote.nixosModules.lanzaboote
             {
               home-manager.users.wh1le = ./nixos/home/users/wh1le.nix;
             }

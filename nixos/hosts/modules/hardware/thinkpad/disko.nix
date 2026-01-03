@@ -1,12 +1,5 @@
 { ... }:
-let
-  lanzaboote = import (builtins.fetchTarball "https://github.com/nix-community/lanzaboote/archive/master.tar.gz");
-in
 {
-  imports = [
-    lanzaboote.nixosModules.lanzaboote
-  ];
-
   boot.initrd = {
     systemd.enable = true;
     kernelModules = [ "amdgpu" ];
