@@ -1,7 +1,4 @@
-{ config
-, pkgs
-, ...
-}:
+{ config, pkgs, ... }:
 let
   home = config.home.homeDirectory;
   git = "${pkgs.git}/bin/git";
@@ -12,26 +9,25 @@ in
   home.activation.clone-dot-files = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     set -eu
 
-    export repo="git@github.com:wh1le/dot-files.git"
-    export destination="${config.home.homeDirectory}/dot/files"
-
-    if [ ! -f "${sshKey}" ]; then
-      echo "Missing SSH key ${sshKey}" >&2
-      exit 1
-    fi
-
-    export GIT_SSH_COMMAND='${ssh} -oBatchMode=yes -i ${sshKey} -F /dev/null'
-
-    if [ ! -d $destination/.git ]; then
-      mkdir -p "$(dirname $destination)"
-      ${git} clone $repo $destination
-    fi
+    export destination="${config.home.homeDirectory}/dot/nix-public"
 
     ln -sfn $destination/home/.zprofile ${home}/.zprofile
     ln -sfn $destination/home/.zprofile ${home}/.profile # need this to propagate env variables to hyprland session so I can have env variibles on auto-start
     ln -sfn $destination/home/.zshenv ${home}/.zshenv
 
+    # create basic directories
+    mkdir -p "${home}/Documents"
+    mkdir -p "${home}/Videos"
+    mkdir -p "${home}/Cloud"
+    mkdir -p "${home}/code"
+    mkdir -p "${home}/Projects"
+
+    # scripts
     mkdir -p "${home}/.local/bin"
+
+    # qemu
+    mkdir -p "${home}/Virtualization"
+
     ln -sfn "${home}/dot/files/home/.local/bin/public" "${home}/.local/bin/public"
     ln -sfn "${home}/dot/files/home/.local/share/darkman" "${home}/.local/share/darkman"
 

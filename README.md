@@ -1,4 +1,4 @@
-# wh1le NixOS (Hyprland) — Flake Repo
+# Hutch. NixOS
 
 # Write me
 
