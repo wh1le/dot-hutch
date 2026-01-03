@@ -1,6 +1,5 @@
 result
 *.qcow2
-nix/secrets.nix
 
 # Block all GPG private keys
 *.key

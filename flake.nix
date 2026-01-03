@@ -13,6 +13,14 @@
 
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
+    viu-anime.url = "github:viu-media/viu/20ce2f6ca3a06118aec6462dc99d9517ea7cd79e";
+
+    yazi.url = "github:sxyazi/yazi/e7cd66370fbc7786132c675999d026671ac364a6";
+
+    h-m-m = {
+      url = "github:nadrad/h-m-m/b8873636844a1c00baaa091a518b89311227f463";
+    };
+
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -34,14 +42,6 @@
       url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
     };
-
-    viu-anime.url = "github:viu-media/viu/20ce2f6ca3a06118aec6462dc99d9517ea7cd79e";
-
-    yazi.url = "github:sxyazi/yazi/e7cd66370fbc7786132c675999d026671ac364a6";
-
-    h-m-m = {
-      url = "github:nadrad/h-m-m/b8873636844a1c00baaa091a518b89311227f463";
-    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, hyprland, flatpaks, ... }@inputs:
@@ -60,13 +60,12 @@
 
         homepc = nixpkgs.lib.nixosSystem {
           modules = [
-            ./hosts/homepc/configuration.nix
+            ./nixos/hosts/homepc/configuration.nix
             inputs.sops-nix.nixosModules.sops
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
             {
-              home-manager.users.wh1le = ./home/users/wh1le.nix;
-              # home-manager.users.work = ./home/users/work.nix;
+              home-manager.users.wh1le = ./nixos/home/users/wh1le.nix;
             }
           ];
 
@@ -86,8 +85,7 @@
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
             {
-              home-manager.users.wh1le = ./home/users/wh1le.nix;
-              # home-manager.users.work = ./home/users/work.nix;
+              home-manager.users.wh1le = ./nixos/home/users/wh1le.nix;
             }
           ];
 
@@ -106,7 +104,7 @@
           useUserPackages = true;
           backupFileExtension = "backup";
           modules = [
-            ./home/deck.nix
+            ./nixos/home/users/steamdeck.nix
             inputs.sops-nix.nixosModules.sops
           ];
           extraSpecialArgs = { inherit inputs; };
