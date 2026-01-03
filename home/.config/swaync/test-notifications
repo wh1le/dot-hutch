@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+swaync-client -rs
+
+echo "Testing swaync notifications..."
+echo "================================"
+
+# Normal notification
+echo "1. Normal notification"
+notify-send "Normal" "This is a normal notification"
+sleep 2
+
+# Low urgency
+echo "2. Low urgency"
+notify-send -u low "Low Priority" "This is a low urgency notification"
+sleep 2
+
+# Critical urgency
+echo "3. Critical urgency"
+notify-send -u critical "Critical Alert" "This is a critical notification!"
+sleep 2
+
+# With icon
+echo "4. With icon"
+notify-send -i dialog-information "Information" "Notification with an icon"
+sleep 2
+
+# Long body text
+echo "5. Long body text"
+notify-send "Long Message" "This is a very long notification message that should wrap to multiple lines. Let's see how swaync handles this kind of content. It should display properly in both the popup and the notification center."
+sleep 2
+
+# With timeout
+echo "6. With custom timeout (10 seconds)"
+notify-send -t 10000 "Timed" "This notification will disappear in 10 seconds"
+sleep 2
+
+# Multiple quick notifications
+echo "7. Multiple notifications"
+for i in {1..5}; do
+  notify-send "Message $i" "Quick notification number $i"
+  sleep 0.5
+done
+sleep 2
+
+# Different app names
+echo "8. Different app names"
+notify-send -a "Firefox" "Browser" "Notification from Firefox"
+sleep 1
+notify-send -a "Spotify" "Music" "Now playing: Test Song"
+sleep 1
+notify-send -a "Terminal" "Command" "Process completed successfully"
+sleep 2
+
+# With actions (if supported)
+echo "9. With actions"
+notify-send "Action Test" "This notification has actions" \
+  -A "accept=Accept" -A "decline=Decline" 2>/dev/null || echo "   (actions not supported)"
+sleep 2
+
+# Category
+echo "10. With category"
+notify-send -c "email" "Email" "You have new mail"
+sleep 2
+
+# All together - complex notification
+echo "11. Complex notification"
+notify-send -u normal -i mail-unread -a "Thunderbird" -c "email" \
+  "New Email from Boss" \
+  "Subject: Important Meeting Tomorrow\n\nPlease review the attached documents before tomorrow's meeting at 9 AM."
+sleep 2
+
+echo ""
+echo "================================"
+echo "All tests completed!"
+echo "Check waybar icon and swaync panel"

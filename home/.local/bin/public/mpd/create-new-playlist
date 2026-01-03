@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+read -r folder port <<<"$("$HOME"/.local/bin/public/mpd/active-servers)"
+
+[[ -z "$port" ]] && exit 1
+
+read -rp "Playlist name: " name
+
+[[ -z "$name" ]] && exit 1
+
+touch ~/"${folder}"/mpd/playlists/"${name}".m3u && echo "Created: ${name}"
+
+mpc -p "$port" update
+mpc -p "$port" lsplaylists

@@ -1,0 +1,70 @@
+[
+  {
+    "name": "eink",
+    "output": ["HDMI-A-1", "HDMI-A-2"],
+    "spacing": 5,
+    "layer": "top",
+    "position": "top",
+    "modules-left": [
+      "custom/logo",
+      "hyprland/workspaces#homepc",
+			"group/status_group",
+      "hyprland/submap",
+      "custom/mic_used_by_app",
+    ],
+    "modules-center": [
+      "group/weather_group",
+      "group/system_group",
+		],
+    "modules-right": [
+      "tray",
+      "custom/language",
+      "temperature",
+      "custom/date_neuro",
+      "custom/date_month",
+      "custom/date_time",
+      "custom/notification",
+      "custom/power"
+    ],
+    "include": [
+      "~/.config/waybar/modules/custom.jsonc",
+      "~/.config/waybar/modules/groups.jsonc",
+      "~/.config/waybar/modules/default.jsonc",
+    ]
+  },
+  {
+    "name": "big",
+    "output": ["DP-1","DP-2"],
+    "height": 20,
+    "spacing": 12,
+    "layer": "top",
+    "position": "top",
+    "modules-left": [
+      "custom/logo",
+      "hyprland/workspaces#homepc",
+			"group/status_group",
+      // "hyprland/workspaces#app_tray",
+      "hyprland/submap",
+      "custom/mic_used_by_app",
+    ],
+    "modules-center": [
+      "group/weather_group",
+      "group/system_group",
+		],
+    "modules-right": [
+      "tray",
+      "custom/language",
+      "temperature",
+      "custom/date_neuro",
+      "custom/date_month",
+      "custom/date_time",
+      "custom/notification",
+      "custom/power"
+    ],
+    "include": [
+      "~/.config/waybar/modules/custom.jsonc",
+      "~/.config/waybar/modules/groups.jsonc",
+      "~/.config/waybar/modules/default.jsonc",
+    ]
+  },
+]

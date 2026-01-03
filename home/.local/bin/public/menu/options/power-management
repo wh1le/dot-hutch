@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+# ["󰗽  Logout"]="hyprctl dispatch exit"
+declare -A actions=(
+  ["󰌾  Lock"]="hyprlock"
+  ['󰗽  Logout']='uwsm stop'
+  ["󰤄  Suspend"]="systemctl suspend"
+  ["󰒲  Hibernate"]="systemctl hibernate"
+  ["󰜉  Reboot"]="systemctl reboot"
+  ["󰐥  Shutdown"]="systemctl poweroff"
+)
+
+choice=$(
+  printf '%s\n' "${!actions[@]}" |
+    fzf-with-options \
+      --prompt="Power » " \
+      --no-info
+)
+
+[[ -z "$choice" ]] && {
+  exit 0
+}
+
+exec ${actions[$choice]}

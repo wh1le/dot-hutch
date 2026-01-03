@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+direction=${1:-next}
+
+if [ "$direction" = "prev" ]; then
+  hyprctl dispatch cyclenext prev floating
+else
+  hyprctl dispatch cyclenext floating
+fi

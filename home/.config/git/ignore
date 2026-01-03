@@ -1,0 +1,10 @@
+# Block all GPG private keys
+*.key
+*.asc
+**/private-keys-v1.d/**
+**/openpgp-revocs.d/**
+**/*secring*
+**/*secret*
+*.kbx
+.direnv/*
+.envrc

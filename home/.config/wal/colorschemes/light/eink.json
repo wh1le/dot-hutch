@@ -1,0 +1,28 @@
+{
+  "checksum": "eink-bw-001",
+  "wallpaper": "/home/wh1le/.current_wallpaper",
+  "alpha": "100",
+  "special": {
+    "background": "#FFFFFF",
+    "foreground": "#000000",
+    "cursor": "#cccccc"
+  },
+  "colors": {
+    "color0": "#f0f0f0",
+    "color1": "#f0f0f0",
+    "color2": "#cccccc",
+    "color3": "#999999",
+    "color4": "#000000",
+    "color5": "#999999",
+    "color6": "#cccccc",
+    "color7": "#000000",
+    "color8": "#cccccc",
+    "color9": "#000000",
+    "color10": "#000000",
+    "color11": "#000000",
+    "color12": "#000000",
+    "color13": "#e0e0e0",
+    "color14": "#cccccc",
+    "color15": "#f0f0f0"
+  }
+}

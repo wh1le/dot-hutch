@@ -1,0 +1,214 @@
+#!/usr/bin/env python3
+import argparse
+import shutil
+import sqlite3
+import subprocess
+from itertools import zip_longest
+from pathlib import Path
+
+# MIT License
+#
+# Copyright (c) 2025 Nikita Miloserdov <nmiloserdov@proton.me>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+class FSHelper:
+    def __init__(self,  profile, home_dir, remote_mount):
+        self.profile = profile
+        self.home = home_dir
+        self.remote_mount = remote_mount
+
+    def local_bookmarks_path(self):
+        return f"{self.home}/.config/qutebrowser/bookmarks/urls"
+
+    def local_quickmarks_path(self):
+        return f"{self.home}/.config/qutebrowser/quickmarks"
+
+    def local_history_path(self):
+        return f"{self.home}/.local/share/qutebrowser/history.sqlite"
+
+    def remote_bookmarks_path(self):
+        return f"{self.remote_mount}/qutebrowser/profiles/{self.profile}/bookmarks"
+
+    def remote_quickmarks_path(self):
+        return f"{self.remote_mount}/qutebrowser/profiles/{self.profile}/quickmarks"
+
+    def remote_history_path(self):
+        return f"{self.remote_mount}/qutebrowser/profiles/{self.profile}/history.sqlite"
+
+
+class SyncBrowserData:
+    def __init__(self, fs_helper, sync_history):
+        self.fs_helper = fs_helper
+        self.sync_history = sync_history
+
+    def call(self):
+        if not self.__remote_mounted():
+            return print('[WARN] Cannot connect to remote skipping ')
+
+        print('[INFO] Connected to remote')
+
+        self.__merge_files_and_upload(
+            self.fs_helper.local_bookmarks_path(),
+            self.fs_helper.remote_bookmarks_path()
+        )
+        print('[INFO] Bookmarks synced')
+
+        self.__merge_files_and_upload(
+            self.fs_helper.local_quickmarks_path(),
+            self.fs_helper.remote_quickmarks_path(),
+            by_first_col = True
+        )
+        print('[INFO] Quickmarks synced')
+
+        if self.sync_history:
+            self.__sync_history(
+                self.fs_helper.local_history_path(),
+                self.fs_helper.remote_history_path()
+            )
+            print('[INFO] History synced')
+
+        print('[INFO] Sync complete')
+        return 0
+
+    def __merge_files_and_upload(self, local, remote, by_first_col = False):
+        local_path = Path(local)
+        remote_path = Path(remote)
+
+        local_path.parent.mkdir(parents=True, exist_ok=True)
+        remote_path.parent.mkdir(parents=True, exist_ok=True)
+
+        if not local_path.exists() and remote_path.exists():
+            shutil.copy(remote_path, local_path)
+            return
+        
+        if not remote_path.exists() and local_path.exists():
+            shutil.copy(local_path, remote_path)
+            return
+        
+        if not local_path.exists() and not remote_path.exists():
+            return
+
+        local_lines = local_path.read_text().strip().splitlines()
+        remote_lines = remote_path.read_text().strip().splitlines()
+
+        seen = set()
+        new_data = []
+
+        for loc, rem in zip_longest(local_lines, remote_lines):
+            for line in (loc, rem):
+                if line:
+                    key = line.split()[0] if by_first_col else line
+                    if key not in seen:
+                        seen.add(key)
+                        new_data.append(line)
+
+
+        result = '\n'.join(new_data) + '\n' if new_data else ''
+
+        Path(local).write_text(result)
+
+        tmp = Path(remote).with_suffix('.tmp')
+        tmp.write_text(result)
+        tmp.rename(Path(remote))
+
+    def __sync_history(self, local, remote):
+        local_path = Path(local)
+        remote_path = Path(remote)
+        
+        local_path.parent.mkdir(parents=True, exist_ok=True)
+        remote_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        if not local_path.exists() and not remote_path.exists():
+            return
+
+        if not remote_path.exists() and local_path.exists():
+            return self.__copy_schema(local_path, remote_path)
+    
+        if not local_path.exists() and remote_path.exists():
+            return self.__copy_schema(remote_path, local_path)
+        
+        # Merge remote → local
+        conn = sqlite3.connect(local_path, timeout=10)
+        conn.execute(f"ATTACH DATABASE '{remote_path}' AS remote")
+        conn.execute("""
+            INSERT OR IGNORE INTO History (url, title, atime, redirect)
+            SELECT url, title, atime, redirect FROM remote.History
+            WHERE NOT EXISTS (
+                SELECT 1 FROM History 
+                WHERE History.url = remote.History.url 
+                AND History.atime = remote.History.atime
+            )
+        """)
+        conn.commit()
+        conn.close()
+        
+        # Merge local → remote
+        conn = sqlite3.connect(remote_path, timeout=10)
+        conn.execute(f"ATTACH DATABASE '{local_path}' AS local")
+        conn.execute("""
+            INSERT OR IGNORE INTO History (url, title, atime, redirect)
+            SELECT url, title, atime, redirect FROM local.History
+            WHERE NOT EXISTS (
+                SELECT 1 FROM History 
+                WHERE History.url = local.History.url 
+                AND History.atime = local.History.atime
+            )
+        """)
+        conn.commit()
+        conn.close()
+
+    def __copy_schema(self, source, dest):
+        conn = sqlite3.connect(source)
+        schema = conn.execute("SELECT sql FROM sqlite_master WHERE sql IS NOT NULL").fetchall()
+        conn.close()
+        
+        conn = sqlite3.connect(dest)
+        for (sql,) in schema:
+            conn.execute(sql)
+        conn.commit()
+        conn.close()
+
+    def __remote_mounted(self):
+        try:
+            return any(p.name == 'qutebrowser' for p in Path(self.fs_helper.remote_mount).iterdir())
+        except:
+            return False
+
+    def __qutebrowser_running(self):
+        result = subprocess.run(['pgrep', '-x', 'qutebrowser'], capture_output=True)
+        return result.returncode == 0
+
+def main():
+    parser = argparse.ArgumentParser(description='Sync qutebrowser data between local and remote')
+    parser.add_argument('--home', default=str(Path.home()), help='Home directory')
+    parser.add_argument('--remote', required=True, help='Remote mount path')
+    parser.add_argument('--profile', default='default', help='Qutebrowser profile')
+    parser.add_argument('--no-history', action='store_true', help='Skip history sync')
+    
+    args = parser.parse_args()
+    
+    fs_helper = FSHelper(args.profile, args.home, args.remote)
+    sync = SyncBrowserData(fs_helper, sync_history=not args.no_history)
+    
+    exit(sync.call())
+
+if __name__ == '__main__':
+    main()

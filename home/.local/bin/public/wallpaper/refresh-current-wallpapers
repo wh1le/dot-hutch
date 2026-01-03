@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+swww query | while IFS=: read -r output rest; do
+  output=$(echo "$output" | xargs) # Trim whitespace
+  wallpaper=$(echo "$rest" | grep -oP 'image: \K.*')
+
+  if [[ -n "$wallpaper" ]]; then
+    swww img -o "$output" "$wallpaper"
+  fi
+done

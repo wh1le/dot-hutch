@@ -1,0 +1,25 @@
+# https://yazi-rs.github.io/docs/configuration/keymap
+
+# [mgr]
+# prepend_keymap = [
+#   { on = "<C-a>", run = "my-cmd1", desc = "Single command with `Ctrl + a`" },
+# ]
+# append_keymap = [
+#   { on = [
+#     "g",
+#     "b",
+#   ], run = "my-cmd2", desc = "Single command with `g => b`" },
+#   { on = "c", run = [
+#     "cmd1",
+#     "cmd2",
+#   ], desc = "Multiple commands with `c`" },
+# ]
+
+[[mgr.prepend_keymap]]
+on = "M"
+run = "plugin mount"
+
+[[mgr.prepend_keymap]]
+on = "T"
+run = "plugin toggle-pane min-preview"
+desc = "Show or hide the preview pane"

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+PAGER="${PAGER:-nvimpager}"
+
+SNITCH_LOG_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/snitch-logs"
+
+name=$(basename "$1")
+
+mkdir -p "$SNITCH_LOG_DIR"
+
+log="$SNITCH_LOG_DIR/$name.log"
+
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] [INFO] Service started: $*" >>"$log"
+
+"$@" 2>&1 | while IFS= read -r line; do
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [OUT] $line"
+done | tee -a "$log"
+
+exit_code=${PIPESTATUS[0]}
+
+if [[ $exit_code -eq 0 ]]; then
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [INFO] Service terminated successfully (exit 0)" >>"$log"
+else
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [ERROR] Service crashed (exit $exit_code)" >>"$log"
+  (
+    action=$(notify-send -u critical -i dialog-error -A "view=View Log" -w "Daemon Crash" "$name failed (exit $exit_code)")
+    [[ "$action" == "view" ]] && kitty --hold nvim -R "$log"
+  ) &
+  disown
+fi

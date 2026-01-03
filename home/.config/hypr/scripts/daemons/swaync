@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if [ "$("$HOME/.local/bin/public/eink/paperlike-connected")" = "true" ]; then
+	"$HOME/.local/bin/public/eink/einkify/swaync" true
+else
+	"$HOME/.local/bin/public/eink/einkify/swaync" false
+fi

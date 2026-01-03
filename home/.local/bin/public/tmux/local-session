@@ -1,0 +1,14 @@
+#!/run/current-system/sw/bin/bash
+set -euo pipefail
+
+SESSION_NAME="local"
+TAB_NAME="0"
+
+BASE="$HOME"
+
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+  exit 0
+fi
+
+tmux new-session -d -s $SESSION_NAME -n 0
+tmux send-keys -t "$SESSION_NAME:1" fastfetch C-m

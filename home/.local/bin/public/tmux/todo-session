@@ -1,0 +1,17 @@
+#!/run/current-system/sw/bin/bash
+set -euo pipefail
+
+SESSION="todos"
+BASE="$HOME/obsidian/self-architect/1  — Todo/"
+
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+  exit 0
+fi
+
+# Create session and windows without attaching
+tmux new-session -d -s "$SESSION" \
+  -n main \
+  -c "$BASE" \
+  'zsh -l'
+
+tmux send-keys -t "$SESSION:main" 'nvim ./Main.md' C-m

@@ -1,0 +1,162 @@
+{
+  "network": {
+  // Remove "interface" line - auto-detects active connection
+  "format-wifi": "{icon}",
+  "format-ethernet": "󰈀",
+  "format-linked": "󰈀",
+  "format-disconnected": "󰤭",
+  "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+  "tooltip-format-wifi": "{essid} ({ifname})\n{ipaddr}\n{signalStrength}%",
+  "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}",
+  "tooltip-format-disconnected": "Disconnected",
+  "on-click": "~/.local/bin/public/menu/launch-kitty wifi-connect"
+},
+
+"bluetooth": {
+  "format": "󰂯",
+  "format-disabled": "󰂲",
+  "format-connected": "󰂱",
+  "tooltip-format": "{status}",
+  "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
+  "tooltip-format-enumerate-connected": "{device_alias} - {device_battery_percentage}%",
+  "on-click": "blueman-manager"
+},
+
+  // "wireplumber#mic": {
+  //   "node-type": "Audio/Source",
+  //   "format": "ON AIR",
+  //   "format-muted": "",
+  //   "tooltip": true,
+  //   "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+  //   "states": {
+  //     "muted": {
+  //       "show": false
+  //     }
+  //   }
+  // },
+
+  "disk": {
+    "interval": 60,
+    "format": " {percentage_used}%",
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "memory": {
+    "format": "󰍛 {used} GiB",
+    "format-alt": "󰍛 {percentage}%",
+    "interval": 5,
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "cpu": {
+    "format": "󰻠 {usage}%",
+    "format-alt": "󰻠 {avg_frequency} GHz",
+    "interval": 1,
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "temperature": {
+    "thermal-zone": 0,
+    "interval": 5,
+    "format": " {temperatureC}°C",
+    "critical-threshold": 70,
+    "format-critical": " {temperatureC}°C",
+    "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon} {percent}%",
+    "format-icons": ["", "", ""],
+    "on-scroll-up": "brightnessctl set 1%+",
+    "on-scroll-down": "brightnessctl set 1%-",
+    "min-length": 6
+  },
+
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {format_source}",
+    "format-muted": "  {format_source}",
+    "format-source": "",
+    "format-source-muted": "",
+    "on-click": "pavucontrol",
+    "on-click-right": "pavucontrol",
+    "on-scroll-up": "pamixer -i 5",
+    "on-scroll-down": "pamixer -d 5",
+    "scroll-step": 5,
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    }
+  },
+
+  "tray": {
+    "icon-size": 15,
+    "spacing": 7,
+    "icon-theme": ["Papirus"],
+    "icons": {
+      "openvpn": "󰈔"
+    },
+  },
+
+  "hyprland/language": {
+    "on-click": "$HOME/.config/scripts/switch-layout",
+    "justify": "center",
+    "format": "{short}",
+    "keyboard-name":"apple-inc.-magic-keyboard",
+  },
+
+  "clock": {
+    "format": "{:%a %d %b %I:%M %p}",
+    "format-alt": "{:%I:%M %p}",
+    "tooltip": "true",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+
+
+  "hyprland/submap": {
+    "tooltip": false,
+    "on-click": "hyprctl dispatch submap reset"
+  },
+
+  "hyprland/workspaces#app_tray": {
+    // "all-outputs": false,
+    // "active-only": true,
+    // "active-first": true,
+    // "persistent-only": true,
+
+    "all-outputs": false,
+    "active-only": true,
+    "persistent-only": true,
+    "active-first": true,
+
+    "format": "{windows}",
+    "workspace-taskbar": {
+      "enable": true,
+      "reverse-direction": true,
+      "tooltip": false,
+      "icon-size": 10,
+      "format": "{icon}",
+      "format-window-separator": "n",
+      "icon-theme": ["Papirus"]
+    }
+  },
+
+}

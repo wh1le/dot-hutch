@@ -1,0 +1,477 @@
+local eink_signal
+
+-- local function apply_eink()
+-- 	-- setup_eink_detection()
+-- 	-- https://en.wikipedia.org/wiki/X11_color_names?utm_source=chatgpt.com
+-- 	-- whitesmoke — #F5F5F5 (very pale)
+-- 	-- ghostwhite — #F8F8FF (near-white, bluish)
+-- 	-- gray95 (X11) — #F2F2F2
+-- 	-- gray90 (X11) — #E6E6E6
+-- 	-- gainsboro — #DCDCDC
+-- 	-- lightgray — #D3D3D3 (CSS)
+-- 	-- gray80 (X11) — #CCCCCC
+-- 	-- silver — #C0C0C0
+-- 	-- gray70 (X11) — #B2B2B2
+-- 	-- darkgray — #A9A9A9 (darker, included for context)
+--
+-- 	local black_color = "#000000"
+-- 	local white_color = "#ffffff"
+-- 	local old_lace_color = "#FDF5E6"
+-- 	local gray95_color = "#F2F2F2"
+-- 	local light_gray_color = "#D3D3D3"
+-- 	local gray_color = "#D3D3D3"
+-- 	local gray = "#BEBEBE"
+--
+-- 	local function hl(grp, spec)
+-- 		vim.api.nvim_set_hl(0, grp, spec)
+-- 	end
+--
+-- 	local link = function(child, parent)
+-- 		vim.api.nvim_set_hl(0, child, { link = parent })
+-- 	end
+--
+-- 	-- For newbies: fg is text, bg is background color
+--
+-- 	vim.o.background = "light"
+-- 	vim.o.termguicolors = true
+-- 	-- vim.g.base16colorspace = 256
+-- 	-- vim.cmd("syntax sync minlines=256")
+-- 	-- vim.env.TERM = "tmux-256color" -- Needs to be removed, because it should be set either by wezterm or tmux
+-- 	-- vim.cmd([[ hi htmlArg cterm=italic hi Type cterm=italic]])
+--
+-- 	-- vim.cmd("highlight Normal guibg=NONE")
+-- 	hl("Normal", { bg = white_color, ctermbg = "White" })
+--
+-- 	hl("StatusLine", { bg = white_color, fg = black_color })
+-- 	hl("StatusLineNC", { bg = white_color, fg = black_color })
+-- 	hl("WinSeparator", { fg = black_color })
+-- 	-- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#e5e5e5" })
+--
+-- 	-- popups
+-- 	hl("FloatBorder", { fg = black_color, bg = white_color })
+-- 	hl("NormalFloat", { bg = white_color })
+--
+-- 	-- menu
+-- 	hl("Pmenu", { bg = white_color, fg = black_color }) -- popup bg white, text black
+-- 	hl("PmenuSel", { bg = "#e0e0e0", fg = black_color }) -- selection: light gray bg
+-- 	hl("PmenuSbar", { bg = "#d0d0d0" }) -- scrollbar bg
+-- 	hl("PmenuThumb", { bg = black_color }) -- scrollbar thumb (black)
+--
+-- 	-- code
+-- 	hl("Comment", { fg = "LightGrey" })
+-- 	hl("@comment", { fg = "LightGrey" })
+-- 	hl("@lsp.type.comment", { bold = false, fg = "LightGrey" })
+--
+-- 	-- core-ui
+-- 	hl("CursorLine", { bg = "#f2f2f2" })
+-- 	hl("Visual", { bg = "#d0d0d0" })
+-- 	hl("LineNr", { fg = "Gainsboro", bold = true, italic = true })
+-- 	hl("CursorLineNr", { bold = true })
+-- 	hl("MatchParen", { bg = "Snow", fg = black_color, bold = true })
+--
+-- 	-- aerial
+-- 	hl("AerialFunction", { bold = true })
+-- 	hl("AerialMethod", { bold = true })
+-- 	hl("AerialClass", { bold = true })
+-- 	hl("AerialConstructor", { bold = true })
+--
+-- 	-- nvim-tree
+-- 	hl("NvimTreeFolderName", { bold = true })
+-- 	hl("NvimTreeOpenedFolderName", { bold = true })
+-- 	hl("NvimTreeFolderIcon", { bold = true })
+--
+-- 	-- nvim-cmp
+-- 	hl("CmpItemAbbr", { fg = black_color }) -- main text
+-- 	hl("CmpItemKind", { fg = "#333333" }) -- kind (method, class etc)
+-- 	hl("CmpItemMenu", { fg = "#666666" }) -- source (buffer, lsp)
+--
+-- 	-- ---------------- Search -----------------
+-- 	-- -- search: all matches vs current match
+--
+-- 	hl("Search", { bg = "gainsboro", fg = black_color, nocombine = true })
+-- 	hl("IncSearch", { bg = "gainsboro", fg = black_color, bold = true, nocombine = true })
+-- 	hl("CurSearch", { bg = "gainsboro", fg = black_color, bold = true, nocombine = true }) -- current match
+-- 	-- hl("Search", { guibg = white_color, guifg = gray_color, nocombine = true }) -- all matches
+--
+-- 	-- hl("IncSearch", { bg = "#ffd166", fg = black_color, bold = true, nocombine = true })
+-- 	-- hl("CurSearch", { bg = "#ffb703", fg = black_color, bold = true, nocombine = true }) -- current match
+-- 	--
+-- 	-- -- cursor: visible everywhere
+-- 	-- hl("Cursor", { bg = black_color, fg = white_color, nocombine = true })
+-- 	-- hl("TermCursor", { bg = black_color, fg = white_color, nocombine = true })
+-- 	-- hl("TermCursorNC", { bg = black_color, fg = white_color })
+-- 	-- vim.o.guicursor = "n-v-c:block-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,o:hor50-Cursor"
+-- 	--
+-- 	-- -- avoid clashes
+-- 	-- hl("CursorLine", { bg = "#f2f2f2" }) -- no reverse
+-- 	-- hl("Visual", { bg = "#d0d0d0" }) -- no reverse
+-- 	--
+-- 	-- vim.o.hlsearch = true
+-- 	-- vim.o.incsearch = true
+--
+-- 	hl("Keyword", { bold = true })
+-- 	link("@keyword", "Keyword")
+--
+-- 	hl("Function", { italic = false })
+-- 	link("@function", "Function")
+-- 	link("@method", "Function")
+--
+-- 	hl("Identifier", { italic = false })
+-- 	link("@variable", "Identifier")
+-- 	link("@field", "Identifier")
+-- 	link("@property", "Identifier")
+--
+-- 	hl("Constant", { bold = true })
+-- 	link("@constant", "Constant")
+-- 	link("@boolean", "Constant")
+-- 	link("@type", "Constant")
+-- 	-- link("@number", )
+--
+-- 	hl("String", { fg = "DarkGray" })
+-- 	link("@string", "String")
+--
+-- 	hl("Operator", { bold = true })
+-- 	link("@operator", "Operator")
+--
+-- 	-- diagnostics
+-- 	hl("DiagnosticError", { bold = true, underline = false })
+-- 	hl("DiagnosticWarn", { bold = true })
+-- 	hl("DiagnosticInfo", { italic = true })
+-- 	hl("DiagnosticHint", { italic = true, underline = false })
+--
+-- 	-- lsp
+-- 	hl("LspReferenceText", { reverse = true })
+-- 	hl("LspReferenceRead", { reverse = true })
+-- 	hl("LspReferenceWrite", { reverse = true, bold = true })
+--
+-- 	-- diff
+-- 	hl("DiffAdd", { underline = true })
+-- 	hl("DiffDelete", { strikethrough = true })
+-- 	hl("DiffChange", { bold = true })
+-- 	hl("DiffText", { reverse = true })
+--
+-- 	vim.api.nvim_set_hl(0, "ErrorMsg", { fg = black_color, bg = white_color, bold = true })
+-- 	vim.api.nvim_set_hl(0, "WarningMsg", { fg = black_color, bg = "#FFF1A8" })
+-- 	vim.api.nvim_set_hl(0, "MoreMsg", { fg = black_color })
+-- 	vim.api.nvim_set_hl(0, "MsgArea", { fg = black_color, bg = white_color }) -- optional
+--
+-- 	-- highlight spaces
+-- 	vim.api.nvim_set_hl(0, "WsOnly", { bg = old_lace_color })
+-- 	-- vim.fn.matchadd("WsOnly", [[^\s\+$]], 10)
+--
+-- 	vim.api.nvim_set_hl(0, "AerialWinNormal", { fg = black_color, bg = white_color })
+-- 	vim.api.nvim_set_hl(0, "AerialWinNormalNC", { fg = black_color, bg = white_color })
+-- 	vim.api.nvim_set_hl(0, "AerialCursorLine", { fg = black_color, bg = gray_color }) -- active line
+-- 	vim.api.nvim_set_hl(0, "AerialSeparator", { fg = black_color, bg = white_color })
+--
+-- 	local set = vim.api.nvim_set_hl
+-- 	set(0, "AerialWin", { fg = black_color, bg = gray_color })
+-- 	set(0, "AerialWinNC", { fg = black_color, bg = gray_color })
+-- 	set(0, "AerialNormal", { fg = black_color, bg = gray_color })
+-- 	set(0, "AerialNormal", { link = "Normal" })
+--
+-- 	set(0, "AerialLine", { bg = light_gray_color })
+-- 	set(0, "AerialLineNC", { bg = light_gray_color })
+--
+-- 	set(0, "AerialIcon", { fg = black_color, bg = white_color })
+-- 	set(0, "AerialClassIcon", { link = "AerialIcon" })
+-- 	set(0, "AerialFunctionIcon", { fg = black_color, bg = white_color })
+--
+-- 	-- Neotest
+--
+-- 	hl("NeotestAdapterName", { fg = black_color, bg = white_color })
+-- 	hl("NeotestPassed", { fg = black_color })
+-- 	hl("NeotestFailed", { fg = black_color })
+-- 	hl("NeotestRunning", { fg = black_color })
+-- 	hl("NeotestSkipped", { fg = black_color })
+-- 	hl("NeotestUnknown", { fg = black_color })
+-- 	hl("NeotestFile", { fg = black_color })
+-- 	hl("NeotestDir", { fg = black_color })
+-- 	hl("NeotestNamespace", { fg = black_color })
+-- 	hl("NeotestTest", { fg = black_color })
+-- 	hl("NeotestFocused", { fg = black_color })
+-- 	hl("NeotestMarked", { fg = black_color })
+-- 	hl("NeotestIndent", { fg = black_color })
+-- 	hl("NeotestExpander", { fg = black_color })
+-- 	hl("NeotestBorder", { fg = black_color })
+-- 	hl("NeotestWinSelect", { fg = black_color })
+--
+-- 	-- lsp diagnostics
+-- 	hl("DiagnosticVirtualTextError", { fg = light_gray_color })
+-- 	hl("DiagnosticVirtualTextWarn", { fg = light_gray_color })
+-- 	hl("DiagnosticVirtualTextInfo", { fg = light_gray_color })
+-- 	hl("DiagnosticVirtualTextHint", { fg = light_gray_color })
+--
+-- 	-- current line
+-- 	hl("CursorLineNr", { bg = old_lace_color })
+-- 	hl("CursorLine", { bg = old_lace_color })
+-- 	hl("CursorColumn", { bg = old_lace_color })
+--
+-- 	hl("TabLine", { bg = old_lace_color })
+-- 	hl("TabLineSel", { bg = gray95_color, bold = true }) -- active
+-- 	hl("TabLineFill", { bg = old_lace_color })
+--
+-- 	vim.cmd("highlight link DiagnosticUnnecessary Normal")
+-- 	vim.cmd("highlight link LspDiagnosticsDefaultUnnecessary Normal")
+--
+-- 	vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { link = "Normal" })
+-- 	vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultUnnecessary", { link = "Normal" })
+-- end
+
+local function apply_eink()
+	-- setup_eink_detection()
+	-- https://en.wikipedia.org/wiki/X11_color_names?utm_source=chatgpt.com
+	-- whitesmoke — #F5F5F5 (very pale)
+	-- ghostwhite — #F8F8FF (near-white, bluish)
+	-- gray95 (X11) — #F2F2F2
+	-- gray90 (X11) — #E6E6E6
+	-- gainsboro — #DCDCDC
+	-- lightgray — #D3D3D3 (CSS)
+	-- gray80 (X11) — #CCCCCC
+	-- silver — #C0C0C0
+	-- gray70 (X11) — #B2B2B2
+	-- darkgray — #A9A9A9 (darker, included for context)
+
+	local black_color = "#000000"
+	local white_color = "#ffffff"
+	local old_lace_color = "#FDF5E6"
+	local gray95_color = "#F2F2F2"
+	local light_gray_color = "#D3D3D3"
+	local gray_color = "#D3D3D3"
+	local gray = "#BEBEBE"
+
+	local function hl(grp, spec)
+		vim.api.nvim_set_hl(0, grp, spec)
+	end
+
+	local link = function(child, parent)
+		vim.api.nvim_set_hl(0, child, { link = parent })
+	end
+
+	-- For newbies: fg is text, bg is background color
+
+	vim.o.background = "light"
+	-- vim.o.termguicolors = true
+	-- vim.g.base16colorspace = 256
+	-- vim.cmd("syntax sync minlines=256")
+	-- vim.env.TERM = "tmux-256color" -- Needs to be removed, because it should be set either by wezterm or tmux
+	-- vim.cmd([[ hi htmlArg cterm=italic hi Type cterm=italic]])
+
+	-- vim.cmd("highlight Normal guibg=NONE")
+	hl("Normal", { bg = white_color, ctermbg = "White" })
+
+	hl("StatusLine", { bg = white_color, fg = black_color })
+	hl("StatusLineNC", { bg = white_color, fg = black_color })
+	hl("WinSeparator", { fg = black_color })
+	-- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#e5e5e5" })
+
+	-- popups
+	hl("FloatBorder", { fg = black_color, bg = white_color })
+	hl("NormalFloat", { bg = white_color })
+
+	-- menu
+	-- hl("Pmenu", { bg = white_color, fg = black_color }) -- popup bg white, text black
+	-- hl("PmenuSel", { bg = "#e0e0e0", fg = black_color }) -- selection: light gray bg
+	-- hl("PmenuSbar", { bg = "#d0d0d0" }) -- scrollbar bg
+	-- hl("PmenuThumb", { bg = black_color }) -- scrollbar thumb (black)
+	--
+	-- -- code
+	-- hl("Comment", { fg = "LightGrey" })
+	-- hl("@comment", { fg = "LightGrey" })
+	-- hl("@lsp.type.comment", { bold = false, fg = "LightGrey" })
+	--
+	-- -- core-ui
+	-- hl("CursorLine", { bg = "#f2f2f2" })
+	-- hl("Visual", { bg = "#d0d0d0" })
+	-- hl("LineNr", { fg = "Gainsboro", bold = true, italic = true })
+	-- hl("CursorLineNr", { bold = true })
+	-- hl("MatchParen", { bg = "Snow", fg = black_color, bold = true })
+	--
+	-- -- aerial
+	-- hl("AerialFunction", { bold = true })
+	-- hl("AerialMethod", { bold = true })
+	-- hl("AerialClass", { bold = true })
+	-- hl("AerialConstructor", { bold = true })
+	--
+	-- -- nvim-tree
+	-- hl("NvimTreeFolderName", { bold = true })
+	-- hl("NvimTreeOpenedFolderName", { bold = true })
+	-- hl("NvimTreeFolderIcon", { bold = true })
+	--
+	-- -- nvim-cmp
+	-- hl("CmpItemAbbr", { fg = black_color }) -- main text
+	-- hl("CmpItemKind", { fg = "#333333" }) -- kind (method, class etc)
+	-- hl("CmpItemMenu", { fg = "#666666" }) -- source (buffer, lsp)
+	--
+	-- -- ---------------- Search -----------------
+	-- -- -- search: all matches vs current match
+	--
+	-- hl("Search", { bg = "gainsboro", fg = black_color, nocombine = true })
+	-- hl("IncSearch", { bg = "gainsboro", fg = black_color, bold = true, nocombine = true })
+	-- hl("CurSearch", { bg = "gainsboro", fg = black_color, bold = true, nocombine = true }) -- current match
+	-- -- hl("Search", { guibg = white_color, guifg = gray_color, nocombine = true }) -- all matches
+	--
+	-- -- hl("IncSearch", { bg = "#ffd166", fg = black_color, bold = true, nocombine = true })
+	-- -- hl("CurSearch", { bg = "#ffb703", fg = black_color, bold = true, nocombine = true }) -- current match
+	-- --
+	-- -- -- cursor: visible everywhere
+	-- -- hl("Cursor", { bg = black_color, fg = white_color, nocombine = true })
+	-- -- hl("TermCursor", { bg = black_color, fg = white_color, nocombine = true })
+	-- -- hl("TermCursorNC", { bg = black_color, fg = white_color })
+	-- -- vim.o.guicursor = "n-v-c:block-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,o:hor50-Cursor"
+	-- --
+	-- -- -- avoid clashes
+	-- -- hl("CursorLine", { bg = "#f2f2f2" }) -- no reverse
+	-- -- hl("Visual", { bg = "#d0d0d0" }) -- no reverse
+	-- --
+	-- -- vim.o.hlsearch = true
+	-- -- vim.o.incsearch = true
+	--
+	-- hl("Keyword", { bold = true })
+	-- link("@keyword", "Keyword")
+	--
+	-- hl("Function", { italic = false })
+	-- link("@function", "Function")
+	-- link("@method", "Function")
+	--
+	-- hl("Identifier", { italic = false })
+	-- link("@variable", "Identifier")
+	-- link("@field", "Identifier")
+	-- link("@property", "Identifier")
+	--
+	-- hl("Constant", { bold = true })
+	-- link("@constant", "Constant")
+	-- link("@boolean", "Constant")
+	-- link("@type", "Constant")
+	-- -- link("@number", )
+	--
+	-- hl("String", { fg = "DarkGray" })
+	-- link("@string", "String")
+	--
+	-- hl("Operator", { bold = true })
+	-- link("@operator", "Operator")
+	--
+	-- -- diagnostics
+	-- hl("DiagnosticError", { bold = true, underline = false })
+	-- hl("DiagnosticWarn", { bold = true })
+	-- hl("DiagnosticInfo", { italic = true })
+	-- hl("DiagnosticHint", { italic = true, underline = false })
+	--
+	-- -- lsp
+	-- hl("LspReferenceText", { reverse = true })
+	-- hl("LspReferenceRead", { reverse = true })
+	-- hl("LspReferenceWrite", { reverse = true, bold = true })
+	--
+	-- -- diff
+	-- hl("DiffAdd", { underline = true })
+	-- hl("DiffDelete", { strikethrough = true })
+	-- hl("DiffChange", { bold = true })
+	-- hl("DiffText", { reverse = true })
+	--
+	-- vim.api.nvim_set_hl(0, "ErrorMsg", { fg = black_color, bg = white_color, bold = true })
+	-- vim.api.nvim_set_hl(0, "WarningMsg", { fg = black_color, bg = "#FFF1A8" })
+	-- vim.api.nvim_set_hl(0, "MoreMsg", { fg = black_color })
+	-- vim.api.nvim_set_hl(0, "MsgArea", { fg = black_color, bg = white_color }) -- optional
+	--
+	-- -- highlight spaces
+	-- vim.api.nvim_set_hl(0, "WsOnly", { bg = old_lace_color })
+	-- -- vim.fn.matchadd("WsOnly", [[^\s\+$]], 10)
+	--
+	-- vim.api.nvim_set_hl(0, "AerialWinNormal", { fg = black_color, bg = white_color })
+	-- vim.api.nvim_set_hl(0, "AerialWinNormalNC", { fg = black_color, bg = white_color })
+	-- vim.api.nvim_set_hl(0, "AerialCursorLine", { fg = black_color, bg = gray_color }) -- active line
+	-- vim.api.nvim_set_hl(0, "AerialSeparator", { fg = black_color, bg = white_color })
+	--
+	-- local set = vim.api.nvim_set_hl
+	-- set(0, "AerialWin", { fg = black_color, bg = gray_color })
+	-- set(0, "AerialWinNC", { fg = black_color, bg = gray_color })
+	-- set(0, "AerialNormal", { fg = black_color, bg = gray_color })
+	-- set(0, "AerialNormal", { link = "Normal" })
+	--
+	-- set(0, "AerialLine", { bg = light_gray_color })
+	-- set(0, "AerialLineNC", { bg = light_gray_color })
+	--
+	-- set(0, "AerialIcon", { fg = black_color, bg = white_color })
+	-- set(0, "AerialClassIcon", { link = "AerialIcon" })
+	-- set(0, "AerialFunctionIcon", { fg = black_color, bg = white_color })
+	--
+	-- -- Neotest
+	--
+	-- hl("NeotestAdapterName", { fg = black_color, bg = white_color })
+	-- hl("NeotestPassed", { fg = black_color })
+	-- hl("NeotestFailed", { fg = black_color })
+	-- hl("NeotestRunning", { fg = black_color })
+	-- hl("NeotestSkipped", { fg = black_color })
+	-- hl("NeotestUnknown", { fg = black_color })
+	-- hl("NeotestFile", { fg = black_color })
+	-- hl("NeotestDir", { fg = black_color })
+	-- hl("NeotestNamespace", { fg = black_color })
+	-- hl("NeotestTest", { fg = black_color })
+	-- hl("NeotestFocused", { fg = black_color })
+	-- hl("NeotestMarked", { fg = black_color })
+	-- hl("NeotestIndent", { fg = black_color })
+	-- hl("NeotestExpander", { fg = black_color })
+	-- hl("NeotestBorder", { fg = black_color })
+	-- hl("NeotestWinSelect", { fg = black_color })
+	--
+	-- -- lsp diagnostics
+	-- hl("DiagnosticVirtualTextError", { fg = light_gray_color })
+	-- hl("DiagnosticVirtualTextWarn", { fg = light_gray_color })
+	-- hl("DiagnosticVirtualTextInfo", { fg = light_gray_color })
+	-- hl("DiagnosticVirtualTextHint", { fg = light_gray_color })
+	--
+	-- -- current line
+	-- hl("CursorLineNr", { bg = old_lace_color })
+	-- hl("CursorLine", { bg = old_lace_color })
+	-- hl("CursorColumn", { bg = old_lace_color })
+	--
+	-- hl("TabLine", { bg = old_lace_color })
+	-- hl("TabLineSel", { bg = gray95_color, bold = true }) -- active
+	-- hl("TabLineFill", { bg = old_lace_color })
+	--
+	-- vim.cmd("highlight link DiagnosticUnnecessary Normal")
+	-- vim.cmd("highlight link LspDiagnosticsDefaultUnnecessary Normal")
+	--
+	-- vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { link = "Normal" })
+	-- vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultUnnecessary", { link = "Normal" })
+end
+
+local function query_terminal_background()
+	io.stdout:write("\027]11;?\027\\")
+end
+
+local function setup_eink_detection()
+	-- Parse terminal response
+	vim.api.nvim_create_autocmd("TermResponse", {
+		callback = function(args)
+			local resp = args.data and args.data.sequence or ""
+			local r, g, b = resp:match("\027%]11;rgb:(%x+)/(%x+)/(%x+)")
+			if r and g and b then
+				local function normalize(hex)
+					return tonumber(hex, 16) / (16 ^ #hex - 1)
+				end
+				local luminance = 0.299 * normalize(r) + 0.587 * normalize(g) + 0.114 * normalize(b)
+				local is_eink = luminance > 0.5
+
+				if vim.g.eink_mode ~= is_eink then
+					vim.g.eink_mode = is_eink
+					vim.schedule(function()
+						if is_eink then
+							apply_eink()
+							vim.cmd("colorscheme noctu")
+						else
+							vim.cmd("colorscheme noctu")
+						end
+					end)
+				end
+			end
+		end,
+	})
+
+	query_terminal_background() -- Query on startup
+
+	eink_signal = vim.uv.new_signal()
+	eink_signal:start("sigusr1", vim.schedule_wrap(query_terminal_background))
+end
+
+setup_eink_detection()

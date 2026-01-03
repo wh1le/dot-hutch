@@ -1,7 +1,16 @@
+# TODO: remove, for old mac leftovers
+*.DS_Store
+
+# Gpg keys (just in case)
 result
+
+# Qemu
 *.qcow2
 
-# Block all GPG private keys
+# Sqlite
+*.sqlite
+
+# GPG
 *.key
 *.asc
 **/private-keys-v1.d/**
@@ -10,4 +19,31 @@ result
 **/*secret*
 *.gpg
 *.kbx
+
+
+####################################################################
+# Nix
+####################################################################
+
 secret/default.yaml
+
+####################################################################
+# Home
+####################################################################
+
+home/.config/tmux/plugins/*
+
+home/.config/zsh/.zcompdump
+
+home/.config/Nextcloud/Logs
+
+home/.config/swaync/style.css
+
+home/.config/hypr/hypridle.conf
+home/.config/hypr/modules/host_settings.conf
+
+home/.config/qutebrowser/__pycache__/
+home/.config/qutebrowser/user.css
+home/.config/qutebrowser/bookmarks/*
+home/.config/qutebrowser/modules/__pycache__
+home/.config/qutebrowser/qsettings/QtProject.conf

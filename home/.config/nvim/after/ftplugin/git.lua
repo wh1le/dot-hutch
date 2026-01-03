@@ -1,0 +1,5 @@
+vim.api.nvim_set_hl(0, "diffLine", { fg = "#89b4fa", bold = true })
+vim.api.nvim_set_hl(0, "diffAdded", { fg = "#a6e3a1", bg = "#1e3a2f", bold = true })
+vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#f38ba8", bg = "#3a1e2f", bold = true })
+vim.api.nvim_set_hl(0, "gitDiffAdded", { link = "diffAdded" })
+vim.api.nvim_set_hl(0, "gitDiffRemoved", { link = "diffRemoved" })

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+$HOME/.local/bin/public/wallpaper/apply-wallpaper-eink
+$HOME/.local/bin/public/wallpaper/apply-wallpaper

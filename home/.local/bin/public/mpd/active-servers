@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+declare -A mpd_names=([6600]="Music" [6601]="Stereo")
+
+ports=$(ss -tlnp 2>/dev/null | awk '/mpd/{print $4}' | grep -oP '\d+$')
+options=$(for p in $ports; do echo "${mpd_names[$p]:-$p}:$p"; done)
+
+selected=$(echo "$options" | fzf --prompt="Select MPD: " -d: --with-nth=1)
+
+[[ -z "$selected" ]] && exit 1
+
+name="${selected%%:*}"
+port="${selected##*:}"
+
+echo "$name $port"

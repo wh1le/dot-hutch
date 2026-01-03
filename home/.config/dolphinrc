@@ -1,0 +1,57 @@
+MenuBar=Disabled
+
+[CompactMode]
+MaximumTextWidthIndex=1
+UseSystemFont=false
+ViewFont=JetBrainsMono Nerd Font,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+
+[ContentDisplay]
+DirectorySizeMode=ContentSize
+ElidingMode=Right
+UsePermissionsFormat=NumericFormat
+
+[ContextMenu]
+ShowAddToPlaces=false
+ShowCopyToOtherSplitView=false
+ShowMoveToOtherSplitView=false
+ShowOpenInSplitView=false
+ShowViewMode=false
+
+[DetailsMode]
+IconSize=32
+PreviewSize=32
+UseSystemFont=false
+ViewFont=JetBrainsMono Nerd Font,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+
+[General]
+OpenExternallyCalledFolderInNewTab=true
+RememberOpenedTabs=false
+ShowFullPathInTitlebar=true
+ShowStatusBar=FullWidth
+SortingChoice=CaseInsensitiveSorting
+UseTabForSwitchingSplitView=true
+Version=202
+ViewPropsTimestamp=2025,10,3,17,23,33.486
+ColorScheme=BreezeDark
+
+
+[IconsMode]
+IconSize=128
+PreviewSize=144
+TextWidthIndex=0
+
+[InformationPanel]
+dateFormat=ShortFormat
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=16
+
+[MainWindow]
+MenuBar=Disabled
+
+[PlacesPanel]
+IconSize=16
+
+[PreviewSettings]
+Plugins=audiothumbnail,comicbookthumbnail,ebookthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,mobithumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs

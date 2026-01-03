@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+notified=0
+
+while true; do
+  capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+  status=$(cat /sys/class/power_supply/BAT0/status)
+
+  if [ "$status" = "Discharging" ] && [ "$capacity" -le 15 ]; then
+    if [ "$notified" -eq 0 ]; then
+      notify-send -u critical "Battery Low" "$capacity% remaining"
+      notified=1
+    fi
+  else
+    notified=0
+  fi
+
+  sleep 120
+done

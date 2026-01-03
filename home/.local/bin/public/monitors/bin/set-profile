@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from lib.cmd_helper import available_profiles, show_notification
+from lib.outputs.eink import eink_commands
+from lib.outputs.lg import lg_commands
+
+VALID_MONITORS = ['lg', 'eink', 'thinkpad']
+
+ERROR_MESSAGES = {
+    "args_length":"Invalid args. example: ./set_profile home lg, eink",
+    "invalid_monitor": f"Invalid Monitor. Valid: {VALID_MONITORS}",
+    "invalid_profile": f"Profile is not valid, available: {available_profiles()}"
+}
+
+SCRIPTS_PATH = "$HOME/.config/scripts/monitors/bin"
+
+def raise_error(message):
+    print(message)
+    show_notification("Failed to change monitor configuration", message)
+    raise Exception(message)
+
+def validate_args(argv):
+    if len(argv) < 3:
+        raise_error(ERROR_MESSAGES["args_length"])
+    
+    if argv[1] not in available_profiles():
+        raise_error(ERROR_MESSAGES["invalid_profile"])
+
+    for monitor in argv[2].split(","):
+        if monitor not in VALID_MONITORS:
+            raise_error(ERROR_MESSAGES["invalid_monitor"])
+
+def apply_settings_per_output(monitor, profile):
+     match monitor:
+        case "lg":
+            lg_commands(profile)
+        case "eink":
+            eink_commands(profile)
+        case "thinkpad":
+            pass
+            # thinkpad_commands(profile)
+
+def set_profile():
+    validate_args(sys.argv)
+
+    profile = sys.argv[1]
+
+    for monitor in sys.argv[2].split(','):
+        apply_settings_per_output(monitor, profile)
+
+if __name__ == "__main__":
+    set_profile()

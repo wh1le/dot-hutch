@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+FAV_PATH="$HOME/dot/wallpapers/fav"
+mkdir -p "$FAV_PATH"
+
+swww query | grep -oP 'image: \K.*' | while read -r wallpaper; do
+  if [[ -f "$wallpaper" ]]; then
+    filename="$(basename "$wallpaper")"
+
+    if [[ "$wallpaper" != "$FAV_PATH"/* ]]; then
+      cp "$wallpaper" "$FAV_PATH/"
+      echo "Added to favorites: $filename"
+    else
+      echo "Already in favorites: $filename"
+    fi
+  fi
+done

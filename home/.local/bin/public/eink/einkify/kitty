@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+pid=$1
+is_eink=$2
+kitty_socket="/tmp/kitty-$pid"
+
+EINK_THEME="/home/wh1le/.cache/wal/eink-kitty-theme.conf"
+REGULAR_THEME="/home/wh1le/.cache/wal/colors-kitty.conf"
+
+if $is_eink; then
+  kitty @ --to unix:"$kitty_socket" set-colors -a "$EINK_THEME"
+  tmux source-file ~/.config/tmux/colors/eink.conf
+else
+  kitty @ --to unix:"$kitty_socket" set-colors -a "$REGULAR_THEME"
+  tmux source-file ~/.config/tmux/colors/rgb.conf
+fi
+
+pkill -SIGUSR1 nvim

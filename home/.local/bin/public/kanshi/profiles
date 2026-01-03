@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+grep -E '^profile ' ~/.config/kanshi/config | awk '{print $2}' | grep "^$(hostname)"

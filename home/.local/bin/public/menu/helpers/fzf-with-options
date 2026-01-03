@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+unset FZF_DEFAULT_OPTS
+
+fzf-with-options() {
+  fzf \
+    --ansi \
+    --margin="1,1,1,1" \
+    --cycle \
+    --color="gutter:-1,border:238,scrollbar:238" \
+    --prompt="> " \
+    --bind 'esc:abort' \
+    --bind 'ctrl-d:preview-half-page-down' \
+    --bind 'ctrl-u:preview-half-page-up' \
+    --bind 'ctrl-f:preview-page-down' \
+    --bind 'ctrl-b:preview-page-up' \
+    "$@"
+}
+
+#--with-nth=2 \
+#--delimeter=":" \
+#--no-info \
+
+export -f fzf-with-options

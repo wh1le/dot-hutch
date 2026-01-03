@@ -1,0 +1,36 @@
+{
+
+  "group/status_group": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/stimulants",
+      "custom/sunset",
+      "custom/containers",
+      "custom/veracrypt",
+      "custom/openvpn",
+    ]
+  },
+
+  "group/power_group": {
+    "orientation": "horizontal",
+    "modules": ["custom/lock_screen", "custom/power_btn"]
+  },
+
+  "group/weather_group": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/weather",
+      "custom/surf",
+    ]
+  },
+
+  "group/system_group": {
+    "orientation": "horizontal",
+    "modules": [
+      "network",
+      "bluetooth",
+      "pulseaudio",
+      "battery",
+    ]
+  },
+}

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+export PASSWORD_STORE_DIR="$HOME/.secrets/passwords"
+
+QR_IMG="/tmp/otp_qr.png"
+trap 'rm -f "$QR_IMG"' EXIT
+
+ADDR=$(hyprctl clients -j | jq -r '.[] | select(.class == "'"$KITTY_LAUNCHER_CLASS"'") | .address')
+
+if [[ -n "$ADDR" ]]; then
+  POS=$(hyprctl clients -j | jq -r '.[] | select(.address == "'"$ADDR"'") | "\(.at[0]) \(.at[1])"')
+
+  hyprctl dispatch movewindowpixel "exact -9999 -9999,address:$ADDR" &>/dev/null
+fi
+
+hyprshot -zm region -o /tmp -f "$(basename "$QR_IMG")" || exit 1
+
+if [[ -n "$ADDR" ]]; then
+  hyprctl dispatch movewindowpixel "exact $POS,address:$ADDR" &>/dev/null
+  hyprctl dispatch focuswindow address:$ADDR &>/dev/null
+fi
+
+sleep 0.2
+
+otp_uri=$(qrtool decode --type png "$QR_IMG")
+
+read -rp "Enter pass name (e.g. service/login): " pass_name
+
+[[ -z "$otp_uri" ]] && echo "Failed to decode QR" >&2 && exit 1
+
+echo "$otp_uri" | pass otp insert "${pass_name}.otp"
+
+echo "Added: ${pass_name}.otp"
+pass otp "${pass_name}.otp"
+read -rp "Press Enter to close..."

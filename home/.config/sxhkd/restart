@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+pkill --signal SIGUSR1 $name
+notify-send -a scrot "HotKey config reloaded" 

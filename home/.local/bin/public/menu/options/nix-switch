@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
+  hyprctl dispatch resizeactive 500 100
+  hyprctl dispatch centerwindow
+  kitty @ --to unix:/tmp/kitty-launcher set-font-size 10
+fi
+
+cd ~/dot/nix-public
+
+SESSION_NAME="nix-switch"
+TAB_NAME="build"
+HOSTNAME="$(hostnamectl --static 2>/dev/null || hostname)"
+
+if tmux has-session -t $SESSION_NAME; then
+  tmux kill-session -t $SESSION_NAME
+fi
+
+tmux new-session -d -s $SESSION_NAME -n nix-switch
+tmux send-keys -t nix-switch:1 "sudo nixos-rebuild switch --flake /etc/nixos#$(shell hostnamectl --static 2>/dev/null || hostname) --update-input PUBLIC" C-m
+tmux attach -t "$SESSION_NAME:1"
+
+# exec tmux attach -t "$SESSION_NAME"

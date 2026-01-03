@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Relying on rofi / fzf is a bit limited
+
+# e.g
+# umenu "places.sqlite" "rofi -dmenu --no-sort"
+# umenu "places.sqlite" "fzf --no-sort --exact"
+
+DB_PATH=${1:?ARG 1: path to firefox database}
+
+FINDER=${2:?ARG 2: fzf or rofi}
+
+QUERY="
+SELECT
+    url, title FROM moz_places
+WHERE
+    url NOT LIKE '%google%search%'
+ORDER BY
+    visit_count DESC,
+    last_visit_date DESC;
+"
+
+SEP="∙"
+
+ENTRY=$(
+sqlite3 "$DB_PATH" "$QUERY" | \
+    sed -E 's/^https?:\/\///' | \
+    sed -E "s/\\/?\\|/ $SEP /" | \
+    sed -E "s/$SEP $//" | \
+    $FINDER
+)
+
+URL=$( echo "$ENTRY" | sed "s/$SEP.*//g" )
+
+if [ "$URL" = "" ]; then
+    exit 0
+fi
+
+# google search if input end with .
+if [ "${URL: -1}" = "." ]; then
+    SEARCH="${URL:: -1}"
+    URL="google.com/search?q=$SEARCH"
+fi
+
+case $(uname) in
+    'Linux')
+        xdg-open "https://$URL"
+        ;;
+    'Darwin')
+        open "https://$URL"
+        ;;
+esac

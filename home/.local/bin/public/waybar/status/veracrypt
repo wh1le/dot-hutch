@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if mount | grep -qE ' on /mnt/private_[^ ]* '; then
+  echo '{"text": "󰢲", "class": "active"}'
+else
+  echo '{"text": "󰢲", "class": ""}'
+fi

@@ -1,0 +1,50 @@
+# https://yazi-rs.github.io/docs/configuration/yazi
+
+[mgr]
+close_on_quit = false
+sort_by = "alphabetical"
+sort_sensitive = false
+sort_dir_first = true
+linemode = "size_and_mtime"
+show_hidden = true
+show_symlink = true
+ratio = [1, 4, 1]
+linked = true
+
+[preview]
+image_filter = "lanczos3"
+wrap = "yes"
+tab_size = 2
+max_width = 1200
+max_height = 1000
+
+
+[status]
+show_hidden = true
+show_symlink = true
+
+[open]
+prepend_rules = [
+  { name = "*.json", use = "edit" },
+
+  # Multiple openers for a single rule
+  { name = "*.html", use = ["open", "edit"] },
+]
+append_rules = [{ name = "*", use = "my-fallback" }]
+
+[opener]
+play = [{ run = 'mpv "$@"', orphan = true, for = "unix" }]
+edit = [
+  { run = '$EDITOR "$@"', block = true, for = "unix" },
+  { run = "%EDITOR% %*", block = true, for = "windows" },
+]
+open = [{ run = 'xdg-open "$@"', desc = "Open" }]
+
+[input]
+offset = "(20, 20, 20, 20)"
+
+[plugin]
+prepend_previewers = [
+  { mime = "video/*", run = "piper -- exiftool -S -Duration -ImageSize -VideoFrameRate -AudioBitrate -AudioChannels -SampleRate \"$1\" 2>/dev/null" },
+  { mime = "audio/*", run = "piper -- exiftool -S -FileSize -Duration -AudioBitrate -ChannelMode -AudioChannels -SampleRate \"$1\" 2>/dev/null" },
+]

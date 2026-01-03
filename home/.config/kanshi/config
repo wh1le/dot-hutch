@@ -1,0 +1,82 @@
+output "DSC Paperlike13K 0x00003400" {
+  mode 3200x2400@37.001Hz
+  scale 2.5
+  alias $EINK
+}
+
+ output "LG Electronics LG HDR 4K 0x00013533" {
+  mode 3840x2160@59.997Hz
+  scale 1.5
+  alias $LG
+}
+
+output "TV" {
+	mode 4096x2160@59.94Hz
+	scale 2
+	alias $TV
+}
+
+output "eDP-1" {
+  mode 1920x1200@60.00300
+  scale 1.2
+  alias $THINKPAD
+}
+
+# Home
+
+profile homepc {
+  output $EINK enable position 0,720
+  output $LG enable transform 90 position 1280,0
+}
+
+profile homepc_eink {
+  output $EINK enable
+
+  exec $HOME/.local/bin/public/monitors/kanshi
+}
+
+profile homepc_lg_rotated {
+  output $LG enable transform 90
+
+  exec $HOME/.local/bin/public/monitors/kanshi
+}
+
+profile homepc_lg_rotated_big {
+  output $LG enable transform 90 scale 2
+
+  exec $HOME/.local/bin/public/monitors/kanshi
+}
+
+profile homepc_lg {
+  output $LG enable transform normal
+
+  exec $HOME/.local/bin/public/monitors/kanshi
+}
+
+profile homepc_lg_big {
+  output $LG enable transform normal scale 2
+
+  exec $HOME/.local/bin/public/monitors/kanshi
+}
+
+# Thinkpad
+
+profile thinkpad {
+  output $THINKPAD enable
+
+  exec $HOME/.local/bin/public/monitors/kanshi
+}
+
+profile thinkpad_eink {
+  output $EINK enable position 0,720
+  output $THINKPAD enable
+
+  exec $HOME/.local/bin/public/monitors/kanshi
+}
+
+ # TV
+profile home_tv {
+	output $TV enable
+
+  exec $HOME/.local/bin/public/monitors/kanshi
+}

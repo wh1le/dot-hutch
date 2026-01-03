@@ -1,0 +1,922 @@
+2025-12-28 12:24:42:688 [ info nextcloud.gui.application /build/source/src/gui/application.cpp:739 ]:	################## "Nextcloud" locale: "en_US" ui_lang: QVariant(Invalid) version: "4.0.1" os: "NixOS 25.11 (Xantusia)"
+2025-12-28 12:24:42:688 [ info nextcloud.gui.application /build/source/src/gui/application.cpp:744 ]:	Arguments: QList("nextcloud")
+2025-12-28 12:24:42:688 [ info nextcloud.gui.application /build/source/src/gui/application.cpp:1020 ]:	System UI languages are: QList("en-Latn-US", "en-US", "en-Latn", "en")
+2025-12-28 12:24:42:688 [ info nextcloud.gui.application /build/source/src/gui/application.cpp:1023 ]:	selected application language: "en_Latn_US"
+2025-12-28 12:24:42:688 [ info nextcloud.gui.application /build/source/src/gui/application.cpp:1043 ]:	Using "en_Latn_US" translation
+2025-12-28 12:24:42:688 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:158 ]:	Checking for accounts versions.
+2025-12-28 12:24:42:688 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:159 ]:	Config accounts version: 0
+2025-12-28 12:24:42:688 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:160 ]:	Max accounts Version is set to: 13
+2025-12-28 12:24:42:688 [ info nextcloud.gui.application /build/source/src/gui/application.cpp:136 ]:	Version changed. Removing updater settings from config.
+2025-12-28 12:24:42:701 [ info nextcloud.gui.application /build/source/src/gui/application.cpp:373 ]:	VFS suffix plugin is available
+2025-12-28 12:24:42:701 [ warning qt.core.qobject.connect unknown:0 ]:	QObject::connect(OCC::NextcloudTheme, Unknown): invalid nullptr parameter
+2025-12-28 12:24:42:701 [ info nextcloud.gui.socketapi /build/source/src/gui/socketapi/socketapi.cpp:300 ]:	server started, listening at  "/run/user/1000/Nextcloud/socket"
+2025-12-28 12:24:42:701 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:68 ]:	setting remote poll timer interval to 30000 msec
+2025-12-28 12:24:42:701 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:158 ]:	Checking for accounts versions.
+2025-12-28 12:24:42:701 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:159 ]:	Config accounts version: 0
+2025-12-28 12:24:42:701 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:160 ]:	Max accounts Version is set to: 13
+2025-12-28 12:24:42:701 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:180 ]:	Migrate: restoreFromLegacySettings, checking settings group "Nextcloud"
+2025-12-28 12:24:42:701 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:281 ]:	Migrate: could not read old config  "/home/wh1le/.local/share/ownCloud/owncloud.cfg"
+2025-12-28 12:24:42:701 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:281 ]:	Migrate: could not read old config  "/home/wh1le/.config/ownCloud/owncloud.cfg"
+2025-12-28 12:24:42:701 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:281 ]:	Migrate: could not read old config  "/home/wh1le/.config/Nextcloud/owncloud.cfg"
+2025-12-28 12:24:42:701 [ info nextcloud.gui.account.manager /build/source/src/gui/accountmanager.cpp:281 ]:	Migrate: could not read old config  "/home/wh1le/.config/ownCloud/owncloud.cfg"
+2025-12-28 12:24:42:723 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:355 ]:	Setup folders from  "/home/wh1le/.config/Nextcloud/" (migration)
+2025-12-28 12:24:42:723 [ warning nextcloud.gui.application /build/source/src/gui/application.cpp:530 ]:	Migration result AccountManager::AccountsRestoreResult:  OCC::AccountManager::AccountsRestoreSuccessFromLegacyVersion
+2025-12-28 12:24:42:723 [ warning nextcloud.gui.application /build/source/src/gui/application.cpp:531 ]:	Folders migrated:  0
+2025-12-28 12:24:42:723 [ warning nextcloud.gui.application /build/source/src/gui/application.cpp:532 ]:	No accounts were migrated, prompting user to set up accounts and folders from scratch.
+2025-12-28 12:24:42:776 [ warning qt.qml.typeregistration unknown:0 ]:	Invalid QML element name "Activity"; value type names should begin with a lowercase letter
+2025-12-28 12:24:42:776 [ warning qt.qml.typeregistration unknown:0 ]:	Invalid QML element name "TalkNotificationData"; value type names should begin with a lowercase letter
+2025-12-28 12:24:42:776 [ warning qt.qml.typeregistration unknown:0 ]:	Invalid QML element name "UserStatus"; value type names should begin with a lowercase letter
+2025-12-28 12:24:42:777 [ warning qt.qml.typeregistration unknown:0 ]:	Invalid QML element name "Sharee"; value type names should begin with a lowercase letter
+2025-12-28 12:24:42:778 [ info nextcloud.sync.clientproxy /build/source/src/libsync/clientproxy.cpp:105 ]:	Set proxy configuration to use the preferred system proxy for http tcp connections
+2025-12-28 12:24:42:788 [ warning qt.core.qobject.connect unknown:0 ]:	QObject::connect(QNetworkInformation, OCC::Application): invalid nullptr parameter
+2025-12-28 12:24:43:145 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:492 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:492:13: QML Connections: Detected function "onInteractiveActivityReceived" in Connections element. This is probably intended to be a signal handler but no signal of the target matches the name.
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/TrayFoldersMenuButton.qml:20 ]:	qrc:/qml/src/gui/tray/TrayFoldersMenuButton.qml:20: TypeError: Cannot read property 'groupFolders' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/TrayWindowHeader.qml:57 ]:	qrc:/qml/src/gui/tray/TrayWindowHeader.qml:57: TypeError: Cannot read property 'hasLocalFolder' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/TrayWindowHeader.qml:77 ]:	qrc:/qml/src/gui/tray/TrayWindowHeader.qml:77: TypeError: Cannot read property 'isFeaturedAppEnabled' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/TrayWindowHeader.qml:82 ]:	qrc:/qml/src/gui/tray/TrayWindowHeader.qml:82: TypeError: Cannot read property 'featuredAppAccessibleName' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/TrayWindowHeader.qml:78 ]:	qrc:/qml/src/gui/tray/TrayWindowHeader.qml:78: TypeError: Cannot read property 'featuredAppIcon' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:275 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:275: TypeError: Cannot read property 'unifiedSearchResultsListModel' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:274 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:274: TypeError: Cannot read property 'isConnected' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:273 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:273: TypeError: Cannot read property 'unifiedSearchResultsListModel' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:298 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:298: TypeError: Cannot read property 'unifiedSearchResultsListModel' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:346 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:346: TypeError: Cannot read property 'unifiedSearchResultsListModel' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:384 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:384: TypeError: Cannot read property 'unifiedSearchResultsListModel' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/SyncStatus.qml:105 ]:	qrc:/qml/src/gui/tray/SyncStatus.qml:105: TypeError: Cannot read property 'hasLocalFolder' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/SyncStatus.qml:120 ]:	qrc:/qml/src/gui/tray/SyncStatus.qml:120:9: Unable to assign [undefined] to bool
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/SyncStatus.qml:133 ]:	qrc:/qml/src/gui/tray/SyncStatus.qml:133: TypeError: Cannot read property 'needsToSignTermsOfService' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:297 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:297: TypeError: Cannot read property 'unifiedSearchResultsListModel' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:325 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:325: TypeError: Cannot read property 'unifiedSearchResultsListModel' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:328 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:328: TypeError: Cannot read property 'unifiedSearchResultsListModel' of null
+2025-12-28 12:24:43:197 [ warning default qrc:/qml/src/gui/tray/MainWindow.qml:327 ]:	qrc:/qml/src/gui/tray/MainWindow.qml:327: TypeError: Cannot read property 'unifiedSearchResultsListModel' of null
+2025-12-28 12:24:43:203 [ info nextcloud.gui.application /build/source/src/gui/owncloudgui.cpp:202 ]:	No configured folders yet, starting setup wizard
+2025-12-28 12:24:43:254 [ info nextcloud.gui.wizard.webviewpage /build/source/src/gui/wizard/webviewpage.cpp:30 ]:	Time for a webview!
+2025-12-28 12:24:54:568 [ info nextcloud.gui.wizard /build/source/src/gui/owncloudsetupwizard.cpp:715 ]:	Rejected the new config, use the old!
+2025-12-28 12:25:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:25:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:25:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:25:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:25:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:25:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:26:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:26:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:26:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:26:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:26:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:26:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:27:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:27:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:27:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:27:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:27:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:27:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:28:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:28:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:28:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:28:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:28:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:28:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:29:04:725 [ info nextcloud.gui.application /build/source/src/gui/owncloudgui.cpp:202 ]:	No configured folders yet, starting setup wizard
+2025-12-28 12:29:04:729 [ info nextcloud.gui.wizard.webviewpage /build/source/src/gui/wizard/webviewpage.cpp:30 ]:	Time for a webview!
+2025-12-28 12:29:04:729 [ warning default unknown:0 ]:	QWebEngineUrlScheme::registerScheme: Scheme nc already registered
+2025-12-28 12:29:09:267 [ info nextcloud.gui.wizard.webviewpage /build/source/src/gui/wizard/webviewpage.cpp:57 ]:	Url to auth at:  "https://nextcloud.com/register"
+2025-12-28 12:29:12:107 [ warning js https://nextcloud.com/wp-includes/js/jquery/jquery-migrate.js?ver=3.4.1:136 ]:	JQMIGRATE: jQuery.fn.scroll() event shorthand is deprecated
+2025-12-28 12:29:12:110 [ warning js https://nextcloud.com/wp-includes/js/jquery/jquery-migrate.js?ver=3.4.1:136 ]:	JQMIGRATE: jQuery.fn.submit() event shorthand is deprecated
+2025-12-28 12:29:12:776 [ warning js https://nextcloud.com/wp-includes/js/jquery/jquery-migrate.js?ver=3.4.1:136 ]:	JQMIGRATE: jQuery.fn.click() event shorthand is deprecated
+2025-12-28 12:29:12:778 [ warning js https://nextcloud.com/wp-includes/js/jquery/jquery-migrate.js?ver=3.4.1:136 ]:	JQMIGRATE: jQuery.fn.change() event shorthand is deprecated
+2025-12-28 12:29:12:794 [ warning js https://nextcloud.com/wp-includes/js/jquery/jquery-migrate.js?ver=3.4.1:136 ]:	JQMIGRATE: jQuery(window).on('load'...) called after load event occurred
+2025-12-28 12:29:12:794 [ warning js https://nextcloud.com/wp-includes/js/jquery/jquery-migrate.js?ver=3.4.1:136 ]:	JQMIGRATE: jQuery.fn.resize() event shorthand is deprecated
+2025-12-28 12:29:12:797 [ warning js https://nextcloud.com/wp-includes/js/jquery/jquery-migrate.js?ver=3.4.1:136 ]:	JQMIGRATE: jQuery.type is deprecated
+2025-12-28 12:29:12:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:29:12:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:29:12:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:29:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:29:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:29:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:30:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:30:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:30:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:30:42:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:30:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:30:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:30:43:555 [ info nextcloud.gui.wizard /build/source/src/gui/owncloudsetupwizard.cpp:213 ]:	No system proxy set by OS
+2025-12-28 12:30:43:556 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	2 "" "https://cloud.disroot.org/status.php" has X-Request-ID "bd596283-f911-48e3-8dc7-20f8b7581e86"
+2025-12-28 12:30:43:556 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::CheckServerJob created for "https://cloud.disroot.org" + "status.php" "OCC::OwncloudSetupWizard"
+2025-12-28 12:30:43:944 [ warning nextcloud.sync.networkjob.checkserver /build/source/src/libsync/networkjobs.cpp:677 ]:	No SSL session identifier / session ticket is used, this might impact sync performance negatively.
+2025-12-28 12:30:43:944 [ info nextcloud.sync.networkjob.checkserver /build/source/src/libsync/networkjobs.cpp:705 ]:	status.php returns:  QJsonDocument({"edition":"","extendedSupport":false,"installed":true,"maintenance":false,"needsDbUpgrade":false,"productname":"Nextcloud","version":"31.0.10.2","versionstring":"31.0.10"})   QNetworkReply::NoError  Reply:  QNetworkReplyHttpImpl(0x55dc8d6c4da0)
+2025-12-28 12:30:43:944 [ info nextcloud.sync.networkjob.determineauthtype /build/source/src/libsync/networkjobs.cpp:1178 ]:	Determining auth type for QUrl("https://cloud.disroot.org/remote.php/dav/files//")
+2025-12-28 12:30:43:944 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	2 "" "https://cloud.disroot.org" has X-Request-ID "d4f6e0f9-35c1-457b-acda-9f406bb174dd"
+2025-12-28 12:30:43:944 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::SimpleNetworkJob created for "https://cloud.disroot.org" + "" ""
+2025-12-28 12:30:43:945 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	6 "PROPFIND" "https://cloud.disroot.org/remote.php/dav/files//" has X-Request-ID "39a2bc69-c61f-4af4-9f91-3e34bbc11279"
+2025-12-28 12:30:43:945 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::SimpleNetworkJob created for "https://cloud.disroot.org" + "" ""
+2025-12-28 12:30:43:945 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	2 "" "https://cloud.disroot.org/ocs/v2.php/cloud/capabilities?format=json" has X-Request-ID "572d4f9d-2447-4ac0-8ca2-fffd3c4e9fbd"
+2025-12-28 12:30:43:945 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::JsonApiJob created for "https://cloud.disroot.org" + "/ocs/v2.php/cloud/capabilities" "OCC::DetermineAuthTypeJob"
+2025-12-28 12:30:44:406 [ info nextcloud.sync.networkjob.jsonapi /build/source/src/libsync/networkjobs.cpp:1118 ]:	JsonApiJob of QUrl("https://cloud.disroot.org/ocs/v2.php/cloud/capabilities?format=json") FINISHED WITH STATUS "OK"
+2025-12-28 12:30:44:406 [ warning nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:40 ]:	Server requested authentication and we didn't provide a user
+2025-12-28 12:30:44:412 [ warning nextcloud.sync.networkjob.determineauthtype /build/source/src/libsync/networkjobs.cpp:1225 ]:	Unknown WWW-Authenticate reply to auth-test PROPFIND: "basic realm=\"disroot cloud\", charset=\"utf-8\""
+2025-12-28 12:30:44:441 [ info nextcloud.sync.networkjob.determineauthtype /build/source/src/libsync/networkjobs.cpp:1310 ]:	Auth type for QUrl("https://cloud.disroot.org/remote.php/dav/files//") is OCC::DetermineAuthTypeJob::LoginFlowV2
+2025-12-28 12:30:44:445 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	4 "" "https://cloud.disroot.org/index.php/login/v2" has X-Request-ID "07509e28-3513-465c-8c5c-b759ea28ddd9"
+2025-12-28 12:30:44:445 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::SimpleNetworkJob created for "https://cloud.disroot.org" + "" ""
+2025-12-28 12:30:45:078 [ info nextcloud.sync.credentials.flow2auth /build/source/src/gui/creds/flow2auth.cpp:122 ]:	setting remote poll timer interval to 30000 msec
+2025-12-28 12:30:56:900 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	4 "" "https://cloud.disroot.org/login/v2/poll" has X-Request-ID "9ceb4af2-c4e8-42b4-8193-2e11f8ba4d6a"
+2025-12-28 12:30:56:900 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::SimpleNetworkJob created for "https://cloud.disroot.org" + "" ""
+2025-12-28 12:30:57:168 [ warning nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:474 ]:	Network request error "Error transferring https://cloud.disroot.org/login/v2/poll - server replied: Not Found" HTTP status 404 httpReason "Not Found"
+2025-12-28 12:30:57:168 [ warning nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:219 ]:	QNetworkReply::ContentNotFoundError "We couldn’t find what you were looking for. It might have been moved or deleted. If you need help, contact your server administrator." QVariant(int, 404)
+2025-12-28 12:30:57:169 [ warning nextcloud.sync.credentials.flow2auth /build/source/src/gui/creds/flow2auth.cpp:275 ]:	Error when requesting: QUrl("https://cloud.disroot.org/login/v2/poll") - json returned: QJsonObject() - error: "There was an error accessing the \"token\" endpoint: <br><em>Error transferring https://cloud.disroot.org/login/v2/poll - server replied: Not Found</em>"
+2025-12-28 12:30:57:199 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	4 "" "https://cloud.disroot.org/login/v2/poll" has X-Request-ID "90ba134f-aae8-42bf-a5c7-6506a2a31d9a"
+2025-12-28 12:30:57:199 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::SimpleNetworkJob created for "https://cloud.disroot.org" + "" ""
+2025-12-28 12:30:57:451 [ warning nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:474 ]:	Network request error "Error transferring https://cloud.disroot.org/login/v2/poll - server replied: Not Found" HTTP status 404 httpReason "Not Found"
+2025-12-28 12:30:57:451 [ warning nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:219 ]:	QNetworkReply::ContentNotFoundError "We couldn’t find what you were looking for. It might have been moved or deleted. If you need help, contact your server administrator." QVariant(int, 404)
+2025-12-28 12:30:57:451 [ warning nextcloud.sync.credentials.flow2auth /build/source/src/gui/creds/flow2auth.cpp:275 ]:	Error when requesting: QUrl("https://cloud.disroot.org/login/v2/poll") - json returned: QJsonObject() - error: "There was an error accessing the \"token\" endpoint: <br><em>Error transferring https://cloud.disroot.org/login/v2/poll - server replied: Not Found</em>"
+2025-12-28 12:30:58:632 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	4 "" "https://cloud.disroot.org/index.php/login/v2" has X-Request-ID "edb9bfd4-79e0-4565-9421-d110ec633f49"
+2025-12-28 12:30:58:633 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::SimpleNetworkJob created for "https://cloud.disroot.org" + "" ""
+2025-12-28 12:30:59:303 [ info nextcloud.sync.credentials.flow2auth /build/source/src/gui/creds/flow2auth.cpp:122 ]:	setting remote poll timer interval to 30000 msec
+2025-12-28 12:31:12:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:31:12:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:31:12:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:31:28:980 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	4 "" "https://cloud.disroot.org/login/v2/poll" has X-Request-ID "cf401c71-f56e-468d-8d12-c8fa34623a2e"
+2025-12-28 12:31:28:980 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::SimpleNetworkJob created for "https://cloud.disroot.org" + "" ""
+2025-12-28 12:31:29:200 [ warning nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:474 ]:	Network request error "Error transferring https://cloud.disroot.org/login/v2/poll - server replied: Not Found" HTTP status 404 httpReason "Not Found"
+2025-12-28 12:31:29:200 [ warning nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:219 ]:	QNetworkReply::ContentNotFoundError "We couldn’t find what you were looking for. It might have been moved or deleted. If you need help, contact your server administrator." QVariant(int, 404)
+2025-12-28 12:31:29:200 [ warning nextcloud.sync.credentials.flow2auth /build/source/src/gui/creds/flow2auth.cpp:275 ]:	Error when requesting: QUrl("https://cloud.disroot.org/login/v2/poll") - json returned: QJsonObject() - error: "There was an error accessing the \"token\" endpoint: <br><em>Error transferring https://cloud.disroot.org/login/v2/poll - server replied: Not Found</em>"
+2025-12-28 12:31:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:31:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:31:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:31:47:512 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	4 "" "https://cloud.disroot.org/login/v2/poll" has X-Request-ID "8caaa9ef-dcbc-4f72-a760-4389bc5cb7c9"
+2025-12-28 12:31:47:512 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::SimpleNetworkJob created for "https://cloud.disroot.org" + "" ""
+2025-12-28 12:31:47:749 [ info nextcloud.sync.credentials.flow2auth /build/source/src/gui/creds/flow2auth.cpp:203 ]:	Success getting the appPassword for user:  "nmiloserdov" , server:  "https://cloud.disroot.org"
+2025-12-28 12:31:47:750 [ info nextcloud.gui.wizard /build/source/src/gui/owncloudsetupwizard.cpp:353 ]:	Connect to url:  "https://cloud.disroot.org"
+2025-12-28 12:31:47:750 [ info nextcloud.sync.credentials.webflow /build/source/src/gui/creds/webflowcredentials.cpp:122 ]:	Get QNAM
+2025-12-28 12:31:47:752 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	2 "" "https://cloud.disroot.org/ocs/v1.php/cloud/user?format=json" has X-Request-ID "a453e4fa-8551-4c0c-98b9-ffadc76da0b4"
+2025-12-28 12:31:47:753 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::JsonApiJob created for "https://cloud.disroot.org" + "/ocs/v1.php/cloud/user" ""
+2025-12-28 12:31:47:762 [ warning nextcloud.sync.credentials.webflow /build/source/src/gui/creds/webflowcredentials.cpp:340 ]:	Error while writing password "The name is not activatable"
+2025-12-28 12:31:49:481 [ info nextcloud.sync.credentials.webflow /build/source/src/gui/creds/webflowcredentials.cpp:411 ]:	request finished QUrl("https://cloud.disroot.org/ocs/v1.php/cloud/user?format=json") with request id "a453e4fa-8551-4c0c-98b9-ffadc76da0b4"
+2025-12-28 12:31:49:481 [ info nextcloud.sync.networkjob.jsonapi /build/source/src/libsync/networkjobs.cpp:1118 ]:	JsonApiJob of QUrl("https://cloud.disroot.org/ocs/v1.php/cloud/user?format=json") FINISHED WITH STATUS "OK"
+2025-12-28 12:31:49:481 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	6 "PROPFIND" "https://cloud.disroot.org/remote.php/dav/files/nmiloserdov/" has X-Request-ID "67738706-5243-499e-8426-6e4ce83d7bd3"
+2025-12-28 12:31:49:482 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::PropfindJob created for "https://cloud.disroot.org" + "/" "OCC::OwncloudSetupWizard"
+2025-12-28 12:31:49:669 [ info nextcloud.sync.credentials.webflow /build/source/src/gui/creds/webflowcredentials.cpp:411 ]:	request finished QUrl("https://cloud.disroot.org/remote.php/dav/files/nmiloserdov/") with request id "67738706-5243-499e-8426-6e4ce83d7bd3"
+2025-12-28 12:31:49:669 [ info nextcloud.sync.networkjob.propfind /build/source/src/libsync/networkjobs.cpp:807 ]:	PROPFIND of QUrl("https://cloud.disroot.org/remote.php/dav/files/nmiloserdov/") FINISHED WITH STATUS "OK"
+2025-12-28 12:31:49:674 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	6 "PROPFIND" "https://cloud.disroot.org/remote.php/dav/files/nmiloserdov/" has X-Request-ID "b298b334-df1b-499c-bca1-1936578ebbd3"
+2025-12-28 12:31:49:674 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::PropfindJob created for "https://cloud.disroot.org" + "/" "OCC::OwncloudAdvancedSetupPage"
+2025-12-28 12:31:49:674 [ info nextcloud.sync.accessmanager /build/source/src/libsync/accessmanager.cpp:72 ]:	2 "" "https://cloud.disroot.org/remote.php/dav/avatars/nmiloserdov/64.png" has X-Request-ID "4aad3da4-a8ea-4ffb-895d-7a42f519e0b9"
+2025-12-28 12:31:49:675 [ info nextcloud.sync.networkjob /build/source/src/libsync/abstractnetworkjob.cpp:368 ]:	OCC::AvatarJob created for "https://cloud.disroot.org" + "" "OCC::OwncloudAdvancedSetupPage"
+2025-12-28 12:31:50:146 [ info nextcloud.sync.credentials.webflow /build/source/src/gui/creds/webflowcredentials.cpp:411 ]:	request finished QUrl("https://cloud.disroot.org/remote.php/dav/files/nmiloserdov/") with request id "b298b334-df1b-499c-bca1-1936578ebbd3"
+2025-12-28 12:31:50:146 [ info nextcloud.sync.networkjob.propfind /build/source/src/libsync/networkjobs.cpp:807 ]:	PROPFIND of QUrl("https://cloud.disroot.org/remote.php/dav/files/nmiloserdov/") FINISHED WITH STATUS "OK"
+2025-12-28 12:31:50:334 [ info nextcloud.sync.credentials.webflow /build/source/src/gui/creds/webflowcredentials.cpp:411 ]:	request finished QUrl("https://cloud.disroot.org/remote.php/dav/avatars/nmiloserdov/64.png") with request id "4aad3da4-a8ea-4ffb-895d-7a42f519e0b9"
+2025-12-28 12:32:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:32:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:32:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:32:33:669 [ info nextcloud.gui.wizard /build/source/src/gui/owncloudsetupwizard.cpp:715 ]:	Rejected the new config, use the old!
+2025-12-28 12:32:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:32:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:32:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:33:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:33:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:33:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:33:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:33:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:33:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:34:12:981 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:34:12:981 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:34:12:981 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:34:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:34:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:34:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:35:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:35:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:35:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:35:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:35:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:35:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:36:12:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:36:12:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:36:12:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:36:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:36:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:36:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:37:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:37:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:37:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:37:42:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:37:42:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:37:42:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:38:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:38:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:38:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:38:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:38:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:38:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:39:12:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:39:12:981 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:39:12:981 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:39:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:39:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:39:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:40:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:40:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:40:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:40:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:40:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:40:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:41:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:41:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:41:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:41:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:41:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:41:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:42:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:42:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:42:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:42:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:42:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:42:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:43:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:43:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:43:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:43:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:43:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:43:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:44:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:44:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:44:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:44:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:44:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:44:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:45:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:45:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:45:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:45:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:45:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:45:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:46:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:46:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:46:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:46:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:46:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:46:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:47:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:47:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:47:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:47:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:47:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:47:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:48:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:48:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:48:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:48:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:48:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:48:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:49:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:49:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:49:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:49:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:49:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:49:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:50:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:50:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:50:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:50:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:50:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:50:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:51:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:51:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:51:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:51:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:51:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:51:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:52:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:52:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:52:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:52:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:52:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:52:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:53:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:53:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:53:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:53:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:53:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:53:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:54:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:54:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:54:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:54:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:54:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:54:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:55:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:55:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:55:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:55:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:55:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:55:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:56:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:56:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:56:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:56:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:56:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:56:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:57:12:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:57:12:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:57:12:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:57:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:57:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:57:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:58:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:58:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:58:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:58:42:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:58:42:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:58:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:59:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:59:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:59:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 12:59:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 12:59:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 12:59:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:00:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:00:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:00:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:00:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:00:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:00:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:01:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:01:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:01:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:01:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:01:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:01:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:02:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:02:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:02:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:02:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:02:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:02:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:03:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:03:12:984 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:03:12:984 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:03:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:03:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:03:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:04:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:04:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:04:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:04:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:04:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:04:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:05:12:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:05:12:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:05:12:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:05:42:981 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:05:42:981 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:05:42:981 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:06:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:06:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:06:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:06:42:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:06:42:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:06:42:977 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:07:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:07:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:07:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:07:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:07:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:07:42:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:08:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:08:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:08:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:08:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:08:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:08:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:09:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:09:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:09:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:09:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:09:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:09:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:10:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:10:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:10:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:10:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:10:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:10:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:11:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:11:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:11:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:11:42:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:11:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:11:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:12:12:981 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:12:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:12:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:12:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:12:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:12:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:13:12:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:13:12:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:13:12:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:13:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:13:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:13:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:14:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:14:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:14:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:14:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:14:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:14:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:15:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:15:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:15:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:15:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:15:42:984 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:15:42:984 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:16:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:16:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:16:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:16:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:16:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:16:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:17:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:17:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:17:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:17:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:17:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:17:42:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:18:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:18:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:18:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:18:42:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:18:42:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:18:42:979 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:19:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:19:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:19:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:19:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:19:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:19:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:20:12:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:20:12:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:20:12:980 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:20:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:20:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:20:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:21:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:21:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:21:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:21:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:21:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:21:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:22:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:22:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:22:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:22:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:22:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:22:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:23:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:23:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:23:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:23:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:23:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:23:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:24:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:24:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:24:12:978 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:24:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:24:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:24:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:25:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:25:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:25:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:25:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:25:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:25:42:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:26:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:26:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:26:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:26:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:26:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:26:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:27:12:982 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:27:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:27:12:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:27:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:27:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:27:42:983 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:38:29:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:38:29:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:38:29:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:38:59:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:38:59:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:38:59:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:39:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:39:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:39:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:39:59:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:39:59:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:39:59:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:40:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:40:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:40:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:40:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:40:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:40:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:41:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:41:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:41:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:41:59:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:41:59:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:41:59:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:42:29:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:42:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:42:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:42:59:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:42:59:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:42:59:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:43:29:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:43:29:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:43:29:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:43:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:43:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:43:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:44:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:44:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:44:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:44:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:44:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:44:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:45:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:45:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:45:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:45:59:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:45:59:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:45:59:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:46:29:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:46:29:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:46:29:908 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:46:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:46:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:46:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:47:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:47:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:47:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:47:59:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:47:59:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:47:59:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:48:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:48:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:48:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:48:59:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:48:59:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:48:59:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:49:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:49:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:49:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:49:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:49:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:49:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:50:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:50:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:50:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:50:59:910 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:50:59:910 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:50:59:910 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:51:29:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:51:29:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:51:29:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:51:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:51:59:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:51:59:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:52:29:910 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:52:29:910 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:52:29:910 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:52:59:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:52:59:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:52:59:909 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:53:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:53:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:53:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:53:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:53:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:53:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:54:29:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:54:29:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:54:29:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:54:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:54:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:54:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:55:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:55:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:55:29:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:55:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:55:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:55:59:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:56:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:56:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:56:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:56:59:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:56:59:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:56:59:911 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:57:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:57:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:57:29:912 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:57:59:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:57:59:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:57:59:913 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:58:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:58:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:58:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:59:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:59:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:59:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 13:59:30:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 13:59:30:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 13:59:30:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:00:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:00:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:00:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:00:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:00:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:00:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:01:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:01:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:01:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:01:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:01:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:01:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:02:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:02:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:02:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:02:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:02:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:02:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:03:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:03:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:03:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:03:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:03:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:03:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:04:00:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:04:00:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:04:00:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:04:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:04:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:04:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:05:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:05:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:05:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:05:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:05:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:05:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:06:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:06:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:06:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:06:12:915 [ info nextcloud.gui.application /build/source/src/gui/owncloudgui.cpp:202 ]:	No configured folders yet, starting setup wizard
+2025-12-28 14:06:12:920 [ info nextcloud.gui.wizard.webviewpage /build/source/src/gui/wizard/webviewpage.cpp:30 ]:	Time for a webview!
+2025-12-28 14:06:12:920 [ warning default unknown:0 ]:	QWebEngineUrlScheme::registerScheme: Scheme nc already registered
+2025-12-28 14:06:27:762 [ info nextcloud.gui.wizard /build/source/src/gui/owncloudsetupwizard.cpp:715 ]:	Rejected the new config, use the old!
+2025-12-28 14:06:30:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:06:30:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:06:30:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:07:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:07:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:07:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:07:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:07:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:07:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:08:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:08:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:08:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:08:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:08:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:08:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:09:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:09:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:09:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:09:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:09:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:09:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:10:00:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:10:00:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:10:00:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:10:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:10:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:10:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:11:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:11:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:11:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:11:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:11:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:11:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:12:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:12:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:12:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:12:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:12:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:12:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:13:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:13:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:13:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:13:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:13:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:13:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:14:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:14:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:14:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:14:30:755 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:14:30:755 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:14:30:755 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:15:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:15:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:15:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:15:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:15:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:15:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:16:00:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:16:00:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:16:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:16:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:16:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:16:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:17:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:17:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:17:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:17:30:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:17:30:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:17:30:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:18:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:18:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:18:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:18:30:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:18:30:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:18:30:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:19:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:19:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:19:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:19:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:19:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:19:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:20:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:20:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:20:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:20:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:20:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:20:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:21:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:21:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:21:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:21:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:21:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:21:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:22:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:22:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:22:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:22:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:22:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:22:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:23:00:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:23:00:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:23:00:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:23:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:23:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:23:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:24:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:24:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:24:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:24:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:24:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:24:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:25:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:25:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:25:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:25:30:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:25:30:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:25:30:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:26:00:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:26:00:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:26:00:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:26:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:26:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:26:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:27:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:27:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:27:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:27:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:27:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:27:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:28:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:28:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:28:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:28:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:28:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:28:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:29:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:29:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:29:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:29:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:29:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:29:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:30:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:30:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:30:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:30:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:30:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:30:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:31:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:31:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:31:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:31:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:31:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:31:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:32:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:32:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:32:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:32:30:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:32:30:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:32:30:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:33:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:33:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:33:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:33:30:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:33:30:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:33:30:757 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:34:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:34:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:34:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:34:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:34:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:34:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:35:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:35:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:35:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:35:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:35:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:35:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:36:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:36:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:36:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:36:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:36:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:36:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:37:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:37:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:37:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:37:30:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:37:30:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:37:30:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:38:00:755 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:38:00:755 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:38:00:755 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:38:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:38:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:38:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:39:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:39:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:39:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:39:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:39:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:39:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:40:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:40:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:40:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:40:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:40:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:40:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:41:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:41:00:762 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:41:00:762 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:41:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:41:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:41:30:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:42:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:42:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:42:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:42:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:42:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:42:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:43:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:43:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:43:00:758 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:43:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:43:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:43:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:44:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:44:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:44:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:44:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:44:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:44:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:45:00:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:45:00:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:45:00:756 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:45:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:45:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:45:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:46:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:46:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:46:00:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:46:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:46:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:46:30:759 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:47:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:47:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:47:00:761 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
+2025-12-28 14:47:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1024 ]:	Etag poll timer timeout
+2025-12-28 14:47:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1028 ]:	Folders to sync: 0
+2025-12-28 14:47:30:760 [ info nextcloud.gui.folder.manager /build/source/src/gui/folderman.cpp:1038 ]:	Number of folders that don't use push notifications: 0
