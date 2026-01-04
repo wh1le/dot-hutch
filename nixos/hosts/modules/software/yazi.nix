@@ -1,6 +1,6 @@
 { pkgs, unstable, inputs, ... }:
 let
-  yazi = inputs.yazi.packages.${pkgs.system}.default;
+  yazi = inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   nix.settings = {

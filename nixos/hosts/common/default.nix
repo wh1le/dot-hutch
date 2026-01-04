@@ -14,7 +14,10 @@
     brogue-ce
     tty-solitaire
     tabiew # https://github.com/shshemi/tabiew
-    inputs.h-m-m.packages.${pkgs.system}.default # https://github.com/nadrad/h-m-m
+
+    # https://github.com/nadrad/h-m-m
+    inputs.h-m-m.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     moon-buggy
 
     abook

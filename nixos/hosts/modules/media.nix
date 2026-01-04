@@ -45,7 +45,7 @@
     pkgs.zathura
     pkgs.imv
 
-    inputs.viu-anime.packages.${pkgs.system}.default
+    inputs.viu-anime.packages.${pkgs.stdenv.hostPlatform.system}.default
     pkgs.gophertube # https://github.com/krishnassh/gophertube
   ];
 }
