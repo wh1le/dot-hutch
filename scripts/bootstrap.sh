@@ -151,7 +151,7 @@ link_main_nixos_configuration() {
   ok "Linked $PRIMARY_PATH → /etc/nixos"
 }
 
-setup_sbctl_keys() {
+setup_sbctl_bios_keys() {
   if ! has_sbctl_keys; then
     skip "No sbctl keys found, secure boot"
     return 0
@@ -200,17 +200,19 @@ run_install() {
 }
 
 deploy_bios_keys() {
-  if has_sbctl_keys; then
-    sudo mkdir -p /mnt/var/lib/sbctl/keys/{PK,KEK,db}
-    sudo cp -r ~/.secrets/sbctl-keys-bios/* /mnt/var/lib/sbctl/
-    sudo chown -R root:root /mnt/var/lib/sbctl
-    sudo chmod 700 /mnt/var/lib/sbctl/keys
-    sudo chmod 600 /mnt/var/lib/sbctl/keys/*/*.key
-    sudo chmod 644 /mnt/var/lib/sbctl/keys/*/*.pem
-    ok "sbctl keys copied to target"
-  else
+  if ! has_sbctl_keys; then
     skip "No sbctl keys to copy"
+    return 0
   fi
+
+  sudo mkdir -p /mnt/var/lib/sbctl
+  sudo cp -r ~/.secrets/sbctl-keys-bios/* /mnt/var/lib/sbctl/
+  sudo chown -R root:root /mnt/var/lib/sbctl
+  sudo find /mnt/var/lib/sbctl -type d -exec chmod 700 {} \;
+  sudo find /mnt/var/lib/sbctl -name "*.key" -exec chmod 600 {} \;
+  sudo find /mnt/var/lib/sbctl -name "*.pem" -exec chmod 644 {} \;
+
+  ok "sbctl keys copied to target"
 }
 
 copy_dot_files_to_target() {
@@ -271,7 +273,7 @@ link)
   link_main_nixos_configuration
   ;;
 sbctl)
-  setup_sbctl_keys
+  setup_sbctl_bios_keys
   ;;
 disko)
   run_disko "${2:-}"
