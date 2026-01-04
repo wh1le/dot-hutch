@@ -9,6 +9,8 @@ SECRETS_REPO="${SECRETS_MNT}/secrets.git"
 TARGET_USER="${TARGET_USER:-$(whoami)}"
 TARGET_HOST="${TARGET_HOST:-}"
 
+ROOT_USERS="${ROOT_USERS:-wh1le}"
+
 # Space separated "name:repo" pairs - first becomes PRIMARY
 DOT_REPOS="${DOT_REPOS:-public:git@github.com:wh1le/nix-public.git}"
 
@@ -206,18 +208,30 @@ deploy_bios_keys() {
 
 copy_dot_files_to_target() {
   detect_primary
-  sudo mkdir -p "/mnt/home/${TARGET_USER}/dot"
-  for entry in $DOT_REPOS; do
-    local name="${entry%%:*}"
-    local src=~/dot/nix-${name}
-    local dest="/mnt/home/${TARGET_USER}/dot/nix-${name}"
-    if [[ -d "$src" ]]; then
-      sudo cp -r "$src" "$dest"
-      ok "Copied nix-${name} to target"
-    fi
+
+  for user_home in /mnt/home/*/; do
+    local user=$(basename "$user_home")
+    [[ "$user" == "lost+found" ]] && continue
+
+    local uid=$(stat -c %u "$user_home")
+    sudo mkdir -p "${user_home}dot"
+
+    for entry in $DOT_REPOS; do
+      local name="${entry%%:*}"
+      local src=~/dot/nix-${name}
+      [[ -d "$src" ]] && sudo cp -r "$src" "${user_home}dot/nix-${name}" && ok "Copied nix-${name} to ${user}"
+    done
+
+    [[ -d ~/.secrets && " $ROOT_USERS " == *" $user "* ]] &&
+      sudo cp -r ~/.secrets "${user_home}.secrets" &&
+      sudo chown -R "${uid}:users" "${user_home}.secrets" &&
+      ok "Copied .secrets to ${user}"
+
+    sudo chown -R "${uid}:users" "${user_home}dot"
   done
-  sudo chown -R 1000:users "/mnt/home/${TARGET_USER}/dot"
-  sudo ln -sfn "/mnt/home/${TARGET_USER}/dot/nix-${PRIMARY_NAME}" /mnt/etc/nixos
+
+  local primary_user="${TARGET_USER:-$(ls /mnt/home | grep -v lost+found | head -1)}"
+  sudo ln -sfn "/mnt/home/${primary_user}/dot/nix-${PRIMARY_NAME}" /mnt/etc/nixos
   ok "Linked config in target"
 }
 
