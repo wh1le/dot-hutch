@@ -5,6 +5,7 @@ let
   dotPublic = "${homeDir}/dot/nix-public";
   configDir = ../../../home/.config; # adjust based on actual location
   configEntries = builtins.readDir configDir;
+  excludeDirs = [ "systemd" ];
 
   homeDirs = [
     "Documents"
@@ -34,5 +35,5 @@ in
     (name: _: {
       source = mkSymlink "${dotPublic}/home/.config/${name}";
     })
-    configEntries;
+    (removeAttrs configEntries excludeDirs);
 }
