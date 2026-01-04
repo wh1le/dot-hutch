@@ -1,4 +1,7 @@
 { pkgs, lib, config, ... }:
+let
+  hasKeys = builtins.pathExists /var/lib/sbctl/keys/db/db.key;
+in
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # services.firmware.enable = true;
@@ -46,7 +49,7 @@
 
   boot.loader = {
     systemd-boot = {
-      enable = false;
+      # enable = false;
       configurationLimit = 5;
     };
     timeout = 1;
@@ -57,9 +60,18 @@
   };
 
   boot.lanzaboote = {
-    enable = true;
+    enable = hasKeys;
     pkiBundle = "/var/lib/sbctl";
   };
+
+  boot.loader.systemd-boot.enable = !config.boot.lanzaboote.enable;
+
+  warnings = lib.optional (!hasKeys) "Secure Boot disabled: sbctl keys not found at /var/lib/sbctl/keys/db/db.key enable after installation or delete";
+
+  # boot.lanzaboote = {
+  #   enable = true;
+  #   pkiBundle = "/var/lib/sbctl";
+  # };
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
