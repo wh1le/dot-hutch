@@ -87,7 +87,7 @@ setup_ssh() {
   ok "SSH key loaded"
 }
 
-clone_secrets() {
+clone_secrets_to_live_usb() {
   if ! has_secrets_mounted; then
     skip "No secrets mounted, secrets repo"
     return 0
@@ -137,7 +137,7 @@ detect_primary() {
   done
 }
 
-link_config() {
+link_main_nixos_configuration() {
   detect_primary
   if [[ -z "${PRIMARY_PATH:-}" ]]; then
     fail "No repos defined"
@@ -190,24 +190,17 @@ run_install() {
   ok "nixos-install complete"
 }
 
-copy_secrets_to_target() {
+deploy_bios_keys() {
   if has_sbctl_keys; then
-    sudo mkdir -p /mnt/var/lib/sbctl
+    sudo mkdir -p /mnt/var/lib/sbctl/keys/{PK,KEK,db}
     sudo cp -r ~/.secrets/sbctl-keys-bios/* /mnt/var/lib/sbctl/
     sudo chown -R root:root /mnt/var/lib/sbctl
+    sudo chmod 700 /mnt/var/lib/sbctl/keys
     sudo chmod 600 /mnt/var/lib/sbctl/keys/*/*.key
+    sudo chmod 644 /mnt/var/lib/sbctl/keys/*/*.pem
     ok "sbctl keys copied to target"
   else
     skip "No sbctl keys to copy"
-  fi
-
-  if has_secrets_repo; then
-    sudo mkdir -p "/mnt/home/${TARGET_USER}/.secrets"
-    sudo cp -r ~/.secrets/* "/mnt/home/${TARGET_USER}/.secrets/"
-    sudo chown -R 1000:users "/mnt/home/${TARGET_USER}/.secrets"
-    ok "Secrets copied to target"
-  else
-    skip "No secrets repo to copy"
   fi
 }
 
@@ -226,32 +219,6 @@ copy_dot_files_to_target() {
   sudo chown -R 1000:users "/mnt/home/${TARGET_USER}/dot"
   sudo ln -sfn "/mnt/home/${TARGET_USER}/dot/nix-${PRIMARY_NAME}" /mnt/etc/nixos
   ok "Linked config in target"
-}
-
-deploy_home() {
-  detect_primary
-  local target="${1:-}"
-  local home_base="${target}/home/${TARGET_USER}"
-  local deploy_script="${PRIMARY_PATH}/scripts/deploy-home.sh"
-
-  if [[ ! -x "$deploy_script" ]]; then
-    fail "deploy-home.sh not found at $deploy_script"
-  fi
-
-  if [[ -n "$target" ]]; then
-    # Installing to target - just create dirs, full deploy after boot
-    local home_dirs=(Documents Videos Music Cloud code Projects Virtualization)
-    for dir in "${home_dirs[@]}"; do
-      sudo mkdir -p "${home_base}/${dir}"
-    done
-    sudo chown -R 1000:users "${home_base}"
-    ok "Home directories created in target"
-    log "Run 'deploy-home' after reboot for full setup"
-  else
-    # Running system - full deploy
-    "$deploy_script" "${TARGET_USER}"
-    ok "Home deployed"
-  fi
 }
 
 show_summary() {
@@ -274,13 +241,13 @@ ssh)
   setup_ssh
   ;;
 clone-secrets)
-  clone_secrets
+  clone_secrets_to_live_usb
   ;;
 clone)
   clone_dot_files
   ;;
 link)
-  link_config
+  link_main_nixos_configuration
   ;;
 sbctl)
   setup_sbctl_keys
@@ -292,29 +259,34 @@ install)
   run_install "${2:-}"
   ;;
 copy-secrets)
-  copy_secrets_to_target
+  deploy_bios_keys
   ;;
 copy-dots)
   copy_dot_files_to_target
   ;;
-deploy-home)
-  deploy_home "${2:-}"
-  ;;
 full)
-  mount_secrets
-  setup_ssh
-  clone_secrets
   clone_dot_files
-  link_config
+  link_main_nixos_configuration
   run_disko "${2:-}"
   run_install "${2:-}"
-  copy_secrets_to_target
   copy_dot_files_to_target
-  deploy_home /mnt
   show_summary
   echo "✓ Install complete."
+  echo "→ Reboot into your new system"
+  ;;
+full-with-secrets)
+  mount_secrets
+  setup_ssh
+  clone_secrets_to_live_usb
+  clone_dot_files
+  link_main_nixos_configuration
+  run_disko "${2:-}"
+  deploy_bios_keys
+  run_install "${2:-}"
+  copy_dot_files_to_target
+  show_summary
+  echo "✓  Install complete. Nixos configuration can be found at /etc/nixos."
   has_sbctl_keys && echo "→ Reboot and enable Secure Boot in BIOS"
-  echo "→ After reboot run: $0 deploy-home"
   ;;
 status)
   detect_primary
@@ -327,9 +299,9 @@ NixOS Installer - Auto-detecting setup
 Usage: $0 <command> [hostname]
 
 Commands:
-  status        Show detected configuration
-  full <host>   Complete install (auto-skips unavailable features)
-  deploy-home   Deploy dotfiles (run after reboot)
+  status                     Show detected configuration
+  full <host>                Complete install (auto-skips unavailable features)
+  full-with-secrets <host>   Complete install (With Secrets Flash Drive)
 
 Individual steps:
   mount         Mount encrypted secrets drive
