@@ -39,7 +39,7 @@
 
         thinkpad = nixpkgs.lib.nixosSystem {
           modules = [
-            ./hosts/thinkpad/configuration.nix
+            ./nixos/hosts/thinkpad/configuration.nix
             inputs.sops-nix.nixosModules.sops
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager

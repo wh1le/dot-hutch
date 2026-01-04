@@ -3,8 +3,7 @@ set -eu
 
 # === Config ===
 SECRETS_DEV="${SECRETS_DEV:-/dev/sda}"
-SECRETS_INDEX="${SECRETS_INDEX:-1}"
-SECRETS_MNT="/mnt/secrets${SECRETS_INDEX}"
+SECRETS_MNT="/run/media/nixos/secrets"
 SSH_KEY_NAME="${SSH_KEY_NAME:-secrets_installer_key}"
 SECRETS_REPO="${SECRETS_MNT}/secrets.git"
 TARGET_USER="${TARGET_USER:-$(whoami)}"
@@ -59,7 +58,7 @@ mount_secrets() {
     ok "Already mounted at $SECRETS_MNT"
     return 0
   fi
-  local name="secrets${SECRETS_INDEX}"
+  local name="secrets"
   sudo mkdir -p "$SECRETS_MNT"
   sudo cryptsetup open "$SECRETS_DEV" "$name"
   sudo mount "/dev/mapper/${name}" "$SECRETS_MNT"
