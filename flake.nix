@@ -23,7 +23,8 @@
             home-manager.nixosModules.home-manager
             lanzaboote.nixosModules.lanzaboote
             disko.nixosModules.disko
-            {
+            { 
+              home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.wh1le = ./nixos/home/users/wh1le.nix;
             }
           ];
@@ -45,7 +46,8 @@
             home-manager.nixosModules.home-manager
             lanzaboote.nixosModules.lanzaboote
             disko.nixosModules.disko
-            {
+            { 
+              home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.wh1le = ./nixos/home/users/wh1le.nix;
             }
           ];
