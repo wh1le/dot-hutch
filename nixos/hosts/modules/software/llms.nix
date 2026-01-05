@@ -17,13 +17,10 @@
     acceleration = "cuda";
     loadModels = [
       "qwen3:32b"
-
-      # uncensored
+      # Uncensored = no content filtering for code generation
       "wizardlm-uncensored:13b"
-      "nous-hermes2-mixtral:8x7b"
+      # "nous-hermes2-mixtral:8x7b"
     ];
-
-    # acceleration = "cuda";
 
     environmentVariables = {
       CUDA_VISIBLE_DEVICES = "0";
@@ -31,12 +28,15 @@
     };
   };
 
-  services.open-webui = {
-    enable = true;
-    port = 3003;
-  };
+  # services.open-webui = {
+  #   enable = true;
+  #   port = 3003;
+  # };
+
+  services.open-webui.enable = false;
 
   environment.systemPackages = [
+    pkgs.claude-code
     # Comepted to debug build
     # pkgs.oterm # TUI chat client for Ollama models.
     # unstable.crush

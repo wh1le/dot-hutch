@@ -36,6 +36,7 @@ home/.config/tmux/plugins/*
 home/.config/zsh/.zcompdump
 
 home/.config/Nextcloud/Logs
+home/.config/Nextcloud/logs/
 
 home/.config/swaync/style.css
 
@@ -47,3 +48,4 @@ home/.config/qutebrowser/user.css
 home/.config/qutebrowser/bookmarks/*
 home/.config/qutebrowser/modules/__pycache__
 home/.config/qutebrowser/qsettings/QtProject.conf
+

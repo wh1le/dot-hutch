@@ -22,6 +22,7 @@
     unstable.tmux
     pkgs.tree
     pkgs.buku # bookmarks
+    pkgs.gh
 
     pkgs.wl-clipboard # wlogout # graphical logout menu (optional)
     pkgs.wl-clip-persist # keeps clipboard after app exit
