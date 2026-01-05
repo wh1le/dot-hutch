@@ -329,6 +329,9 @@ copy-secrets)
 copy-dots)
   copy_dot_files_to_target
   ;;
+generate-empty-sops)
+  generate_empty_sops
+  ;;
 full)
   clone_dot_files
   link_main_nixos_configuration

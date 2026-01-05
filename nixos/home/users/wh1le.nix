@@ -9,7 +9,7 @@
   imports = [
     ../modules/hyprland-plugins.nix
     ../modules/firefox.nix
-    # ../modules/link-dot-files.nix
+    ../modules/link-dot-files.nix
     # ../modules/programs/keepassxc.nix
   ];
 }
