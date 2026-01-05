@@ -66,39 +66,44 @@ mount_secrets() {
 }
 
 generate_empty_sops() {
-  sudo mkdir -p /var/lib/sops-nix/secrets
+  command -v age-keygen &>/dev/null || {
+    nix-shell -p age sops --run "$(declare -f generate_sops); generate_sops"
+    return
+  }
 
-  sudo age-keygen -o /var/lib/sops-nix/key.txt
-  local pub_key=$(sudo grep -oP "public key: \K.*" /var/lib/sops-nix/key.txt)
+  sudo mkdir -p /mnt/var/lib/sops-nix/secrets
 
-  sudo tee /var/lib/sops-nix/secrets/.sops.yaml >/dev/null <<EOF
-    creation_rules:
-      - path_regex: .*
-        key_groups:
-          - age:
-              - $pub_key
+  sudo age-keygen -o /mnt/var/lib/sops-nix/key.txt
+  local pub_key=$(sudo grep -oP "public key: \K.*" /mnt/var/lib/sops-nix/key.txt)
+
+  sudo tee /mnt/var/lib/sops-nix/secrets/.sops.yaml >/dev/null <<EOF
+creation_rules:
+  - path_regex: .*
+    key_groups:
+      - age:
+          - $pub_key
 EOF
 
   cat <<EOF >/tmp/sops_template.yaml
-    openweathermap: your_open_weather_api_key
-    email: youremail
-    searx_secret_key: your_secret_searx_key
-    disroot:
-      nextcloud:
-        user: your_user
-        password: password
-      rclone:
-        password: your_password
-        salt: your_salt
+openweathermap: your_open_weather_api_key
+email: youremail
+searx_secret_key: your_secret_searx_key
+disroot:
+  nextcloud:
+    user: your_user
+    password: password
+  rclone:
+    password: your_password
+    salt: salts
 EOF
 
-  SOPS_AGE_KEY_FILE=/var/lib/sops-nix/key.txt sudo -E sops --encrypt --age "$pub_key" /tmp/sops_template.yaml | sudo tee /var/lib/sops-nix/secrets/nix.yaml >/dev/null
+  SOPS_AGE_KEY_FILE=/mnt/var/lib/sops-nix/key.txt sudo -E sops --encrypt --age "$pub_key" /tmp/sops_template.yaml | sudo tee /mnt/var/lib/sops-nix/secrets/nix.yaml >/dev/null
 
   rm /tmp/sops_template.yaml
 
-  sudo chown -R root:root /var/lib/sops-nix
-  sudo chmod 700 /var/lib/sops-nix /var/lib/sops-nix/secrets
-  sudo chmod 600 /var/lib/sops-nix/key.txt /var/lib/sops-nix/secrets/nix.yaml
+  sudo chown -R root:root /mnt/var/lib/sops-nix
+  sudo chmod 700 /mnt/var/lib/sops-nix /mnt/var/lib/sops-nix/secrets
+  sudo chmod 600 /mnt/var/lib/sops-nix/key.txt /mnt/var/lib/sops-nix/secrets/nix.yaml
 
   echo "SOPS setup complete."
   echo "Public key: $pub_key"
