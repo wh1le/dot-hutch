@@ -39,7 +39,7 @@ needs_ssh_for_repos() {
   [[ "$DOT_REPOS" == *"git@"* ]]
 }
 
-# === Functions ===
+# Logging
 log() { echo "→ $*"; }
 ok() { echo "✓ $*"; }
 skip() { echo "⊘ $* (skipped)"; }
@@ -65,66 +65,44 @@ mount_secrets() {
   ok "Secrets unlocked at $SECRETS_MN"
 }
 
-generate_sops() {
-  local KEY_FILE="keys.txt"
-  local SECRETS_SUBDIR=".secrets/sops/age"
-  local YAML_FILE="nix.yaml"
-  local RAW_YAML="/tmp/template.yaml"
+generate_empty_sops() {
+  sudo mkdir -p /var/lib/sops-nix/secrets
 
-  # Generate key and extract public part
-  age-keygen -o "$KEY_FILE"
-  local PUB_KEY=$(grep -oP "public key: \K.*" "$KEY_FILE")
+  sudo age-keygen -o /var/lib/sops-nix/key.txt
+  local pub_key=$(sudo grep -oP "public key: \K.*" /var/lib/sops-nix/key.txt)
 
-  # Target user directories (Live OS root + mounted users)
-  local TARGETS=("$HOME")
-  for d in /mnt/home/*; do [ -d "$d" ] && TARGETS+=("$d"); done
-
-  for BASE in "${TARGETS[@]}"; do
-    mkdir -p "$BASE/$SECRETS_SUBDIR"
-    cp "$KEY_FILE" "$BASE/$SECRETS_SUBDIR/keys.txt"
-
-    # Set permissions (600 for key, 700 for dirs)
-    chmod 700 "$BASE/.secrets" "$BASE/.secrets/sops" "$BASE/$SECRETS_SUBDIR"
-    chmod 600 "$BASE/$SECRETS_SUBDIR/keys.txt"
-
-    # If not the Live OS root, fix ownership to match the directory name
-    if [[ "$BASE" != "$HOME" ]]; then
-      local OWNER=$(basename "$BASE")
-      chown -R "$OWNER:users" "$BASE/.secrets"
-    fi
-  done
-
-  # Update .sops.yaml creation rules
-  cat <<EOF >.sops.yaml
-		creation_rules:
-			- path_regex: .*
-				key_groups:
-					- age:
-							- $PUB_KEY
+  sudo tee /var/lib/sops-nix/secrets/.sops.yaml >/dev/null <<EOF
+    creation_rules:
+      - path_regex: .*
+        key_groups:
+          - age:
+              - $pub_key
 EOF
 
-  cat <<EOF >"$RAW_YAML"
-			openweathermap: your_open_weather_api_key
-			email: youremail
-			searx_secret_key: your_secret_searx_key
-			disroot:
-					nextcloud:
-							user: your_user
-							password: password
-					rclone:
-							password: your_password
-							salt: salts
+  cat <<EOF >/tmp/sops_template.yaml
+    openweathermap: your_open_weather_api_key
+    email: youremail
+    searx_secret_key: your_secret_searx_key
+    disroot:
+      nextcloud:
+        user: your_user
+        password: password
+      rclone:
+        password: your_password
+        salt: your_salt
 EOF
 
-  export SOPS_AGE_KEY_FILE="$PWD/$KEY_FILE"
-  sops --encrypt --age "$PUB_KEY" "$RAW_YAML" >"$YAML_FILE"
+  SOPS_AGE_KEY_FILE=/var/lib/sops-nix/key.txt sudo -E sops --encrypt --age "$pub_key" /tmp/sops_template.yaml | sudo tee /var/lib/sops-nix/secrets/nix.yaml >/dev/null
 
-  for BASE in "${TARGETS[@]}"; do
-    cp "$YAML_FILE" "$BASE/.secrets/sops/nix.yaml"
-    [[ "$BASE" != "$HOME" ]] && chown $(basename "$BASE"):users "$BASE/.secrets/sops/nix.yaml"
-  done
+  rm /tmp/sops_template.yaml
 
-  rm "$KEY_FILE" "$RAW_YAML" "$YAML_FILE"
+  sudo chown -R root:root /var/lib/sops-nix
+  sudo chmod 700 /var/lib/sops-nix /var/lib/sops-nix/secrets
+  sudo chmod 600 /var/lib/sops-nix/key.txt /var/lib/sops-nix/secrets/nix.yaml
+
+  echo "SOPS setup complete."
+  echo "Public key: $pub_key"
+  echo "Edit secrets: sudo SOPS_AGE_KEY_FILE=/var/lib/sops-nix/key.txt sops /var/lib/sops-nix/secrets/nix.yaml"
 }
 
 setup_ssh() {
@@ -364,7 +342,7 @@ full-with-secrets)
   link_main_nixos_configuration
   run_disko "${2:-}"
   deploy_bios_keys
-  generate_sops
+  generate_empty_sops
   run_install "${2:-}"
   copy_dot_files_to_target
   show_summary
