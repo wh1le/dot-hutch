@@ -66,10 +66,10 @@ mount_secrets() {
 }
 
 generate_empty_sops() {
-  command -v age-keygen &>/dev/null || {
-    nix-shell -p age sops --run "$(declare -f generate_sops); generate_sops"
+  if ! command -v age-keygen &>/dev/null; then
+    nix shell nixpkgs#age nixpkgs#sops --command bash -c "$(declare -f generate_sops); generate_sops"
     return
-  }
+  fi
 
   sudo mkdir -p /mnt/var/lib/sops-nix/secrets
 
