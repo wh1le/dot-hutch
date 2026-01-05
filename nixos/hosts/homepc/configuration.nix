@@ -56,14 +56,12 @@
     ../modules/software/languages/python.nix
 
     ../modules/software/syncthing/server.nix
-    # ../modules/software/input_leap.nix
-
 
     ../modules/software/mpd.nix
     ../modules/software/desktop.nix
     ../modules/software/devops.nix
     ../modules/software/browser.nix
-    ../modules/software/nvim.nix
+    ../modules/software/neovim.nix
     ../modules/software/utils.nix
     ../modules/software/flatpaks.nix
     ../modules/software/yazi.nix

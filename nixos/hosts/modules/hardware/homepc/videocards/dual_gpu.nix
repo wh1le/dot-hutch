@@ -1,23 +1,60 @@
 { config, pkgs, unstable, ... }:
 
-{
-  nix.settings = {
-    substituters = [ "https://cache.nixos-cuda.org" ];
-    trusted-public-keys = [ "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=" ];
-  };
-  nixpkgs.config.cudaSupport = true;
+# =============================================================================
+# GPU Offload Notes (Radeon display + 4090 compute)
+# =============================================================================
+#
+# STATUS: Games work perfectly on 4090. SteamVR desktop mirroring WIP.
+#
+# HYPRLAND CONFIG (required for NVIDIA offload):
+#
+#   xwayland {
+#     force_zero_scaling = true
+#   }
+#   cursor {
+#     no_warps = false        # Fixes cursor jumps with multi-GPU
+#   }
+#   general {
+#     allow_tearing = true    # Reduces input latency in games
+#   }
+#   env = WLR_DRM_NO_ATOMIC,1 # Required for NVIDIA on Wayland
+#
+# STEAM LAUNCH OPTIONS:
+#   SteamVR:
+#     QT_QPA_PLATFORM=xcb __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia %command% --gpu-number=1
+#
+#   ArcRaiders (and other X11-only titles):
+#      SDL_VIDEODRIVER=x11 PROTON_ENABLE_WAYLAND=0
+#
+# =============================================================================
 
-  boot.initrd.kernelModules = [ "amdgpu" "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+{
+  environment.variables.GDK_BACKEND = "wayland,x11,*";
+  environment.variables.GDK_SCALE = "1.0";
+  environment.variables.DUAL_GPU_SETUP_ENABLED = 1;
+  # Force wayland to use Radeon card https://wiki.hypr.land/Configuring/Multi-GPU/
+  environment.variables.AQ_DRM_DEVICES = "/dev/dri/amd-gpu";
+  # environment.sessionVariables.LIBVA_DRIVER_NAME = "radeonsi";
+
+  boot.initrd.kernelModules = [
+    "amdgpu"
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
+
   boot.kernelParams = [
     "nvidia_drm.modeset=1"
     "nvidia_drm.fbdev=1"
   ];
 
-  # environment.sessionVariables.LIBVA_DRIVER_NAME = "radeonsi";
+  nixpkgs.config.cudaSupport = true;
 
-  environment.variables.GDK_BACKEND = "wayland,x11,*";
-  environment.variables.GDK_SCALE = "1.0";
-  environment.variables.DUAL_GPU_SETUP_ENABLED = 1;
+  nix.settings = {
+    substituters = [ "https://cache.nixos-cuda.org" ];
+    trusted-public-keys = [ "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=" ];
+  };
 
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
@@ -30,11 +67,6 @@
     nvidia-vaapi-driver
     libva
   ];
-
-  services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
-
-  hardware.nvidia-container-toolkit.enable = true;
-
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.open = false;
   hardware.nvidia.nvidiaSettings = true;
@@ -42,11 +74,7 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
   hardware.nvidia.powerManagement.enable = true;
   hardware.nvidia.powerManagement.finegrained = false;
-
-  virtualisation.docker = {
-    enableNvidia = true;
-  };
-
+  hardware.nvidia-container-toolkit.enable = true;
 
   hardware.nvidia.prime = {
     offload = {
@@ -58,7 +86,8 @@
     nvidiaBusId = "PCI:1:0:0"; # Nvidia 4090
   };
 
-  # get id of gpu
+
+  services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
   # lspci -d ::03xx | grep 'AMD' | cut -f1 -d' '
   services.udev.extraRules = ''
     KERNEL=="card*", \
@@ -74,8 +103,7 @@
       SYMLINK+="dri/nvidia-gpu"
   '';
 
-  # Force wayland to use Radeon card https://wiki.hypr.land/Configuring/Multi-GPU/
-  environment.variables.AQ_DRM_DEVICES = "/dev/dri/amd-gpu";
+  virtualisation.docker.enableNvidia = true;
 
   environment.systemPackages = [
     pkgs.cudaPackages.cuda-samples

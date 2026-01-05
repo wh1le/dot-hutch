@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 set -eu
 
-# === Config ===
 SECRETS_DEV="${SECRETS_DEV:-/dev/sda}"
+
 SECRETS_MNT="/run/media/nixos/secrets"
 SSH_KEY_NAME="${SSH_KEY_NAME:-secrets_installer_key}"
 SECRETS_REPO="${SECRETS_MNT}/secrets.git"
-TARGET_USER="${TARGET_USER:-$(whoami)}"
 TARGET_HOST="${TARGET_HOST:-}"
 
-ROOT_USERS="${ROOT_USERS:-wh1le}"
+# Overlay repositories for environment-specific configs (private, work, etc.)
+# Format: space-separated "name:repo" pairs
+# First entry = PRIMARY (base layer), subsequent entries overlay on top
+#
+# Example:
+#   DOT_REPOS="base:git@github.com:user/dotfiles.git work:git@github.com:user/dot-work.git"
+#
+# This lets you keep public configs in one repo and layer private/work-specific
+# overrides without forking or branching.
+DOT_REPOS="${DOT_REPOS:-public:git@github.com:wh1le/dot-hutch.git}"
 
-# Space separated "name:repo" pairs - first becomes PRIMARY
-DOT_REPOS="${DOT_REPOS:-public:git@github.com:wh1le/nix-public.git}"
-
-PRIMARY_PATH=""
-PRIMARY_NAME=""
-
-# === Detection ===
 has_secrets_drive() {
   [[ -b "$SECRETS_DEV" ]]
 }
@@ -27,11 +28,7 @@ has_secrets_mounted() {
 }
 
 has_secrets_repo() {
-  [[ -d ~/.secrets ]]
-}
-
-has_sbctl_keys() {
-  [[ -d ~/.secrets/sbctl-keys-bios ]]
+  [[ -d /mnt/etc/secrets ]]
 }
 
 has_ssh_key() {
@@ -65,7 +62,69 @@ mount_secrets() {
   sudo cryptsetup open "$SECRETS_DEV" "$name"
   sudo mount "/dev/mapper/${name}" "$SECRETS_MNT"
   sudo chown -R "${USER}:users" "$SECRETS_MNT"
-  ok "Secrets unlocked at $SECRETS_MNT"
+  ok "Secrets unlocked at $SECRETS_MN"
+}
+
+generate_sops() {
+  local KEY_FILE="keys.txt"
+  local SECRETS_SUBDIR=".secrets/sops/age"
+  local YAML_FILE="nix.yaml"
+  local RAW_YAML="/tmp/template.yaml"
+
+  # Generate key and extract public part
+  age-keygen -o "$KEY_FILE"
+  local PUB_KEY=$(grep -oP "public key: \K.*" "$KEY_FILE")
+
+  # Target user directories (Live OS root + mounted users)
+  local TARGETS=("$HOME")
+  for d in /mnt/home/*; do [ -d "$d" ] && TARGETS+=("$d"); done
+
+  for BASE in "${TARGETS[@]}"; do
+    mkdir -p "$BASE/$SECRETS_SUBDIR"
+    cp "$KEY_FILE" "$BASE/$SECRETS_SUBDIR/keys.txt"
+
+    # Set permissions (600 for key, 700 for dirs)
+    chmod 700 "$BASE/.secrets" "$BASE/.secrets/sops" "$BASE/$SECRETS_SUBDIR"
+    chmod 600 "$BASE/$SECRETS_SUBDIR/keys.txt"
+
+    # If not the Live OS root, fix ownership to match the directory name
+    if [[ "$BASE" != "$HOME" ]]; then
+      local OWNER=$(basename "$BASE")
+      chown -R "$OWNER:users" "$BASE/.secrets"
+    fi
+  done
+
+  # Update .sops.yaml creation rules
+  cat <<EOF >.sops.yaml
+		creation_rules:
+			- path_regex: .*
+				key_groups:
+					- age:
+							- $PUB_KEY
+EOF
+
+  cat <<EOF >"$RAW_YAML"
+			openweathermap: your_open_weather_api_key
+			email: youremail
+			searx_secret_key: your_secret_searx_key
+			disroot:
+					nextcloud:
+							user: your_user
+							password: password
+					rclone:
+							password: your_password
+							salt: salts
+EOF
+
+  export SOPS_AGE_KEY_FILE="$PWD/$KEY_FILE"
+  sops --encrypt --age "$PUB_KEY" "$RAW_YAML" >"$YAML_FILE"
+
+  for BASE in "${TARGETS[@]}"; do
+    cp "$YAML_FILE" "$BASE/.secrets/sops/nix.yaml"
+    [[ "$BASE" != "$HOME" ]] && chown $(basename "$BASE"):users "$BASE/.secrets/sops/nix.yaml"
+  done
+
+  rm "$KEY_FILE" "$RAW_YAML" "$YAML_FILE"
 }
 
 setup_ssh() {
@@ -89,7 +148,7 @@ setup_ssh() {
   ok "SSH key loaded"
 }
 
-clone_secrets_to_live_usb() {
+clone_secrets_to_drive() {
   if ! has_secrets_mounted; then
     skip "No secrets mounted, secrets repo"
     return 0
@@ -264,7 +323,7 @@ ssh)
   setup_ssh
   ;;
 clone-secrets)
-  clone_secrets_to_live_usb
+  clone_secrets_to_drive
   ;;
 clone)
   clone_dot_files
@@ -300,11 +359,12 @@ full)
 full-with-secrets)
   mount_secrets
   setup_ssh
-  clone_secrets_to_live_usb
+  clone_secrets_to_drive
   clone_dot_files
   link_main_nixos_configuration
   run_disko "${2:-}"
   deploy_bios_keys
+  generate_sops
   run_install "${2:-}"
   copy_dot_files_to_target
   show_summary

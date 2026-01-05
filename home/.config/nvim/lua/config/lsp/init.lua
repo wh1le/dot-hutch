@@ -7,6 +7,7 @@ require("config.lsp.ruby")
 require("config.lsp.nix")
 require("config.lsp.lua")
 require("config.lsp.css")
+require("config.lsp.bash")
 -- require("config.lsp.rust")
 
 -- local lsp_mappings = {
