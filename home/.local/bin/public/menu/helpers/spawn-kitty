@@ -7,7 +7,7 @@ get_current_monitor_is_eink() {
   # local monitor_desc=$(hyprctl monitors -j | jq -r --arg name "$monitor_name" '.[] | select(.name == $name) | .description')
   #
   # [[ "$monitor_desc" =~ [Dd]asung|[Pp]aperlike ]]
-  return false
+  return 1
 }
 
 spawn-kitty() {

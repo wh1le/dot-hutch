@@ -47,6 +47,19 @@ mkdir -p "$logs_dir"
   echo "========================================"
 } >>"$log_file"
 
+CONFIGURATION_PATH="$HOME/dot/nix-public"
+
+# First boot
+if [ -d CONFIGURATION_PATH ]; then
+  if [ ! -f $HOME/.current_wallpaper ]; then
+    ln -sfn $CONFIGURATION_PATH/assets/wallpapers/forest.jpg $HOME/.current_wallpaper
+  fi
+
+  if [ ! -d ~/.cache/wal ]; then
+    wal -esnti $HOME/.current_wallpaper
+  fi
+fi
+
 # log uwsm app -- dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
 # log uwsm app -- systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
 # log uwsm app -- /run/current-system/sw/libexec/polkit-kde-authentication-agent-1

@@ -17,9 +17,10 @@ let
   ];
 in
 {
-  home.activation.cloneSubmodules = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ${pkgs.git}/bin/git -C ${dotPublic} submodule update --init --recursive
-  '';
+  # TODO: Might need to remove it, and clone submodules manually because it could block home-mamanger if no internet connection
+  # home.activation.cloneSubmodules = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+  #   ${pkgs.git}/bin/git -C ${dotPublic} submodule update --init --recursive
+  # '';
 
   home.activation.createDirs = config.lib.dag.entryBefore [ "writeBoundary" ] ''
     ${builtins.concatStringsSep "\n" (map (dir: "mkdir -p ~/${dir}") homeDirs)}
