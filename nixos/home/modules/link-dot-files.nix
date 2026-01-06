@@ -21,7 +21,7 @@ in
   '';
 
   home.activation.linkConfigs = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ${pkgs.bash}/bin/bash ${self}/scripts/linking/deploy-xdg-config "${userHome}/.config" "${dotPublic}/home/.config"
+    ${pkgs.bash}/bin/bash ${self}/scripts/linking/deploy-xdg-config.sh "${userHome}/.config" "${dotPublic}/home/.config"
   '';
 
   home.activation.cloneSubmodules = config.lib.dag.entryAfter [ "writeBoundary" ] ''
