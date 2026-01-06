@@ -7,6 +7,9 @@
   email = "nmiloserdov@proton.me"
   signingkey = 653068EC5157A4C0
 
+[push]
+  autoSetupRemote = true
+
 [pull]
   rebase = true
 
