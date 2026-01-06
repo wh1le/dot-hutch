@@ -89,7 +89,10 @@ If you skip disko and do mapping yourself don't forget to mount partitions to /m
 #### Setup sops
 
 Sops can be overwhelming when starting using. You can read doc at https://github.com/Mic92/sops-nix.
-You can configure it post install and use this script to autogenerate a private/public key and empty config with default values ./scripts/deploy-empty-sops.sh
+You can configure it post install and use this script to autogenerate a private/public key and empty config with default values :
+
+nix --extra-experimental-features "nix-command flakes" shell nixpkgs#age nixpkgs#sops --command $HOME/dot/dot-hutch/scripts/deploy-empty-sops.sh
+
 it will create key and empty configuration for you.
 
 Secrets:
