@@ -44,7 +44,7 @@ CONFIGURATION_PATH="$HOME/dot/nix-public"
 # log uwsm app -- /run/current-system/sw/libexec/polkit-kde-authentication-agent-1
 # uwsm app -- gpg-connect-agent updatestartuptty /bye
 log hyprpolkitagent uwsm app -- systemctl --user start hyprpolkitagent &
-log swaync uwsm app -- swaync & # TODO: add config
+log swaync uwsm app -- swaync -c $HOME/.config/swaync/config.json -s $HOME/.config/swaync/styles/style.css
 
 # Block until swaync registers on D-Bus
 while ! busctl --user status org.freedesktop.Notifications &>/dev/null; do
