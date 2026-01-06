@@ -129,7 +129,7 @@ ln -sfn /mnt/home/your_user/dot/nix-hutch /mnt/etc/nixos
 
 login to installed version with
 
-nixos-enter --root /mnt
+sudo nixos-enter --root /mnt
 
 passwd
 
