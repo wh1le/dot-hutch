@@ -91,6 +91,7 @@
             {
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.wh1le = ./nixos/home/users/wh1le.nix;
+	      home-manager.backupFileExtension = "backup";
             }
           ];
         };

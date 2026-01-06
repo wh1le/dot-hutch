@@ -10,7 +10,7 @@ export NIX_CONFIG="experimental-features = nix-command flakes"
 ns() {
   if sudo nix --extra-experimental-features "nix-command flakes" flake update PUBLIC --flake /etc/nixos &&
     sudo nixos-rebuild switch --flake "/etc/nixos#$(hostnamectl --static 2>/dev/null || hostname)"; then
-    /etc/nixos/scripts/deploy-home.sh "$USER"
+    # /etc/nixos/scripts/deploy-home.sh "$USER"
     local gen=$(readlink /nix/var/nix/profiles/system | sed 's/.*-\([0-9]*\)-link/\1/')
     notify-send -i system-software-update "NixOS Build Number #${gen} Released" "$generation"
   else

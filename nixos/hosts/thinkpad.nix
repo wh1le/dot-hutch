@@ -92,13 +92,13 @@ nixpkgs.lib.nixosSystem {
         ./modules/software/browser.nix
         ./modules/software/neovim.nix
         ./modules/software/utils.nix
-        ./modules/software/flatpaks.nix
+        # ./modules/software/flatpaks.nix
         ./modules/software/yazi.nix
         ./modules/software/caddy.nix
       ];
     })
     inputs.sops-nix.nixosModules.sops
-    inputs.flatpaks.nixosModules.nix-flatpak
+    # inputs.flatpaks.nixosModules.nix-flatpak
     inputs.home-manager.nixosModules.home-manager
     inputs.lanzaboote.nixosModules.lanzaboote
     inputs.disko.nixosModules.disko
