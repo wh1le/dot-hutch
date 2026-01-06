@@ -54,7 +54,7 @@ EOF
 }
 
 clone_secrets_to_installation() {
-  !has_secrets_mounted && echo "No secrets mounted, secrets repo" && return 0
+  ! has_secrets_mounted && echo "No secrets mounted, secrets repo" && return 0
   ! -d "${SECRETS_REPO}" && echo "No secrets repo at ${SECRETS_REPO}" && return 0
 
   has_secrets_repo && echo "~/.secrets already exists" && return 0
