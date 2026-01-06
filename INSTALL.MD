@@ -81,15 +81,15 @@ After editing the file:
 ```bash
   sudo nix --experimental-features "nix-command flakes" \
 	  run github:nix-community/disko -- --mode disko \
-	  --flake "$HOME/dot/dot-hutch#${your_hostname}"
+	  --flake "$HOME/dot/dot-hutch#your_hostname"
 ```
 
-If you skip disko don't forget to mount partitions to /mnt{boot,home}
+If you skip disko and do mapping yourself don't forget to mount partitions to /mnt{boot,home}
 
 #### Setup sops
 
 Sops can be overwhelming when starting using. You can read doc at https://github.com/Mic92/sops-nix.
-You can configure it post install and use this script to autogenerate a private/public key and empty config with default values ./scripts/deploy-sops.sh
+You can configure it post install and use this script to autogenerate a private/public key and empty config with default values ./scripts/deploy-empty-sops.sh
 it will create key and empty configuration for you.
 
 Secrets:
