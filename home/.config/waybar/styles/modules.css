@@ -73,10 +73,11 @@
 }
 
 .module#custom-weather {
-  padding-right: 5;
+  padding-right: 5px;
 }
+
 .module#custom-surf {
-  padding-left: 0px;
+  /* padding-left: 0px; */
 }
 
 .module#custom-logo {

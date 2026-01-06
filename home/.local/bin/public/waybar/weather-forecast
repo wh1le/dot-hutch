@@ -5,6 +5,7 @@
 import datetime
 import json
 import statistics
+import subprocess
 import sys
 from pathlib import Path
 
@@ -92,8 +93,16 @@ def make_request(call: str) -> list | dict:
     @return response of the api request as a list or dict
     '''
     try:
-        req = requests.get(f'https://api.openweathermap.org/{call}&appid={API_KEY}')
-        return req.json()
+        response = requests.get(f'https://api.openweathermap.org/{call}&appid={API_KEY}')
+        if response.status_code == 401:
+            subprocess.run([
+                "notify-send",
+                "Waybar Weather Forecast",
+                "API_KEY is invalid. Get one at https://openweathermap.org/ and update your sops secrets."
+            ])
+            quit(1)
+        else:
+            return response.json()
     except:
         print_error(f'failed to make request to `/{call}`')
         quit(1)

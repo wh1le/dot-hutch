@@ -20,7 +20,7 @@ export NIX_BUILD_SHELL=zsh
 
 _search_dirs=(
   "$HOME/Projects"
-  "$HOME/code"
+  "$HOME/Code"
   "$HOME/Obsidian"
   "$HOME/.config"
   "$HOME/dot"

@@ -44,9 +44,9 @@
       "hyprland/workspaces#thinkpad",
 			"group/status_group",
       // "hyprland/workspaces#app_tray",
+      // "custom/music"
       "hyprland/submap",
-      "custom/mic_used_by_app",
-      "custom/music"
+      "custom/mic_used_by_app"
     ],
     "modules-center": [
       "group/weather_group",
