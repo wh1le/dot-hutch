@@ -1,3 +1,6 @@
+USER_CONFIG_FOLDER="${1:-$HOME/.config}"
+SOURCE_FROM="${2:?Error: provide source from as a second argument required}"
+
 fix_existing_link() {
   local target=$1
   local item=$2
@@ -22,17 +25,15 @@ fix_existing_link() {
   return 0
 }
 
-link_xdg_config() {
-  mkdir -p "$XDG_CONFIG_DEST"
+mkdir -p "$USER_CONFIG_FOLDER"
 
-  for item in "$XDG_CONFIG_SRC"/*; do
-    local name=$(basename "$item")
-    local target="$XDG_CONFIG_DEST/$name"
+for item in "$SOURCE_FROM"/*; do
+  name=$(basename "$item")
+  target="$USER_CONFIG_FOLDER/$name"
 
-    fix_existing_link "$target" "$item" || continue
+  fix_existing_link "$target" "$item" || continue
 
-    ln -s "$item" "$target"
+  ln -s "$item" "$target"
 
-    echo "linked: $name"
-  done
-}
+  echo "linked: $name"
+done

@@ -1,11 +1,7 @@
-{ config, pkgs, ... }:
+{ self, config, pkgs, ... }:
 let
-  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
-  homeDir = "/home/${config.home.username}";
-  dotPublic = "${homeDir}/dot/nix-public";
-  configDir = ../../../home/.config; # adjust based on actual location
-  configEntries = builtins.readDir configDir;
-  excludeDirs = [ "systemd" ];
+  userHome = "/home/${config.home.username}";
+  dotPublic = "${userHome}/dot/nix-public";
 
   homeDirs = [
     "Documents"
@@ -24,16 +20,14 @@ in
     ${builtins.concatStringsSep "\n" (map (dir: "mkdir -p ~/${dir}") homeDirs)}
   '';
 
+  home.activation.linkConfigs = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.bash}/bin/bash ${self}/scripts/linking/deploy-xdg-config "${userHome}/.config" "${dotPublic}/home/.config"
+  '';
+
   home.activation.cloneSubmodules = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.git}/bin/git -C ${dotPublic} submodule update --init --recursive
   '';
 
-  home.file.".local/bin/public".source = mkSymlink "${dotPublic}/home/.local/bin/public";
-  home.file.".local/share/darkman".source = mkSymlink "${dotPublic}/home/.local/share/darkman";
-
-  xdg.configFile = builtins.mapAttrs
-    (name: _: {
-      source = mkSymlink "${dotPublic}/home/.config/${name}";
-    })
-    (removeAttrs configEntries excludeDirs);
+  # home.file.".local/bin/public".source = mkSymlink "${dotPublic}/home/.local/bin/public";
+  # home.file.".local/share/darkman".source = mkSymlink "${dotPublic}/home/.local/share/darkman";
 }

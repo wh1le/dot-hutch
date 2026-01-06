@@ -89,9 +89,9 @@
           inherit inputs nixpkgs nixpkgs-unstable self;
           extraModules = [
             {
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit self inputs; };
               home-manager.users.wh1le = ./nixos/home/users/wh1le.nix;
-	      home-manager.backupFileExtension = "backup";
+              home-manager.backupFileExtension = "backup";
             }
           ];
         };
