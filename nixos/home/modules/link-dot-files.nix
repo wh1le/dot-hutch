@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   mkSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
   homeDir = "/home/${config.home.username}";
@@ -25,7 +25,7 @@ in
   '';
 
   home.activation.cloneSubmodules = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    cd ${dotPublic} && git submodule update --init --recursive
+    ${pkgs.git}/bin/git -C ${dotPublic} submodule update --init --recursive
   '';
 
   home.file.".local/bin/public".source = mkSymlink "${dotPublic}/home/.local/bin/public";
