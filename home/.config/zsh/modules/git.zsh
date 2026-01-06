@@ -35,7 +35,7 @@ alias gl="git log --oneline"
 alias gs='git status'
 alias gc='git checkout'
 alias gr='git rebase -i'
-alias gh='helper-git-history'
+alias ghistory='helper-git-history'
 
 gd() {
   git diff --color=always "$@" | $PAGER -p

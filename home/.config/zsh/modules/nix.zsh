@@ -12,7 +12,7 @@ ns() {
     sudo nixos-rebuild switch --flake "/etc/nixos#$(hostnamectl --static 2>/dev/null || hostname)"; then
     # /etc/nixos/scripts/deploy-home.sh "$USER"
     local gen=$(readlink /nix/var/nix/profiles/system | sed 's/.*-\([0-9]*\)-link/\1/')
-    notify-send -i system-software-update "NixOS Build Number #${gen} Released" "$generation"
+    notify-send -i system-software-update "NixOS Build Number #${gen} Released" "$gen"
   else
     notify-send -u critical --expire-time=5000 -i dialog-error "NixOS" "Build failed"
   fi
