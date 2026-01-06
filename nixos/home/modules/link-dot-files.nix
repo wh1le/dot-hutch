@@ -8,10 +8,11 @@ let
     "Videos"
     "Music"
     "Cloud"
-    "code"
+    "Code"
     "Projects"
     "Virtualization"
     ".local/bin"
+    ".local/bin/public"
     ".local/share"
   ];
 in
@@ -28,7 +29,6 @@ in
     mkdir -p ${userHome}/.local/bin
 
     ln -sfn ${dotPublic}/home/.local/bin/public ${userHome}/.local/bin/public
-    ln -sfn ${dotPublic}/home/.local/share/darkman ${userHome}/.local/share/darkman
   '';
 
   home.activation.cloneSubmodules = config.lib.dag.entryAfter [ "writeBoundary" ] ''
