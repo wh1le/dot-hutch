@@ -61,3 +61,8 @@ export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export FFMPEG_DATADIR="$XDG_CONFIG_HOME/ffmpeg"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
+
+# First boot
+if [ ! -d "$HOME/.cache/wal" ]; then
+  wal -esnti $HOME/.current_wallpaper
+fi

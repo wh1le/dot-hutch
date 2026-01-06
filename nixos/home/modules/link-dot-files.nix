@@ -43,6 +43,12 @@ in
     ln -sfn ${dotPublic}/home/.local/bin/public ${userHome}/.local/bin/public
   '';
 
+  home.activation.linkDefaultWallpaper = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -f ${userHome}/.current_wallpaper ]; then
+      ln -sfn ${dotPublic}/assets/wallpapers/forest.jpg ${userHome}/.current_wallpaper
+    fi
+  '';
+
   home.activation.linkSSH = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${userHome}/.ssh
 
