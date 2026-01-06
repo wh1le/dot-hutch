@@ -1,60 +1,10 @@
 #!/usr/bin/env bash
 set -eu
 
-SECRETS_DEV="${SECRETS_DEV:-/dev/sda}"
-
-SECRETS_MNT="/run/media/nixos/secrets"
-SSH_KEY_NAME="${SSH_KEY_NAME:-secrets_installer_key}"
-SECRETS_REPO="${SECRETS_MNT}/secrets.git"
-
+SECRETS_DRIVE="${SECRETS_DRIVE:-/dev/sda}"
+SECRETS_MOUNT_POINT="/run/media/nixos/secrets"
 TARGET_HOST="${TARGET_HOST:-}"
 TARGET_USER="${TARGET_USER:-}"
-
-# Overlay repositories for environment-specific configs (private, work, etc.)
-# Format: space-separated "name:repo" pairs
-# First entry = PRIMARY (base layer), subsequent entries overlay on top
-#
-# Example:
-#   DOT_REPOS="base:git@github.com:user/dotfiles.git work:git@github.com:user/dot-work.git"
-#
-# This lets you keep public configs in one repo and layer private/work-specific
-# overrides without forking or branching.
-DOT_REPOS="${DOT_REPOS:-public:git@github.com:wh1le/dot-hutch.git}"
-
-has_secrets_drive() {
-  [[ -b "$SECRETS_DEV" ]]
-}
-
-has_secrets_mounted() {
-  mountpoint -q "$SECRETS_MNT" 2>/dev/null
-}
-
-has_secrets_repo() {
-  [[ -d /mnt/etc/secrets ]]
-}
-
-has_ssh_key() {
-  [[ -f "${SECRETS_MNT}/Files/${SSH_KEY_NAME}" ]]
-}
-
-needs_ssh_for_repos() {
-  [[ "$DOT_REPOS" == *"git@"* ]]
-}
-
-mount_secrets_usb() {
-  !has_secrets_drive && echo "No secrets drive at $SECRETS_DEV" && return 0
-
-  has_secrets_mounted && echo "Already mounted at $SECRETS_MNT" && return 0
-
-  local name="secrets"
-
-  sudo mkdir -p "$SECRETS_MNT"
-  sudo cryptsetup open "$SECRETS_DEV" "$name"
-  sudo mount "/dev/mapper/${name}" "$SECRETS_MNT"
-  sudo chown -R "${USER}:users" "$SECRETS_MNT"
-
-  echo "Secrets unlocked at $SECRETS_MN"
-}
 
 generate_empty_sops() {
   if ! command -v age-keygen &>/dev/null; then
@@ -113,12 +63,14 @@ clone_secrets_to_installation() {
   echo "Cloned secrets repo"
 }
 
-link_main_nixos_configuration() {
-  [[ -z "${PRIMARY_PATH:-}" ]] && echo "No repos defined"
-  [[ ! -d "$PRIMARY_PATH" ]] && echo "Primary repo not found at $PRIMARY_PATH"
+link_nixos_configuration() {
+  [[ -z "${CONFIG_ROOT_PATH:-}" ]] && echo "No repos defined"
+  [[ ! -d "$CONFIG_ROOT_PATH" ]] && echo "Primary repo not found at $CONFIG_ROOT_PATH"
 
-  sudo ln -sfn "$PRIMARY_PATH" /etc/nixos
-  echo "Linked $PRIMARY_PATH → /etc/nixos"
+  sudo ln -sfn "$CONFIG_ROOT_PATH" /etc/nixos
+  sudo ln -sfn "$CONFIG_ROOT_PATH" /mnt/etc/nixos
+
+  echo "Linked $CONFIG_ROOT_PATH → /etc/nixos"
 }
 
 run_disko() {
@@ -128,15 +80,9 @@ run_disko() {
   read -r confirm
   [[ "$confirm" != "y" ]] && return 0
 
-  local disko_target="${host}"
-  echo "→ Use full disk encryption? [Y/n]"
-  read -r use_encryption
-
-  [[ "$use_encryption" == "n" ]] && disko_target="${host}-noenc"
-
   sudo nix --experimental-features "nix-command flakes" \
 	  run github:nix-community/disko -- --mode disko \
-	  --flake "${PRIMARY_PATH}#${disko_target}"
+	  --flake "${CONFIG_ROOT_PATH}#${disko_target}"
 
   echo "Disko complete (target: ${disko_target})"
 }
@@ -145,9 +91,9 @@ run_install() {
   local host="${1:-$TARGET_HOST}"
  
   [[ -z "$host" ]] && echo "No hostname specified. Use: $0 install <hostname>"
-  [[ ! -d "$PRIMARY_PATH" ]] && echo "Primary repo not found at $PRIMARY_PATH"
+  [[ ! -d "$CONFIG_ROOT_PATH" ]] && echo "Primary repo not found at $CONFIG_ROOT_PATH"
 
-  sudo nixos-install --flake "${PRIMARY_PATH}#${host}"
+  sudo nixos-install --flake "${CONFIG_ROOT_PATH}#${host}"
 
   echo "nixos-install complete"
 }
