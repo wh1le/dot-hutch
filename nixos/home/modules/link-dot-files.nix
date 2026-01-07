@@ -22,35 +22,32 @@ in
   #   ${pkgs.git}/bin/git -C ${dotPublic} submodule update --init --recursive
   # '';
 
-  home.activation.createDirs = config.lib.dag.entryBefore [ "writeBoundary" ] ''
-    ${builtins.concatStringsSep "\n" (map (dir: "mkdir -p ~/${dir}") homeDirs)}
-  '';
-
-  home.activation.linkXDGConfigs = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ${pkgs.bash}/bin/bash ${dotPublic}/scripts/linking/deploy-xdg-config.sh "${userHome}/.config" "${dotPublic}/home/.config"
-  '';
-
   home.activation.linkProfiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfn ${dotPublic}/home/.zshenv ${userHome}/.zshenv
-    ln -sfn ${dotPublic}/home/.zprofile ${userHome}/.zprofile
-    ln -sfn ${dotPublic}/home/.zprofile ${userHome}/.profile
-  '';
+    DOT_HUTCH_FILES="$HOME/dot/nix-public"
 
-  home.activation.linkScripts = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${userHome}/.local/bin
-
-    ln -sfn ${dotPublic}/home/.local/bin/public ${userHome}/.local/bin/public
-  '';
-
-  home.activation.linkDefaultWallpaper = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    if [ ! -f ${userHome}/.current_wallpaper ]; then
-      ln -sfn ${dotPublic}/assets/wallpapers/forest.jpg ${userHome}/.current_wallpaper
+    if [ ! -d "$DOT_HUTCH_FILES" ]; then
+      ${pkgs.git}/bin/git clone --recurse-submodules https://github.com/wh1le/dot-hutch.git $DOT_HUTCH_FILES
     fi
-  '';
 
-  home.activation.linkSSH = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${userHome}/.ssh
+    ${builtins.concatStringsSep "\n" (map (dir: "mkdir -p ~/${dir}") homeDirs)}
 
-    ln -sfn ${dotPublic}/home/.ssh/config ${userHome}/.ssh/config
+    ${pkgs.bash}/bin/bash "$DDT_PUBLIC/scripts/linking/deploy-xdg-config.sh" \
+       "$HOME/.config" "$DOT_HUTCH_FILES/home/.config"
+
+    ln -sfn $DOT_HUTCH_FILES/home/.zshenv $HOME/.zshenv
+    ln -sfn $DOT_HUTCH_FILES/home/.zprofile $HOME/.zprofile
+    ln -sfn $DOT_HUTCH_FILES/home/.zprofile $HOME/.profile
+
+    mkdir -p $HOME/.local/bin
+
+    ln -sfn $DOT_HUTCH_FILES/home/.local/bin/public $HOME/.local/bin/public
+
+    if [ ! -f $HOME/.current_wallpaper ]; then
+      ln -sfn $DOT_HUTCH_FILES/assets/wallpapers/forest.jpg $HOME/.current_wallpaper
+    fi
+
+    mkdir -p $HOME/.ssh
+
+    ln -sfn $DOT_HUTCH_FILES/home/.ssh/config $HOME/.ssh/config
   '';
 }
