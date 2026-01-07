@@ -62,30 +62,17 @@
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, sops-nix, hyprland, flatpaks, lanzaboote, disko, ... }@inputs:
     {
       nixosConfigurations = {
-        homepc = nixpkgs.lib.nixosSystem {
-          modules = [
-            ./nixos/hosts/homepc/configuration.nix
-            inputs.sops-nix.nixosModules.sops
-            flatpaks.nixosModules.nix-flatpak
-            home-manager.nixosModules.home-manager
-            lanzaboote.nixosModules.lanzaboote
-            disko.nixosModules.disko
+        homepc = import ./nixos/system/hosts/homepc.nix {
+          inherit inputs nixpkgs nixpkgs-unstable self;
+          extraModules = [
             {
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.wh1le = ./nixos/home/users/wh1le.nix;
             }
           ];
-
-          specialArgs = {
-            inherit inputs self lanzaboote;
-            unstable = import nixpkgs-unstable {
-              system = "x86_64-linux";
-              config = { allowUnfree = true; };
-            };
-          };
         };
 
-        thinkpad = import ./nixos/hosts/thinkpad.nix {
+        thinkpad = import ./nixos/system/hosts/thinkpad.nix {
           inherit inputs nixpkgs nixpkgs-unstable self;
           extraModules = [
             {

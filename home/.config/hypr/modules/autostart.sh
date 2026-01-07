@@ -1,17 +1,6 @@
 #!/usr/bin/env bash
 
 LOGS_DIR="$HOME/.cache/startup"
-LOG_FILE="$LOGS_DIR/autostart.log"
-
-exec &> >(while read -r line; do echo "[$(date '+%H:%M:%S')] $line"; done >>"$LOG_FILE")
-
-log() {
-  local name="$1"
-  shift
-  "$@" 2>&1 | while read -r line; do
-    flock "$LOG_FILE" -c "echo '[$name] $line' >> '$LOG_FILE'"
-  done &
-}
 
 is_laptop() {
   [[ "$(hostname)" =~ ^(thinkpad|laptop_work)$ ]]
@@ -27,61 +16,44 @@ eink_connected() {
 
 mkdir -p "$LOGS_DIR"
 
-{
-  echo ""
-  echo "========================================"
-  echo "NEW SESSION: $(date '+%Y-%m-%d %H:%M:%S')"
-  echo "Host: $(hostname)"
-  echo "User: $USER"
-  echo "WAYLAND_DISPLAY: $WAYLAND_DISPLAY"
-  echo "========================================"
-} >>"$LOG_FILE"
-
 CONFIGURATION_PATH="$HOME/dot/dot-hutch"
 
 # log uwsm app -- dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
 # log uwsm app -- systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
 # log uwsm app -- /run/current-system/sw/libexec/polkit-kde-authentication-agent-1
 # uwsm app -- gpg-connect-agent updatestartuptty /bye
-log hyprpolkitagent uwsm app -- systemctl --user start hyprpolkitagent &
-log swaync uwsm app -- swaync -c $HOME/.config/swaync/config.json -s $HOME/.config/swaync/styles/style.css
+uwsm app -- systemctl --user start hyprpolkitagent &
+uwsm app -- swaync -c $HOME/.config/swaync/config.json -s $HOME/.config/swaync/styles/style.css
 
 # Block until swaync registers on D-Bus
 while ! busctl --user status org.freedesktop.Notifications &>/dev/null; do
   sleep 0.1
 done
 
-log kanshi uwsm app -- kanshi &
-log waybar uwsm app -- waybar -c "$HOME/.config/waybar/hosts/$(hostname).jsonc" &
-log hyprsunset uwsm app -- hyprsunset &
-log hypridle uwsm app -- hypridle -c $HOME/.config/hypr/hypridle/hypridle-$(hostname).conf &
-log swww-daemon uwsm app -- swww-daemon &
-log wl-paste uwsm app -- wl-paste --watch cliphist store &
+uwsm app -- kanshi &
+uwsm app -- waybar -c "$HOME/.config/waybar/hosts/$(hostname).jsonc" &
+uwsm app -- hyprsunset &
+uwsm app -- hypridle -c $HOME/.config/hypr/hypridle/hypridle-$(hostname).conf &
+uwsm app -- swww-daemon &
+uwsm app -- wl-paste --watch cliphist store &
+uwsm app -- kbuildsycoca6 &
+uwsm app -- mpd-mpris &
 
-log kbuildsycoca6 uwsm app -- kbuildsycoca6 &
-
-pgrep -x mpd-mpris || log mpd-mpris uwsm app -- mpd-mpris &
-
-log pass-git-push-daemon uwsm app -- $HOME/.local/bin/public/pass/git-watcher-push &
-log einkify-daemon uwsm app -- $HOME/.config/hypr/scripts/daemons/einkify &
+uwsm app -- $HOME/.local/bin/public/pass/git-watcher-push &
+uwsm app -- $HOME/.config/hypr/scripts/daemons/einkify &
 # log uwsm app -- $HOME/.local/bin/public/qutebrowser-sync --remote ~/Cloud/disroot # write daemon
 
-log wallpaper-on-boot $HOME/.local/bin/public/wallpaper/set-on-boot &
-log dark-mode uwsm app -- $HOME/.local/bin/public/color-mode/dark-mode skip-notification &
+uwsm app -- $HOME/.local/bin/public/wallpaper/set-on-boot &
+uwsm app -- $HOME/.local/bin/public/color-mode/dark-mode skip-notification &
 
 if is_laptop; then
-  log power-manager uwsm app -- $HOME/.local/bin/public/sound/audio-profile-power-monitor &
-  log battery-daemon uwsm app -- $HOME/.local/bin/public/battery-status &
+  uwsm app -- $HOME/.local/bin/public/sound/audio-profile-power-monitor &
+  uwsm app -- $HOME/.local/bin/public/battery-status &
   # uwsm app -- libinput-gestures
 fi
 
-if [[ "$(hostname)" == "thinkpad" ]]; then
-  log thinkpad-settings $HOME/.config/hypr/scripts/set-thinkpad-settings
-fi
-
-if [[ "$(hostname)" == "homepc" ]]; then
-  log homepc-settings $HOME/.config/hypr/scripts/set-homepc-settings &
-fi
+[[ "$(hostname)" == "thinkpad" ]] && $HOME/.config/hypr/scripts/set-thinkpad-settings &
+[[ "$(hostname)" == "homepc" ]] && $HOME/.config/hypr/scripts/set-homepc-settings &
 
 launch_hyprland 1 "qutebrowser" &
 launch_hyprland 2 "$HOME/.local/bin/public/applications/kitty-eink --class main zsh -lic 'tmux attach-session -t local; exec zsh'" &
