@@ -27,12 +27,11 @@ in
   '';
 
   home.activation.linkXDGConfigs = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sfn ${dotPublic}/home/.zshenv ${userHome}/.zshenv
-
-    ${pkgs.bash}/bin/bash ${self}/scripts/linking/deploy-xdg-config.sh "${userHome}/.config" "${dotPublic}/home/.config"
+    ${pkgs.bash}/bin/bash ${dotPublic}/scripts/linking/deploy-xdg-config.sh "${userHome}/.config" "${dotPublic}/home/.config"
   '';
 
   home.activation.linkProfiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    ln -sfn ${dotPublic}/home/.zshenv ${userHome}/.zshenv
     ln -sfn ${dotPublic}/home/.zprofile ${userHome}/.zprofile
     ln -sfn ${dotPublic}/home/.zprofile ${userHome}/.profile
   '';
