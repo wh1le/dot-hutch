@@ -16,9 +16,10 @@ sudo nixos-install --flake "$HOME/dot/dot-hutch#thinkpad"
 
 mkdir -p /mnt/home/wh1le/dot
 
-cp -rf ~/dot/dot-hutch /mnt/home/wh1le/dot/dot-hutch
+cp -rf ~/dot/dot-hutch /mnt/home/wh1le/dot/
 
-ln -sfn /mnt/home/wh1le/dot/dot-hutch /mnt/etc/nixos
+sudo rm -rf /mnt/etc/nixos
+sudo ln -sfn /mnt/home/wh1le/dot/dot-hutch /mnt/etc/nixos
 
 sudo nixos-enter --root /mnt
 
