@@ -45,3 +45,37 @@ tooltip {
   padding-top: 20px;
   border-radius: 5px;
 }
+
+#tray menu {
+  background-color: #1e1e2e; /* Use your theme's solid hex color */
+  color: @active;
+  opacity: 1;
+}
+
+/* This targets popups/tooltips in general */
+tooltip {
+  background-color: rgba(30, 30, 46, 1); /* Ensure the 'a' (alpha) is 1.0 */
+  color: @icon;
+  opacity: 1;
+}
+
+#tray menu menuitem {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+#tray menu menuitem label {
+  font-size: 14px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+#tray menu menuitem:hover {
+  background-color: rgba(49, 50, 68, 1);
+}
+
+#tray menu menuitem label:hover {
+  color: gray;
+}
