@@ -43,7 +43,7 @@ in
 
     if [ ! -d "$DOT_HUTCH_FILES" ]; then
       ${pkgs.git}/bin/git clone --recurse-submodules https://github.com/wh1le/dot-hutch.git $DOT_HUTCH_FILES
-      cd DOT_HUTCH_FILES
+      cd "$DOT_HUTCH_FILES"
       ${pkgs.git}/bin/git submodule update --init --recursive
     fi
 
