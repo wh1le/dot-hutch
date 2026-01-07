@@ -15,6 +15,15 @@ let
     ".local/bin/public"
     ".local/share"
   ];
+
+  downloadScript = ''
+    #!/usr/bin/env bash
+    DOT_HUTCH_FILES="$HOME/dot/dot-hutch"
+    git clone --recurse-submodules https://github.com/wh1le/dot-hutch.git "$DOT_HUTCH_FILES"
+    cd "$DOT_HUTCH_FILES"
+    git submodule update --init --recursive
+    echo "Dotfiles cloned. Now run: sudo nixos-rebuild switch --flake ~/dot/dot-hutch#$(hostname)"
+  '';
 in
 {
   # TODO: Might need to remove it, and clone submodules manually because it could block home-mamanger if no internet connection
@@ -25,16 +34,17 @@ in
   home.activation.linkProfiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     DOT_HUTCH_FILES="$HOME/dot/dot-hutch"
 
-    ${pkgs.libnotify}/bin/notify-send -u critical "Dotfiles Missing" "Dotfiles are missing and no internet connection.\nPlease execute:\n$HOME/dot/download-missing-dot-files\nThen rebuild NixOS."
+    if ${pkgs.curl}/bin/curl -s --max-time 3 https://github.com >/dev/null 2>&1; then
+      ${pkgs.libnotify}/bin/notify-send -u critical "No Internet Connection" "Dotfiles are missing and no internet connection.\nPlease execute:\n$HOME/dot/download-missing-dot-files\nThen rebuild NixOS."
+      mkdir -p "$HOME/dot"
+      echo '${downloadScript}' > "$HOME/dot/download-missing-dot-files"
+      chmod +x "$HOME/dot/download-missing-dot-files"
+    fi
 
     if [ ! -d "$DOT_HUTCH_FILES" ]; then
-      if ${pkgs.curl}/bin/curl -s --max-time 3 https://github.com >/dev/null 2>&1; then
-        ${pkgs.git}/bin/git clone --recurse-submodules https://github.com/wh1le/dot-hutch.git $DOT_HUTCH_FILES
-        cd DOT_HUTCH_FILES
-        ${pkgs.git}/bin/git submodule update --init --recursive
-      else
-        ${pkgs.libnotify}/bin/notify-send -u critical "Dotfiles Missing" "Dotfiles are missing and no internet connection.\nPlease execute:\n$HOME/dot/download-missing-dot-files\nThen rebuild NixOS."
-      fi
+      ${pkgs.git}/bin/git clone --recurse-submodules https://github.com/wh1le/dot-hutch.git $DOT_HUTCH_FILES
+      cd DOT_HUTCH_FILES
+      ${pkgs.git}/bin/git submodule update --init --recursive
     fi
 
     ${builtins.concatStringsSep "\n" (map (dir: "mkdir -p ~/${dir}") homeDirs)}
