@@ -7,6 +7,7 @@
 
   sops.defaultSopsFile = "/var/lib/sops-nix/secrets/nix.yaml";
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+  sops.sshKeyPaths = [ ];
 
   sops.defaultSopsFormat = "yaml";
 
