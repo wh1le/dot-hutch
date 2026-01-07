@@ -12,7 +12,6 @@ let
     "Projects"
     "Virtualization"
     ".local/bin"
-    ".local/bin/public"
     ".local/share"
   ];
 
@@ -59,7 +58,7 @@ in
 
     mkdir -p "$HOME/.local/bin"
 
-    ln -sfnT "$DOT_HUTCH_FILES/home/.local/bin/public" "$HOME/.local/bin/public"
+    ln -sfn "$DOT_HUTCH_FILES/home/.local/bin/public" "$HOME/.local/bin/public"
 
     if [ ! -f $HOME/.current_wallpaper ]; then
       ln -sfn $DOT_HUTCH_FILES/assets/wallpapers/forest.jpg $HOME/.current_wallpaper
