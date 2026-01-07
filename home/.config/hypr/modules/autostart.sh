@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-LOGS_DIR="$HOME/.cache/startup"
-
 is_laptop() {
   [[ "$(hostname)" =~ ^(thinkpad|laptop_work)$ ]]
 }
@@ -14,19 +12,16 @@ eink_connected() {
   $HOME/.local/bin/public/eink/paperlike-connected
 }
 
-mkdir -p "$LOGS_DIR"
-
-CONFIGURATION_PATH="$HOME/dot/dot-hutch"
-
-# log uwsm app -- dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
-# log uwsm app -- systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
-# log uwsm app -- /run/current-system/sw/libexec/polkit-kde-authentication-agent-1
+# uwsm app -- dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
+# uwsm app -- systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
+# uwsm app -- /run/current-system/sw/libexec/polkit-kde-authentication-agent-1
 # uwsm app -- gpg-connect-agent updatestartuptty /bye
 uwsm app -- systemctl --user start hyprpolkitagent &
-uwsm app -- swaync -c $HOME/.config/swaync/config.json -s $HOME/.config/swaync/styles/style.css
+uwsm app -- swaync -c $HOME/.config/swaync/config.json -s $HOME/.config/swaync/styles/style.css &
 
 # Block until swaync registers on D-Bus
-while ! busctl --user status org.freedesktop.Notifications &>/dev/null; do
+
+while ! pgrep -a swaync >/dev/null; do
   sleep 0.1
 done
 
@@ -41,7 +36,7 @@ uwsm app -- mpd-mpris &
 
 uwsm app -- $HOME/.local/bin/public/pass/git-watcher-push &
 uwsm app -- $HOME/.config/hypr/scripts/daemons/einkify &
-# log uwsm app -- $HOME/.local/bin/public/qutebrowser-sync --remote ~/Cloud/disroot # write daemon
+# uwsm app -- $HOME/.local/bin/public/qutebrowser-sync --remote ~/Cloud/disroot # write daemon
 
 uwsm app -- $HOME/.local/bin/public/wallpaper/set-on-boot &
 uwsm app -- $HOME/.local/bin/public/color-mode/dark-mode skip-notification &
