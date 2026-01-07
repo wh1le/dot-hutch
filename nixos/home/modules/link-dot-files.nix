@@ -16,7 +16,7 @@ let
     ".local/share"
   ];
 
-  downloadScript = ''
+  downloadDotFilesScript = ''
     #!/usr/bin/env bash
     DOT_HUTCH_FILES="$HOME/dot/dot-hutch"
     git clone --recurse-submodules https://github.com/wh1le/dot-hutch.git "$DOT_HUTCH_FILES"
@@ -34,17 +34,18 @@ in
   home.activation.linkProfiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     DOT_HUTCH_FILES="$HOME/dot/dot-hutch"
 
-    if ${pkgs.curl}/bin/curl -s --max-time 3 https://github.com >/dev/null 2>&1; then
-      ${pkgs.libnotify}/bin/notify-send -u critical "No Internet Connection" "Dotfiles are missing and no internet connection.\nPlease execute:\n$HOME/dot/download-missing-dot-files\nThen rebuild NixOS."
-      mkdir -p "$HOME/dot"
-      echo '${downloadScript}' > "$HOME/dot/download-missing-dot-files"
-      chmod +x "$HOME/dot/download-missing-dot-files"
-    fi
-
     if [ ! -d "$DOT_HUTCH_FILES" ]; then
-      ${pkgs.git}/bin/git clone --recurse-submodules https://github.com/wh1le/dot-hutch.git $DOT_HUTCH_FILES
-      cd "$DOT_HUTCH_FILES"
-      ${pkgs.git}/bin/git submodule update --init --recursive
+      if ${pkgs.curl}/bin/curl -s --max-time 3 https://github.com >/dev/null 2>&1; then
+        ${pkgs.git}/bin/git clone --recurse-submodules https://github.com/wh1le/dot-hutch.git "$DOT_HUTCH_FILES"
+        cd "$DOT_HUTCH_FILES"
+        ${pkgs.git}/bin/git submodule update --init --recursive
+      else
+        ${pkgs.libnotify}/bin/notify-send -u critical "No Internet Connection" "Dotfiles missing. Run: ~/dot/download-missing-dot-files"
+        mkdir -p "$HOME/dot"
+        echo '${downloadDotFilesScript}' > "$HOME/dot/download-missing-dot-files"
+        chmod +x "$HOME/dot/download-missing-dot-files"
+        exit 1
+      fi
     fi
 
     ${builtins.concatStringsSep "\n" (map (dir: "mkdir -p ~/${dir}") homeDirs)}
@@ -56,9 +57,9 @@ in
     ln -sfn $DOT_HUTCH_FILES/home/.zprofile $HOME/.zprofile
     ln -sfn $DOT_HUTCH_FILES/home/.zprofile $HOME/.profile
 
-    mkdir -p $HOME/.local/bin
+    mkdir -p "$HOME/.local/bin"
 
-    ln -sfn $DOT_HUTCH_FILES/home/.local/bin/public $HOME/.local/bin/public
+    ln -sfnT "$DOT_HUTCH_FILES/home/.local/bin/public" "$HOME/.local/bin/public"
 
     if [ ! -f $HOME/.current_wallpaper ]; then
       ln -sfn $DOT_HUTCH_FILES/assets/wallpapers/forest.jpg $HOME/.current_wallpaper
