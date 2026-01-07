@@ -1,8 +1,5 @@
-{ self, config, pkgs, ... }:
+{ config, pkgs, ... }:
 let
-  userHome = "/home/${config.home.username}";
-  dotPublic = "${userHome}/dot/dot-hutch";
-
   homeDirs = [
     "Documents"
     "Videos"
@@ -63,9 +60,5 @@ in
     if [ ! -f $HOME/.current_wallpaper ]; then
       ln -sfn $DOT_HUTCH_FILES/assets/wallpapers/forest.jpg $HOME/.current_wallpaper
     fi
-
-    mkdir -p $HOME/.ssh
-
-    ln -sfn $DOT_HUTCH_FILES/home/.ssh/config $HOME/.ssh/config
   '';
 }
