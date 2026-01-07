@@ -21,7 +21,7 @@ alias ehypr="cd ~/.config/hypr && nvim ."
 alias ekanshi="cd ~/.config/kanshi && nvim ."
 alias envim="cd ~/.config/nvim && nvim ."
 alias etmux="cd ~/.config/etmux && nvim ."
-alias enixpub="cd ~/dot/nix-public && nvim ."
+alias enixpub="cd ~/dot/dot-hutch && nvim ."
 alias enixpri="cd ~/dot/nix-private && nvim ."
 
 alias vim="nvim"

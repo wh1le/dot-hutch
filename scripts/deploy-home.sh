@@ -3,7 +3,7 @@
 set -eu
 
 export HOME="/home/${1:?username required}"
-export DOT_FILES="${HOME}/dot/nix-public"
+export DOT_FILES="${HOME}/dot/dot-hutch"
 
 home_dirs=(
   Documents
@@ -25,8 +25,8 @@ create_home_defaults() {
 
 create_home_defaults
 
-$HOME/dot/nix-public/scripts/linking/deploy-scripts.sh "$HOME/dot/nix-public/home/.local/bin/public" "$HOME/.local/bin/public"
-$HOME/dot/nix-public/scripts/linking/deploy-scripts.sh "$HOME/dot/nix-public/home/.local/share/darkman" "$HOME/.local/share/darkman"
+$HOME/dot/dot-hutch/scripts/linking/deploy-scripts.sh "$HOME/dot/dot-hutch/home/.local/bin/public" "$HOME/.local/bin/public"
+$HOME/dot/dot-hutch/scripts/linking/deploy-scripts.sh "$HOME/dot/dot-hutch/home/.local/share/darkman" "$HOME/.local/share/darkman"
 
-$HOME/dot/nix-public/scripts/linking/deploy-xdg-config.sh "$DOT_FILES/home/.config" "$HOME/.config"
-$HOME/dot/nix-public/scripts/linking/clone-submodules.sh "$DOT_FILES"
+$HOME/dot/dot-hutch/scripts/linking/deploy-xdg-config.sh "$DOT_FILES/home/.config" "$HOME/.config"
+$HOME/dot/dot-hutch/scripts/linking/clone-submodules.sh "$DOT_FILES"

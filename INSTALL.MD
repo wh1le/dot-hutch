@@ -119,11 +119,11 @@ sudo nixos-install --flake "$HOME/dot/dot-hutch#yourhostname"
 copy config from live usb to your installation:
 
 mkdir -p /mnt/home/your_user/dot
-cp -rf ~/dot/nix-hutch /mnt/home/your_user/dot/nix-hutch
+cp -rf ~/dot/dot-hutch /mnt/home/your_user/dot/dot-hutch
 
 link your installation to /mnt/etc/nixos
 
-ln -sfn /mnt/home/your_user/dot/nix-hutch /mnt/etc/nixos
+ln -sfn /mnt/home/your_user/dot/dot-hutch /mnt/etc/nixos
 
 ##### Set Password
 
@@ -174,7 +174,7 @@ sudo sbctl verify
 Rebuild and Reboot
 
 ```bash
-sudo nixos-rebuild switch --flake ~/dot/nix-hutch#yourhostname
+sudo nixos-rebuild switch --flake ~/dot/dot-hutch#yourhostname
 ```
 
 ```bash

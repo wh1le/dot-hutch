@@ -1,7 +1,7 @@
 { self, config, pkgs, ... }:
 let
   userHome = "/home/${config.home.username}";
-  dotPublic = "${userHome}/dot/nix-public";
+  dotPublic = "${userHome}/dot/dot-hutch";
 
   homeDirs = [
     "Documents"
@@ -23,7 +23,7 @@ in
   # '';
 
   home.activation.linkProfiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    DOT_HUTCH_FILES="$HOME/dot/nix-public"
+    DOT_HUTCH_FILES="$HOME/dot/dot-hutch"
 
     if [ ! -d "$DOT_HUTCH_FILES" ]; then
       ${pkgs.git}/bin/git clone --recurse-submodules https://github.com/wh1le/dot-hutch.git $DOT_HUTCH_FILES
@@ -31,7 +31,7 @@ in
 
     ${builtins.concatStringsSep "\n" (map (dir: "mkdir -p ~/${dir}") homeDirs)}
 
-    ${pkgs.bash}/bin/bash "$DDT_PUBLIC/scripts/linking/deploy-xdg-config.sh" \
+    ${pkgs.bash}/bin/bash "$DOT_HUTCH_FILES/scripts/linking/deploy-xdg-config.sh" \
        "$HOME/.config" "$DOT_HUTCH_FILES/home/.config"
 
     ln -sfn $DOT_HUTCH_FILES/home/.zshenv $HOME/.zshenv

@@ -18,13 +18,13 @@ tmux send-keys -t "$SESSION:private" 'nvim .' C-m
 
 tmux new-window -t "$SESSION:" \
   -n public \
-  -c "$BASE/nix-public" \
+  -c "$BASE/dot-hutch" \
   'zsh -l'
 tmux send-keys -t "$SESSION:public" 'nvim .' C-m
 
 tmux new-window -t "$SESSION:" \
   -n switch \
-  -c "$BASE/nix-public" \
+  -c "$BASE/dot-hutch" \
   'zsh -l'
 
 # tmux select-window -t "$SESSION:1"

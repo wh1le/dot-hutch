@@ -37,7 +37,7 @@ mkdir -p "$LOGS_DIR"
   echo "========================================"
 } >>"$LOG_FILE"
 
-CONFIGURATION_PATH="$HOME/dot/nix-public"
+CONFIGURATION_PATH="$HOME/dot/dot-hutch"
 
 # log uwsm app -- dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
 # log uwsm app -- systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE
