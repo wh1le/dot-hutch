@@ -18,6 +18,7 @@ A fully declarative, reproducible NixOS configuration featuring Hyprland, extens
 ## Desktop Environment
 
 ### Wayland Compositor
+
 - Hyprland with XWayland support
 - Dynamic color theming via Pywal16
 - Hypridle + Hyprlock for idle/lock screen
@@ -25,6 +26,7 @@ A fully declarative, reproducible NixOS configuration featuring Hyprland, extens
 - Gaming optimizations (tearing, immediate mode)
 
 ### UI Components
+
 - **Status Bar**: Waybar with custom modules (weather, VPN status, containers, mic activity)
 - **Notifications**: SwayNC with custom themes
 - **Greeter**: TUIgreet with custom time display
@@ -33,6 +35,7 @@ A fully declarative, reproducible NixOS configuration featuring Hyprland, extens
 - **Theme**: Darkman for automatic light/dark switching
 
 ### Hyprland Plugins
+
 - `hyprspace` - Advanced workspace management
 - `hypr-darkwindow` - Per-window dark mode detection
 - `hyprbars` - Custom window decorations
@@ -42,6 +45,7 @@ A fully declarative, reproducible NixOS configuration featuring Hyprland, extens
 ### Terminals & Shell
 
 #### Kitty (Primary Terminal)
+
 - **Iosevka Nerd Font Mono** with ligatures enabled
 - **Performance Optimized**:
   - 1ms repaint/input delay for responsiveness
@@ -60,9 +64,11 @@ A fully declarative, reproducible NixOS configuration featuring Hyprland, extens
 - **Keybindings**: Comprehensive window/tab/scrolling shortcuts
 
 #### Unified Menu System (launch-dmenu)
+
 A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25+ integrated system management tools:
 
 **Architecture:**
+
 - **Kitty Remote Control** via Unix sockets for dynamic window sizing
 - **FZF Integration** with custom styling, keybindings, and preview support
 - **E-Ink Detection** - Auto-applies high-contrast themes
@@ -71,7 +77,8 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 - **Notification Feedback** - Desktop notifications for all actions
 
 **Menu Options (25+):**
-- **Applications** - Launch desktop apps via sway-launcher-desktop
+
+- **Applications** - j4-dmenu-desktop with fzf
 - **Power Management** - Lock, logout, suspend, hibernate, reboot, shutdown
 - **Passwords** - Pass integration with safe-mode (excludes private/)
 - **2FA OTP** - TOTP codes with QR scanning support
@@ -93,6 +100,7 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 - **Pass OTP** - Scan QR codes for 2FA
 
 **Smart Features:**
+
 - **Dynamic Window Sizing** - Each tool resizes Kitty appropriately (100x200 to 700x400)
 - **Live Previews** - Wallpapers show images, packages show docs, clipboard shows content
 - **Performance Caching** - Browser history cached for 180 seconds
@@ -101,10 +109,12 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 - **Gum Spinners** - Visual feedback for network scanning operations
 
 #### Shell Environment
+
 - **Zsh** with autosuggestions, direnv, fzf
 - **CLI Tools**: btop, eza, bat, ripgrep, jq, lazygit, yazi
 
 ### Editors & Development
+
 - **Neovim** (unstable) with extensive Lua configuration
 - **LSP Support**: Lua, Bash, TypeScript, Python, Rust, Nix, YAML, JSON
 - **Formatters**: Black, Prettier, Stylua, Shfmt, Nixfmt, Rustfmt
@@ -113,6 +123,7 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 ### Browsers
 
 #### Firefox (Primary)
+
 - **Wayland-native** rendering with hardware acceleration
 - **Pywalfox** integration for dynamic color theming
 - **Profile Management**:
@@ -126,6 +137,7 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 - **Tridactyl** native messaging for Vim-style navigation
 
 #### Qutebrowser (Power User)
+
 - **Python-Configurable** browser with modular architecture
 - **Privacy Features**:
   - Do Not Track enabled
@@ -165,11 +177,13 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
   - Zero-copy rendering
 
 ### Media & Entertainment
+
 - **Music**: MPD + MPRIS, Cava visualizer, Rmpc client
 - **Video**: MPV, VLC, yt-dlp, Yewtube
 - **Images**: Zathura (PDF), IMV, NSXIV, ImageMagick
 
 ### Gaming & VR
+
 - **Steam** with Proton-GE-Bin
 - **SteamVR** with Monado runtime
 - **VR Tools**: WiVRN, WLX-Overlay-S
@@ -179,6 +193,7 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 ## Security & Privacy
 
 ### Encryption & Credentials
+
 - **SOPS-Nix** - Age-based secrets management
 - **Pass** - Password manager with OTP/import extensions
 - **GPG** - Key management with pinentry
@@ -186,6 +201,7 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 - **Git-crypt** - Encrypted git repositories
 
 ### Network Security
+
 - **Firewall** - NixOS firewall with custom rules
 - **OpenVPN** - Passwordless sudo execution
 - **SSH** - Custom port (1234), key-only auth
@@ -195,22 +211,26 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 ## System Administration
 
 ### Virtualization & Containers
+
 - **QEMU/KVM** with virt-manager, TPM 2.0, OVMF
 - **Docker** with NVIDIA container support
 - **Podman** rootless with TUI management
 - **Distrobox** for containerized environments
 
 ### Databases & Services
+
 - **PostgreSQL 16** - Local dev/test databases
 - **Redis** - In-memory data store
 - **SQLite** - Lightweight database support
 
 ### Monitoring & Tools
+
 - **System**: Btop, Htop, Nvtop, Conky
 - **Systemd**: systemctl-tui, lazyjournal
 - **Network**: Snitch (network monitor)
 
 ### Automation
+
 - **Cron Jobs**:
   - Password store sync (every 5 minutes)
   - Clipboard wipe (every 5 days)
@@ -221,6 +241,7 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 ## Hardware Support
 
 ### Homepc (Desktop)
+
 - Intel CPU with microcode updates
 - AMD Radeon RX 7600 (display)
 - NVIDIA RTX 4090 (compute/gaming)
@@ -229,6 +250,7 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 - Multi-monitor with Kanshi profiles
 
 ### Thinkpad (Laptop)
+
 - AMD/Intel CPU support
 - Power management (balanced/powersave modes)
 - TLP/auto-cpufreq thermal optimization
@@ -237,6 +259,7 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 - Disko declarative disk partitioning
 
 ### Specialized Hardware
+
 - **E-Ink**: Dasung Paperlike with custom scripts
 - **Bluetooth**: Device management and pairing
 - **Printers**: CUPS support
@@ -245,21 +268,27 @@ A custom **Kitty + FZF** based launcher replacing traditional dmenu/rofi with 25
 ## Custom Scripts (103+)
 
 ### Power & Display
+
 `sunset`, `caffeine`, `set-keyboard-backlight`, `set-monitor-brightness`, `power-management`
 
 ### Audio & Music
+
 `audio`, `rmpc`, MPD playlist management, audio profile switching
 
 ### Wayland & Desktop
+
 `navigate-hyprland`, `swaync`, `apply-wallpaper`, `apply-colors-globally`, `picker-menu`, `set-ink`
 
 ### Networking
+
 `openvpn`, `wifi-connect`, `bluetooth`, VPN management
 
 ### Development
+
 `nix-search-packages`, `nix-switch`, `tmux-sessionizer`, `local-session`, `clipboard-history`
 
 ### Waybar Modules
+
 Weather forecast, language indicator, VPN status, container status, microphone activity, date/time
 
 ## File Organization

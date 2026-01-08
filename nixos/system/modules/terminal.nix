@@ -10,9 +10,6 @@
   };
 
   environment.systemPackages = [
-
-    # unstable.sway-launcher-desktop
-
     pkgs.nix-search
 
     pkgs.psmisc # provides 'killall', 'pstree', general utilities

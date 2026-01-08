@@ -36,7 +36,6 @@
 
     # app launcher
     j4-dmenu-desktop
-    sway-launcher-desktop
 
     chntpw
     hivex
