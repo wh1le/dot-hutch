@@ -1,46 +1,34 @@
+#!/usr/bin/env bash
+
 luks-list() {
-  echo "=== LUKS Devices ==="
-  echo ""
+  local simple="$1"
+
+  if [[ ! simple ]]; then
+    echo "=== LUKS Devices ==="
+    echo ""
+  fi
 
   sudo blkid -t TYPE=crypto_LUKS -o device 2>/dev/null | while read dev; do
-
     size=$(lsblk -no SIZE "$dev" 2>/dev/null | head -1)
     label=$(sudo blkid -s LABEL -o value "$dev" 2>/dev/null)
     mapper=$(lsblk -lno NAME,TYPE "$dev" 2>/dev/null | awk '$2=="crypt" {print $1}')
 
-    if [[ -n "$mapper" && -e "/dev/mapper/$mapper" ]]; then
-      mount=$(findmnt -no TARGET "/dev/mapper/$mapper" 2>/dev/null)
-      printf "%-12s %6s  %-12s  unlocked → /dev/mapper/%s %s\n" "$dev" "$size" "${label:--}" "$mapper" "${mount:+@ $mount}"
+    if [[ simple ]]; then
+        echo "$dev"
     else
-      printf "%-12s %6s  %-12s  locked\n" "$dev" "$size" "${label:--}"
+      if [[ -n "$mapper" && -e "/dev/mapper/$mapper" ]]; then
+        mount=$(findmnt -no TARGET "/dev/mapper/$mapper" 2>/dev/null)
+        printf "%-12s %6s  %-12s  unlocked → /dev/mapper/%s %s\n" "$dev" "$size" "${label:--}" "$mapper" "${mount:+@ $mount}"
+      else
+        printf "%-12s %6s  %-12s  locked\n" "$dev" "$size" "${label:--}"
+      fi
     fi
   done
 }
 
-# TODO: remove after testing
-# secrets-mount() {
-#   local dev="${1:-/dev/sda}"
-#
-#   sudo mkdir -p /mnt/secrets || return 1
-#   sudo cryptsetup open "$dev" secrets || return 1
-#   sudo mount /dev/mapper/secrets /mnt/secrets || return 1
-#   sudo chown -R "${USER}:users" /mnt/secrets || return 1
-#   echo "✓ Secrets unlocked at /mnt/secrets"
-# }
-
-# secrets-verify() {
-#   local a="${1:-/mnt/secrets}"
-#   local b="${2:-/mnt/secrets2}"
-#
-#   local sum_a=$(find "$a" -type f -exec md5sum {} + | sed "s|$a||g" | sort)
-#   local sum_b=$(find "$b" -type f -exec md5sum {} + | sed "s|$b||g" | sort)
-#
-#   [[ "$sum_a" == "$sum_b" ]]
-# }
-
-secrets-verify() {
-  local a="${1:-/mnt/secrets}"
-  local b="${2:-/mnt/secrets2}"
+secrets-health-check() {
+  local a=${1:-/mnt/secrets}
+  local b=${2:-/mnt/secrets2}
 
 	local sum_a=$(find "$a" -type f ! -path "*.git/config" -exec md5sum {} + | sed "s|$a||g" | sort)
   local sum_b=$(find "$b" -type f ! -path "*.git/config" -exec md5sum {} + | sed "s|$b||g" | sort)
@@ -56,11 +44,29 @@ secrets-verify() {
   fi
 }
 
-secrets-mount() {
-  local dev="${1:-/dev/sda}"
+secrets-is-monuted() {
   local index="$2"
   local name="secrets${index}"
   local mnt="/mnt/${name}"
+
+  if mountpoint -q "$mnt" 2>/dev/null; then
+    echo "✗ Already mounted at $mnt" >&2
+    return 1
+  fi
+
+  return 0
+}
+
+secrets-mount() {
+  local dev="${1:-}"
+  local name="secrets${index}"
+  local mnt="/mnt/${name}"
+
+  if [[ ! "$dev" ]]; then
+    dev=$(result=$(luks-list "simple") && wait && echo "$result"  |fzf)
+  fi
+
+  echo "$dev"
 
   if mountpoint -q "$mnt" 2>/dev/null; then
     echo "✗ Already mounted at $mnt" >&2
@@ -95,19 +101,66 @@ secrets-close() {
   ((closed)) || echo "✗ No secrets mounted" >&2
 }
 
-# secrets-close() {
-#   sudo umount -f /mnt/secrets 2>/dev/null || sudo umount -l /mnt/secrets
-#   sync
-#   sudo cryptsetup close secrets &&
-#     echo "✓ Secrets locked"
-# }
+secrets-init-deploy() {
+  local TARGET=${1:-/}
+  local SECRETS_MOUNT_POINT=${2:-/mnt/secrets}
+  local HOST=${3:-$(hostname)}
+
+  local secrets_dir="${TARGET}$HOME/.secrets"
+  local remote_repo="${SECRETS_MOUNT_POINT}/secrets.git"
+  local user_passwords_path="${TARGET}$HOME/.secrets/passwords"
+  local ssh_keys_path="${SECRETS_MOUNT_POINT}/Files/.ssh_$HOST"
+
+  echo "Are you Sure? \n"
+  echo "1 Target: $TARGET"
+  echo "2 Secrets mount point: ${SECRETS_MOUNT_POINT}"
+  echo "3 Target Host: ${HOST}, Current Host: $(hostname)\n"
+  printf "type [y/n]: "
+  read RESPONSE
+
+  if [[ $RESPONSE =~ ^[Yy]$ ]] then
+    if [[ ! secrets-is-monuted ]]; then
+      secrets-mount drive
+    else
+      echo "Secrets mount point found."
+    fi
+
+    echo "deploying ssh ..."
+    mkdir -p $HOME/.ssh
+    sudo cp -rp "$ssh_keys_path"/* "$HOME/.ssh"
+    ssh-add "$HOME/.ssh/id_rsa"
+    echo "[ok] ssh deployed"
+
+    if [[ ! -d $secrets_dir ]]; then
+      [[ -d $secrets_dir ]] && echo "${secrets_dir} exists skipping"
+
+      echo "deploying $HOME/.secrets"
+
+      git clone $remote_repo $secrets_dir
+      echo "[ok] cloned to $secrets_dir"
+    fi
+
+    echo "deploying gpg keys"
+    gpg-restore-keys
+    gpg-restart
+    echo gpg-keys
+    echo "[ok] gpg keys deployed"
+
+    echo "deploying passwords"
+    local latest_backup=$(ls -1t $SECRETS_MOUNT_POINT/Backups/passwords | head -n1)
+    cp -rp "$SECRETS_MOUNT_POINT/Backups/passwords"/$latest_backup $HOME/.secrets/passwords
+    cd $HOME/.secrets/passwords && git pull
+    echo "[ok] passwords deployed"
+  else
+    return 1
+  fi
+}
 
 secrets-sync() {
   local secrets_dir="$HOME/.secrets"
-  local remote_dir="/mnt/secrets/secrets.git"
+  local remote_repo="/mnt/secrets/secrets.git"
 
-  [[ ! -d "$remote_dir" ]] && echo "✗ Mount flash first" && return 1
-  [[ ! -d "$secrets_dir/.git" ]] && echo "✗ No repo at $secrets_dir" && return 1
+  [[ ! -d "$remote_repo" ]] && echo "✗ Mount flash first" && return 1
 
   cd "$secrets_dir" || return 1
 
@@ -176,3 +229,56 @@ secrets-make-backup-copy() {
   ((backed)) || echo "✗ No secrets drives mounted" >&2
 }
 
+function gpg-backup-keys() {
+  local backup_dir="/mnt/secrets/Files/.gnupg"
+
+  if ! findmnt -n -o FSTYPE /mnt/secrets | grep -q .; then
+    echo "Error: /mnt/secrets not mounted"
+    return 1
+  fi
+
+  if ! lsblk -o NAME,TYPE,MOUNTPOINT | grep -E "crypt.*(/mnt/secrets|$(findmnt -n -o SOURCE /mnt/secrets 2>/dev/null))" &>/dev/null; then
+    echo "Error: /mnt/secrets doesn't appear to be on a LUKS-encrypted device"
+    return 1
+  fi
+
+  mkdir -p "$backup_dir"
+
+  cp -a ~/.gnupg/private-keys-v1.d "$backup_dir/"
+  cp -a ~/.gnupg/openpgp-revocs.d "$backup_dir/"
+  cp ~/.gnupg/pubring.kbx "$backup_dir/"
+  cp ~/.gnupg/trustdb.gpg "$backup_dir/"
+
+  echo "Backup complete: $backup_dir"
+  ls -la "$backup_dir"
+}
+
+function gpg-restore-keys() {
+  local backup_dir="/mnt/secrets/Files/.gnupg"
+
+  if ! findmnt -n -o FSTYPE /mnt/secrets | grep -q .; then
+    echo "Error: /mnt/secrets not mounted"
+    return 1
+  fi
+
+  if ! lsblk -o NAME,TYPE,MOUNTPOINT | grep -E "crypt.*(/mnt/secrets|$(findmnt -n -o SOURCE /mnt/secrets 2>/dev/null))" &>/dev/null; then
+    echo "Error: /mnt/secrets doesn't appear to be on a LUKS-encrypted device"
+    return 1
+  fi
+
+  [[ -d "$backup_dir" ]] || {
+    echo "No backup found at $backup_dir"
+    return 1
+  }
+
+  mkdir -p ~/.gnupg
+  chmod 700 ~/.gnupg
+
+  cp -a "$backup_dir/private-keys-v1.d" ~/.gnupg/
+  cp -a "$backup_dir/openpgp-revocs.d" ~/.gnupg/
+  cp "$backup_dir/pubring.kbx" ~/.gnupg/
+  cp "$backup_dir/trustdb.gpg" ~/.gnupg/
+
+  echo "Restore complete"
+  ls -la ~/.gnupg
+}
