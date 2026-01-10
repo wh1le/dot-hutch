@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+WALLPAPERS_FOLDER="$HOME/dot/wallpapers"
+DEFAULT="$WALLPAPERS_FOLDER/default"
+FAV_PATH="$WALLPAPERS_FOLDER/fav"
+EXTENSIONS=("jpg" "png" "webp")
+
+get_files() {
+  local path="$1"
+  local prefix="$(basename "$path")/"
+  local find_args=()
+
+  for ext in "${EXTENSIONS[@]}"; do
+    find_args+=(-o -iname "*.${ext}")
+  done
+
+  find "$path" -type f \( "${find_args[@]:1}" \) -printf "${prefix}%f\t%p\n" 2>/dev/null || true
+}
+
+choice=$(
+  {
+    get_files "$FAV_PATH"
+    get_files "$DEFAULT"
+  } | fzm --tty --dmenu -p '--with-nth=1 --delimiter="\t" --preview="kitty +kitten icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {2}" --preview-window=right:80% --prompt="Wallpaper: " --height=100%' | cut -f2
+)
+
+if [[ -n "$choice" ]]; then
+  "$HOME/.local/bin/public/wallpaper/apply-wallpaper" "$choice"
+fi

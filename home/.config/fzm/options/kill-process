@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+choice=$(
+  ps -eo pid,user,comm --sort=-pid |
+    awk 'NR>1 {printf "%-7s %-12s %s\n", $1, $2, $3}' |
+    fzm --tty --dmenu -p "--prompt='Kill » '"
+) || exit 0
+
+pid=$(awk '{print $1}' <<<"$choice")
+
+[ -n "${pid:-}" ] || exit 0
+
+# Kill with sudo
+sudo kill "$pid"

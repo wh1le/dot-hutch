@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+history_list=$(cliphist list || true)
+
+[ -z "$history_list" ] && exit 0
+
+choice=$(
+  printf '%s\n' "$history_list" |
+    fzm --dmenu --tty -p "--prompt='clipboard> '  --no-multi  --preview='echo {} | cut -f1 | xargs -I{} cliphist decode {}'  --preview-window=right:50%:wrap"
+)
+
+[ -z "${choice:-}" ] && exit 0
+
+choice_id=${choice%%$'\t'*}
+cliphist decode "$choice_id" | wl-copy

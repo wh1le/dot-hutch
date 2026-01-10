@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
+
+wifi_if=$(nmcli -t -f DEVICE,TYPE device | grep ':wifi$' | cut -d: -f1)
+current=$(nmcli -t -f NAME,DEVICE connection show --active 2>/dev/null | awk -F: -v dev="$wifi_if" '$2==dev {print $1}')
+
+scan_output=$(gum spin --spinner dot --title "Scanning networks..." --show-output -- \
+  nmcli -t -f SSID,SIGNAL,SECURITY device wifi list --rescan yes)
+
+choice=$(
+  {
+    [[ -n "$current" ]] && echo "󰤭 Disconnect ($current)"
+    echo "$scan_output" | grep -v '^:'
+  } |
+    fzf-with-options \
+      --exact \
+      --delimiter=':' \
+      --with-nth=1,2,3 \
+      --preview 'nmcli device wifi list | grep -i {1}' \
+      --preview-window=top,30%,wrap \
+      --preview-label='info' \
+      --preview-label-pos=1
+)
+
+[[ -z "$choice" ]] && exit 0
+
+if [[ "$choice" == "󰤭 Disconnect"* ]]; then
+  nmcli device disconnect "$wifi_if"
+  notify-send "WiFi" "Disconnected from $current"
+else
+  ssid=$(echo "$choice" | cut -d':' -f1)
+
+  if nmcli -t -f NAME connection show | grep -qx "$ssid"; then
+    nmcli connection up "$ssid" ifname "$wifi_if"
+    notify-send "WiFi" "Connected to $ssid"
+  else
+    read -rsp "Password for $ssid: " pass
+    echo
+    nmcli device wifi connect "$ssid" password "$pass" ifname "$wifi_if" &&
+      notify-send "WiFi" "Connected to $ssid" ||
+      notify-send "WiFi" "Failed to connect"
+  fi
+fi

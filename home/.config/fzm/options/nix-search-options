@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+choice=$(
+  nix-search-tv print --indexes nixos |
+    fzm --dmenu --tty -p '--margin=0,0,0,0 --preview="nix-search-tv preview --indexes nixos {}" --scheme=history --preview-window=right,55%,wrap --preview-label=docs --preview-label-pos=1'
+)
+
+notify-send "NixOS Search Copied" "$choice"
+
+printf "$choice" | wl-copy

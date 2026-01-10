@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+[ -z "$history_list" ] && exit 0
+
+choice=$(
+  printf '%s\n' "$history_list" |
+    fzm --tty --dmenu -p "--prompt='Endpoint> ' --no-multi"
+)
+
+# user cancelled
+[ -z "${choice:-}" ] && exit 0
+
+# first field is ID
+choice_id=${choice%%$'\t'*}
+
+# copy decoded entry back to clipboard
+cliphist decode "$choice_id" | wl-copy
+
+notify-send "Clipboard" "Restored from history"

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+profiles=$(grep -E '^profile ' ~/.config/kanshi/config | awk '{print $2}' | grep "^$(hostname)" || true)
+
+[ -z "$profiles" ] && exit 0
+
+choice=$(
+  printf '%s\n' "$profiles" |
+    fzm --dmenu --tty -p "--prompt='kanshi profile> ' --no-multi"
+)
+
+[ -z "${choice:-}" ] && exit 0
+
+if ! output=$(kanshictl switch "$choice" 2>&1); then
+  notify-send -u critical "Kanshi" "Failed: $output"
+  exit 1
+fi
+
+notify-send -i display "Kanshi" "Switched to $choice"
