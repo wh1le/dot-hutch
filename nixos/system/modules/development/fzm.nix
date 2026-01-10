@@ -2,6 +2,6 @@
   environment.systemPackages = [
     pkgs.kitty
     pkgs.wezterm
-    pkgs.ghosty
+    pkgs.ghostty
   ];
 }
