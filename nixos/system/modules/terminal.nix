@@ -43,5 +43,6 @@
     pkgs.astroterm
     pkgs.socat
     pkgs.sysz
+    pkgs.mpls
   ];
 }

@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# bin/fzm
+
+set -euo pipefail
+
+FZM_ROOT="$(dirname "$(dirname "$(readlink -f "$0")")")"
+FZM_LIB="${FZM_LIB:-$FZM_ROOT/lib/fzm}"
+FZM_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/fzm"
+FZM_CONFIG_SYSTEM="${XDG_CONFIG_DIRS:-/etc/xdg}/fzm"
+
+cmd_init() {
+    local force=0
+    [[ "${1:-}" == "-f" || "${1:-}" == "--force" ]] && force=1
+
+    if [[ -d "$FZM_CONFIG_HOME" && $force -eq 0 ]]; then
+        echo "Config exists: $FZM_CONFIG_HOME"
+        echo "Use 'fzm init -f' to overwrite"
+        return 1
+    fi
+
+    if [[ ! -d "$FZM_CONFIG_SYSTEM" ]]; then
+        echo "System config not found: $FZM_CONFIG_SYSTEM"
+        return 1
+    fi
+
+    rm -rf "$FZM_CONFIG_HOME"
+    cp -r "$FZM_CONFIG_SYSTEM" "$FZM_CONFIG_HOME"
+    echo "Initialized: $FZM_CONFIG_HOME"
+}
+
+cmd_help() {
+    cat <<EOF
+Usage: fzm <command>
+
+Commands:
+    init [-f]    Initialize user config (~/.config/fzm)
+    help         Show this help
+
+Options:
+    -f, --force  Overwrite existing config
+EOF
+}
+
+case "${1:-}" in
+    init)  shift; cmd_init "$@" ;;
+    help)  cmd_help ;;
+    -h|--help) cmd_help ;;
+    *)
+        # Main fzm logic here
+        source "$FZM_LIB/parse_args"
+        # ...
+        ;;
+esac

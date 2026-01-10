@@ -1,21 +1,22 @@
 {
   "general": {
     "terminal": {
-      "kitty": {
-        "socket_path": "/tmp/kitty-launcher",
-        "launch_options": [
-          "-o font_size=13",
-          "-o allow_remote_control=yes",
-          "--single-instance"
-        ]
-      }
+      "name": "kitty",
+      "bin": "/run/current-system/sw/bin/kitty",
+      "socket_path": "/tmp/kitty-launcher",
+      "launch_options": [
+        "-o font_size=13",
+        "-o allow_remote_control=yes",
+        "--single-instance"
+      ]
     },
-    "window_manager": {
-      "hyprland": {
-        "terminal_class": "launcher"
-      }
+    "desktop": {
+      "name": "hyprland",
+      "launcher_class": "launcher"
     },
-    "fzf": {
+    "picker": {
+      "name": "fzf",
+      "bin": "/run/current-system/sw/bin/fzf",
       "launch_options": [
         "--ansi",
         "--margin='1,1,1,1'",
@@ -34,12 +35,13 @@
     {
       "label": "󰖟 Browser History",
       "option_name": "browser-history",
-      "hyprland_options": ["resizeactive 700 400", "centerwindow"],
-      "kitty_options": ["set-font-size 10"]
+      "style": "wide",
+      "match-type": "--fuzzy"
     },
     {
       "label": "󰖟 Browser Bookmarks",
-      "option_name": "browser-bookmarks"
+      "option_name": "browser-bookmarks",
+      "match-type": "--exact"
     },
     {
       "label": "󰕧 Search Youtube",

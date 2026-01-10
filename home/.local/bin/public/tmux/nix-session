@@ -11,14 +11,14 @@ fi
 
 tmux new-session -d -s "$SESSION" \
   -n private \
-  -c "$BASE/nix-private" \
+  -c "$BASE/dot-private" \
   'zsh -l'
 
 tmux send-keys -t "$SESSION:private" 'nvim .' C-m
 
 tmux new-window -t "$SESSION:" \
   -n public \
-  -c "$BASE/dot-hutch" \
+  -c "$BASE/dot-private" \
   'zsh -l'
 tmux send-keys -t "$SESSION:public" 'nvim .' C-m
 

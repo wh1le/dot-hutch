@@ -6,10 +6,9 @@ parse_args "$@"
 echo "${args[mode]}"
 echo "${args[terminal]}"
 echo "${args[wm]}"
-sleep 10
 
-source "$(dirname "$0")/../helpers/get_kittynator_settings"
-get_kittynator_settings
+source "$(dirname "$0")/../helpers/get_fzm_settings"
+get_fzm_settings
 
 source "$(dirname "$0")/../helpers/spawn_kitty"
 export -f spawn_kitty
@@ -37,6 +36,6 @@ if [[ "$option" ]]; then
   "$(dirname "$0")/../options/$option"
 fi
 
-"$(dirname "$0")/../bin/kittynator-control-fzf"
+"$(dirname "$0")/../bin/fzm-control-fzf"
 
 # close-kitty

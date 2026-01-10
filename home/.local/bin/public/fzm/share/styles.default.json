@@ -1,0 +1,31 @@
+{
+  "styles": {
+    "default": {
+      "desktop": {
+        "hyprland": ["resizeactive 100 100", "centerwindow"],
+        "sway": ["resize set 100 100", "move position center"]
+      },
+      "terminal": {
+        "kitty": ["set-font-size 10"]
+      }
+    },
+    "wide": {
+      "desktop": {
+        "hyprland": ["resizeactive 700 400", "centerwindow"],
+        "sway": ["resize set 700 400", "move position center"]
+      },
+      "terminal": {
+        "kitty": ["set-font-size 10"]
+      }
+    },
+    "tall": {
+      "desktop": {
+        "hyprland": ["resizeactive 100 200", "centerwindow"],
+        "sway": ["resize set 100 200", "move position center"]
+      },
+      "terminal": {
+        "kitty": ["set-font-size 10"]
+      }
+    }
+  }
+}

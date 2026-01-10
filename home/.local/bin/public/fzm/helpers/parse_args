@@ -19,7 +19,7 @@ validate_param() {
 }
 
 show_help() {
-  echo "Usage: kittynator-control [OPTIONS] [option]"
+  echo "Usage: fzm-control [OPTIONS] [option]"
   echo ""
   echo "Options:"
   echo "  --mode=MODE        $valid_modes"

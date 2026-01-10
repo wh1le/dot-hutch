@@ -40,10 +40,13 @@
     chntpw
     hivex
     protonup-qt
+    mpls
   ];
 
   imports = [
     ../modules/cron.nix
+
+    ../modules/development/fzm.nix
 
     ../modules/software/searx.nix
     ../modules/software/nextcloud-disroot-encrypted.nix
