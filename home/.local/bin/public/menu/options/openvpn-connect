@@ -24,9 +24,4 @@ choice_id=${choice%%$'\t'*}
 # copy decoded entry back to clipboard
 cliphist decode "$choice_id" | wl-copy
 
-# if we are in kitty launcher, close it after selection
-if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
-  kitty @ --to "unix:$KITTY_LAUNCHER_SOCKET_PATH" close-window || true
-else
-  notify-send "Clipboard" "Restored from history"
-fi
+notify-send "Clipboard" "Restored from history"

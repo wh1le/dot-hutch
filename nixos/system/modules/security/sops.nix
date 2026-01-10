@@ -6,8 +6,8 @@
   sops.age.generateKey = false;
 
   sops.defaultSopsFile = "/var/lib/sops-nix/secrets/nix.yaml";
-  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
-  sops.sshKeyPaths = [ ];
+  sops.age.keyFile = "/var/lib/sops-nix/keys.txt";
+  sops.gnupg.sshKeyPaths = [ ];
 
   sops.defaultSopsFormat = "yaml";
 

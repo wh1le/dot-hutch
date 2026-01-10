@@ -14,8 +14,8 @@ generate_empty_sops() {
 
   sudo mkdir -p /mnt/var/lib/sops-nix/secrets
 
-  sudo age-keygen -o /mnt/var/lib/sops-nix/key.txt
-  local pub_key=$(sudo grep -oP "public key: \K.*" /mnt/var/lib/sops-nix/key.txt)
+  sudo age-keygen -o /mnt/var/lib/sops-nix/keys.txt
+  local pub_key=$(sudo grep -oP "public key: \K.*" /mnt/var/lib/sops-nix/keys.txt)
 
   sudo tee /mnt/var/lib/sops-nix/secrets/.sops.yaml >/dev/null <<EOF
 creation_rules:
@@ -38,7 +38,7 @@ disroot:
     salt: salts
 EOF
 
-  SOPS_AGE_KEY_FILE=/mnt/var/lib/sops-nix/key.txt \
+  SOPS_AGE_KEY_FILE=/mnt/var/lib/sops-nix/keys.txt \
 	  sudo -E sops --encrypt --age "$pub_key" /tmp/sops_template.yaml \
 	  | sudo tee /mnt/var/lib/sops-nix/secrets/nix.yaml >/dev/null
 
@@ -46,11 +46,11 @@ EOF
 
   sudo chown -R root:root /mnt/var/lib/sops-nix
   sudo chmod 700 /mnt/var/lib/sops-nix /mnt/var/lib/sops-nix/secrets
-  sudo chmod 600 /mnt/var/lib/sops-nix/key.txt /mnt/var/lib/sops-nix/secrets/nix.yaml
+  sudo chmod 600 /mnt/var/lib/sops-nix/keys.txt /mnt/var/lib/sops-nix/secrets/nix.yaml
 
   echo "SOPS setup complete."
   echo "Public key: $pub_key"
-  echo "Edit secrets: sudo SOPS_AGE_KEY_FILE=/var/lib/sops-nix/key.txt sops /var/lib/sops-nix/secrets/nix.yaml"
+  echo "Edit secrets: sudo SOPS_AGE_KEY_FILE=/var/lib/sops-nix/keys.txt sops /var/lib/sops-nix/secrets/nix.yaml"
 }
 
 clone_secrets_to_installation() {

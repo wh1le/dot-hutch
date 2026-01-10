@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
-source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
 
-if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
-  hyprctl dispatch resizeactive 100 100 &>/dev/null
-  hyprctl dispatch centerwindow &>/dev/null
-  kitty @ --to unix:/tmp/kitty-launcher set-font-size 10
-fi
+set -euo pipefail
 
 $HOME/.local/bin/public/mpd/add-current-song-to-playlist
-
-if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
-  kitty @ --to unix:$KITTY_LAUNCHER_SOCKET_PATH close-window
-fi

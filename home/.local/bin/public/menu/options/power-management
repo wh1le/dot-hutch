@@ -2,9 +2,6 @@
 
 set -euo pipefail
 
-source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
-
-# ["󰗽  Logout"]="hyprctl dispatch exit"
 declare -A actions=(
   ["󰌾  Lock"]="hyprlock"
   ['󰗽  Logout']='uwsm stop'

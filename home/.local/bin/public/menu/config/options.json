@@ -1,0 +1,162 @@
+{
+  "general": {
+    "terminal": {
+      "kitty": {
+        "socket_path": "/tmp/kitty-launcher",
+        "launch_options": [
+          "-o font_size=13",
+          "-o allow_remote_control=yes",
+          "--single-instance"
+        ]
+      }
+    },
+    "window_manager": {
+      "hyprland": {
+        "terminal_class": "launcher"
+      }
+    },
+    "fzf": {
+      "launch_options": [
+        "--ansi",
+        "--margin='1,1,1,1'",
+        "--cycle",
+        "--color='gutter:-1,border:238,scrollbar:238'",
+        "--prompt='> '",
+        "--bind 'esc:abort'",
+        "--bind 'ctrl-d:preview-half-page-down'",
+        "--bind 'ctrl-u:preview-half-page-up'",
+        "--bind 'ctrl-f:preview-page-down'",
+        "--bind 'ctrl-b:preview-page-up'"
+      ]
+    }
+  },
+  "options": [
+    {
+      "label": "󰖟 Browser History",
+      "option_name": "browser-history",
+      "hyprland_options": ["resizeactive 700 400", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": "󰖟 Browser Bookmarks",
+      "option_name": "browser-bookmarks"
+    },
+    {
+      "label": "󰕧 Search Youtube",
+      "option_name": "search-youtube"
+    },
+    {
+      "label": "󰣆 Applications",
+      "option_name": "applications",
+      "hyprland_options": ["resizeactive 700 400"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": " 2FA OTP",
+      "option_name": "pass-otp"
+    },
+    {
+      "label": " Ruby Gems",
+      "option_name": "ruby-gems",
+      "hyprland_options": ["resizeactive 100 100"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": "󰧻 Kill Process",
+      "option_name": "kill-process",
+      "hyprland_options": ["resizeactive 100 200"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": "󰐥 Power Management",
+      "option_name": "power-management"
+    },
+    {
+      "label": " Passwords",
+      "option_name": "pass-list",
+      "option_args": "--safe-mode",
+      "hyprland_options": ["resizeactive 100 200", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": " Passwords (All)",
+      "option_name": "pass-list",
+      "hyprland_options": ["resizeactive 100 200", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": " Audio",
+      "option_name": "audio",
+      "hyprland_options": ["resizeactive 100 200", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": " (Nix) Packages",
+      "option_name": "nix-search-packages",
+      "hyprland_options": ["resizeactive 100 200", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": " (Nix) Options",
+      "option_name": "nix-search-options",
+      "hyprland_options": ["resizeactive 100 200", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": " Clipboard",
+      "option_name": "clipboard-history",
+      "hyprland_options": ["resizeactive 700 400", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": "󱠾 OpenVPN Connect",
+      "option_name": "openvpn-connect"
+    },
+    {
+      "label": "󰤨 Wi-Fi connect",
+      "option_name": "wifi-connect"
+    },
+    {
+      "label": " (Nix) Switch",
+      "option_name": "nix-switch",
+      "hyprland_options": ["resizeactive 500 100", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": "󰍹 Display Profiles (Kanshi)",
+      "option_name": "kanshi-profiles"
+    },
+    {
+      "label": " (Nix) Home Options",
+      "option_name": "nix-search-home-options",
+      "hyprland_options": ["resizeactive 700 400", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": " Bluetooth",
+      "option_name": "bluetooth",
+      "hyprland_options": ["resizeactive 100 200", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": "󰣌 Wallpaper",
+      "option_name": "wallpaper",
+      "hyprland_options": ["resizeactive 700 400", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": " Scan OTP",
+      "option_name": "pass-scan-otp",
+      "hyprland_options": ["resizeactive 200 100", "centerwindow"],
+      "kitty_options": ["set-font-size 10"]
+    },
+    {
+      "label": "󰲸 (MPD) Create Playlist",
+      "option_name": "mpd-create-playlist"
+    },
+    {
+      "label": " (MPD) Add Song to Playlist",
+      "option_name": "mpd-add-song-to-playlist"
+    }
+  ]
+}

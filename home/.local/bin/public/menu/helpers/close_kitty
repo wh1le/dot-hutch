@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+close_kitty() {
+  if [ -n "$KITTYNATOR_SOCKET_PATH" ] && [ -S "$KITTYNATOR_SOCKET_PATH" ]; then
+    kitty @ --to "unix:$KITTYNATOR_SOCKET_PATH" close-window
+  fi
+}
+
+export -f close_kitty

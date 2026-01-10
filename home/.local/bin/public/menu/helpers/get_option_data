@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+get_option_data() {
+  local choice="$1"
+  local query='.options[] | select(.option_name == $choice)'
+  local result
+  result=$(jq -r --arg choice "$choice" "$query" "$KITTYNATOR_CONFIG")
+
+  declare -gA option_data
+  option_data[label]=$(echo "$result" | jq -r '.label')
+  option_data[script_path]="$(dirname "$0")/../options/$(echo "$result" | jq -r '.option_name')"
+  option_data[script_args]=$(echo "$result" | jq -r '.option_args')
+  option_data[hyprland_options]=$(echo "$result" | jq -r '(.hyprland_options // []) | join("\n")')
+  option_data[kitty_options]=$(echo "$result" | jq -r '(.kitty_options // []) | join("\n")')
+}
+
+export -f get_option_data
+
+# Usage:
+# eval "$(get_option_data "some_option")"
+# echo "${option_data[label]}"

@@ -36,7 +36,6 @@
   services.open-webui.enable = false;
 
   environment.systemPackages = [
-    pkgs.claude-code
     # Comepted to debug build
     # pkgs.oterm # TUI chat client for Ollama models.
     # unstable.crush

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+get_options() {
+  jq -r '.options[] | "\(.label)\t\(.option_name)"' "$KITTYNATOR_CONFIG"
+}
+
+export -f get_options

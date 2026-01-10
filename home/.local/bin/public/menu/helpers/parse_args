@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+valid_modes="tty kitty tty-dmenu tty-kitty"
+valid_wms="hyprland"
+valid_terminals="kitty"
+
+validate_param() {
+  local value="$1"
+  local valid_list="$2"
+  local param_name="$3"
+
+  [[ -z "$value" ]] && return 0
+
+  if [[ ! " $valid_list " =~ " $value " ]]; then
+    echo "Error: Invalid $param_name '$value'" >&2
+    echo "Valid options: $valid_list" >&2
+    exit 1
+  fi
+}
+
+show_help() {
+  echo "Usage: kittynator-control [OPTIONS] [option]"
+  echo ""
+  echo "Options:"
+  echo "  --mode=MODE        $valid_modes"
+  echo "  --wm=WM            $valid_wms"
+  echo "  --terminal=TERM    $valid_terminals"
+  echo "  --option=OPTION    Option to launch"
+  exit 0
+}
+
+parse_args() {
+  [[ $# -eq 0 ]] && show_help
+
+  declare -gA args
+  args[mode]="tty"
+  args[option]=""
+  args[wm]=""
+  args[terminal]="kitty"
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+    --mode=*) args[mode]="${1#*=}" ;;
+    --wm=*) args[wm]="${1#*=}" ;;
+    --terminal=*) args[terminal]="${1#*=}" ;;
+    --option=*) args[option]="${1#*=}" ;;
+    --help | -h) show_help ;;
+    --*)
+      echo "Error: Unknown option '$1'" >&2
+      exit 1
+      ;;
+    *) args[option]="$1" ;;
+    esac
+    shift
+  done
+
+  validate_param "${args[mode]}" "$valid_modes" "mode"
+  validate_param "${args[wm]}" "$valid_wms" "wm"
+  validate_param "${args[terminal]}" "$valid_terminals" "terminal"
+}

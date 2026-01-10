@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+launch_option() {
+  local script_path=${1:-}
+  local script_args=${2:-}
+
+  if [[ -x $script_path ]]; then
+    # apply_settings_to_kitty "$hyprland_options" "$kitty_options"
+
+    $script_path "$script_args"
+  else
+    printf "option not found: %s\n" "$script_path" >&2
+    exit 1
+  fi
+}
+
+export -f launch_option

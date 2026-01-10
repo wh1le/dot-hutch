@@ -6,12 +6,6 @@ DEFAULT="$WALLPAPERS_FOLDER/default"
 FAV_PATH="$WALLPAPERS_FOLDER/fav"
 EXTENSIONS=("jpg" "png" "webp")
 
-if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
-  hyprctl dispatch resizeactive 700 400
-  hyprctl dispatch centerwindow
-  kitty @ --to unix:/tmp/kitty-launcher set-font-size 10
-fi
-
 get_files() {
   local path="$1"
   local prefix="$(basename "$path")/"
@@ -36,9 +30,4 @@ choice=$({
     --height 100% |
   cut -f2)
 
-echo "$choice"
 [[ -n "$choice" ]] && "$HOME/.local/bin/public/wallpaper/apply-wallpaper" "$choice"
-
-if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
-  kitty @ --to unix:$KITTY_LAUNCHER_SOCKET_PATH close-window
-fi

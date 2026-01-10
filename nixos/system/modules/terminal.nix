@@ -15,6 +15,7 @@
     pkgs.psmisc # provides 'killall', 'pstree', general utilities
     pkgs.lm_sensors
     pkgs.fzf
+    pkgs.fuzzel
     pkgs.btop
     unstable.tmux
     pkgs.tree

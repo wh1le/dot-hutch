@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+apply_settings_to_kitty() {
+  local hyprland_options="${1:-}"
+  local kitty_options="${2:-}"
+
+  pgrep -f 'kitty.*--class '"$KITTYNATOR_HYPRLAND_CLASS" >/dev/null || return 0
+
+  while IFS= read -r cmd; do
+    [[ -n "$cmd" ]] && hyprctl dispatch $cmd
+  done <<<"$hyprland_options"
+
+  while IFS= read -r cmd; do
+    [[ -n "$cmd" ]] && kitty @ --to unix:/tmp/kitty-launcher $cmd
+  done <<<"$kitty_options"
+}
+
+export -f apply_settings_to_kitty

@@ -37,7 +37,7 @@ _search_dirs=(
 export SEARCH_DIRECTORIES_PATHS="$(IFS=:; echo "${_search_dirs[*]}")"
 
 export PASSWORD_STORE_DIR="$HOME/.secrets/passwords"
-export SOPS_AGE_KEY_FILE="/var/lib/sops-nix/key.txt"
+export SOPS_AGE_KEY_FILE="/var/lib/sops-nix/keys.txt"
 
 # history files
 export LESSHISTFILE="$HOME/.less_history"

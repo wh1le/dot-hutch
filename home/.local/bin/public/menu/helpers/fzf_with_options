@@ -4,7 +4,7 @@ set -euo pipefail
 
 unset FZF_DEFAULT_OPTS
 
-fzf-with-options() {
+fzf_with_options() {
   fzf \
     --ansi \
     --margin="1,1,1,1" \
@@ -19,8 +19,4 @@ fzf-with-options() {
     "$@"
 }
 
-#--with-nth=2 \
-#--delimeter=":" \
-#--no-info \
-
-export -f fzf-with-options
+export -f fzf_with_options

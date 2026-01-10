@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source "$LAUNCHER_SCRIPTS_PATH/helpers/fzf-with-options"
-
-if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
-  hyprctl dispatch resizeactive 100 100
-  hyprctl dispatch centerwindow
-  kitty @ --to unix:/tmp/kitty-launcher set-font-size 10
-fi
-
 choice=$(
   nix-search-tv print --indexes nixpkgs |
     fzf-with-options \
@@ -24,7 +16,3 @@ choice=$(
 notify-send "NixOS Search Copied" "$choice"
 
 printf "$choice" | wl-copy
-
-if pgrep -f 'kitty.*--class '"$KITTY_LAUNCHER_CLASS" >/dev/null; then
-  kitty @ --to unix:$KITTY_LAUNCHER_SOCKET_PATH close-window
-fi

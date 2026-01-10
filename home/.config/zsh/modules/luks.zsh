@@ -146,6 +146,12 @@ secrets-init-deploy() {
     echo gpg-keys
     echo "[ok] gpg keys deployed"
 
+    echo "deploying sops"
+    sudo cp -p $secrets_dir/sops/nix.yaml $TARGET/var/lib/sops-nix/secrets/nix.yaml
+    sudo cp -p $secrets_dir/sops/age/keys.txt $TARGET/var/lib/sops-nix/keys.txt
+
+    echo "[ok] sops deployed"
+
     echo "deploying passwords"
     local latest_backup=$(ls -1t $SECRETS_MOUNT_POINT/Backups/passwords | head -n1)
     cp -rp "$SECRETS_MOUNT_POINT/Backups/passwords"/$latest_backup $HOME/.secrets/passwords

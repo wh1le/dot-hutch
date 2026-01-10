@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+choice=$(get_options | fzf --delimiter='\t' --with-nth=1 | cut -f2) || exit 0
+
+[[ -z "$choice" ]] && exit 1
+
+get_option_data "$choice"
+
+launch_option \
+  "${option_data[label]}" \
+  "${option_data[script_path]}" \
+  "${option_data[script_args]}" \
+  "${option_data[hyprland_options]}" \
+  "${option_data[kitty_options]}"

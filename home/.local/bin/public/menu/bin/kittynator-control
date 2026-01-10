@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+source "$(dirname "$0")/../helpers/parse_args"
+parse_args "$@"
+
+echo "${args[mode]}"
+echo "${args[terminal]}"
+echo "${args[wm]}"
+sleep 10
+
+source "$(dirname "$0")/../helpers/get_kittynator_settings"
+get_kittynator_settings
+
+source "$(dirname "$0")/../helpers/spawn_kitty"
+export -f spawn_kitty
+
+source "$(dirname "$0")/../helpers/close_kitty"
+export -f close_kitty
+
+source "$(dirname "$0")/../helpers/get_options"
+export -f get_options
+
+source "$(dirname "$0")/../helpers/get_option_data"
+export -f get_option_data
+
+source "$(dirname "$0")/../helpers/fzf_with_options"
+export -f fzf_with_options
+
+source "$(dirname "$0")/../helpers/launch_option"
+export -f launch_option
+
+# node: tty, kitty, tty-dmenu, tty-kitty
+mode=${1:-'tty'}
+option=${2:-}
+
+if [[ "$option" ]]; then
+  "$(dirname "$0")/../options/$option"
+fi
+
+"$(dirname "$0")/../bin/kittynator-control-fzf"
+
+# close-kitty
