@@ -12,3 +12,5 @@ touch ~/"${folder}"/mpd/playlists/"${name}".m3u && echo "Created: ${name}"
 
 mpc -p "$port" update
 mpc -p "$port" lsplaylists
+
+echo "Playlist added."
