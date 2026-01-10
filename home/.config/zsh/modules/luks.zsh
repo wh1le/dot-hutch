@@ -137,6 +137,12 @@ secrets-init-deploy() {
       echo "deploying $HOME/.secrets"
 
       git clone $remote_repo $secrets_dir
+      sudo chown -R root:root ~/.secrets
+      sudo chmod -R 700 ~/.secrets
+      sudo chmod 755 ~/.secrets
+
+      sudo chown -R wh1le:users ~/.secrets/passwords
+
       echo "[ok] cloned to $secrets_dir"
     fi
 
