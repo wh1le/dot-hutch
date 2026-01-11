@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-  # TODO: https://wiki.hypr.land/Nix/Hyprland-on-NixOS/
   programs.dconf.profiles.user.databases = [
     {
       settings."org/gnome/desktop/interface" = {

@@ -34,51 +34,7 @@ nixpkgs.lib.nixosSystem {
         ../modules/hardware/homepc/audio.nix
         ../modules/hardware/bluetooth.nix
         ../modules/hardware/usb.nix
-
-        ../modules/nix/settings.nix
-        ../modules/nix/auto-upgrade.nix
-        ../modules/nix/nixpkgs.nix
-
-        # ../modules/security/network_dnscrypt-proxy2.nix
-        ../modules/software/syncthing/client.nix
-        ../modules/security/anti_virus.nix
-        ../modules/security/gpg.nix
-        ../modules/security/pass.nix
-        ../modules/security/firewall.nix
-        ../modules/security/geo.nix
-        ../modules/security/network_pi_hole.nix
-        ../modules/security/security.nix
-        ../modules/security/vpn.nix
-        ../modules/security/sops.nix
-        ../modules/security/ssh.nix
-        ../modules/security/encryption.nix
-
-        ../modules/software/virtualisation/qemu.nix
-        ../modules/software/virtualisation/docker.nix
-        ../modules/software/virtualisation/podman.nix
-
-        ../modules/software/databases/sqlite.nix
-        ../modules/software/databases/redis.nix
-        ../modules/software/databases/postgresql.nix
-
-        ../modules/software/languages/ruby.nix
-        ../modules/software/languages/python.nix
-
-        ../modules/software/syncthing/server.nix
-
-        ../modules/software/mpd.nix
-        ../modules/software/desktop.nix
-        ../modules/software/devops.nix
-        ../modules/software/browser.nix
-        ../modules/software/neovim.nix
-        ../modules/software/utils.nix
-        ../modules/software/flatpaks.nix
-        ../modules/software/yazi.nix
-        ../modules/software/llms.nix
-        ../modules/software/steam.nix
-        # ../modules/software/n8n.nix
-        # ../modules/software/searx.nix
-        # ../modules/software/reverse_proxy.nix
+      ] ++ [
         ../modules/filesystem.nix
         ../modules/keyboard.nix
         ../modules/languages.nix
@@ -90,23 +46,30 @@ nixpkgs.lib.nixosSystem {
         ../modules/media.nix
         ../modules/trash.nix
       ] ++ [
-        ../common/personal.nix
+        ../modules/nix/settings.nix
+        ../modules/nix/auto-upgrade.nix
+        ../modules/nix/nixpkgs.nix
       ] ++ [
-        ../modules/desktop/greetd.nix
-        ../modules/desktop/wayland/notifications.nix
-        ../modules/desktop/wayland/uwsm.nix
-        ../modules/desktop/wayland/desktop.nix
-        ../modules/desktop/wayland/xdg.nix
-        ../modules/desktop/wayland/hyprland.nix
-        ../modules/desktop/wayland/waybar.nix
-        ../modules/desktop/wayland/dolphin.nix
-        ../modules/desktop/wayland/icons.nix
-        ../modules/desktop/wayland/playerctld.nix
-        ../modules/desktop/wayland/pointer.nix
-        ../modules/desktop/wayland/qt.nix
-        ../modules/desktop/wayland/systemd.nix
-        ../modules/desktop/wayland/theme.nix
-        ../modules/desktop/wayland/gdk.nix
+        # ../modules/security/network_dnscrypt-proxy2.nix
+        ../modules/security/anti_virus.nix
+        ../modules/security/gpg.nix
+        ../modules/security/pass.nix
+        ../modules/security/firewall.nix
+        ../modules/security/geo.nix
+        ../modules/security/network_pi_hole.nix
+        ../modules/security/security.nix
+        ../modules/security/vpn.nix
+        ../modules/security/sops.nix
+        ../modules/security/ssh.nix
+        ../modules/security/encryption.nix
+      ] ++ [
+        ../modules/services/syncthing/server.nix
+      ] ++ [
+        ../modules/software/flatpaks.nix
+        ../modules/software/llms.nix
+        ../modules/software/steam_dual_gpu.nix
+      ] ++ [
+        ../common/personal.nix
       ];
     })
   ] ++ extraModules;

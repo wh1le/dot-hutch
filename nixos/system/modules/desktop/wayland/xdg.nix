@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   xdg.portal.enable = true;
   xdg.icons.enable = true;
@@ -22,6 +22,7 @@
     pkgs.xdg-desktop-portal-gtk
   ];
 
+  # settings are overrided at ./tiling_window_managers/hyprland.nix
   xdg.portal.config = {
     common = {
       default = [ "gtk" ];
@@ -45,12 +46,6 @@
     };
   };
 
-  xdg.portal.config.Hyprland.default = [
-    "hyprland"
-    "kde"
-    # "gtk"
-  ];
-
   environment.etc."xdg/menus/applications.menu".source =
     "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
@@ -58,6 +53,6 @@
     pkgs.xdg-utils
     pkgs.xdgmenumaker
     pkgs.desktop-file-utils
-    pkgs.shared-mime-info # database of common mime types
+    pkgs.shared-mime-info
   ];
 }

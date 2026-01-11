@@ -9,7 +9,6 @@
 
   environment.systemPackages = with pkgs; [
     unstable.kitty
-    unstable.wezterm
     unstable.telegram-desktop
     pkgs.thunderbird
     unstable.obsidian
