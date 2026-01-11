@@ -2,13 +2,14 @@
   "general": {
     "terminal": {
       "name": "kitty",
-      "socket_path": "/tmp/fzm-kitty",
       "launch_options": [
         "-o",
         "font_size=13",
         "-o",
         "allow_remote_control=yes"
-      ]
+      ],
+
+      "socket_path": "kitty_launcher"
     },
 
     "desktop": {
