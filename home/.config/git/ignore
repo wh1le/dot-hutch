@@ -1,9 +1,5 @@
-# GPG
-*.key
-*.asc
-**/private-keys-v1.d/**
-**/openpgp-revocs.d/**
-**/*secring*
-**/*secret*
-*.gpg
-*.kbx
+# Direnv
+flake.lock
+.envrc
+.direnv
+.direnv/**
