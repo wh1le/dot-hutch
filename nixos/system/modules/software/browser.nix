@@ -4,7 +4,7 @@
 }:
 {
   environment.variables = {
-    BROWSER = "firefox";
+    BROWSER = "qutebrowser";
   };
 
   programs.firefox = {
@@ -17,7 +17,7 @@
     };
   };
 
-  environment.sessionVariables.DEFAULT_BROWSER = "${unstable.firefox}/bin/firefox";
+  environment.sessionVariables.DEFAULT_BROWSER = "${unstable.qutebrowser}/bin/qutebrowser";
 
   environment.systemPackages = [
     (pkgs.makeDesktopItem {

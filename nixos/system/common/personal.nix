@@ -40,7 +40,10 @@
     chntpw
     hivex
     protonup-qt
-    mpls
+
+    # markdown
+    glow
+    go-grip
   ];
 
   imports = [
@@ -48,6 +51,7 @@
 
     ../modules/development/fzm.nix
 
+    ../modules/software/pcmanfm.nix
     ../modules/software/searx.nix
     ../modules/software/nextcloud-disroot-encrypted.nix
     ../modules/hardware/printers.nix

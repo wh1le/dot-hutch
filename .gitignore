@@ -48,3 +48,6 @@ home/.config/qutebrowser/bookmarks/*
 home/.config/qutebrowser/modules/__pycache__
 home/.config/qutebrowser/qsettings/QtProject.conf
 
+
+# FZM deps
+home/.config/alacritty/alacritty.yml
