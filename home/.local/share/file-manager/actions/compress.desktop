@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Action
+Name=Compress...
+Icon=archive-insert
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+MimeTypes=all/allfiles;inode/directory;
+Exec=file-roller --add %F
+Name=Default profile

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Action
+Name=Open in Neovim
+Icon=nvim
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+MimeTypes=text/plain;text/x-script.python;text/x-shellscript;text/x-c;text/x-c++;application/json;application/xml;application/x-yaml;text/markdown;text/x-lua;text/x-nix;
+Exec=kitty nvim %F
+Name=Default profile

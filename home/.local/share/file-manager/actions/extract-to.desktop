@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Action
+Name=Extract to...
+Icon=extract-archive
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+MimeTypes=application/zip;application/x-7z-compressed;application/x-rar;application/gzip;application/x-tar;application/x-bzip2;application/x-xz;application/x-compressed-tar;
+Exec=file-roller --extract %F
+Name=Default profile
