@@ -6,46 +6,45 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
+BASE_URL = "https://marine-api.open-meteo.com/v1/marine"
+RETRIES  = 5
+TIMEOUT  = 10
 
-def ocean_information(lat, lon, decimal=4, unit="metric"):
-    """
-    Get ocean data at coordinates using Open-Meteo Marine API.
-    Only uses Python standard library.
-    """
-    base_url = "https://marine-api.open-meteo.com/v1/marine"
+def fetch_ocean_information(lat, lon, decimal=4, unit="metric"):
+    body = None
 
     params = {
         "latitude": round(lat, decimal),
         "longitude": round(lon, decimal),
         "current": "wave_height,wave_direction,wave_period",
         "length_unit": unit,
-        "timezone": "auto",
-        "forecast_days": 3,
+        "timezone": "auto"
     }
 
-    query = urlencode(params)
-    url = f"{base_url}?{query}"
+    url = f"{BASE_URL}?{urlencode(params)}"
 
     # simple retry logic replacing `retry(...)`
-    for attempt in range(5):
+    for attempt in range(RETRIES):
         try:
             req = Request(url)
-            with urlopen(req, timeout=10) as resp:
+
+            with urlopen(req, timeout=TIMEOUT) as resp:
                 if resp.status != 200:
                     raise HTTPError(url, resp.status, resp.reason, resp.headers, None)
-                data = json.loads(resp.read().decode("utf-8"))
+                else:
+                    body = json.loads(resp.read().decode("utf-8"))
             break
         except (URLError, HTTPError, ValueError):
             if attempt == 4:
-                return "No data"
-            time.sleep(0.2 * (2 ** attempt))
+                body = None
 
-    # at this point `data` is the JSON dict from Open-Meteo
-    # adapt return shape to what you need; here I just pass it through
+            time.sleep(1.0 * (2 ** attempt))
 
-    return data
+    return body
 
-data = ocean_information(38.6446, 9.2334)
+body = fetch_ocean_information(38.6446, 9.2334)
 
-if data:
-    print(f"󱝆 {data["current"]["wave_height"]}m")
+if body:
+    height = body.get("current", {}).get("wave_height")
+
+    print(f"󱝆 {height}m")
