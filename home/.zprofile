@@ -16,7 +16,7 @@ export KITTY_LAUNCHER_SCRIPTS_PATH="$LAUNCHER_SCRIPTS_PATH/options"
 
 export SCREENSHOT_PATH="$HOME/Pictures/screenshots"
 
-export NIX_BUILD_SHELL=zsh
+# export NIX_BUILD_SHELL=zsh
 
 _search_dirs=(
   "$HOME/Projects"
@@ -34,7 +34,10 @@ _search_dirs=(
   "/mnt"
 )
 
-export SEARCH_DIRECTORIES_PATHS="$(IFS=:; echo "${_search_dirs[*]}")"
+export SEARCH_DIRECTORIES_PATHS="$(
+  IFS=:
+  echo "${_search_dirs[*]}"
+)"
 
 export PASSWORD_STORE_DIR="$HOME/.secrets/passwords"
 export SOPS_AGE_KEY_FILE="/var/lib/sops-nix/keys.txt"
