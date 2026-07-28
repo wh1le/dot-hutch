@@ -7,12 +7,13 @@ NixOS + home-manager dotfiles. Flake-based, multi-host.
 ## Daily driver
 
 - **WM:** i3 + i3blocks
-- Launcher: quickshell module
-- Passwords: pass
+- **Launcher:** quickshell module
+- **Passwords:** pass
 - **Files:** yazi / nautilus (migrating to yazi)
 - **Editor:** nvim
 - **Terminal:** ghostty / tmux
 - **Shell:** zsh
+- **Colors:** pywal (system-wide theming)
 
 Hyprland config is here too but likely broken after switching back to i3. It was fully completed but I wasn't able to run VR properly with screensharring as I do on x11
 
