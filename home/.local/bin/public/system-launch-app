@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Launch an app on i3. Apps open on the focused workspace by default, so no
+# move dance is needed (unlike the hyprland version this replaced).
+
+APP="$1"
+LOGFILE="/tmp/launcher.log"
+
+log() { printf '[%s] %s\n' "$(date '+%F %T')" "$*" >> "$LOGFILE"; }
+
+log "[launcher] app=$APP"
+
+# Detach so the app outlives quickshell's Process; i3-msg exec puts it on the
+# current workspace and handles startup-notification.
+if command -v i3-msg >/dev/null 2>&1; then
+    i3-msg -q "exec --no-startup-id $APP"
+    log "[launcher] i3-msg exec rc=$?"
+else
+    setsid -f sh -c "$APP" >/dev/null 2>&1
+    log "[launcher] setsid fallback rc=$?"
+fi

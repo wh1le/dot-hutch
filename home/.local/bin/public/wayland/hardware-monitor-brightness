@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+direction="$1"
+value="${2:-5}"
+
+case "$direction" in
+up)
+  if [[ "$(hostname)" == "homepc" ]]; then
+    ddcutil setvcp 10 + "$value"
+  else
+    brightnessctl set "${value}%+"
+  fi
+  ;;
+down)
+  if [[ "$(hostname)" == "homepc" ]]; then
+    ddcutil setvcp 10 - "$value"
+  else
+    brightnessctl set "${value}%-"
+  fi
+  ;;
+*)
+  echo "Usage: brightness <up|down> [percentage]"
+  exit 1
+  ;;
+esac

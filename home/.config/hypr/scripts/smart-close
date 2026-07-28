@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if pgrep quickshell >/dev/null; then
+    quickshell ipc call minimize-tray smartClose
+else
+    hyprctl dispatch killactive
+fi

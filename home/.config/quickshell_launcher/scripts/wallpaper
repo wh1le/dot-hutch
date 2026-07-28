@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+WALLPAPERS_FOLDER="$HOME/Code/dot-wallpapers"
+DEFAULT="$WALLPAPERS_FOLDER/default"
+FAV_PATH="$WALLPAPERS_FOLDER/fav"
+EXTENSIONS=("jpg" "png" "webp")
+
+get_files() {
+  local path="$1"
+  local prefix="$(basename "$path")/"
+  local find_args=()
+
+  for ext in "${EXTENSIONS[@]}"; do
+    find_args+=(-o -iname "*.${ext}")
+  done
+
+  # "prefix/name.ext | /full/path"  — native ImagePreview reads path after last " | "
+  find "$path" -type f \( "${find_args[@]:1}" \) -printf "${prefix}%f | %p\n" 2>/dev/null || true
+}
+
+case "${1:-list}" in
+list)
+  get_files "$FAV_PATH"
+  get_files "$DEFAULT"
+  ;;
+select)
+  file="${2##* | }"
+  [[ -z "$file" ]] && exit 0
+  "$HOME/.local/bin/public/system-wallpaper-set" "$file"
+  paplay "$SOUND_THEME_PATH/completion-partial.oga" &
+  ;;
+esac

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+hostname | grep -qE "(thinkpad|laptop)" || exit 0
+
+# Not working right now
+exit 0
+
+upower --monitor | while read -r line; do
+  while IFS= read -r card; do
+    [[ -z "$card" ]] && continue
+    if upower -i /org/freedesktop/UPower/devices/line_power_AC | grep -q "online:.*yes"; then
+      pactl set-card-profile "$card" a2dp-sink-aac 2>/dev/null &&
+        notify-send -i audio-headphones "Bluetooth Audio" "$card → AAC (high quality)"
+    else
+      pactl set-card-profile "$card" a2dp-sink-sbc 2>/dev/null &&
+        notify-send -i audio-headphones "Bluetooth Audio" "$card → SBC (power saving)"
+    fi
+  done < <(pactl list cards short | grep -oE "bluez_card\.[A-F0-9_]+")
+done

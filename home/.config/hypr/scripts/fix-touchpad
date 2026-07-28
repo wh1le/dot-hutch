@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+DEVID="0018:06CB:CE67.0001"
+DRIVER="/sys/bus/hid/drivers/hid-multitouch"
+echo "$DEVID" | sudo tee "$DRIVER/unbind" >/dev/null 2>&1
+sleep 1
+echo "$DEVID" | sudo tee "$DRIVER/bind" >/dev/null 2>&1
+echo "Touchpad reset."

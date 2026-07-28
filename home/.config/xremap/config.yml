@@ -1,0 +1,59 @@
+# xremap config — replaces keyd
+# names: case-insensitive, KEY_ optional. debug: RUST_LOG=debug xremap config.yml
+# apps: xremap --list-windows   devices: xremap --device-details
+
+# --- base key/modifier swaps (was keyd main) ---
+modmap:
+  - name: base
+    remap:
+      grave: KEY_102ND # ` -> <
+      KEY_102ND: grave # < -> `
+      capslock: leftctrl # caps <-> lctrl
+      leftctrl: capslock
+
+  - name: apple-mods # first-matching modmap wins per device, so base swaps must be repeated here
+    device:
+      only: ["AT Translated Set 2 keyboard"] # thinkpad internal only — apple Command already = Super
+    remap:
+      grave: KEY_102ND # ` -> <
+      KEY_102ND: grave # < -> `
+      capslock: leftctrl # caps <-> lctrl
+      leftctrl: capslock
+      leftalt: leftmeta # alt <-> super
+      leftmeta: leftalt
+
+keymap:
+  - name: Firefox # mirror qutebrowser binds (note: capslock = ctrl)
+    application:
+      only: [/firefox/, /librewolf/]
+    remap:
+      Ctrl-Shift-j: Ctrl-Shift-PageDown # move tab right
+      Ctrl-Shift-k: Ctrl-Shift-PageUp # move tab left
+      Ctrl-j: Ctrl-Tab # next tab
+      Ctrl-k: Ctrl-Shift-Tab # prev tab
+      Ctrl-h: Alt-Left # back
+      Ctrl-l: Alt-Right # forward
+      Ctrl-w: Ctrl-w # close tab
+      Ctrl-p: [Ctrl-t, a, b, o, u, t, Shift-Semicolon, l, o, g, i, n, s, enter] # new tab -> about:logins
+      Ctrl-Shift-p: Ctrl-Shift-p # private window (explicit passthrough)
+      Ctrl-comma: [Ctrl-t, a, b, o, u, t, Shift-Semicolon, p, r, e, f, e, r, e, n, c, e, s, enter] # new tab -> settings
+      comma:
+        remap:
+          comma: Ctrl-Alt-Z # ,, -> expand tabs
+        timeout_millis: 300
+
+  - name: Nautilus
+    application:
+      only: [/org\.gnome\.Nautilus/] # regex: matches class.instance string
+    remap:
+      Ctrl-j: Down
+      Ctrl-k: Up
+      Ctrl-h: Left
+      Ctrl-l: Right
+      Ctrl-g: Ctrl-l # edit current path
+      Ctrl-r: F2 # rename file
+      Semicolon:
+        remap:
+          s: Ctrl-f
+          f: Ctrl-s
+        timeout_millis: 300

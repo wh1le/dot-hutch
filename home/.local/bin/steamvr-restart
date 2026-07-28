@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -u
+
+pkill -f 'SteamVR/bin/linux64/(vrmonitor|vrserver|vrcompositor|vrdashboard|vrwebhelper)' 2>/dev/null
+pkill -f 'vrstartup|vrcompositor-launcher' 2>/dev/null
+
+for _ in $(seq 1 20); do
+  pgrep -f 'SteamVR/bin/linux64/vrserver' >/dev/null || break
+  sleep 0.5
+done
+
+exec steam -applaunch 250820

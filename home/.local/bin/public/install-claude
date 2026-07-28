@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+add_mcp() {
+  local name="$1"
+  shift
+  if claude mcp list 2>/dev/null | grep -q "^${name}:"; then
+    echo "mcp: $name already configured, skipping"
+  else
+    claude mcp "$@"
+    echo "mcp: $name added"
+    ADDED=$((ADDED + 1))
+  fi
+}
+
+ADDED=0
+
+add_mcp excalidraw add --transport http --scope user excalidraw https://mcp.excalidraw.com/mcp
+
+if [ "$ADDED" -gt 0 ]; then
+  echo "Claude MCP configured ($ADDED server(s) added)"
+else
+  echo "Claude MCP up to date"
+fi

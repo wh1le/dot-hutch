@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+MAC="$(cat /run/secrets/bluetooth/devices/apple_keyboard)"
+NAME="Magic Keyboard"
+
+TRIES="${1:-10}"
+SLEEP="${2:-3}"
+
+log() { printf "[kbd] %s\n" "$*" >&2; }
+
+if bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
+  notify-send "$NAME already connected"
+  exit 0
+fi
+
+rfkill unblock bluetooth || true
+bluetoothctl power on >/dev/null || true
+bluetoothctl agent on >/dev/null || true
+bluetoothctl default-agent >/dev/null || true
+bluetoothctl trust "$MAC" >/dev/null || true
+
+i=0
+while [ "$i" -lt "$TRIES" ]; do
+  i=$((i + 1))
+  if bluetoothctl connect "$MAC" | grep -q 'Connection successful'; then
+    break
+  fi
+
+  if ! bluetoothctl show | grep -q 'Powered: yes'; then
+    rfkill unblock bluetooth || true
+    bluetoothctl power on || true
+  fi
+
+  sleep "$SLEEP"
+done
+
+if ! bluetoothctl info "$MAC" | grep -q 'Connected: yes'; then
+  notify-send "failed to connect $NAME."
+  exit 1
+else
+  bluetoothctl scan off >/dev/null 2>&1 || true
+  notify-send "$NAME connected"
+fi

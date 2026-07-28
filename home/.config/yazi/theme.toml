@@ -1,0 +1,68 @@
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
+[flavor]
+dark = ""
+light = ""
+
+[mgr]
+cwd = { fg = "#49879c" }
+find_keyword = { fg = "#3b5c68", bold = true, underline = true }
+find_position = { fg = "#327289", bg = "reset", bold = true }
+symlink_target = { fg = "#262627", italic = true }
+marker_copied = { fg = "#3b5c68", bg = "#3b5c68" }
+marker_cut = { fg = "#327289", bg = "#327289" }
+marker_marked = { fg = "#646465", bg = "#646465" }
+marker_selected = { fg = "#49879c", bg = "#49879c" }
+count_copied = { fg = "#090e15", bg = "#3b5c68" }
+count_cut = { fg = "#090e15", bg = "#327289" }
+count_selected = { fg = "#090e15", bg = "#49879c" }
+border_style = { fg = "#262627" }
+
+[tabs]
+active = { fg = "#090e15", bg = "#49879c", bold = true }
+inactive = { fg = "#646465", bg = "#131313" }
+
+[mode]
+normal_main = { fg = "#090e15", bg = "#49879c", bold = true }
+normal_alt = { fg = "#49879c", bg = "#131313" }
+select_main = { fg = "#090e15", bg = "#327289", bold = true }
+select_alt = { fg = "#327289", bg = "#131313" }
+unset_main = { fg = "#090e15", bg = "#204a59", bold = true }
+unset_alt = { fg = "#204a59", bg = "#131313" }
+
+[indicator]
+parent = { fg = "#090e15", bg = "#646465" }
+current = { fg = "#090e15", bg = "#49879c", bold = true }
+preview = {}
+padding = { open = "", close = "" }
+
+[status]
+perm_sep = { fg = "#262627" }
+perm_type = { fg = "#3b5c68" }
+perm_read = { fg = "#646465" }
+perm_write = { fg = "#327289" }
+perm_exec = { fg = "#49879c" }
+progress_label = { bold = true }
+progress_normal = { fg = "#3b5c68", bg = "#090e15" }
+progress_error = { fg = "#327289", bg = "#090e15" }
+
+[which]
+mask = { bg = "#090e15" }
+cand = { fg = "#49879c" }
+rest = { fg = "#262627" }
+desc = { fg = "#646465" }
+separator_style = { fg = "#262627" }
+
+[filetype]
+rules = [
+	{ mime = "image/*", fg = "#646465" },
+	{ mime = "{audio,video}/*", fg = "#646465" },
+	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#262627" },
+	{ mime = "application/{pdf,doc,rtf}", fg = "#646465" },
+	{ mime = "vfs/{absent,stale}", fg = "#262627" },
+	{ url = "*", is = "orphan", fg = "#327289" },
+	{ url = "*", is = "exec", fg = "#3b5c68" },
+	{ url = "*", is = "dummy", fg = "#327289" },
+	{ url = "*/", is = "dummy", fg = "#327289" },
+	{ url = "*/", fg = "#49879c" }
+]

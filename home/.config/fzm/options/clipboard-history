@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# wait for terminal to resize
+sleep 0.1
+
+history_list=$(cliphist list || true)
+
+[ -z "$history_list" ] && exit 0
+
+choice=$(
+	echo "$history_list" |
+		awk -F'\t' '{path=""; if($2~/^file:\/\//){path=substr($2,8)}; print $1"\t"$2"\t"path}' |
+		fzm --dmenu --tty -p '--with-nth=1,2 --delimiter=\\t --preview="kitty +kitten icat --clear --transfer-mode=memory 2>/dev/null; if [[ -n {3} ]]; then kitty +kitten icat --transfer-mode=memory --stdin=no --place=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES}@0x0 {3}; elif [[ {2} == *binary*data*png* ]]; then tmp=/tmp/cliphist_preview.png; cliphist decode {1} > \$tmp; kitty +kitten icat --transfer-mode=memory --stdin=no --place=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES}@0x0 \$tmp; else cliphist decode {1}; fi" --preview-window=right:50% --prompt="clipboard> "'
+)
+
+[ -z "${choice:-}" ] && exit 0
+
+choice_id=${choice%%$'\t'*}
+cliphist decode "$choice_id" | setsid wl-copy

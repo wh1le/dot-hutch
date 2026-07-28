@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+wifitui
+exit 0
+
+wifi_if=$(nmcli -t -f DEVICE,TYPE device | grep ':wifi$' | cut -d: -f1)
+current=$(nmcli -t -f NAME,DEVICE connection show --active 2>/dev/null | awk -F: -v dev="$wifi_if" '$2==dev {print $1}')
+saved=$(nmcli -t -f NAME connection show | sort -u)
+
+scan_output=$(gum spin --spinner dot --title "Scanning networks..." --show-output -- \
+  nmcli -t -f SSID,SIGNAL,SECURITY device wifi list --rescan yes)
+
+signal_bars() {
+  local s=$1
+  if ((s >= 80)); then
+    echo "▂▄▆█"
+  elif ((s >= 60)); then
+    echo "▂▄▆ "
+  elif ((s >= 40)); then
+    echo "▂▄  "
+  else
+    echo "▂   "
+  fi
+}
+
+format_networks() {
+  while IFS=: read -r ssid signal security; do
+    [[ -z "$ssid" ]] && continue
+    bars=$(signal_bars "$signal")
+    lock=$([[ -n "$security" && "$security" != "--" ]] && echo "󰌾" || echo "󰿘")
+    star=$([[ "$saved" == *"$ssid"* ]] && echo "󰓎 " || echo "  ")
+    conn=$([[ "$ssid" == "$current" ]] && echo "󰤨 " || echo "  ")
+    printf "%s\t%s%s %s %s %s\n" "$ssid" "$conn" "$star" "$lock" "$bars" "$ssid"
+  done
+}
+
+choice=$(
+  {
+    [[ -n "$current" ]] && printf "\t󰤭  Disconnect ($current)"
+    echo "$scan_output" | format_networks
+  } | fzm --tty --dmenu -p "--exact --delimiter='\t' --with-nth=2 --preview 'nmcli device wifi list | grep -i {1}' --preview-window=top,30%,wrap --preview-label='info' --preview-label-pos=1"
+)
+
+[[ -z "$choice" ]] && exit 0
+
+ssid=$(echo "$choice" | cut -f1)
+
+if [[ -z "$ssid" ]]; then
+  nmcli device disconnect "$wifi_if"
+  notify-send "WiFi" "Disconnected from $current"
+else
+
+  if nmcli -t -f NAME connection show | grep -qx "$ssid"; then
+    nmcli connection up "$ssid" ifname "$wifi_if"
+    notify-send "WiFi" "Connected to $ssid"
+  else
+    # Try pass first
+    wifi_pass=$(pass "wifi/$ssid" 2>/dev/null | head -1) || wifi_pass=""
+
+    if [[ -z "$wifi_pass" ]]; then
+      wifi_pass=$(gum input --password --placeholder "Password for $ssid")
+      [[ -z "$wifi_pass" ]] && exit 0
+      save_pass=1
+    fi
+
+    if nmcli device wifi connect "$ssid" password "$wifi_pass" ifname "$wifi_if"; then
+      notify-send "WiFi" "Connected to $ssid"
+      [[ "${save_pass:-}" == 1 ]] && echo "$wifi_pass" | pass insert -e "wifi/$ssid"
+    else
+      notify-send "WiFi" "Failed to connect"
+    fi
+  fi
+fi

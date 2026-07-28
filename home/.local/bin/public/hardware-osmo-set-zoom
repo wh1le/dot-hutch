@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+DEVICE="/dev/v4l/by-id/usb-DJI_DJIPocket3_123456789ABCDEF-video-index0"
+
+if [ -z "$1" ]; then
+  v4l2-ctl -d "$DEVICE" --get-ctrl zoom_absolute
+  echo "Usage: osmo-set-zoom <100-400>"
+  exit 0
+fi
+
+v4l2-ctl -d "$DEVICE" --set-ctrl "zoom_absolute=$1"

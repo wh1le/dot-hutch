@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+config="$HOME/.ssh/config"
+[[ ! -f "$config" ]] && {
+  notify-send "SSH" "No config found"
+  exit 0
+}
+
+list_hosts() {
+  grep "^Host " "$config" | awk '{print $2}' | grep -v '\*'
+}
+
+preview='grep -A5 {}$ ~/.ssh/config; echo; grep -q {} ~/.ssh/known_hosts 2>/dev/null && echo "status: known" || echo "status: new host"'
+
+choice=$(list_hosts | fzm --tty --dmenu -p "--preview '$preview' --preview-window=top,70% --prompt='ssh> '") || exit 0
+
+[[ -z "$choice" ]] && exit 0
+
+exec ssh "$choice"

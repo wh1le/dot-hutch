@@ -1,0 +1,74 @@
+source $HOME/.config/zsh/modules/path.zsh
+source $HOME/.config/zsh/modules/hotkeys.zsh
+
+# order is important
+source $HOME/.config/zsh/modules/autocomplete.zsh
+source $HOME/.config/zsh/modules/suggestions.zsh
+source $HOME/.config/zsh/modules/fzf.zsh
+source $HOME/.config/zsh/modules/powerlevel10k.zsh
+source $HOME/.config/zsh/modules/exports.zsh
+source $HOME/.config/zsh/modules/functions.zsh
+source $HOME/.config/zsh/modules/eza.zsh
+source $HOME/.config/zsh/modules/diff_so_fancy.zsh
+source $HOME/.config/zsh/modules/prompt.zsh
+source $HOME/.config/zsh/modules/history.zsh
+source $HOME/.config/zsh/modules/jobs.zsh
+source $HOME/.config/zsh/modules/search.zsh
+source $HOME/.config/zsh/modules/settings.zsh
+source $HOME/.config/zsh/modules/bat.zsh
+source $HOME/.config/zsh/modules/git.zsh
+source $HOME/.config/zsh/modules/nix.zsh
+source $HOME/.config/zsh/modules/edit_command_line.zsh
+source $HOME/.config/zsh/modules/aliases.zsh
+source $HOME/.config/zsh/modules/media.zsh
+source $HOME/.config/zsh/modules/xdg-open.zsh
+source $HOME/.config/zsh/modules/python.zsh
+source $HOME/.config/zsh/modules/yazi.zsh
+source $HOME/.config/zsh/modules/gpg.zsh
+source $HOME/.config/zsh/modules/direnv.zsh
+source $HOME/.config/zsh/modules/ruby.zsh
+source $HOME/.config/zsh/modules/rsync.zsh
+source $HOME/.config/zsh/modules/files.zsh
+source $HOME/.config/zsh/modules/code.zsh
+source $HOME/.config/zsh/modules/config.zsh
+source $HOME/.config/zsh/modules/llm.zsh
+source $HOME/.config/zsh/modules/system.zsh
+source $HOME/.config/zsh/modules/distrobox.zsh
+
+if [[ -n "$TMUX" ]]; then
+  export TERM="tmux-256color"
+else
+  export TERM="xterm-256color"
+fi
+
+# Block escape sequences from becoming commands
+preexec() {
+  [[ "$1" =~ '^_G|Ptmux|^\[' ]] && return 1
+}
+
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_RENDERING=1
+export CLAUDE_CODE_DISABLE_STREAMING=1
+export ENABLE_LSP_TOOL=1
+
+if [[ -d $HOME/.config/zsh/personal_modules ]]; then
+  for f in $HOME/.config/zsh/personal_modules/*.zsh(N); do
+    source "$f"
+  done
+fi
+
+if [[ -d $HOME/.config/zsh/work_modules ]]; then
+  for f in $HOME/.config/zsh/work_modules/*.zsh(N); do
+    source "$f"
+  done
+fi
+
+# ── Inside Distrobox: strip Nix paths so pacman tools take priority ──
+if [[ -f /run/.containerenv ]]; then
+  PATH=$(echo "$PATH" | tr ':' '\n' | grep -v '/nix/' | tr '\n' ':' | sed 's/:$//')
+fi
+
+test-hibernate() {
+  sudo sh -c 'echo test_resume > /sys/power/disk' && sudo systemctl hibernate
+}
+
+export PATH="$HOME/.local/bin:$PATH"

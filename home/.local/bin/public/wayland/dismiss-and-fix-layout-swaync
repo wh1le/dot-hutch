@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Dismiss latest swaync notification and return keyboard focus to the active window.
+#
+# Why: swaync notification layer requests wlr-layer-shell on_demand keyboard
+# interactivity. Clicking/interacting grabs the keyboard; on close Hyprland
+# orphans focus (window looks focused but keyboard is dead). Known upstream
+# behavior, not fixed:
+#   https://github.com/ErikReider/SwayNotificationCenter/issues/455
+#   https://github.com/hyprwm/Hyprland/discussions/12663
+#
+# hyprctl activewindow still reports the visually-focused window while the layer
+# holds the keyboard, so we grab its address, close the notif (releasing the
+# grab), then force keyboard focus back to it.
+set -euo pipefail
+
+addr=$(hyprctl activewindow -j | jq -r '.address // empty')
+swaync-client --close-latest
+[ -n "$addr" ] && hyprctl dispatch focuswindow "address:$addr"

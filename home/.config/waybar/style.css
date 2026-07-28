@@ -1,0 +1,81 @@
+@import url("/home/wh1le/.cache/wal/colors-waybar.css");
+
+@define-color background #1e1e2e;
+@define-color active @color1;
+@define-color icon @color1;
+
+@import url("/home/wh1le/.config/waybar/styles/modules.css");
+@import url("/home/wh1le/.config/waybar/styles/groups.css");
+
+@import url("/home/wh1le/.config/waybar/styles/big.css");
+@import url("/home/wh1le/.config/waybar/styles/eink.css");
+
+* {
+  font-family: "Iosevka Nerd Font", "Twitter Color Emoji";
+  font-weight: 600;
+  font-size: 13px;
+  min-height: 0;
+  border: none;
+  background: transparent;
+}
+
+window#waybar.default,
+window#waybar.big {
+  color: @foreground;
+  background-color: alpha(#0a080e, 0.8);
+}
+
+window {
+  padding: 5px;
+}
+
+window#waybar {
+  padding: 4px 0;
+}
+
+window#waybar > box {
+  margin: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+tooltip {
+  background-color: #1e1e2e;
+  opacity: 0.8;
+  padding-top: 20px;
+  border-radius: 5px;
+}
+
+#tray menu {
+  background-color: #1e1e2e; /* Use your theme's solid hex color */
+  color: @active;
+  opacity: 1;
+}
+
+/* This targets popups/tooltips in general */
+tooltip {
+  background-color: rgba(30, 30, 46, 1); /* Ensure the 'a' (alpha) is 1.0 */
+  color: @icon;
+  opacity: 1;
+}
+
+#tray menu menuitem {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+#tray menu menuitem label {
+  font-size: 14px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+#tray menu menuitem:hover {
+  background-color: rgba(49, 50, 68, 1);
+}
+
+#tray menu menuitem label:hover {
+  color: gray;
+}

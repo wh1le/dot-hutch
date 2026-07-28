@@ -1,0 +1,7 @@
+# https://searx.github.io/searx/admin/settings.html
+
+use_default_settings: True
+
+server:
+  secret_key: "%(ENV_SEARXNG_SECRET)s"
+  default_theme: oscar # ui theme

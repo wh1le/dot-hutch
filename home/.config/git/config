@@ -1,0 +1,51 @@
+[init]
+  defaultBranch = main
+
+[core]
+  excludesfile = ~/.config/git/ignore
+  pager = less -FRX
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[include]
+  path = ~/.config/git/secrets
+
+[color "diff"]
+  old = red
+  new = green
+  frag = cyan
+  meta = bold
+  plain = white
+
+[push]
+  autoSetupRemote = true
+
+[pull]
+  rebase = true
+
+[commit]
+  gpgsign = false
+
+[color "status"]
+  added = 2
+  changed = 3
+  untracked = 2
+  deleted = 0
+
+[color "branch"]
+  current = 2
+  local = 4
+  remote = 1
+
+[color]
+  ui = auto
+  pager = true
+  diff = auto
+  status = auto
+  branch = auto
+[safe]
+	directory = /mnt/secrets/files.git

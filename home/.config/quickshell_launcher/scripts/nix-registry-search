@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+INDEX="${NIX_INDEX:-nixpkgs}"
+
+case "${1:-list}" in
+  list)
+    nix-search-tv print --indexes "$INDEX"
+    ;;
+  preview)
+    nix-search-tv preview --json --indexes "$INDEX" "$2"
+    ;;
+  select)
+    echo -n "$2" | copyq copy -
+    paplay "$SOUND_THEME_PATH/completion-partial.oga" &
+    ;;
+  actions)
+    printf '%s\n' "View source" "Open on nixos.org" "Open homepage" "Copy name" "Run from store"
+    ;;
+  action)
+    pkg="$3"
+    case "$2" in
+      "View source")
+        pos=$(nix-search-tv preview --json --indexes "$INDEX" "$pkg" 2>/dev/null | jq -r '.meta.position // empty')
+        if [[ -n "$pos" ]]; then
+          file="${pos%%:*}"
+          xdg-open "https://github.com/NixOS/nixpkgs/blob/nixos-unstable/$file"
+        else
+          notify-send "Nix" "No source position found"
+        fi
+        ;;
+      "Open on nixos.org")
+        xdg-open "https://search.nixos.org/packages?query=${pkg}&show=${pkg}"
+        ;;
+      "Open homepage")
+        hp=$(nix-search-tv preview --json --indexes "$INDEX" "$pkg" 2>/dev/null | jq -r '.meta.homepage // empty')
+        if [[ -n "$hp" ]]; then
+          xdg-open "$hp"
+        else
+          notify-send "Nix" "No homepage found"
+        fi
+        ;;
+      "Copy name")
+        echo -n "$pkg" | copyq copy -
+        ;;
+      "Run from store")
+        kitty --title "nix run" sh -c "nix run nixpkgs#${pkg}; read -p 'Press enter...'"
+        ;;
+    esac
+    ;;
+esac

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if ip link show type wireguard 2>/dev/null | grep -q "UP"; then
+  echo '{"text": "󰴽", "class": "active"}'
+else
+  echo '{"text": "󰴽", "class": ""}'
+fi

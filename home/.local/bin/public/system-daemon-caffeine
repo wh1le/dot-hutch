@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+FLAG="/tmp/i3blocks-caffeine"
+
+inhibit() {
+  command -v xautolock >/dev/null 2>&1 && xautolock -disable 2>/dev/null
+  xset s off -dpms 2>/dev/null
+  : >"$FLAG"
+}
+
+uninhibit() {
+  command -v xautolock >/dev/null 2>&1 && xautolock -enable 2>/dev/null
+  xset s on +dpms 2>/dev/null
+  rm -f "$FLAG"
+}
+
+case "${1:-}" in
+state)
+  [ -e "$FLAG" ] && echo "true" || echo "false"
+  ;;
+on | start)
+  inhibit
+  [ "$2" = "-n" ] && notify-send '☕ Caffeine' 'Idle inhibited.'
+  ;;
+off | stop)
+  uninhibit
+  [ "$2" = "-n" ] && notify-send '☕ Caffeine' 'Idle restored.'
+  ;;
+toggle)
+  if [ -e "$FLAG" ]; then
+    uninhibit
+    msg='Idle restored.'
+  else
+    inhibit
+    msg='Idle inhibited.'
+  fi
+  [ "$2" = "-n" ] && notify-send '☕ Caffeine' "$msg"
+  ;;
+*)
+  echo "Usage: $0 [toggle|on|start|off|stop|state] [-n]"
+  exit 1
+  ;;
+esac

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Emit default-sink volume (0-100, '!' suffix when muted) only when it changes.
+# Pipe into xob:  xob-volume-watcher | xob -s volume
+
+last=""
+pactl subscribe 2>/dev/null | while read -r ev; do
+  case "$ev" in
+    *"on sink"*|*"on server"*)
+      line=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null) || continue
+      vol=$(awk '{printf "%d", ($2*100)+0.5}' <<<"$line")
+      [[ "$line" == *"[MUTED]"* ]] && vol="${vol}!"
+      [[ "$vol" == "$last" ]] && continue
+      last="$vol"
+      echo "$vol"
+      ;;
+  esac
+done

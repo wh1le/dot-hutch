@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+require "open3"
+
+BASE    = File.expand_path("~/Code")
+BIN_DIR = File.expand_path("~/.local/bin/code")
+SKIP    = %w[__init__.py __pycache__].freeze
+
+def linked?(target, project_dir)
+  File.file?(target) && File.read(target).include?(project_dir)
+rescue
+  false
+end
+
+def on_path?(name)
+  ENV["PATH"].split(":").any? { |d| File.executable?(File.join(d, name)) }
+end
+
+candidates = []
+Dir["#{BASE}/*/"].sort.each do |project_dir|
+  project_dir = project_dir.chomp("/")
+  next unless File.file?("#{project_dir}/flake.nix")
+  next unless File.directory?("#{project_dir}/bin")
+
+  project_name = File.basename(project_dir)
+  Dir["#{project_dir}/bin/*"].sort.each do |bin_file|
+    bin_name = File.basename(bin_file)
+    next if SKIP.include?(bin_name)
+
+    target = "#{BIN_DIR}/#{bin_name}"
+    tag    = linked?(target, project_dir) ? " [linked]" : ""
+    candidates << "#{project_name}/#{bin_name}#{tag}"
+  end
+end
+
+abort "no candidates found" if candidates.empty?
+
+selected, status = Open3.capture2(
+  "gum", "choose", "--no-limit",
+  "--header", "Toggle project binaries (space to select):",
+  stdin_data: candidates.join("\n")
+)
+abort "nothing selected" unless status.success? && !selected.strip.empty?
+
+selected.each_line do |line|
+  entry = line.strip.sub(/ \[.*/, "")
+  project_name, bin_name = entry.split("/", 2)
+  project_dir = "#{BASE}/#{project_name}"
+  bin_path    = "#{project_dir}/bin/#{bin_name}"
+  target      = "#{BIN_DIR}/#{bin_name}"
+
+  if linked?(target, project_dir)
+    File.delete(target)
+    puts "unlinked: #{bin_name}"
+  else
+    if on_path?(bin_name) && !File.file?(target)
+      warn "skipping (name already exists on PATH): #{bin_name}"
+      next
+    end
+    File.write(target, <<~WRAPPER)
+      #!/usr/bin/env bash
+      cd "#{project_dir}"
+      exec nix develop --command "#{bin_path}" "$@"
+    WRAPPER
+    File.chmod(0o755, target)
+    puts "linked: #{bin_name} -> #{project_name}"
+  end
+end

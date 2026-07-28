@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+# Custom pinentry that delegates to quickshell via IPC.
+# Speaks the Assuan protocol expected by gpg-agent.
+
+set -euo pipefail
+
+DESC=""
+PROMPT=""
+ERROR=""
+
+echo "OK Pleased to meet you"
+
+while IFS= read -r line; do
+  cmd="${line%% *}"
+  arg="${line#* }"
+  [ "$cmd" = "$line" ] && arg=""
+
+  case "$cmd" in
+    SETDESC)
+      DESC="$arg"
+      echo "OK"
+      ;;
+    SETPROMPT)
+      PROMPT="$arg"
+      echo "OK"
+      ;;
+    SETERROR)
+      ERROR="$arg"
+      echo "OK"
+      ;;
+    GETPIN)
+      # Ask quickshell to show the dialog and wait for response
+      TMPFILE=$(mktemp /tmp/qs-pinentry-XXXXXX)
+      rm -f "$TMPFILE"
+
+      # Send request to quickshell
+      quickshell msg pinentry request "$(printf '%s\n%s\n%s\n%s' "$DESC" "$PROMPT" "$ERROR" "$TMPFILE")"
+
+      # Wait for response (timeout 60s)
+      for i in $(seq 1 600); do
+        if [ -f "$TMPFILE" ]; then
+          PIN=$(cat "$TMPFILE")
+          rm -f "$TMPFILE"
+          if [ "$PIN" = "__CANCEL__" ]; then
+            echo "ERR 83886179 Operation cancelled"
+          else
+            echo "D $PIN"
+            echo "OK"
+          fi
+          break
+        fi
+        sleep 0.1
+      done
+
+      # Timeout
+      if [ ! -f "$TMPFILE" ] && [ "$i" = "600" ]; then
+        rm -f "$TMPFILE"
+        echo "ERR 83886179 Timeout"
+      fi
+      ;;
+    CONFIRM)
+      echo "OK"
+      ;;
+    BYE)
+      echo "OK closing connection"
+      exit 0
+      ;;
+    OPTION|SETTITLE|SETQUALITYBAR|SETQUALITYBAR_TT|SETOK|SETCANCEL|SETNOTOK|SETKEYINFO|SETREPEAT)
+      echo "OK"
+      ;;
+    GETINFO)
+      case "$arg" in
+        pid) echo "D $$"; echo "OK" ;;
+        flavor) echo "D quickshell"; echo "OK" ;;
+        version) echo "D 1.0.0"; echo "OK" ;;
+        ttyinfo) echo "D - - -"; echo "OK" ;;
+        *) echo "OK" ;;
+      esac
+      ;;
+    *)
+      echo "OK"
+      ;;
+  esac
+done

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+ws_id=$(hyprctl -j activeworkspace | jq '.id')
+
+if [ "$1" = "--raise" ]; then
+  # Focus and raise all floating windows on current workspace
+  hyprctl -j clients \
+    | jq -r ".[] | select(.floating==true and .workspace.id==$ws_id) | .address" \
+    | while read -r addr; do
+        hyprctl dispatch focuswindow "address:$addr"
+        hyprctl dispatch bringactivetotop
+      done
+  exit 0
+fi
+
+count=$(hyprctl -j clients | jq "[.[] | select(.floating==true and .workspace.id==$ws_id)] | length")
+
+if [ "$count" -gt 0 ]; then
+  echo "{\"text\": \"󰖯 $count\", \"class\": \"has-floating\", \"tooltip\": \"$count floating window(s)\"}"
+fi

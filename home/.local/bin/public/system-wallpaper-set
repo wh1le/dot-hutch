@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -e
+
+CURRENT_WALLPAPER="$HOME/.current_wallpaper"
+CHOICE="${1:-$CURRENT_WALLPAPER}"
+EINK_MONITOR="HDMI-A-1"
+EINK_DEFAULT_WALLPAPER="$HOME/Code/dot-hutch/assets/wallpapers/white.jpg"
+
+if [[ ! -e "$CHOICE" ]]; then
+  echo "No wallpaper set yet! Pick something fancy: $(basename "$0") /path/to/image"
+  exit 0
+fi
+
+if [ "$IS_MAC" = true ]; then
+  TARGET="$CHOICE"; [ -L "$TARGET" ] && TARGET="$(readlink "$TARGET")"
+  osascript -e "tell application \"System Events\" to tell every desktop to set picture to \"$TARGET\""
+elif pgrep -x Hyprland >/dev/null; then
+  MONITORS=$(hyprctl monitors -j | jq -r '.[] | select(.description | contains("Paperlike") | not) | "\(.name):\(.transform)"')
+
+  for entry in $MONITORS; do
+    monitor="${entry%:*}"
+    transform="${entry#*:}"
+
+    resize_flag=""
+
+    [[ "$transform" -eq 1 ]] && resize_flag="--resize fit"
+
+    awww img \
+      --outputs "$monitor" \
+      --transition-type random \
+      --transition-angle 45 \
+      --resize crop \
+      --transition-duration 1 "$CHOICE"
+  done
+
+  if hyprctl monitors -j | jq -e '.[] | select(.description | contains("Paperlike"))' >/dev/null; then
+    wal -esnt --theme ~/.config/wal/colorschemes/light/eink.json
+
+    awww img --outputs "$EINK_MONITOR" --transition-type none "$EINK_DEFAULT_WALLPAPER"
+  fi
+else
+  feh --no-fehbg --bg-fill "$CHOICE"
+fi
+
+if [[ "$CHOICE" != "$CURRENT_WALLPAPER" ]]; then
+  ln -s -f "$CHOICE" "$CURRENT_WALLPAPER"
+fi
+
+wal -esnti "$CHOICE"
+
+$HOME/.local/bin/public/system-wallpaper-propogate-theme

@@ -1,0 +1,219 @@
+include ~/.config/i3/personal*
+
+set_from_resource $font i3wm.font pango:PragmataPro Mono 11
+
+font $font
+
+set $space1 "1"
+set $space2 "2"
+set $space3 "3"
+set $space4 "4"
+set $space5 "5"
+set $space6 "6"
+set $space7 "7"
+set $space8 "8"
+set $space9 "9"
+set $space0 "10:0"
+
+workspace $space1 output DP-0 eDP-1
+workspace $space2 output DP-0 eDP-1
+workspace $space3 output DP-0 eDP-1
+workspace $space4 output DP-0 eDP-1
+workspace $space5 output DP-0 eDP-1
+workspace $space6 output DP-0 eDP-1
+workspace $space7 output DP-0 eDP-1
+workspace $space8 output DP-0 eDP-1
+workspace $space9 output DP-0 eDP-1
+workspace $space0 output DP-0 eDP-1
+
+default_border normal            
+default_border pixel 2
+default_floating_border normal
+
+# for_window [class=".*"] title_format "" 
+for_window [class=".*"] border pixel 2
+gaps inner 10
+gaps outer 0
+
+set_from_resource $fg     foreground #c1c2c4
+set_from_resource $bg     background #090e15
+set_from_resource $accent color4     #5195AC
+set_from_resource $urgent color1     #327289
+
+# class                 border   backgr.  text  indicator  child_border
+client.focused          $accent  $accent  $fg   $accent    $accent
+client.focused_inactive $bg      $bg      $fg   $bg        $bg
+client.unfocused        $bg      $bg      $fg   $bg        $bg
+client.urgent           $urgent  $urgent  $fg   $urgent    $urgent
+client.placeholder      $bg      $bg      $fg   $bg        $bg
+client.background       $bg
+
+set $mod Mod4
+
+floating_modifier $mod
+
+focus_follows_mouse yes
+
+workspace_auto_back_and_forth yes
+
+for_window [instance="quickshell_launcher"] floating enable, border none, move position center
+for_window [instance="quickshell_launcher"] sticky enable
+
+bindsym $mod+Return exec ghostty
+bindsym $mod+s       exec --no-startup-id sh -c 'f=$($HOME/.local/bin/public/x11/system-screenshoot --region) && [ "$(notify-send -i "$f" -A open=Open "Screenshot" "$f")" = open ] && nautilus --select "$f"'
+bindsym $mod+Shift+s exec --no-startup-id sh -c 'f=$($HOME/.local/bin/public/x11/system-screenshoot) && [ "$(notify-send -i "$f" -A open=Open "Screenshot" "$f")" = open ] && nautilus --select "$f"'
+# bindsym $mod+Shift+r exec --no-startup-id flameshot gui
+bindsym $mod+e       exec --no-startup-id nautilus
+bindsym $mod+d       exec --no-startup-id quickshell -c ~/.config/quickshell_launcher ipc call launcher toggle
+bindsym $mod+p       exec --no-startup-id quickshell -c ~/.config/quickshell_launcher ipc call menu toggle
+bindsym $mod+i       exec --no-startup-id quickshell -c ~/.config/quickshell_launcher ipc call quick-copy toggle
+
+bindsym $mod+Shift+i         exec --no-startup-id $HOME/.local/bin/public/menu/launch-kitty wallpaper
+bindcode $mod+65             exec --no-startup-id "$HOME/.local/bin/public/x11/change-input-source; pkill -RTMIN+8 i3blocks"
+bindsym $mod+Shift+backslash exec --no-startup-id $HOME/.local/bin/public/bluetooth-connect-xm6
+bindsym $mod+Shift+b         exec --no-startup-id $HOME/.local/bin/public/hardware/set-keyboard-backlight
+
+bindsym $mod+Shift+slash        exec --no-startup-id "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; pkill -RTMIN+10 i3blocks"
+bindsym $mod+Shift+bracketleft  exec --no-startup-id "wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-; pkill -RTMIN+10 i3blocks"
+bindsym $mod+Shift+bracketright exec --no-startup-id "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 3%+; pkill -RTMIN+10 i3blocks"
+
+bindsym $mod+Shift+n   exec --no-startup-id dunstctl history-pop
+bindsym $mod+Shift+d   exec --no-startup-id dunstctl set-paused toggle
+bindsym $mod+BackSpace exec --no-startup-id dunstctl close-all
+
+bindsym Mod1+Tab       exec --no-startup-id rofi -show window
+bindsym Mod1+Shift+Tab exec --no-startup-id rofi -show window
+
+bindsym $mod+Shift+semicolon  exec --no-startup-id $HOME/.local/bin/public/hardware-monitor-brightness down 7
+bindsym $mod+Shift+apostrophe exec --no-startup-id $HOME/.local/bin/public/hardware-monitor-brightness up 7
+
+bindsym $mod+m       exec --no-startup-id sh -c 'mpv "$(xclip -selection clipboard -o)"'
+bindsym $mod+Shift+p exec --no-startup-id playerctl play-pause
+bindsym $mod+Shift+comma  exec --no-startup-id playerctl previous
+bindsym $mod+Shift+period exec --no-startup-id playerctl next
+
+bindsym $mod+1 workspace $space1
+bindsym $mod+2 workspace $space2
+bindsym $mod+3 workspace $space3
+bindsym $mod+4 workspace $space4
+bindsym $mod+5 workspace $space5
+bindsym $mod+6 workspace $space6
+bindsym $mod+7 workspace $space7
+bindsym $mod+8 workspace $space8
+bindsym $mod+9 workspace $space9
+bindsym $mod+0 workspace $space0
+
+bindsym $mod+Shift+1 move container to workspace $space1
+bindsym $mod+Shift+2 move container to workspace $space2
+bindsym $mod+Shift+3 move container to workspace $space3
+bindsym $mod+Shift+4 move container to workspace $space4
+bindsym $mod+Shift+5 move container to workspace $space5
+bindsym $mod+Shift+6 move container to workspace $space6
+bindsym $mod+Shift+7 move container to workspace $space7
+bindsym $mod+Shift+8 move container to workspace $space8
+bindsym $mod+Shift+9 move container to workspace $space9
+bindsym $mod+Shift+0 move container to workspace $space0
+
+bindsym $mod+Ctrl+Shift+1 move workspace to output right
+bindsym $mod+Ctrl+Shift+2 move workspace to output left
+
+bindsym $mod+button4 workspace next_on_output
+bindsym $mod+button5 workspace prev_on_output
+
+bindsym $mod+grave workspace back_and_forth
+
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+k focus up
+bindsym $mod+j focus down
+
+# Seamless nav (CTRL+hjkl) — needs vim/tmux-aware script; disabled to avoid
+# stealing CTRL+hjkl inside terminals. Re-enable with an i3 seamless script.
+# bindsym Ctrl+h focus left
+# bindsym Ctrl+j focus down
+# bindsym Ctrl+k focus up
+# bindsym Ctrl+l focus right
+
+bindsym $mod+Tab       focus mode_toggle
+bindsym $mod+Shift+Tab focus prev
+
+bindsym $mod+f       fullscreen
+bindsym $mod+Shift+f fullscreen toggle global
+
+bindcode $mod+Shift+65 floating toggle
+bindsym $mod+q       kill
+bindsym $mod+Shift+q kill
+
+bindsym $mod+Ctrl+h move left
+bindsym $mod+Ctrl+l move right
+bindsym $mod+Ctrl+k move up
+bindsym $mod+Ctrl+j move down
+bindsym $mod+Ctrl+s layout toggle split
+
+bindsym $mod+Mod1+h move left 50px
+bindsym $mod+Mod1+l move right 50px
+bindsym $mod+Mod1+k move up 50px
+bindsym $mod+Mod1+j move down 50px
+bindsym Shift+Mod1+c move position center
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+j move down
+
+bindsym $mod+Shift+g layout toggle tabbed stacking split
+bindsym $mod+n       focus next
+
+bindsym $mod+w       scratchpad show
+bindsym $mod+Shift+w move scratchpad
+
+bindsym $mod+Shift+t sticky toggle
+
+bindsym $mod+a       focus parent
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+e exec --no-startup-id "setsid -f sh -c 'pkill -u $USER xinit || pkill -u $USER i3'"
+
+mode "resize" {
+	bindsym l resize grow   width  20 px or 5 ppt
+	bindsym h resize shrink width  20 px or 5 ppt
+	bindsym k resize shrink height 20 px or 5 ppt
+	bindsym j resize grow   height 20 px or 5 ppt
+
+	bindsym q        mode "default"
+	bindsym Return   mode "default"
+	bindsym Escape   mode "default"
+	bindsym Ctrl+bracketleft mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bar {
+	status_command I3B_ISZ=11264 i3blocks
+		strip_workspace_numbers yes
+		position top
+		font $font
+		tray_output primary
+		tray_padding 5px
+		padding 1px 4px 1px 4px
+		colors {
+			background $bg
+				statusline $fg
+				separator  $accent
+        #                  border   bg       text
+				focused_workspace  $accent  $accent  $bg
+				active_workspace   $bg      $bg      $fg
+				inactive_workspace $bg      $bg      $fg
+				urgent_workspace   $urgent  $urgent  $fg
+		}
+}
+
+exec --no-startup-id sh -c '[ "$(hostname)" = homepc ] && autorandr --change --default vnc --force || autorandr --change --force'
+
+exec_always --no-startup-id sh -c 'pkill -x fastcompmgr; setsid fastcompmgr &'
+exec_always --no-startup-id sh -c 'pkill dunst; sleep 0.3; dunst &'
+exec_always --no-startup-id sh -c 'pkill -x i3-auto-layout; i3-auto-layout &'
+exec_always --no-startup-id sh -c 'pkill -x conky; sleep 0.3; conky -c "$HOME/.config/conky/$(hostname).conf" &'
+exec_always --no-startup-id sh -c 'pkill -x xob; [ -p /tmp/xob-brightness ] || mkfifo /tmp/xob-brightness; "$HOME/.local/bin/public/x11/xob-volume-watcher" | xob -s volume -c "$HOME/.cache/wal/colors-xob.cfg" & tail -f /tmp/xob-brightness | xob -s brightness -c "$HOME/.cache/wal/colors-xob.cfg" &'
+exec_always --no-startup-id sh -c '[ -r "$HOME/.fehbg" ] && "$HOME/.fehbg" || feh --bg-fill "$HOME/.current_wallpaper"'
+exec_always --no-startup-id sh -c 'pkill quickshell; quickshell -c "$HOME/.config/quickshell_launcher" >/dev/null 2>&1 &'
+exec_always --no-startup-id sh -c '[ "$(hostname)" = thinkpad ] && xinput set-prop "SYNA8018:00 06CB:CE67 Touchpad" "libinput Natural Scrolling Enabled" 1 2>/dev/null'

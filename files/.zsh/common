@@ -1,5 +1,0 @@
-# turn off flow control (prevent CTRL-S from capturing all output)
-# stty -ixon
-
-# Greet message
-# echo "$(tput setaf 4)$(cat ~/.hello-msg) $(tput setab 7)"

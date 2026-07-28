@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+db="${HOME}/.local/share/qutebrowser/history.sqlite"
+
+[ -f "$db" ] || { echo "No qutebrowser history found"; exit 1; }
+
+choice=$(
+  sqlite3 -separator ' | ' "$db" \
+    "SELECT title, url FROM history WHERE url LIKE 'http%' GROUP BY url ORDER BY MAX(atime) DESC LIMIT 5000" |
+    fzm --dmenu --tty -p "--prompt='history> '"
+) || exit 0
+
+[ -z "${choice:-}" ] && exit 0
+
+url="${choice##* | }"
+
+if [[ "$BROWSER" == *"qutebrowser"* ]]; then
+  qutebrowser ":open -t $url"
+  hyprctl dispatch focuswindow "class:org.qutebrowser.qutebrowser"
+else
+  $BROWSER "$url"
+fi

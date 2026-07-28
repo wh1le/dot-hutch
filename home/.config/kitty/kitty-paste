@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -e
+
+types=$(wl-paste --list-types 2>/dev/null)
+
+if grep -q '^image/' <<<"$types"; then
+  # Use original screenshot path if available and recent (< 5 min)
+  if [[ -f /tmp/last-screenshot ]]; then
+    orig=$(cat /tmp/last-screenshot)
+    if [[ -f "$orig" ]] && find "$orig" -mmin -5 -print -quit | grep -q .; then
+      printf '%q' "$orig" | kitty @ send-text --stdin
+      exit 0
+    fi
+  fi
+  # Fallback: save clipboard image to temp file (prefer PNG)
+  if grep -q '^image/png' <<<"$types"; then
+    ext="png"
+  else
+    ext=$(grep -m1 '^image/' <<<"$types" | cut -d/ -f2 | cut -d';' -f1)
+  fi
+  file="/tmp/clip_$(date +%s).${ext}"
+  wl-paste --type "image/${ext}" > "$file"
+  printf '%q' "$file" | kitty @ send-text --stdin
+else
+  wl-paste --no-newline | kitty @ send-text --stdin --bracketed-paste auto
+fi

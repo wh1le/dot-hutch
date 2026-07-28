@@ -1,0 +1,3 @@
+@define-color border_active1 #{color1.lighten(13).strip};
+@define-color border_active2 #{color1.lighten(52).strip};
+@define-color border_inactive #{color0.darken(14).strip};

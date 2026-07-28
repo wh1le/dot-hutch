@@ -1,0 +1,64 @@
+@define-color muted_eink #1e1e2e;
+@define-color active_eink #1e1e2e;
+
+@define-color inactive dimgray;
+
+.eink .module#custom-notification {
+  color: white;
+  padding-right: 12px;
+}
+
+.eink .module#custom-weather {
+  color: white;
+}
+
+window#waybar.eink {
+  color: @foreground;
+  background-color: white;
+}
+
+window#waybar.eink #status_group,
+window#waybar #system_group,
+window#waybar #custom-language,
+window#waybar #temperature {
+  color: white;
+}
+window#waybar.eink .modules-left,
+.modules-center,
+.modules-right {
+  color: white;
+}
+
+.eink .module.active {
+  color: white;
+}
+.eink .module {
+  color: white;
+}
+
+.eink * {
+  color: white;
+  border: none;
+  font-family:
+    "Iosevka Nerd Font", "Symbols Nerd Font", "Symbols Nerd Font Mono";
+  font-weight: bold;
+  font-size: 14px;
+  min-height: 0px;
+}
+
+.eink tooltip {
+  opacity: 1;
+}
+
+.eink .module#workspaces.main button {
+  padding: 0;
+  margin: 2px;
+}
+
+.eink window#waybar {
+  background: black;
+}
+
+.eink .module#custom-logo {
+  color: white;
+}

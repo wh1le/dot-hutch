@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+: "${PASSWORD_STORE_DIR:=$HOME/.secrets/passwords}"
+export PASSWORD_STORE_DIR
+
+SOUND="${SOUND_THEME_PATH:-/run/current-system/sw/share/sounds/ocean/stereo}/completion-partial.oga"
+
+urldecode() { local s="${1//+/ }"; printf '%b' "${s//%/\\x}"; }
+
+# Derive a default pass name (issuer/account) from an otpauth URI
+derive_name() {
+  local otp_uri="$1" rest label query issuer account
+  rest=${otp_uri#otpauth://*/}
+  label=$(urldecode "${rest%%\?*}")
+  query=${rest#*\?}
+  issuer=""
+  account="$label"
+  if [[ "$label" == *:* ]]; then
+    issuer=${label%%:*}
+    account=${label#*:}
+  fi
+  local q_issuer
+  q_issuer=$(sed -n 's/.*[?&]issuer=\([^&]*\).*/\1/p' <<<"&$query")
+  [[ -n "$q_issuer" ]] && issuer=$(urldecode "$q_issuer")
+  local name="$account"
+  [[ -n "$issuer" ]] && name="$issuer/$account"
+  sed 's#[[:space:]]#_#g; s#^/*##; s#/*$##' <<<"$name"
+}
+
+case "${1:-}" in
+  # maim region-select + decode. stdout: line1 = otpauth URI, line2 = default name.
+  # Empty output = cancelled or no QR.
+  scan)
+    QR_IMG=$(mktemp /tmp/otp_qr.XXXXXX.png)
+    trap 'rm -f "$QR_IMG"' EXIT
+    maim -s "$QR_IMG" 2>/dev/null || exit 0
+    [[ -s "$QR_IMG" ]] || exit 0
+    otp_uri=$(qrtool decode --type png "$QR_IMG" 2>/dev/null)
+    [[ "$otp_uri" == otpauth://* ]] || exit 0
+    printf '%s\n%s\n' "$otp_uri" "$(derive_name "$otp_uri")"
+    ;;
+
+  # save "<otpauth-uri>" "<pass-name>" — insert, copy code, sound, notify
+  save)
+    otp_uri="${2:-}"
+    name="${3:-}"
+    if [[ "$otp_uri" != otpauth://* || -z "$name" ]]; then
+      notify-send -u critical "2FA Scan" "❌ Missing URI or name"
+      exit 1
+    fi
+    entry="${name}.otp"
+    if err=$(printf '%s\n' "$otp_uri" | pass otp insert --force "$entry" 2>&1); then
+      code=$(pass otp "$entry" 2>/dev/null | head -n1 | tr -d '\n')
+      { copyq disable >/dev/null 2>&1; copyq copy - <<<"$code"; copyq enable >/dev/null 2>&1; }
+      sleep 0.1
+      paplay "$SOUND" >/dev/null 2>&1 &
+      notify-send "2FA Scan" "✅ Created ${entry}
+Code ${code} copied"
+    else
+      notify-send -u critical "2FA Scan" "❌ Not created ${entry}
+${err}"
+      exit 1
+    fi
+    ;;
+
+  *)
+    echo "usage: pass-scan-otp {scan|save <uri> <name>}" >&2
+    exit 2
+    ;;
+esac

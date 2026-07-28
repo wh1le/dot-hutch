@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+is_eink=$1
+API_KEY=$(cat ~/.secrets/local/obsidian_api_key)
+CURRENT=$(curl -sk -H "Authorization: Bearer $API_KEY" "https://127.0.0.1:27124/vault/.obsidian/appearance.json" | jq -r '.theme')
+
+if [[ "$is_eink" == "true" ]]; then
+  if [[ "$CURRENT" == "obsidian" ]]; then
+    curl -sk -X POST "https://127.0.0.1:27124/commands/theme%3Atoggle-light-dark/" -H "Authorization: Bearer $API_KEY"
+  fi
+else
+  if [[ "$CURRENT" == "moonstone" ]]; then
+    curl -sk -X POST "https://127.0.0.1:27124/commands/theme%3Atoggle-light-dark/" -H "Authorization: Bearer $API_KEY"
+  fi
+fi

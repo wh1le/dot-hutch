@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+case "${1:-list}" in
+  list)
+    fc-list -f '%{family[0]}\n' | sort -u
+    ;;
+  preview)
+    fam="${2:-}"
+    [[ -z "$fam" ]] && exit 0
+    fc-list "$fam" -f 'style: %{style}  file: %{file}\n' 2>/dev/null \
+      | sed 's|/nix/store/[^/]*/|.../|g' | head -20
+    ;;
+  select)
+    fam="${2:-}"
+    [[ -z "$fam" ]] && exit 0
+    echo -n "$fam" | copyq copy -
+    notify-send "Font" "Copied: $fam"
+    ;;
+esac

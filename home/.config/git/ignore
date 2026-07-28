@@ -1,0 +1,8 @@
+# Direnv
+.direnv
+.direnv/**
+pdoc/
+
+**/.claude/settings.local.json
+.playwright-mcp/
+.gems

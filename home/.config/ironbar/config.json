@@ -1,0 +1,254 @@
+{
+  "position": "top",
+  "height": 20,
+  "layer": "background",
+  "start": [
+    {
+      "type": "menu",
+      "label": "󰯉 ",
+      "start": [
+        {
+          "type": "custom",
+          "label": " Reboot",
+          "on_click": "systemctl reboot"
+        },
+        {
+          "type": "custom",
+          "label": "  Power Off",
+          "on_click": "systemctl poweroff"
+        }
+      ],
+      "center": [],
+      "end": [],
+      "name": "logo"
+    },
+    {
+      "type": "workspaces"
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "label",
+          "label": "#submap",
+          "name": "submap"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "label",
+          "label": "#mic",
+          "name": "mic"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "button",
+          "label": "#floating",
+          "on_click": "!~/.config/ironbar/scripts/floating raise"
+        }
+      ]
+    },
+    {
+      "type": "music",
+      "player_type": "mpris",
+      "format": "{title} - {artist}",
+      "show_status_icon": true,
+      "icon_size": 14,
+      "icons": {
+        "play": "󰐊",
+        "pause": "󰏤",
+        "prev": "󰒮",
+        "next": "󰒭",
+        "volume": "󰕾",
+        "track": "󰎈",
+        "album": "󰀥",
+        "artist": "󰠃"
+      },
+      "music_dir": "/home/wh1le/Music",
+      "truncate": {
+        "mode": "end",
+        "length": 20,
+        "max_length": 20
+      },
+      "marquee_popup_title": {
+        "enable": true,
+        "max_length": 20,
+        "scroll_speed": 0.5,
+        "pause_duration": 3000
+      },
+      "marquee_popup_album": {
+        "enable": true,
+        "max_length": 20,
+        "scroll_speed": 0.5,
+        "pause_duration": 3000
+      },
+      "marquee_popup_artist": {
+        "enable": true,
+        "max_length": 20,
+        "scroll_speed": 0.5,
+        "pause_duration": 3000
+      },
+      "player_name": "mpd"
+    }
+  ],
+  "center": [
+    {
+      "type": "focused",
+      "icon_size": 14,
+      "truncate": "end"
+    }
+  ],
+  "end": [
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "button",
+          "label": "#language",
+          "on_click": "!~/.config/ironbar/scripts/language switch"
+        }
+      ]
+    },
+    {
+      "type": "tray",
+      "icon_size": 14
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "button",
+          "label": "#caffeine",
+          "on_click": "!~/.config/ironbar/scripts/caffeine toggle"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "button",
+          "label": "#nightshift",
+          "on_click": "!~/.config/ironbar/scripts/sunset toggle"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "button",
+          "label": "#vpn",
+          "on_click_left": "fzm -o wg-manage"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "button",
+          "label": "#encryption"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "button",
+          "label": "#weather"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "label",
+          "label": " 󰿟 ",
+          "class": "divider"
+        }
+      ]
+    },
+    {
+      "type": "volume",
+      "format": "{icon}",
+      "max_volume": 100,
+      "icons": {
+        "volume": "",
+        "muted": "",
+        "mic_volume": "󰍬",
+        "mic_muted": "󰍭"
+      },
+      "mute_format": "{icon}"
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "label",
+          "label": " 󰿟 ",
+          "class": "divider"
+        }
+      ]
+    },
+    {
+      "type": "bluetooth",
+      "format": {
+        "not_found": "󰂲",
+        "disabled": "󰂲",
+        "enabled": "",
+        "connected": "󰂱",
+        "connected_battery": "󰂱"
+      },
+      "icon_size": 14
+    },
+    {
+      "type": "network_manager",
+      "icon_size": 14,
+      "types_blacklist": ["loopback", "bridge", "wifi_p2p"],
+      "on_click_left": "fzm -o wifi-connect"
+    },
+    {
+      "type": "battery",
+      "format": "{percentage}%",
+      "icon_size": 14
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "label",
+          "label": " 󰿟 ",
+          "class": "divider"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "bar": [
+        {
+          "type": "label",
+          "label": "#date_emoji",
+          "name": "date-emoji"
+        }
+      ]
+    },
+    {
+      "type": "clock",
+      "format": "%H:%M"
+    },
+    {
+      "type": "notifications",
+      "show_count": false
+    }
+  ]
+}

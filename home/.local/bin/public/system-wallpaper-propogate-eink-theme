@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -e
+
+EINK_DEFAULT_WALLPAPER="$HOME/Code/dot-hutch/assets/wallpapers/white.jpg"
+CURRENT_WALLPAPER="$HOME/.current_wallpaper"
+
+if pgrep -x Hyprland >/dev/null; then
+  # Wayland/Hyprland: match the Paperlike by EDID description, set with awww.
+  hyprctl monitors -j | jq -e '.[] | select(.description | contains("Paperlike"))' >/dev/null || exit 0
+  EINK_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.description | contains("Paperlike")) | .name')
+  awww img --outputs "$EINK_MONITOR" --transition-type none "$EINK_DEFAULT_WALLPAPER"
+  exit 0
+fi
+
+# xorg/i3: xrandr has no EDID description, so read EDID from sysfs to find the
+# Paperlike output, then set per-monitor with feh's positional image mapping.
+eink_out=""
+for edid in /sys/class/drm/card*-*/edid; do
+  [ -s "$edid" ] || continue
+  if edid-decode "$edid" 2>/dev/null | grep -qi "Paperlike"; then
+    conn=${edid%/edid}
+    conn=${conn##*/}      # card1-HDMI-A-1
+    eink_out=${conn#card*-}  # HDMI-A-1
+    break
+  fi
+done
+
+[ -z "$eink_out" ] && exit 0
+
+# feh maps positional images to monitors in xrandr order: white on the eink
+# output, current wallpaper on the rest.
+imgs=()
+while read -r _ name; do
+  if [ "$name" = "$eink_out" ]; then
+    imgs+=("$EINK_DEFAULT_WALLPAPER")
+  else
+    imgs+=("$CURRENT_WALLPAPER")
+  fi
+done < <(xrandr --listmonitors | tail -n +2 | awk '{print $1, $NF}')
+
+feh --no-fehbg --bg-fill "${imgs[@]}"

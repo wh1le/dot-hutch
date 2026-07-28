@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cache="$HOME/.cache/emoji/list.txt"
+url="https://raw.githubusercontent.com/github/gemoji/master/db/emoji.json"
+
+update() {
+  mkdir -p "${cache%/*}"
+  curl -sL "$url" | jq -r '.[] | "\(.emoji)\t\(.description)\t\(.category)"' >"$cache"
+}
+
+case "${1:-list}" in
+  --update | update)
+    update
+    ;;
+  list)
+    [[ -f "$cache" ]] || update
+    awk -F'\t' '{print $1" "$2}' "$cache"
+    ;;
+  preview)
+    line="${2:-}"
+    emoji="${line%% *}"
+    name="${line#* }"
+    printf '\n  %s\n\n  %s\n' "$emoji" "$name"
+    ;;
+  select)
+    line="${2:-}"
+    [[ -z "$line" ]] && exit 0
+    emoji="${line%% *}"
+    name="${line#* }"
+    echo -n "$emoji" | copyq copy -
+    notify-send "Copied" "$emoji  $name"
+    ;;
+esac

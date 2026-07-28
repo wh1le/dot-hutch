@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+direction="$1"
+value="${2:-5}"
+
+XOB_PIPE="/tmp/xob-brightness"
+
+emit() {
+  local pct
+  if [[ "$(hostname)" == "homepc" ]]; then
+    pct=$(ddcutil getvcp 10 2>/dev/null | grep -oP 'current value =\s*\K[0-9]+')
+  else
+    pct=$(brightnessctl -m 2>/dev/null | cut -d, -f4 | tr -d '%')
+  fi
+  [[ -n "$pct" && -p "$XOB_PIPE" ]] && timeout 0.3 bash -c "echo '$pct' > '$XOB_PIPE'" 2>/dev/null
+}
+
+case "$direction" in
+up)
+  if [[ "$(hostname)" == "homepc" ]]; then
+    ddcutil setvcp 10 + "$value"
+  else
+    brightnessctl set "${value}%+"
+  fi
+  emit
+  ;;
+down)
+  if [[ "$(hostname)" == "homepc" ]]; then
+    ddcutil setvcp 10 - "$value"
+  else
+    brightnessctl set "${value}%-"
+  fi
+  emit
+  ;;
+*)
+  echo "Usage: brightness <up|down> [percentage]"
+  exit 1
+  ;;
+esac

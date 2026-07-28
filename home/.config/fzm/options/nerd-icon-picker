@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cache="$HOME/.cache/nerd-fonts/glyphs.txt"
+
+update() {
+  mkdir -p "${cache%/*}"
+  curl -sL "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/glyphnames.json" |
+    jq -r 'to_entries[] | select(.key != "METADATA") | "\(.value.char)\t\(.key)"' | sort -k2 -t$'\t' >"$cache"
+}
+
+[[ "${1:-}" == "--update" ]] && { update; exit; }
+[[ -f "$cache" ]] || update
+
+preview='printf "\n\n       %s - %s" {1} {2}'
+
+choice=$(fzm --tty --dmenu -p "--delimiter='\t' --with-nth=2 --preview='$preview' --preview-window=up,4" <"$cache") || exit 0
+[[ -z "$choice" ]] && exit 0
+
+icon=$(cut -f1 <<<"$choice")
+name=$(cut -f2 <<<"$choice")
+
+echo -n "$icon" | wl-copy
+notify-send "Copied" "$icon  $name"

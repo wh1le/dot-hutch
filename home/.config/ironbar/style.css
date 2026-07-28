@@ -1,0 +1,444 @@
+@import url("/home/wh1le/.cache/wal/colors.css");
+
+:root {
+  --margin-lg: 1em;
+  --margin-sm: 0.5em;
+  --radius-full: 999px;
+  --radius-sm: 6px;
+  --font-sm: 12px;
+  --font-md: 13px;
+  --font-lg: 15;
+}
+
+/* Global Reset */
+* {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background-image: none;
+  font-family: "Hack-ZeroSlash";
+  font-size: var(--font-md);
+  font-weight: bold;
+}
+
+#date-emoji {
+  font-family: "Noto Color Emoji";
+}
+
+.background {
+  background-color: var(--background);
+}
+
+/* =======================
+   Bar Containers
+   ======================= */
+#start,
+#center,
+#end {
+  background-color: var(--background);
+  padding: 0 0.75em;
+}
+
+/* Remove border from the start menu icon itself */
+#start > menu {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+#logo label {
+  font-size: 20px;
+}
+
+#popup-logo label {
+  font-size: var(--font-md);
+}
+
+/* Widgets */
+box,
+button,
+label {
+  background: transparent;
+  color: var(--foreground);
+  font-weight: bold;
+}
+button {
+  padding: 0 var(--margin-sm);
+}
+button:hover,
+button:active {
+  background-color: var(--color8);
+}
+
+
+
+/* Popovers & menus */
+popover,
+popover contents,
+calendar {
+  background-color: var(--background);
+  border: 1px solid var(--color8);
+  border-radius: var(--radius-sm);
+  font-weight: bold;
+}
+
+/* Calendar */
+.popup-clock {
+  padding: 10px 14px;
+}
+
+.popup-clock .calendar-clock {
+  font-size: 20px;
+  padding-bottom: 10px;
+  color: var(--foreground);
+}
+
+.popup-clock .calendar {
+  padding: 8px;
+}
+
+.popup-clock .calendar header button {
+  color: var(--color6);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.popup-clock .calendar header button:hover {
+  background-color: var(--color8);
+}
+
+.popup-clock .calendar label.day-name {
+  color: var(--color6);
+  font-size: var(--font-sm);
+  padding: 4px 6px;
+}
+
+.popup-clock .calendar label.day-number {
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.popup-clock .calendar label.day-number:hover {
+  background-color: var(--color8);
+}
+
+.popup-clock .calendar label.day-number.today {
+  background-color: var(--color6);
+  color: var(--background);
+}
+
+.popup-clock .calendar label.day-number.other-month {
+  color: var(--color8);
+}
+
+/* Workspaces */
+.workspaces .item {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color8);
+  padding: 0 4px;
+}
+
+.workspaces .item.visible {
+  color: var(--foreground);
+  box-shadow: inset 0 -1px var(--foreground);
+}
+
+.workspaces .item:hover {
+  border-radius: 0;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.workspaces .item.focused {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--color6);
+  border-radius: 0;
+  box-shadow: inset 0 -1px var(--color6);
+}
+
+.workspaces .item.urgent {
+  color: #f38ba8;
+  box-shadow: inset 0 -1px #f38ba8;
+}
+
+.volume {
+  margin-top: 1px;
+}
+
+/* Bluetooth */
+.bluetooth label {
+  font-size: 15px;
+}
+
+/* Bluetooth states */
+.bluetooth.not-found,
+.bluetooth.disabled {
+  opacity: 0.4;
+}
+
+.bluetooth.connected {
+  color: #a6e3a1;
+}
+
+
+/* Volume popup */
+.popup-volume {
+  padding: 2px 4px;
+  font-size: var(--font-sm);
+  border-radius: var(--radius-sm);
+}
+.popup-volume .device-box .slider slider,
+.popup-volume .apps-box .slider slider {
+  min-width: 16px;
+  min-height: 16px;
+  border-radius: 50%;
+}
+.popup-volume .device-box scale trough,
+.popup-volume .apps-box scale trough {
+  min-height: 5px;
+}
+
+.clock {
+  margin-top: 1px;
+}
+
+/* Bluetooth popup */
+.popup-bluetooth {
+  padding: 6px 8px;
+}
+
+.popup-bluetooth .header {
+  padding: 2px 4px;
+}
+
+.popup-bluetooth .header .switch {
+  margin-right: 6px;
+}
+
+.popup-bluetooth .devices .box {
+  margin-top: 14px;
+}
+
+.popup-bluetooth .devices .box .device {
+  border: 1px solid var(--color8);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin-bottom: 4px;
+}
+
+.popup-bluetooth .devices .box .device .status .header-label {
+  font-size: var(--font-md);
+}
+
+.popup-bluetooth .devices .box .device .status .footer-label {
+  font-size: var(--font-sm);
+  opacity: 0.7;
+}
+
+/* Bluetooth popup switches */
+.popup-bluetooth .switch {
+  background-color: var(--color8);
+  border-radius: var(--radius-full);
+}
+
+.popup-bluetooth .switch:checked {
+  background-color: var(--color6);
+}
+
+.popup-bluetooth .switch slider {
+  background-color: var(--foreground);
+  border-radius: 50%;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.popup-bluetooth .switch image {
+  background-color: var(--foreground);
+  border-radius: 50%;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+/* ===========================
+   Music Player Popup
+
+   Widget tree (from source):
+   .popup-music
+   └── box (V, 10px)
+       ├── box (H, 10px) [main]
+       │   ├── picture.album-art (128x128)
+       │   ├── box (V, 10px) [info]
+       │   │   ├── box.title > [icon, label]
+       │   │   ├── box.album > [icon, label]
+       │   │   ├── box.artist > [icon, label]
+       │   │   └── box.controls (H)
+       │   │       ├── button.btn-prev
+       │   │       ├── button.btn-play
+       │   │       ├── button.btn-pause
+       │   │       └── button.btn-next
+       │   └── box.volume (V, 5px)
+       │       ├── scale.slider (vertical, inverted)
+       │       └── label.icon
+       └── box.progress (H, 5px)
+           ├── scale.slider
+           └── label
+   =========================== */
+
+/* Popup container — tight padding */
+.popup-music {
+  padding: 4px 6px;
+}
+
+/* Top-level vertical box — reduce inner spacing */
+.popup-music > box {
+  spacing: 6px;
+}
+
+/* Main horizontal container — reduce gap between art and info */
+.popup-music > box > box:first-child {
+  spacing: 8px;
+}
+
+/* Album art — fixed size */
+.popup-music .album-art {
+  min-width: 110px;
+  max-width: 110px;
+  min-height: 110px;
+  max-height: 110px;
+  border-radius: var(--radius-sm);
+}
+
+/* Track info — title */
+.popup-music .title label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--foreground);
+}
+
+/* Track info — album */
+.popup-music .album label {
+  font-size: var(--font-sm);
+  color: var(--color6);
+  opacity: 0.85;
+}
+
+/* Track info — artist */
+.popup-music .artist label {
+  font-size: var(--font-sm);
+  opacity: 0.7;
+}
+
+/* Prefix icons — dim and add spacing */
+.popup-music .title .icon,
+.popup-music .title .text-icon,
+.popup-music .album .icon,
+.popup-music .album .text-icon,
+.popup-music .artist .icon,
+.popup-music .artist .text-icon {
+  opacity: 0.4;
+  margin-right: 6px;
+}
+
+/* Controls — bigger buttons */
+.popup-music .controls {
+  margin-top: 4px;
+}
+
+.popup-music .controls button {
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  opacity: 0.7;
+  font-size: 18px;
+}
+
+.popup-music .controls button:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.popup-music .controls .btn-play,
+.popup-music .controls .btn-pause {
+  opacity: 1;
+  font-size: 22px;
+}
+
+/* Progress bar */
+.popup-music .progress {
+  margin: 0;
+  padding: 0;
+}
+
+.popup-music .progress scale {
+  margin: 0;
+  padding: 0;
+}
+
+.popup-music .progress label {
+  font-size: 11px;
+  opacity: 0.5;
+  font-weight: normal;
+}
+
+.popup-music .progress scale trough {
+  min-height: 3px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+}
+
+.popup-music .progress scale trough highlight {
+  background-color: var(--color6);
+  border-radius: var(--radius-full);
+}
+
+.popup-music .progress scale slider,
+.popup-music .progress .slider slider {
+  min-width: 6px;
+  min-height: 6px;
+  max-width: 6px;
+  max-height: 6px;
+  background-color: var(--foreground);
+  border-radius: 50%;
+  margin: -2px;
+  padding: 0;
+}
+
+/* Volume — thin vertical strip */
+.popup-music .volume {
+  margin: 0;
+  padding: 0;
+}
+
+.popup-music .volume .icon {
+  min-width: 0;
+  max-width: 0;
+  min-height: 0;
+  max-height: 0;
+  opacity: 0;
+}
+
+.popup-music .volume scale {
+  min-height: 80px;
+  min-width: 3px;
+  max-width: 3px;
+}
+
+.popup-music .volume scale trough {
+  min-width: 3px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+}
+
+.popup-music .volume scale trough highlight {
+  background-color: var(--color6);
+  border-radius: var(--radius-full);
+}
+
+.popup-music .volume scale slider {
+  min-width: 6px;
+  min-height: 6px;
+  max-width: 6px;
+  max-height: 6px;
+  margin: -2px;
+  padding: 0;
+  background-color: var(--foreground);
+  border-radius: 50%;
+}

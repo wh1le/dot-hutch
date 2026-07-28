@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+update_var() {
+  local output
+  output=$("$(dirname "$0")/weather-forecast" waybar 2>/dev/null)
+  if [ -n "$output" ]; then
+    text=$(echo "$output" | jq -r '.text // empty' 2>/dev/null)
+    [[ -n "$text" ]] && ironbar var set weather "$text"
+  fi
+}
+
+case "${1:-state}" in
+  state)
+    update_var
+    ;;
+  watch)
+    while true; do
+      update_var
+      sleep 1800
+    done
+    ;;
+  *)
+    echo "Usage: $0 [state|watch]"
+    ;;
+esac

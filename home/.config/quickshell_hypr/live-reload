@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# export HYPRLAND_INSTANCE_SIGNATURE=$(hyprctl instances -j | jq -r '.[0].instance')
+QS_PGID=""
+
+restart() {
+  # Kill entire process group (quickshell + all its children)
+  [[ -n "$QS_PGID" ]] && kill -- -"$QS_PGID" 2>/dev/null
+  wait 2>/dev/null
+  setsid quickshell &
+  QS_PGID=$!
+}
+
+trap '[[ -n "$QS_PGID" ]] && kill -- -"$QS_PGID" 2>/dev/null; exit' EXIT INT TERM
+
+kill_by_name quickshell
+restart
+
+inotifywait -mr -e close_write,move,create,delete \
+  --exclude '(scripts/|\.log)' \
+  ~/.config/quickshell |
+  while read -r; do
+    restart
+  done

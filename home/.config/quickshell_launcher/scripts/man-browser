@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+man_dirs=(
+  /run/current-system/sw/share/man
+  "$HOME/.nix-profile/share/man"
+  /usr/share/man
+  /usr/local/share/man
+  /opt/local/share/man
+)
+
+parse_mandb() {
+  sed -E 's/^(\S+)\s+\(([0-9])\).*/\1 \2/'
+}
+
+parse_filename() {
+  grep '/man[0-9]' | sed -E 's|.*/man([0-9]+)/([^/]+)\.[0-9]+\.gz$|\2 \1|'
+}
+
+list_pages() {
+  if man -k . 2>/dev/null | head -1 | grep -q .; then
+    man -k . 2>/dev/null | parse_mandb | sort -u
+    return
+  fi
+
+  for dir in "${man_dirs[@]}"; do
+    [[ -d "$dir" ]] || continue
+    find -L "$dir" -type f -name "*.gz" 2>/dev/null
+  done | parse_filename | sort -u
+}
+
+term="${TERMINAL:-kitty}"
+
+case "${1:-list}" in
+  list)
+    list_pages
+    ;;
+  preview)
+    read -r page section <<<"${2:-}"
+    [[ -z "$page" ]] && exit 0
+    MANWIDTH=80 man "$section" "$page" 2>/dev/null | head -100
+    ;;
+  select)
+    read -r page section <<<"${2:-}"
+    [[ -z "$page" ]] && exit 0
+    exec "$term" --title "man $page" man "$section" "$page"
+    ;;
+esac

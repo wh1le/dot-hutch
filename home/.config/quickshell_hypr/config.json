@@ -1,0 +1,67 @@
+{
+  "appearance": {
+    "fonts": {
+      "main": "Google Sans Flex",
+      "monospace": "JetBrains Mono NF",
+      "numbers": "Google Sans Flex",
+      "title": "Google Sans Flex"
+    }
+  },
+  "audio": {
+    "protection": {
+      "enable": false,
+      "maxAllowed": 99,
+      "maxAllowedIncrease": 10
+    }
+  },
+  "bar": {
+    "weather": {
+      "enable": true,
+      "fetchInterval": 30
+    }
+  },
+  "battery": {
+    "automaticSuspend": true,
+    "critical": 5,
+    "full": 101,
+    "low": 20,
+    "suspend": 3
+  },
+  "calendar": {
+    "locale": "en-GB"
+  },
+  "light": {
+    "night": {
+      "automatic": true,
+      "colorTemperature": 5000,
+      "from": "19:00",
+      "to": "06:30"
+    }
+  },
+  "media": {
+    "filterDuplicatePlayers": true
+  },
+  "notifications": {
+    "timeout": 7000
+  },
+  "time": {
+    "dateFormat": "ddd, dd/MM",
+    "dateWithYearFormat": "dd/MM/yyyy",
+    "format": "HH:mm",
+    "secondPrecision": false,
+    "shortDateFormat": "dd/MM"
+  },
+  "tray": {
+    "filterPassive": true,
+    "invertPinnedItems": true,
+    "pinnedItems": [],
+    "showItemId": false,
+    "trayApps": ["com.github.vikdevelop.timer"],
+    "systemdServices": [
+      { "name": "iso-vpn" },
+      { "name": "protonmail-bridge", "user": true },
+      { "name": "graphical-session.target" },
+      { "name": "care.service" }
+    ]
+  }
+}

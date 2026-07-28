@@ -1,0 +1,264 @@
+{
+  "general": {
+    "terminal": {
+      "name": "kitty"
+    },
+
+    "desktop": {
+      "name": "hyprland",
+      "launcher_class": "launcher"
+    },
+
+    "picker": {
+      "name": "fzf",
+      "launch_options": [
+        "--ansi",
+        "--margin=1,1,1,1",
+        "--cycle",
+        "--color=gutter:-1,border:238,scrollbar:238",
+        "--prompt=> ",
+        "--bind=esc:abort",
+        "--bind=ctrl-d:preview-half-page-down",
+        "--bind=ctrl-u:preview-half-page-up",
+        "--bind=ctrl-f:preview-page-down",
+        "--bind=ctrl-b:preview-page-up"
+      ]
+    }
+  },
+
+  "styles": {
+    "default": {
+      "desktop": {
+        "width": "350",
+        "height": "300",
+        "position": "center"
+      },
+      "terminal": {
+        "font-size": 13
+      }
+    },
+
+    "default-compcat": {
+      "desktop": {
+        "width": "350",
+        "height": "300",
+        "position": "center"
+      },
+      "terminal": {
+        "font-size": 11
+      }
+    },
+
+    "icons_preview": {
+      "desktop": {
+        "width": "400",
+        "height": "500",
+        "position": "center"
+      },
+      "terminal": {
+        "font-size": 13
+      }
+    },
+
+    "wide_compact_list": {
+      "desktop": {
+        "width": "400",
+        "height": "500",
+        "position": "center"
+      },
+      "terminal": {
+        "font-size": 12
+      }
+    },
+
+    "wide": {
+      "desktop": {
+        "width": "800",
+        "height": "500",
+        "position": "center"
+      },
+      "terminal": {
+        "font-size": 10
+      }
+    }
+  },
+
+  "options": [
+    {
+      "label": " Manuals",
+      "option_name": "man-browser",
+      "style": "wide"
+    },
+    {
+      "label": " Fonts",
+      "option_name": "font-preview",
+      "style": "wide"
+    },
+    {
+      "label": " Network",
+      "script_command": "wifitui",
+      "style": "wide"
+    },
+    {
+      "label": " Systemd",
+      "option_name": "systemd-services",
+      "style": "wide"
+    },
+    {
+      "label": "󱘖 SSH",
+      "option_name": "ssh-connect",
+      "style": "wide_compact_list"
+    },
+    {
+      "label": " Aur search",
+      "option_name": "aur-search",
+      "style": "wide"
+    },
+    {
+      "label": "󰋩 Screenshots",
+      "option_name": "screenshot-browser",
+      "style": "wide"
+    },
+    {
+      "label": "󰖟 Browser History",
+      "option_name": "browser-history",
+      "style": "wide"
+    },
+    {
+      "label": " Browser Bookmarks",
+      "option_name": "browser-bookmarks",
+      "style": "wide"
+    },
+    {
+      "label": "󰕧 Search Youtube",
+      "script_command": "gophertube",
+      "style": "wide"
+    },
+    {
+      "label": "󰣆 Applications",
+      "option_name": "applications",
+      "style": "default"
+    },
+    {
+      "label": " 2FA OTP",
+      "option_name": "pass-otp",
+      "style": "wide_compact_list"
+    },
+    {
+      "label": " Ruby Gems",
+      "option_name": "ruby-gems",
+      "style": "wide"
+    },
+    {
+      "label": "󰧻 Kill Process",
+      "option_name": "kill-process",
+      "style": "wide"
+    },
+    {
+      "label": "󰐥 Power Management",
+      "option_name": "power-management",
+      "style": "default"
+    },
+    {
+      "label": " Passwords",
+      "option_name": "pass-list",
+      "option_args": "--safe-mode",
+      "style": "wide_compact_list"
+    },
+    {
+      "label": " Passwords (All)",
+      "option_name": "pass-list",
+      "style": "wide_compact_list"
+    },
+    {
+      "label": " Audio",
+      "script_command": "wiremix",
+      "style": "wide"
+    },
+    {
+      "label": " (Nix) Packages",
+      "option_name": "nix-search-packages",
+      "style": "wide"
+    },
+    {
+      "label": " (Nix) Options",
+      "option_name": "nix-search-options",
+      "style": "wide"
+    },
+    {
+      "label": " Clipboard",
+      "option_name": "clipboard-history",
+      "style": "wide"
+    },
+    {
+      "label": "󰌾 WireGuard VPN",
+      "option_name": "wg-manage",
+      "style": "default-compcat"
+    },
+    {
+      "label": "󱠾 OpenVPN Connect",
+      "option_name": "openvpn-connect",
+      "style": "default"
+    },
+    {
+      "label": "󰤨 Wi-Fi connect",
+      "option_name": "wifi-connect",
+      "style": "wide"
+    },
+    {
+      "label": " Color Picker",
+      "script_command": "hyprpicker |wl-copy",
+      "style": "default"
+    },
+    {
+      "label": "󰞅 Emoji Picker",
+      "option_name": "emoji-picker",
+      "style": "wide_compact_list"
+    },
+    {
+      "label": " Nerd Font Picker",
+      "option_name": "nerd-icon-picker",
+      "style": "icons_preview"
+    },
+    {
+      "label": " (Nix) Switch",
+      "option_name": "nix-switch",
+      "style": "wide"
+    },
+    {
+      "label": "󰍹 Display Profiles (Kanshi)",
+      "option_name": "kanshi-profiles",
+      "style": "default"
+    },
+    {
+      "label": " (Nix) Home Options",
+      "option_name": "nix-search-home-options",
+      "style": "wide"
+    },
+    {
+      "label": " Bluetooth",
+      "script_command": "bluetui",
+      "style": "wide"
+    },
+    {
+      "label": "󰣌 Wallpaper",
+      "option_name": "wallpaper",
+      "style": "wide"
+    },
+    {
+      "label": " Scan OTP",
+      "option_name": "pass-scan-otp",
+      "style": "default"
+    },
+    {
+      "label": "󰲸 (MPD) Create Playlist",
+      "script_command": "$HOME/.local/bin/public/mpd-create-new-playlist",
+      "style": "default"
+    },
+    {
+      "label": " (MPD) Add Song to Playlist",
+      "script_command": "$HOME/.local/bin/public/mpd-add-current-song-to-playlist",
+      "style": "default"
+    }
+  ]
+}

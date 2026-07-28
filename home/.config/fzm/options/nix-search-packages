@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+choice=$(
+  nix-search-tv print --indexes nixpkgs |
+    fzm --dmenu --tty -p "--margin='0,0,0,0' --preview 'nix-search-tv preview --indexes nixpkgs {}' --preview-window=top,55%,wrap --preview-label='docs' --preview-label-pos=1"
+) || exit 0
+[[ -z "$choice" ]] && exit 0
+
+printf "$choice" | wl-copy
+
+notify-send "NixOS Search Copied" "$choice"
+
+exit 0

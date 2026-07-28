@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Kill previous watchers from old ironbar instances
+pkill -f "ironbar/scripts/.* watch" 2>/dev/null
+
+~/.config/ironbar/scripts/caffeine watch &
+~/.config/ironbar/scripts/sunset state
+~/.config/ironbar/scripts/wireguard watch &
+~/.config/ironbar/scripts/encryption watch &
+~/.config/ironbar/scripts/submap watch &
+~/.config/ironbar/scripts/mic watch &
+~/.config/ironbar/scripts/floating watch &
+~/.config/ironbar/scripts/language watch &
+~/.config/ironbar/scripts/date-emoji
+~/.config/ironbar/scripts/weather watch &

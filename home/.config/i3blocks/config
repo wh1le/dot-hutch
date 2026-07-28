@@ -1,0 +1,84 @@
+separator=false
+separator_block_width=12
+markup=pango
+
+[systemd]
+command=svcs="iso-vpn graphical-session.target care.service"; usvcs="protonmail-bridge"; a=0; for s in $svcs; do timeout 2 systemctl is-active --quiet "$s" && a=1; done; for s in $usvcs; do timeout 2 systemctl --user is-active --quiet "$s" && a=1; done; case $BLOCK_BUTTON in 1) setsid --fork i3-sensible-terminal -e sh -c 'systemctl status '"$svcs"' '"$usvcs"'; read x' >/dev/null 2>&1 ;; esac; [ $a = 1 ] && c='#8ec07c' || c='#55585e'; echo "<span size='${I3B_ISZ:-9216}' color='$c'>󰒃</span>"
+interval=10
+signal=1
+
+[vpn]
+command=case $BLOCK_BUTTON in 1) setsid --fork kitty --class launcher wg-manage >/dev/null 2>&1 ;; esac; ip -o link show type wireguard 2>/dev/null | grep -q . && c='#8ec07c' || c='#55585e'; echo "<span size='${I3B_ISZ:-9216}' color='$c'>󰦝</span>"
+interval=10
+signal=2
+
+[encrypted_devises]
+command=mount 2>/dev/null | grep -qE ' on /mnt/personal_[^ ]* ' && c='#8ec07c' || c='#55585e'; echo "<span size='${I3B_ISZ:-9216}' color='$c'>󰌾</span>"
+interval=10
+signal=3
+
+[caffeine]
+command=[ "$BLOCK_BUTTON" = 1 ] && $HOME/.local/bin/public/system-daemon-caffeine toggle; [ -e /tmp/i3blocks-caffeine ] && c='#8ec07c' || c='#55585e'; echo "<span size='${I3B_ISZ:-9216}' color='$c'>󰅶</span>"
+interval=once
+signal=4
+
+[nightshift]
+command=[ "$BLOCK_BUTTON" = 1 ] && $HOME/.local/bin/public/system-daemon-nightshift toggle; [ -e /tmp/i3blocks-nightshift ] && c='#d8a657' || c='#55585e'; echo "<span size='${I3B_ISZ:-9216}' color='$c'>󰖔</span>"
+interval=once
+signal=5
+
+[divB]
+command=echo "<span size='${I3B_ISZ:-9216}' color='#55585e'>│</span>"
+
+[volume]
+command=case $BLOCK_BUTTON in 1) setsid --fork kitty --class launcher wiremix >/dev/null 2>&1 ;; 3) pamixer -t 2>/dev/null;; esac; if timeout 1 pamixer --get-mute 2>/dev/null | grep -q true; then i='󰖁'; c='#55585e'; else v=$(timeout 1 pamixer --get-volume 2>/dev/null); c='#9b9da1'; if [ "${v:-0}" -gt 66 ]; then i='󰕾'; elif [ "${v:-0}" -gt 33 ]; then i='󰖀'; elif [ "${v:-0}" -gt 0 ]; then i='󰕿'; else i='󰖁'; fi; fi; echo "<span size='${I3B_ISZ:-9216}' color='$c'>$i</span>"
+interval=once
+signal=10
+
+[bluetooth]
+command=case $BLOCK_BUTTON in 1) setsid --fork kitty --class launcher bluetui >/dev/null 2>&1 ;; esac; if ! timeout 2 bluetoothctl show 2>/dev/null | grep -q "Powered: yes"; then i='󰂲'; c='#55585e'; elif timeout 2 bluetoothctl devices Connected 2>/dev/null | grep -q .; then i='󰂱'; c='#9b9da1'; else i='󰂯'; c='#55585e'; fi; echo "<span size='${I3B_ISZ:-9216}' color='$c'>$i</span>"
+interval=10
+signal=6
+
+[network]
+command=case $BLOCK_BUTTON in 1) setsid --fork kitty --class launcher nmtui >/dev/null 2>&1 ;; esac; st=$(timeout 2 nmcli -t -f TYPE,STATE dev 2>/dev/null); if echo "$st" | grep -q '^ethernet:connected'; then i='󰈀'; c='#9b9da1'; elif echo "$st" | grep -q '^wifi:connected'; then i='󰖩'; c='#9b9da1'; else i='󰖪'; c='#55585e'; fi; echo "<span size='${I3B_ISZ:-9216}' color='$c'>$i</span>"
+interval=10
+signal=7
+
+[divC]
+command=echo "<span size='${I3B_ISZ:-9216}' color='#55585e'>│</span>"
+
+[language]
+command=case $BLOCK_BUTTON in 1) $HOME/.local/bin/public/x11/change-input-source;; esac; l=$(xkb-switch 2>/dev/null); echo "<span color='#55585e'><b>$l</b></span>"
+interval=once
+signal=8
+
+[weather]
+command=f=/tmp/i3blocks-weather; t=$(timeout 15 $HOME/.local/bin/public/waybar/weather-forecast waybar 2>/dev/null | python3 -c "import sys,json;print(json.load(sys.stdin).get('text',''))" 2>/dev/null); t=$(echo "$t" | sed -e 's/<[^>]*>//g' -e 's/&/\&amp;/g'); if [ -n "$t" ]; then printf '%s' "$t" > "$f"; else t=$(cat "$f" 2>/dev/null); fi; [ -n "$t" ] && echo "<span color='#9b9da1'>$t</span>"
+interval=1800
+signal=9
+
+[dateemoji]
+command=m=$(date +%-m); set -- "❄️" "👵🏻" "👩🏻" "🪻" "🌼" "☀️" "🎂" "🍉" "🍂" "🫖" "☃️" "🎄"; eval e=\${$m}; echo "<span font='Noto Color Emoji ${I3B_EPT:-7}'>$e</span>"
+interval=3600
+signal=11
+
+[battery]
+command=p=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -1); [ -z "$p" ] && exit 0; s=$(cat /sys/class/power_supply/BAT*/status 2>/dev/null | head -1); if [ "$s" = Charging ]; then i='󰂄'; c='#8ec07c'; t="~$p%"; else t="$p%"; i='󰁹'; if [ "$p" -le 5 ]; then c='#ea6962'; elif [ "$p" -le 20 ]; then c='#d8a657'; else c='#9b9da1'; fi; fi; echo "<span size='${I3B_ISZ:-9216}' color='$c'>$i</span> <span color='$c'>$t</span>"
+interval=30
+signal=12
+
+[clock]
+command=echo "<span color='#5195AC'>$(date +%H:%M)</span>"
+interval=10
+signal=13
+
+[date]
+command=echo "<span color='#5195AC'>$(date +%d)</span><span color='#55585e'>/</span><span color='#9b9da1'>$(date +%m)</span>"
+interval=3600
+signal=14
+
+[notification]
+command=command -v dunstctl >/dev/null || exit 0; case $BLOCK_BUTTON in 1) dunstctl history-pop >/dev/null 2>&1;; esac; n=$(timeout 2 dunstctl count waiting 2>/dev/null); if [ "${n:-0}" -gt 0 ]; then echo "<span size='${I3B_ISZ:-9216}' color='#5195AC'>󰂞</span> <span color='#5195AC'>$n</span>"; fi
+interval=5
+signal=15

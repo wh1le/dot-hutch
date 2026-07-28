@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+man_dirs=(
+  /run/current-system/sw/share/man
+  "$HOME/.nix-profile/share/man"
+  /usr/share/man
+  /usr/local/share/man
+  /opt/local/share/man
+)
+
+parse_mandb() {
+  sed -E 's/^(\S+)\s+\(([0-9])\).*/\1 \2/'
+}
+
+parse_filename() {
+  # /path/man1/foo.1.gz -> foo 1
+  grep '/man[0-9]' | sed -E 's|.*/man([0-9]+)/([^/]+)\.[0-9]+\.gz$|\2 \1|'
+}
+
+list_pages() {
+  # try man -k first (works on most distros with mandb)
+  if man -k . 2>/dev/null | head -1 | grep -q .; then
+    man -k . 2>/dev/null | parse_mandb | sort -u
+    return
+  fi
+
+  # fallback: scan filesystem (NixOS, etc)
+  for dir in "${man_dirs[@]}"; do
+    [[ -d "$dir" ]] || continue
+    find -L "$dir" -type f -name "*.gz" 2>/dev/null
+  done | parse_filename | sort -u
+}
+
+preview='MANWIDTH=80 man {1}.{2} 2>/dev/null | head -100'
+
+choice=$(list_pages | fzm --tty --dmenu -p "\
+  --preview='$preview' \
+  --preview-window=right,70%,wrap \
+  --prompt='man> '") || exit 0
+
+[[ -z "$choice" ]] && exit 0
+
+read -r page section <<<"$choice"
+MANPAGER="${PAGER:-less}" man "$page.$section"

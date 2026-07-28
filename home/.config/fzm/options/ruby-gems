@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/fzm"
+cache_file="${cache_dir}/ruby-gems"
+cache_max_age=86400 # 24 hours
+
+mkdir -p "$cache_dir"
+
+# refresh cache if missing or older than max age
+if [[ ! -f "$cache_file" ]] || [[ $(($(date +%s) - $(stat -c %Y "$cache_file"))) -gt $cache_max_age ]]; then
+  gem search --remote --no-versions '' > "$cache_file"
+fi
+
+choice=$(
+  cat "$cache_file" |
+    fzm --tty --dmenu -p " --margin='0,0,0,0' --tiebreak=begin,length --preview 'gem info --remote {}' --scheme default --preview-window=top,55%,wrap --preview-label='docs' --preview-label-pos=1"
+) || exit 0
+
+[[ -z "${choice:-}" ]] && exit 0
+
+notify-send "RubyGems: gem copied" "$choice"
+printf '%s' "$choice" | wl-copy

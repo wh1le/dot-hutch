@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+export XDG_SESSION_TYPE=x11
+export XDG_CURRENT_DESKTOP=i3
+
+case "$(hostname)" in
+thinkpad)
+	xremap_dev=(--device "AT Translated Set 2 keyboard")
+	;;
+homepc)
+	xremap_dev=(--ignore "SteelSeries SteelSeries Rival 3 Wireless Keyboard")
+	;;
+*)
+	xremap_dev=()
+	;;
+esac
+
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+
+[ -r "$HOME/.Xresources" ] && xrdb -merge "$HOME/.Xresources"
+[ -r "$HOME/.cache/wal/colors.Xresources" ] && xrdb -merge "$HOME/.cache/wal/colors.Xresources"
+
+vars="DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+
+systemctl --user import-environment $vars
+
+dbus-update-activation-environment --systemd $vars
+
+systemctl --user start polkit-gnome.service
+systemctl --user reset-failed xdg-desktop-portal-gtk.service 2>/dev/null
+systemctl --user restart xdg-desktop-portal.service xdg-desktop-portal-gtk.service 2>/dev/null
+
+if [ "$(hostname)" = homepc ]; then
+	"$HOME/.local/bin/public/bluetooth-startup-connect" &
+fi
+
+pgrep -x xremap >/dev/null || xremap "${xremap_dev[@]}" --watch=config,device "$HOME/.config/xremap/config.yml" &
+
+copyq --start-server &
+mpd-mpris -no-instance &
+
+update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 &
+
+ssh-add -l 2>/dev/null | grep -q homepc || ssh-add "$HOME/.ssh/homepc" >/dev/null 2>&1 &
+
+exec i3 || exec xterm

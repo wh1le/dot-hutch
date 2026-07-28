@@ -1,0 +1,15 @@
+! Boot default; autorandr postswitch overrides per display profile.
+Xft.dpi: 110
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+! Shared font — read by i3 (set_from_resource) and any X app that honors it.
+i3wm.font: pango:PragmataPro Mono 11
+
+! Cursor theme (rose-pine-cursor) — applied to X root + apps honoring Xcursor.*
+Xcursor.theme: BreezeX-RosePine-Linux
+Xcursor.size: 24

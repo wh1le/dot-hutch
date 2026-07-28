@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+preview='
+pid={1}
+info=$(ps -p $pid -o pid=,ppid=,user=,%cpu=,%mem=,etime=,comm= 2>/dev/null) || exit 0
+read -r pid ppid user cpu mem time cmd <<< "$info"
+
+printf "cmd:  %s\n" "$cmd"
+printf "pid:  %s  ppid: %s\n" "$pid" "$ppid"
+printf "user: %s\n" "$user"
+printf "cpu:  %s%%  mem: %s%%\n" "$cpu" "$mem"
+printf "time: %s\n" "$time"
+
+children=$(ps --ppid $pid -o pid=,comm= 2>/dev/null)
+if [[ -n "$children" ]]; then
+  printf "\nchildren:\n%s\n" "$children"
+fi
+'
+
+# gui apps from hyprland
+gui_apps=$(
+  hyprctl clients -j 2>/dev/null |
+    jq -r '.[] | "\(.pid) \(.class)"' |
+    while read -r pid class; do
+      info=$(ps -p "$pid" -o pcpu=,pmem= 2>/dev/null) || continue
+      read -r cpu mem <<< "$info"
+      printf "%-7s %5s%% %5s%%  %s\n" "$pid" "$cpu" "$mem" "$class"
+    done
+)
+
+# all user processes
+all_procs=$(
+  ps -eo pid,pcpu,pmem,comm --sort=-pcpu |
+    awk 'NR>1 && NR<=100 {printf "%-7s %5s%% %5s%%  %s\n", $1, $2, $3, $4}'
+)
+
+choice=$(
+  printf "%s\n%s" "$gui_apps" "$all_procs" |
+    awk '!seen[$1]++' |
+    fzm --tty --dmenu -p " \
+      --prompt='kill> ' \
+      --header='PID     CPU%   MEM%   CMD' \
+      --preview='$preview' \
+      --preview-window=right:40%:wrap \
+    "
+) || exit 0
+
+[[ -z "${choice:-}" ]] && exit 0
+
+pid=$(awk '{print $1}' <<<"$choice")
+[[ -z "$pid" ]] && exit 0
+
+if ! kill "$pid" 2>/dev/null; then
+  sudo kill "$pid"
+fi

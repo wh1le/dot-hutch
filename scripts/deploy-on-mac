@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_URL="${REPO_URL:-https://github.com/wh1le/dot-hutch.git}"
+REPO_DIR="${REPO_DIR:-$HOME/Code/dot-hutch}"
+if [ "$(uname -m)" = x86_64 ]; then
+  TARGET="${TARGET:-mac-intel}"
+else
+  TARGET="${TARGET:-mac}"
+fi
+CA="$HOME/.cache/nix/corp-ca.pem"
+
+[ "$(uname -s)" = Darwin ] || {
+  echo "macOS only"
+  exit 1
+}
+
+mkdir -p "$(dirname "$CA")"
+security find-certificate -a -p /Library/Keychains/System.keychain >"$CA" 2>/dev/null || true
+security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >>"$CA" 2>/dev/null || true
+
+SUDO_ENV=()
+if [ -s "$CA" ]; then
+  export NIX_SSL_CERT_FILE="$CA" GIT_SSL_CAINFO="$CA"
+  SUDO_ENV=(NIX_SSL_CERT_FILE="$CA" GIT_SSL_CAINFO="$CA")
+fi
+
+NIX_SH=/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+[ -e "$NIX_SH" ] && . "$NIX_SH"
+
+command -v nix >/dev/null || {
+  curl --proto '=https' --tlsv1.2 -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confirm
+  . "$NIX_SH"
+}
+
+[ -d "$REPO_DIR/.git" ] || git clone --recurse-submodules "$REPO_URL" "$REPO_DIR"
+
+if command -v darwin-rebuild >/dev/null; then
+  sudo "${SUDO_ENV[@]}" darwin-rebuild switch --flake "$REPO_DIR#$TARGET"
+else
+  sudo "${SUDO_ENV[@]}" nix run github:nix-darwin/nix-darwin -- switch --flake "$REPO_DIR#$TARGET"
+fi

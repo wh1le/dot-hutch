@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Mailspring
+Exec=flatpak run --branch=stable --arch=x86_64 --command=mailspring com.getmailspring.Mailspring --password-store=gnome-libsecret %U
+Icon=com.getmailspring.Mailspring
+Type=Application
+Categories=Network;Email;
+MimeType=x-scheme-handler/mailto;
+StartupWMClass=Mailspring

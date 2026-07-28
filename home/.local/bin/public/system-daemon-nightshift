@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+FLAG="/tmp/i3blocks-nightshift"
+TEMP=4000
+
+on() {
+  pkill redshift 2>/dev/null
+  redshift -O "$TEMP" >/dev/null 2>&1
+  : >"$FLAG"
+}
+
+off() {
+  pkill redshift 2>/dev/null
+  redshift -x >/dev/null 2>&1
+  rm -f "$FLAG"
+}
+
+case "${1:-}" in
+state)
+  [ -e "$FLAG" ] && echo "true" || echo "false"
+  ;;
+on | start)
+  on
+  [ "$2" = "-n" ] && notify-send '󰖔 Nightshift' 'Warm colors on.'
+  ;;
+off | stop)
+  off
+  [ "$2" = "-n" ] && notify-send '󰖔 Nightshift' 'Colors reset.'
+  ;;
+toggle)
+  if [ -e "$FLAG" ]; then
+    off
+    msg='Colors reset.'
+  else
+    on
+    msg='Warm colors on.'
+  fi
+  [ "$2" = "-n" ] && notify-send '󰖔 Nightshift' "$msg"
+  ;;
+*)
+  echo "Usage: $0 [toggle|on|start|off|stop|state] [-n]"
+  exit 1
+  ;;
+esac

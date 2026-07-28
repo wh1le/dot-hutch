@@ -1,0 +1,1 @@
+-- diff*/gitDiff* highlight colors moved to config/colors.lua

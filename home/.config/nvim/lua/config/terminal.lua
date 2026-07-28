@@ -1,0 +1,1 @@
+-- Standard ANSI :terminal palette (terminal_color_0..15) moved to config/colors.lua

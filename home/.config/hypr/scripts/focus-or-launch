@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+class="$1"
+shift
+
+if hyprctl clients -j | jq -e ".[] | select(.class == \"$class\")" &>/dev/null; then
+  hyprctl dispatch focuswindow "class:$class"
+  hyprctl dispatch bringactivetotop
+else
+  uwsm app -- "$@" &
+fi

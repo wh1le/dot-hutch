@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+# View nested images under $1 (a dir) or the current dir, in a detached mpv window.
+source ${0:h}/../../zsh/modules/media.zsh 2>/dev/null
+[[ -d $1 ]] && cd -- $1
+media-image-play >/dev/null 2>&1

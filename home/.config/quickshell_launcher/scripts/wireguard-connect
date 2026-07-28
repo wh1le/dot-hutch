@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+WG="$HOME/.local/bin/public/wg-manage"
+term="${TERMINAL:-kitty}"
+
+case "${1:-list}" in
+  list)
+    "$WG" --list
+    ;;
+  select)
+    name="${2:-}"
+    [[ -z "$name" ]] && exit 0
+    exec "$term" --title "wg: $name" "$WG" --connect="$name"
+    ;;
+esac

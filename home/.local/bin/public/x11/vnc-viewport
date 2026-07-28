@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+out=DP-0
+export DISPLAY=:0
+
+native=$(xrandr | awk -v o="$out" '$1==o{f=1;next} f&&/\*/{print $1; exit}')
+[ -n "$native" ] || exit 0
+
+case "${1:-}" in
+on)
+  meta="$out: $native { ViewPortIn=1920x1200, ViewPortOut=$native+0+0 }"
+  dpi=110
+  ;;
+off)
+  meta="$out: $native +0+0"
+  dpi=160
+  ;;
+*) exit 0 ;;
+esac
+
+nvidia-settings --assign CurrentMetaMode="$meta" >/dev/null
+{
+  echo "Xft.dpi: $dpi"
+  echo "Xcursor.size: $((24 * dpi / 96))"
+} | xrdb -merge
+i3-msg restart >/dev/null 2>&1 || true

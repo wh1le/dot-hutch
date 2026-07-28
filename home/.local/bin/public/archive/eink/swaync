@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+is_eink=$1
+
+eink_colors="$HOME/.config/swaync/styles/style-eink.css"
+rgb_colors="$HOME/.config/swaync/styles/style.css"
+
+if [[ "$is_eink" == "true" ]]; then
+	ln -sf "$eink_colors" ~/.config/swaync/style.css
+else
+	ln -sf "$rgb_colors" ~/.config/swaync/style.css
+fi
+
+swaync-client --reload-css

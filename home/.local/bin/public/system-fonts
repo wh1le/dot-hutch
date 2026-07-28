@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+family=$(fc-list | cut -d: -f2 | cut -d',' -f1 | sed 's/^[[:space:]]*//' | sort -u | fzf)
+printf "%s" "$family" | wl-copy
+
+if [[ -n "$family" ]]; then
+  echo "$family"
+  fc-list "$family" -f '%{style}\n' | sort -u
+fi

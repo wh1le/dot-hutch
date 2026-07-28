@@ -1,0 +1,77 @@
+// https://rmpc.mierak.dev/next/overview/
+
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+
+ConfigFile(
+  theme: "/home/wh1le/.cache/wal/colors-rmpc.ron",
+  enable_config_hot_reload: true,
+  cava: (
+    framerate: 60,
+    autosens: true,
+    sensitivity: 130,
+    bar_width: 2,
+    bar_spacing: 1,
+    bar_symbol: "█",
+    style: (fg: "{color5}"),
+    input: (
+      method: Pulse,
+      source: "auto",
+      sample_rate: 44100,
+      channels: 2,
+      sample_bits: 16,
+    ),
+    smoothing: (
+      noise_reduction: 25,
+      monstercat: false,
+      waves: false,
+    ),
+),
+
+  keybinds: (
+    clear: false,
+    global: {
+      "S": ExternalCommand(
+        command: ["sh", "-c", "mpc lsplaylists | fzf --height 40% --reverse --header 'Add current song to:' | xargs -I {} mpc addplaylist '{}' \"$(mpc current -f %file%)\""],
+        description: "Add current song to playlist"
+      ),
+    },
+    navigation: {
+      "A": Save(kind: Modal(all: true, duplicates_strategy: Ask)),
+    },
+  ),
+  tabs: [
+  (
+      name: "Queue",
+      pane: Split(
+        direction: Horizontal,
+        panes: [
+        (size: "60%", pane: Pane(Queue)),
+        (
+            size: "40%",
+            pane: Split(
+              direction: Vertical,
+              panes: [
+              (size: "70%", pane: Pane(AlbumArt)),
+              (size: "30%", borders: "TOP", pane: Pane(Cava)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  (
+      name: "Playlists",
+      pane: Pane(Playlists),
+    ),
+  (
+      name: "Directories",
+      pane: Pane(Directories),
+    ),
+  (
+      name: "Search",
+      pane: Pane(Search),
+    ),
+  ]
+)

@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+file_path="$HOME/Pictures/screenshots/$(date +%Y-%m-%d_%H:%M:%S).png"
+mkdir -p "$(dirname "$file_path")"
+
+mode="window"
+
+for arg in "$@"; do
+  case "$arg" in
+  --region) mode="region" ;;
+  --no-freeze) ;; # accepted for compat, no-op on X11
+  esac
+done
+
+# Selection rectangle color = i3 accent (Xresources color4), hex -> maim floats
+accent_hex=$(xrdb -query 2>/dev/null | awk '/(^|\*|\.)color4:/{print $NF; exit}')
+[[ "$accent_hex" =~ ^#?([0-9a-fA-F]{6})$ ]] && hex="${BASH_REMATCH[1]}" || hex="5195AC"
+r=$(awk "BEGIN{print $((16#${hex:0:2}))/255}")
+g=$(awk "BEGIN{print $((16#${hex:2:2}))/255}")
+b=$(awk "BEGIN{print $((16#${hex:4:2}))/255}")
+sel_color="$r,$g,$b,1"
+
+if [[ "$mode" == "region" ]]; then
+  # Interactive region select; -u hides cursor, thick accent border
+  maim -u -s -b 3 -p -1 -c "$sel_color" "$file_path" || exit 1
+else
+  # Active window via EWMH; fall back to fullscreen
+  wid=$(xprop -root _NET_ACTIVE_WINDOW 2>/dev/null | grep -oE '0x[0-9a-fA-F]+' | head -1)
+  if [[ -n "$wid" ]]; then
+    maim -u -i "$wid" "$file_path" || exit 1
+  else
+    maim -u "$file_path" || exit 1
+  fi
+fi
+
+[[ -s "$file_path" ]] || exit 1
+
+# One clipboard entry carrying BOTH the image and the path text.
+# GUI apps paste the image; terminals (kitty) paste the file path. Persists in copyq history.
+copyq copy image/png - text/plain "$file_path" < "$file_path" >/dev/null 2>&1
+echo "$file_path" > /tmp/last-screenshot
+
+echo "$file_path"
+
+{
+  canberra-gtk-play -i screen-capture \
+    || canberra-gtk-play -i complete \
+    || canberra-gtk-play -i bell \
+    || true
+} >/dev/null 2>&1

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+declare -A actions=(
+  ["󰌾  Lock"]=""
+  ['󰗽  Logout']='uwsm stop'
+  ["󰤄  Suspend"]="systemctl suspend"
+  ["󰒲  Hibernate"]="systemctl hibernate"
+  ["󰜉  Reboot"]="systemctl reboot"
+  ["󰐥  Shutdown"]="systemctl poweroff"
+)
+
+choice=$(
+  printf '%s\n' "${!actions[@]}" |
+    fzm --tty --dmenu -p "--prompt='Power » ' --no-info"
+) || exit 0
+
+[[ -z "$choice" ]] && {
+  exit 0
+}
+
+exec ${actions[$choice]}

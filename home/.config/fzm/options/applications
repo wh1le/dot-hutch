@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+choice=$(j4-dmenu-desktop --dmenu "$HOME/Code/fzm/bin/fzm --dmenu --tty" \
+  --no-exec \
+  --log-level=ERROR 2>/dev/null)
+
+echo "$choice"
+
+if [ -n "$choice" ]; then
+  command="uwsm app -- $choice </dev/null >/dev/null 2>&1"
+  setsid /bin/sh -c "$command" >&/dev/null </dev/null &
+  sleep 0.01
+fi

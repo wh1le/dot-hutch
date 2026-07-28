@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+ICON="󰡨"
+
+# Is docker reachable?
+if ! docker info >/dev/null 2>&1; then
+  # Docker daemon not running
+  jq -nc --arg icon "$ICON" '{
+    "text": ($icon + " off"),
+    "tooltip": "Docker daemon not running",
+    "class": "off"
+  }'
+  exit 0
+fi
+
+running=$(docker ps -q 2>/dev/null | wc -l)
+
+# Choose class by state
+if [ "$running" -eq 0 ]; then
+  cls="idle"
+  tooltip="Docker running, no containers"
+else
+  cls="active"
+  tooltip="Docker running containers: \(\"'$running'\")"
+fi
+
+jq -nc --arg icon "$ICON" --argjson running "$running" --arg tooltip "$tooltip" --arg cls "$cls" '
+{
+  "text": ($icon + " " + ($running|tostring)),
+  "tooltip": $tooltip,
+  "class": $cls
+}'
+

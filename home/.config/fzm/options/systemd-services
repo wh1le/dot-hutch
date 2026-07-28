@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# filter out noisy device/mount units and escaped names
+filter_noise() {
+  grep -vE '^(dev-|sys-|proc-|run-|snap-|modprobe@|.*\\x)'
+}
+
+format_units() {
+  awk '{
+    state = ($3 == "active") ? "●" : "○"
+    printf "%s\t%s\t%s\n", $1, state, $3
+  }'
+}
+
+list_units() {
+  systemctl list-units --all --no-legend --no-pager |
+    filter_noise |
+    format_units
+}
+
+preview='systemctl status --no-pager {1} 2>/dev/null | head -25'
+
+choice=$(list_units | fzm --tty --dmenu -p "\
+  --delimiter='\t' \
+  --with-nth=2,1 \
+  --preview='$preview' \
+  --preview-window=right,50%,wrap \
+  --prompt='systemd> '") || exit 0
+
+[[ -z "$choice" ]] && exit 0
+
+unit=$(cut -f1 <<<"$choice")
+
+actions="status
+restart
+stop
+start
+enable
+disable
+logs"
+
+action=$(echo "$actions" | fzm --tty --dmenu -p "--prompt='action> '") || exit 0
+[[ -z "$action" ]] && exit 0
+
+case "$action" in
+  status) systemctl status "$unit" ;;
+  logs)   journalctl -u "$unit" -f ;;
+  *)      sudo systemctl "$action" "$unit" && notify-send "Systemd" "$action: $unit" ;;
+esac

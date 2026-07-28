@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+url="$(wl-paste)"
+case "$url" in
+*youtube.com/* | *youtu.be/*)
+  exec mpv \
+    --force-window=immediate \
+    --script-opts-append=ytdl_hook-try_ytdl_first=yes \
+    --cache=yes \
+    --demuxer-max-bytes=150MiB \
+    --demuxer-max-back-bytes=75MiB \
+    --demuxer-readahead-secs=20 \
+    --hwdec=auto \
+    "$url"
+  ;;
+http://* | https://*)
+  stream=$(you-get --json "$url" 2>/dev/null | jq -r '.streams | to_entries | sort_by(.value.size) | last | .value.src[0]')
+  [ -n "$stream" ] && exec mpv \
+    --force-window=immediate \
+    --cache=yes \
+    --demuxer-max-bytes=150MiB \
+    --demuxer-max-back-bytes=75MiB \
+    --demuxer-readahead-secs=20 \
+    --hwdec=auto \
+    "$stream"
+  ;;
+esac

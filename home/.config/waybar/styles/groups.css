@@ -1,0 +1,37 @@
+window#waybar.default,
+window#waybar #status_group,
+window#waybar #system_group,
+window#waybar #custom-language,
+window#waybar #temperature {
+  /* color: @icon; */
+}
+
+#weather_group,
+#power_group,
+#system_group,
+#status_group {
+  background: #1e1e2e;
+  border-radius: 4px;
+  padding: 0 0px;
+  padding-right: 2px;
+  min-width: 0;
+}
+
+#status_group.empty {
+  background: none;
+}
+
+#system_group {
+  padding-left: 10px;
+  padding-right: 0px;
+}
+
+#system_group .module {
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-right: 0px;
+}
+
+.modules-center {
+  padding-right: 5px;
+}

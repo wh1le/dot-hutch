@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+setxkbmap -query | grep -q "layout:.*us,ru" || setxkbmap -layout us,ru
+xkb-switch -n
+
+pkill -RTMIN+8 i3blocks

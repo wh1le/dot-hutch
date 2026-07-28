@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+api="https://aur.archlinux.org/rpc/v5/search"
+
+jq_filter='
+  .results
+  | sort_by(-.Popularity)
+  | .[]
+  | [.Name, .Version, .NumVotes, .Popularity, .Maintainer // "orphan", .URL // "-", .Description // "-"]
+  | @tsv
+'
+
+case "${1:-list}" in
+  # list <query>: TSV per package (Name Version Votes Pop Maintainer URL Desc)
+  list)
+    query="${2:-}"
+    [[ -z "$query" ]] && exit 0
+    curl -s "$api/$query" | jq -r "$jq_filter" || true
+    ;;
+  # preview <tsv-line>: format the fields already in the row, no refetch
+  preview)
+    IFS=$'\t' read -r Name Version Votes Pop Maint Url Desc <<<"${2:-}"
+    [[ -z "${Name:-}" ]] && exit 0
+    printf '%s\n\n%s\n\nversion:     %s\nvotes:       %s\npopularity:  %s\nmaintainer:  %s\nurl:         %s\n' \
+      "$Name" "$Desc" "$Version" "$Votes" "$Pop" "$Maint" "$Url"
+    ;;
+  # select <tsv-line>: copy the package name
+  select)
+    name="${2%%$'\t'*}"
+    [[ -z "$name" ]] && exit 0
+    echo -n "$name" | copyq copy -
+    notify-send "AUR" "Copied: $name"
+    ;;
+esac

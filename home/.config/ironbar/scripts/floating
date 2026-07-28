@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+update_var() {
+  local ws_id count
+  ws_id=$(hyprctl -j activeworkspace | jq '.id')
+  count=$(hyprctl -j clients | jq "[.[] | select(.floating==true and .workspace.id==$ws_id)] | length")
+
+  if [ "$count" -gt 0 ]; then
+    ironbar var set floating "󰖯 $count"
+  else
+    ironbar var set floating ""
+  fi
+}
+
+raise() {
+  local ws_id
+  ws_id=$(hyprctl -j activeworkspace | jq '.id')
+  hyprctl -j clients \
+    | jq -r ".[] | select(.floating==true and .workspace.id==$ws_id) | .address" \
+    | while read -r addr; do
+        hyprctl dispatch focuswindow "address:$addr"
+        hyprctl dispatch bringactivetotop
+      done
+}
+
+case "${1:-watch}" in
+  state)
+    update_var
+    ;;
+  raise)
+    raise
+    ;;
+  watch)
+    update_var
+    socat -U - "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do
+      case "$line" in
+        openwindow*|closewindow*|movewindow*|changefloatingmode*|workspace*|activewindow*)
+          sleep 0.1
+          update_var
+          ;;
+      esac
+    done
+    ;;
+  *)
+    echo "Usage: $0 [state|watch|raise]"
+    ;;
+esac

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+api="https://aur.archlinux.org/rpc/v5/search"
+
+jq_filter='
+  .results
+  | sort_by(-.Popularity)
+  | .[]
+  | [.Name, .Version, .NumVotes, .Popularity, .Maintainer // "orphan", .URL // "-", .Description // "-"]
+  | @tsv
+'
+
+query=$(gum input --placeholder "Search AUR...") || exit 0
+[[ -z "$query" ]] && exit 0
+
+results=$(curl -s "$api/$query" | jq -r "$jq_filter")
+[[ -z "$results" ]] && { notify-send "AUR" "No results for: $query"; exit 0; }
+
+preview='printf "\n%s\n\nversion:     %s\nvotes:       %s\npopularity:  %s\nmaintainer:  %s\nurl:         %s\n" {7} {2} {3} {4} {5} {6}'
+
+choice=$(
+  echo "$results" |
+    fzm --tty --dmenu -p "--delimiter='\t' --with-nth=1 --preview='$preview' --preview-window=top,40%,wrap --prompt='aur> '"
+) || exit 0
+[[ -z "$choice" ]] && exit 0
+
+pkg=$(cut -f1 <<<"$choice")
+echo -n "$pkg" | wl-copy
+notify-send "AUR" "Copied: $pkg"

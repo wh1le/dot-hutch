@@ -1,0 +1,9 @@
+# vim:ft=conf
+# ripgrep global config (RIPGREP_CONFIG_PATH)
+
+# Search hidden files/dirs (dotfiles), but not .git.
+--hidden
+--glob=!.git/
+
+--smart-case
+--engine=auto

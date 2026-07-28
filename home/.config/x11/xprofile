@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# NOTE:
+# Dasung E-ink BW 13.3 inch, 300 PPI, 3200x2400, 37hz
+# LG 3840x2160, 37hz
+
+OUT=HDMI-0
+
+# LG 4k configuration
+if xrandr --current | grep -q "3840x2160"; then
+  xrandr --output "$OUT" --mode 3840x2160 --rate 60 --scale 1x1 --transform 1,0,0,0,1,0,0,0,1 --panning 0x0 || true
+else
+  xrandr --output "$OUT" --mode 3200x2400 --rate 40 --scale 1x1 --transform 1,0,0,0,1,0,0,0,1 --panning 0x0 || true
+fi

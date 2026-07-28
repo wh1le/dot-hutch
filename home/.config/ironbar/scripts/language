@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+update_var() {
+  local lang
+  lang=$(hyprctl devices -j | jq -r '.keyboards[] | select(.main) | .active_keymap' | head -n1 | cut -c1-2 | tr 'A-Z' 'a-z')
+  ironbar var set language "$lang"
+}
+
+switch() {
+  hyprctl switchxkblayout "$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true).name')" next
+  sleep 0.2
+  update_var
+}
+
+case "${1:-watch}" in
+  state)
+    update_var
+    ;;
+  switch)
+    switch
+    ;;
+  watch)
+    update_var
+    socat -U - "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do
+      if [[ "$line" == activelayout* ]]; then
+        sleep 0.1
+        update_var
+      fi
+    done
+    ;;
+  *)
+    echo "Usage: $0 [state|watch|switch]"
+    ;;
+esac

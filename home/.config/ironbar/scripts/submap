@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+update_var() {
+  local submap
+  submap=$(hyprctl activewindow -j 2>/dev/null | jq -r '.submap // empty' 2>/dev/null)
+  if [ -z "$submap" ]; then
+    ironbar var set submap ""
+  else
+    ironbar var set submap "<span color='#f38ba8'> $submap</span>"
+  fi
+}
+
+case "${1:-watch}" in
+  state)
+    update_var
+    ;;
+  watch)
+    # Set initial state
+    update_var
+    # Listen for submap events from hyprland socket
+    socat -U - "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do
+      if [[ "$line" == submap* ]]; then
+        submap="${line#submap>>}"
+        if [ -z "$submap" ]; then
+          ironbar var set submap ""
+        else
+          ironbar var set submap "<span color='#f38ba8'> $submap</span>"
+        fi
+      fi
+    done
+    ;;
+  *)
+    echo "Usage: $0 [state|watch]"
+    ;;
+esac

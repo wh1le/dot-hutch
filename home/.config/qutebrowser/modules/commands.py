@@ -1,0 +1,28 @@
+import os
+
+
+def apply_commands(c,config):
+    c.editor.command = [
+        os.path.expanduser("~/.local/bin/public/applications/kitty-eink"),
+        "--class", "qute-editor",
+        "nvim",
+        "-f", "{file}",
+        "-c",
+        "normal {line}G{column0}l"
+    ]
+    c.fileselect.handler = "external"
+
+    c.fileselect.single_file.command = [
+        "kitty", "--class", "floating-yazi",
+        "yazi", "--chooser-file={}"
+    ]
+
+    c.fileselect.multiple_files.command = [
+        os.path.expanduser("~/.local/bin/public/applications/kitty-eink"), "--class", "floating-yazi",
+        "yazi", "--chooser-file={}"
+    ]
+
+    c.fileselect.folder.command = [
+        os.path.expanduser("~/.local/bin/public/applications/kitty-eink"), "--class", "floating-yazi",
+        "yazi", "--cwd-file={}"
+    ]

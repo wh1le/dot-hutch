@@ -1,0 +1,8 @@
+.big * {
+  border: none;
+  font-family:
+    "Iosevka Nerd Font", "Symbols Nerd Font", "Symbols Nerd Font Mono";
+  font-weight: bold;
+  font-size: 15px;
+  min-height: 0;
+}

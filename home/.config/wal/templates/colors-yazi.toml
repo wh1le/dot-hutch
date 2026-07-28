@@ -1,0 +1,68 @@
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
+[flavor]
+dark = ""
+light = ""
+
+[mgr]
+cwd = {{ fg = "{color4.darken(9)}" }}
+find_keyword = {{ fg = "{color2.darken(22)}", bold = true, underline = true }}
+find_position = {{ fg = "{color1}", bg = "reset", bold = true }}
+symlink_target = {{ fg = "{foreground.darken(80)}", italic = true }}
+marker_copied = {{ fg = "{color2.darken(22)}", bg = "{color2.darken(22)}" }}
+marker_cut = {{ fg = "{color1}", bg = "{color1}" }}
+marker_marked = {{ fg = "{foreground.darken(48)}", bg = "{foreground.darken(48)}" }}
+marker_selected = {{ fg = "{color4.darken(9)}", bg = "{color4.darken(9)}" }}
+count_copied = {{ fg = "{background}", bg = "{color2.darken(22)}" }}
+count_cut = {{ fg = "{background}", bg = "{color1}" }}
+count_selected = {{ fg = "{background}", bg = "{color4.darken(9)}" }}
+border_style = {{ fg = "{foreground.darken(80)}" }}
+
+[tabs]
+active = {{ fg = "{background}", bg = "{color4.darken(9)}", bold = true }}
+inactive = {{ fg = "{foreground.darken(48)}", bg = "{foreground.darken(90)}" }}
+
+[mode]
+normal_main = {{ fg = "{background}", bg = "{color4.darken(9)}", bold = true }}
+normal_alt = {{ fg = "{color4.darken(9)}", bg = "{foreground.darken(90)}" }}
+select_main = {{ fg = "{background}", bg = "{color1}", bold = true }}
+select_alt = {{ fg = "{color1}", bg = "{foreground.darken(90)}" }}
+unset_main = {{ fg = "{background}", bg = "{color1.darken(35)}", bold = true }}
+unset_alt = {{ fg = "{color1.darken(35)}", bg = "{foreground.darken(90)}" }}
+
+[indicator]
+parent = {{ fg = "{background}", bg = "{foreground.darken(48)}" }}
+current = {{ fg = "{background}", bg = "{color4.darken(9)}", bold = true }}
+preview = {{}}
+padding = {{ open = "", close = "" }}
+
+[status]
+perm_sep = {{ fg = "{foreground.darken(80)}" }}
+perm_type = {{ fg = "{color2.darken(22)}" }}
+perm_read = {{ fg = "{foreground.darken(48)}" }}
+perm_write = {{ fg = "{color1}" }}
+perm_exec = {{ fg = "{color4.darken(9)}" }}
+progress_label = {{ bold = true }}
+progress_normal = {{ fg = "{color2.darken(22)}", bg = "{background}" }}
+progress_error = {{ fg = "{color1}", bg = "{background}" }}
+
+[which]
+mask = {{ bg = "{background}" }}
+cand = {{ fg = "{color4.darken(9)}" }}
+rest = {{ fg = "{foreground.darken(80)}" }}
+desc = {{ fg = "{foreground.darken(48)}" }}
+separator_style = {{ fg = "{foreground.darken(80)}" }}
+
+[filetype]
+rules = [
+	{{ mime = "image/*", fg = "{foreground.darken(48)}" }},
+	{{ mime = "{{audio,video}}/*", fg = "{foreground.darken(48)}" }},
+	{{ mime = "application/{{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}}", fg = "{foreground.darken(80)}" }},
+	{{ mime = "application/{{pdf,doc,rtf}}", fg = "{foreground.darken(48)}" }},
+	{{ mime = "vfs/{{absent,stale}}", fg = "{foreground.darken(80)}" }},
+	{{ url = "*", is = "orphan", fg = "{color1}" }},
+	{{ url = "*", is = "exec", fg = "{color2.darken(22)}" }},
+	{{ url = "*", is = "dummy", fg = "{color1}" }},
+	{{ url = "*/", is = "dummy", fg = "{color1}" }},
+	{{ url = "*/", fg = "{color4.darken(9)}" }}
+]

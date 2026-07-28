@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+file_path="$HOME/Pictures/screenshots/$(date +%Y-%m-%d_%H:%M:%S).png"
+mkdir -p "$(dirname "$file_path")"
+
+mode="window"
+freeze=true
+
+for arg in "$@"; do
+  case "$arg" in
+  --region) mode="region" ;;
+  --no-freeze) freeze=false ;;
+  esac
+done
+
+# Kill stale instances only if running
+pgrep -x slurp >/dev/null && pkill -9 slurp
+pgrep -x grim >/dev/null && pkill -9 grim
+pgrep -x hyprpicker >/dev/null && pkill -9 hyprpicker
+
+cleanup() { pkill -x hyprpicker 2>/dev/null; }
+trap cleanup EXIT
+
+if [[ "$mode" == "region" ]]; then
+  if $freeze && ! pgrep -x obs >/dev/null; then
+    # Freeze screen at compositor level BEFORE submap reset —
+    # preserves dropdowns, tooltips, and focus state
+    # Skip when OBS is running to avoid DRM resource conflicts
+    hyprpicker -r -z &
+    sleep 0.2
+  fi
+  hyprctl dispatch submap reset >/dev/null 2>&1
+
+  geometry=$(slurp -b 00000066) || exit 1
+  grim -g "$geometry" "$file_path"
+  pkill -x hyprpicker 2>/dev/null
+else
+  # Active window mode — get geometry directly from hyprctl
+  read -r x y w h < <(hyprctl activewindow -j | jq -r '.at[0],.at[1],.size[0],.size[1]' | paste -sd ' ')
+  grim -g "${x},${y} ${w}x${h}" "$file_path"
+fi
+
+[[ -s "$file_path" ]] || exit 1
+
+wl-copy --type image/png < "$file_path"
+echo "$file_path" > /tmp/last-screenshot
+
+echo "$file_path"
+
+canberra-gtk-play -i completion-success

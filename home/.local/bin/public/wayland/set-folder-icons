@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Set themed folder icons for non-XDG dirs (Tela-circle / any theme).
+# Uses default-folder-* names (full folder + emblem), NOT bare folder-* (logo glyph).
+# Idempotent. Skips missing dirs. Run anytime.
+
+set -u
+
+# dir|icon-name
+MAP=(
+  "Books|default-folder-bookmark"
+  "Code|default-folder-git"
+  "Cloud|default-folder-cloud"
+  "Learning|default-folder-script"
+  "Programs|default-folder-build"
+  "Interviews|default-folder-important"
+  "Projects|default-folder-git"
+  "Virtualization|default-folder-system"
+)
+
+for entry in "${MAP[@]}"; do
+  dir="${entry%%|*}"
+  icon="${entry##*|}"
+  path="$HOME/$dir"
+  if [ -d "$path" ]; then
+    gio set "$path" metadata::custom-icon-name "$icon" &&
+      echo "● $dir -> $icon" ||
+      echo "✗ $dir (gio failed)"
+  else
+    echo "– $dir (missing, skip)"
+  fi
+done

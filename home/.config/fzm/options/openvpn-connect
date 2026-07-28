@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+dir="$HOME/.secrets/openvpn"
+
+if [[ ! -d "$dir" ]]; then
+  notify-send -u critical "OpenVPN" "Directory not found: $dir"
+  exit 1
+fi
+
+if ip link show tun0 &>/dev/null; then
+  action=$(
+    printf "disconnect\nswitch" |
+      fzm --tty --dmenu -p "--prompt='VPN active> '"
+  ) || exit 0
+
+  if [[ "$action" == "disconnect" ]]; then
+    sudo pkill openvpn
+    notify-send "OpenVPN" "Disconnected"
+    exit 0
+  fi
+
+  sudo pkill openvpn
+  sleep 1
+fi
+
+selection=$(
+  sudo find "$dir" -name "*.conf" -printf "%f\t%p\n" |
+    sed 's/\.conf\t/\t/' |
+    fzm --tty --dmenu -p "--prompt='vpn> ' --with-nth=1 --delimiter='\t'"
+) || exit 0
+
+[[ -z "${selection:-}" ]] && exit 0
+
+choice="${selection%%$'\t'*}"
+conf="${selection##*$'\t'}"
+
+notify-send "OpenVPN" "Connecting to $choice..."
+sudo openvpn --config "$conf" --daemon
+
+nohup bash -c "
+  for i in {1..30}; do
+    if ip link show tun0 &>/dev/null; then
+      notify-send 'OpenVPN' 'Connected to $choice'
+      exit 0
+    fi
+    sleep 1
+  done
+  notify-send -u critical 'OpenVPN' 'Connection timeout: $choice'
+" >/dev/null 2>&1 &

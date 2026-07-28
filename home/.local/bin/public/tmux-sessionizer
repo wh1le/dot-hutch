@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Script from https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+
+search_directories=(${SEARCH_DIRECTORIES_PATHS//:/ })
+active_sessions=($(tmux list-sessions -F '#S' 2>/dev/null))
+
+if [[ $# -eq 1 ]]; then
+  selected=$1
+else
+  directories=$(find -L "${search_directories[@]}" -mindepth 1 -maxdepth 1 -type d ! -name .git ! -name .direnv 2>/dev/null)
+  selected=$(printf "%s\n" "${active_sessions[@]}" "$directories" | fzf)
+fi
+
+if [[ -z $selected ]]; then
+  exit 0
+fi
+
+if [[ " ${choices[*]} " == *" $selected "* ]]; then
+  selected_name="$selected"
+else
+  selected_name=$(basename "$selected" | tr . _)
+fi
+
+if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+  tmux new-session -ds "$selected_name" -c "$selected"
+fi
+
+if [[ -z $TMUX ]] && ! pgrep -x tmux &>/dev/null; then
+  tmux attach-session -t "$selected_name"
+elif [[ -n $TMUX ]]; then
+  tmux switch-client -t "$selected_name"
+else
+  tmux attach-session -t "$selected_name"
+fi

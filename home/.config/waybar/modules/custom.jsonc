@@ -1,0 +1,215 @@
+{
+  // groups
+  // default modules
+
+  // custom modules
+
+  "custom/floating": {
+    "exec": "$HOME/.local/bin/public/waybar/status/floating",
+    "return-type": "json",
+    "interval": 2,
+    "format": "{}",
+    "tooltip": true,
+    "on-click": "$HOME/.local/bin/public/waybar/status/floating --raise"
+  },
+
+  "custom/logo": {
+    "format": "<span font='15'>{icon}</span>",
+    "format-icons": "󰯉",
+    "on-click": "$HOME/.local/bin/public/menu/launch-kitty"
+  },
+
+  "custom/stimulants": {
+    "exec": "$HOME/.local/bin/public/waybar/status/stimulants",
+    "return-type": "json",
+    "interval": 30,
+    "signal": 7,
+    "format": "{}",
+    "tooltip": false,
+    "on-click": "~/.local/bin/public/caffeine toggle"
+  },
+
+  "custom/sunset": {
+    "exec": "$HOME/.local/bin/public/waybar/status/sunset",
+    "return-type": "json",
+    "interval": 30,
+    "signal": 8,
+    "format": "{}",
+    "tooltip": false,
+    "on-click": "~/.local/bin/public/sunset toggle"
+  },
+
+  "custom/surf": {
+    "exec": "$HOME/.local/bin/public/waybar/surf-forecast",
+    "format": "{text}",
+    "tooltip": false,
+    "interval": 3600
+  },
+
+  "custom/mic_used_by_app": {
+    "interval": 10,
+    "exec": "$HOME/.local/bin/public/waybar/is-mic-used",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "tooltip": false
+  },
+
+  "custom/date_neuro": {
+    "exec": "$HOME/.local/bin/public/waybar/date-time neuro",
+    "interval": 60,
+    "escape": false
+  },
+
+  "custom/date_month": {
+    "exec": "$HOME/.local/bin/public/waybar/date-time month",
+    "interval": 60,
+    "escape": false
+  },
+
+  "custom/date_time": {
+    "exec": "$HOME/.local/bin/public/waybar/date-time time",
+    "interval": 60,
+    "escape": false
+  },
+
+  "custom/lock_screen": {
+    "format-icons": "",
+    "format": "<span font='16'>{icon}</span>",
+    // "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
+    "tooltip": false
+  },
+
+  "custom/weather": {
+    "exec": "$HOME/.local/bin/public/waybar/weather-forecast waybar",
+    "return-type": "json",
+    "interval": 400,
+    "format": "{text}",
+    "tooltip": true,
+    "markup": "pango",
+    "signal": 5,
+    "on-click": "pkill -RTMIN+5 waybar"
+  },
+
+  "custom/wireguard": {
+    "exec": "$HOME/.local/bin/public/waybar/status/wireguard",
+    "return-type": "json",
+    "interval": 20,
+    "format": "{text}",
+    "tooltip": false
+  },
+  "custom/containers": {
+    "exec": "$HOME/.local/bin/public/waybar/status/containers",
+    "return-type": "json",
+    "interval": 20,
+    "format": "{text}",
+    "tooltip": true,
+  },
+
+  "custom/language": {
+    "exec": "$HOME/.local/bin/public/waybar/current-langauge",
+    "signal": 6,
+    "format": "{text}",
+    "tooltip": false,
+    "interval": 60,
+    "on-click": "$HOME/.local/bin/public/switch-layout"
+  },
+
+  "custom/weather-eink": {
+    "exec": "$HOME/.local/bin/public/waybar/weather-forecast waybar eink",
+    "return-type": "json",
+    "interval": 400,
+    "format": "{text}",
+    "tooltip": true,
+    "markup": "pango",
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂚",
+      "dnd-notification": "",
+      "dnd-none": "",
+      "inhibited-notification": "󱅫",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+    "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "~/.local/bin/public/menu/launch-kitty power-management"
+  },
+
+  "hyprland/workspaces#homepc": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "",
+      "urgent": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+      "browser": "󰈹",
+      "telegram": "",
+      "files": "󰉋",
+      "qemu": "󰍹",
+      "media": "󰎈",
+      "controls": "󰭩",
+      "obsidian": "󱓧",
+      "games": "󰊗"
+    },
+
+    "active-only": false,
+    "all-outputs": false,
+    "persisted-only": true,
+    "format": "{icon}",
+    "on-scroll-up": "hyprctl dispatch workspace -1",
+    "on-scroll-down": "hyprctl dispatch workspace +1",
+  },
+
+  "hyprland/workspaces#thinkpad": {
+    "format": "{icon}",
+    "format-icons": {
+      // "active": "",
+      "urgent": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+      "browser": "󰈹",
+      "telegram": "",
+      "files": "󰉋",
+      "qemu": "󰍹",
+      "media": "󰎈",
+      "controls": "󰭩",
+      "obsidian": "󱓧",
+      "games": "󰊗"
+    },
+
+    "active-only": false,
+    "all-outputs": false,
+    "persisted-only": true,
+    "format": "{icon}",
+    "on-scroll-up": "hyprctl dispatch workspace -1",
+    "on-scroll-down": "hyprctl dispatch workspace +1",
+  }
+}

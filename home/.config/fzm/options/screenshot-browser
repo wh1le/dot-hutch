@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+sleep 0.1
+
+SCREENSHOTS_DIR="$HOME/Pictures/screenshots"
+EXTENSIONS=("jpg" "png" "webp")
+
+[[ ! -d "$SCREENSHOTS_DIR" ]] && exit 0
+
+get_files() {
+	local find_args=()
+	for ext in "${EXTENSIONS[@]}"; do
+		find_args+=(-o -iname "*.${ext}")
+	done
+	find "$SCREENSHOTS_DIR" -type f \( "${find_args[@]:1}" \) -printf "%T@\t%f\t%p\n" 2>/dev/null | sort -rn | cut -f2,3
+}
+
+files=$(get_files)
+[[ -z "$files" ]] && exit 0
+
+choice=$(
+	echo "$files" |
+		fzm --tty --dmenu -p '--with-nth=1 --delimiter=\\t --preview="kitty +kitten icat --clear --transfer-mode=memory --stdin=no --place=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES}@0x0 {2}" --preview-window=right:70% --prompt="screenshots> "'
+) || exit 0
+[[ -z "$choice" ]] && exit 0
+
+file=$(cut -f2 <<<"$choice")
+
+action=$(printf "copy\nopen\ndelete" | fzm --tty --dmenu -p "--prompt='action> '") || exit 0
+
+case "$action" in
+	copy)
+		wl-copy --type text/uri-list "file://$file"
+		notify-send "Screenshot" "Copied to clipboard"
+		;;
+	open)
+		setsid xdg-open "$file" >/dev/null 2>&1 &
+		;;
+	delete)
+		rm "$file"
+		notify-send "Screenshot" "Deleted $(basename "$file")"
+		;;
+esac

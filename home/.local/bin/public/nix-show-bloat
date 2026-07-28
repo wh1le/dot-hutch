@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+for pkg in $(nix-store -q --references /run/current-system/sw); do
+  count=$(nix-store -qR $pkg | wc -l)
+  size=$(nix-path-info -Sh $pkg 2>/dev/null | awk '{print $2}')
+  echo "$count deps | $size | $(basename $pkg)"
+done | sort -nr | head -n 50

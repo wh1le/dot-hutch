@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+PROCESS_NAME="hyprsunset"
+
+update_var() {
+  if pgrep -x "$PROCESS_NAME" >/dev/null; then
+    # hyprsunset running = night shift on (active)
+    ironbar var set nightshift "<span color='#fab387'>󰖔</span>"
+  else
+    # hyprsunset not running = night shift off (dim)
+    ironbar var set nightshift "<span alpha='40%'>󰖔</span>"
+  fi
+}
+
+case "${1:-state}" in
+  state)
+    update_var
+    ;;
+  toggle)
+    if pgrep -x "$PROCESS_NAME" >/dev/null; then
+      pkill -x "$PROCESS_NAME"
+      [[ "$2" == "-n" ]] && notify-send '󰖨 Sunset' 'Night mode disabled.'
+    else
+      hyprsunset -t 4500 &>/dev/null & disown
+      [[ "$2" == "-n" ]] && notify-send '󰖛 Sunset' 'Night mode enabled.'
+    fi
+    sleep 0.2
+    update_var
+    ;;
+  *)
+    echo "Usage: $0 [state|toggle]"
+    ;;
+esac

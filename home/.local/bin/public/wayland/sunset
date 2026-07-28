@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+PROCESS_NAME="hyprsunset"
+
+if [ -z "$1" ]; then
+	echo "Usage: $0 [state|toggle]"
+	exit 1
+fi
+
+case $1 in
+state)
+	if pgrep -x "$PROCESS_NAME" >/dev/null; then
+		echo "true"
+	else
+		echo "false"
+	fi
+	;;
+toggle)
+	if pgrep -x "$PROCESS_NAME" >/dev/null; then
+		pkill -x "$PROCESS_NAME"
+		[[ "$2" == "-n" ]] && notify-send '󰖨 Sunset' 'Night mode disabled.'
+	else
+		hyprsunset -t 4500 &>/dev/null & disown
+		[[ "$2" == "-n" ]] && notify-send '󰖛 Sunset' 'Night mode enabled.'
+	fi
+	pkill -RTMIN+8 waybar
+	echo "sunset" > /tmp/eww-status-update 2>/dev/null &
+	;;
+*)
+	echo "Invalid command. Usage: $0 [state|toggle]"
+	;;
+esac

@@ -1,0 +1,54 @@
+config-file = ~/.cache/wal/colors-ghostty.conf
+
+font-family = "PragmataPro Nerd Font Mono"
+font-size = 11
+font-thicken = true
+font-feature = -calt, -liga, -dlig
+
+adjust-cell-width = -8%
+adjust-cell-height = 10%
+adjust-font-baseline = -1
+
+window-padding-x = 5
+window-padding-y = 5
+window-padding-balance = true
+window-decoration = false
+window-save-state = always
+window-colorspace = display-p3
+
+click-repeat-interval = 500
+confirm-close-surface = false
+bell-features = "no-attention,no-audio,no-system,no-title,no-border"
+
+macos-non-native-fullscreen = padded-notch
+macos-option-as-alt = left
+macos-window-shadow = false
+
+auto-update = download
+
+cursor-style = bar
+cursor-style-blink = false
+
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
+keybind = ctrl+shift+h=esc:b
+keybind = ctrl+shift+l=esc:f
+
+working-directory = home
+window-inherit-working-directory = false
+tab-inherit-working-directory = true
+split-inherit-working-directory = true
+
+palette-generate = false
+palette-harmonious = false
+
+clipboard-read = allow
+clipboard-write = allow
+
+shell-integration = detect
+mouse-hide-while-typing = true
+
+linux-cgroup = never
+gtk-single-instance = true
+alpha-blending = native
+resize-overlay = never

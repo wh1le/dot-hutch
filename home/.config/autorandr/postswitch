@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+DPI=$(cat "$HOME/.config/autorandr/$AUTORANDR_CURRENT_PROFILE/dpi" 2>/dev/null || echo 110)
+
+echo "Xft.dpi: $DPI" | xrdb -merge
+printf 'Xcursor.size: %s\n' "$((24 * DPI / 96))" | xrdb -merge
+
+# Re-apply nvidia ForceFullCompositionPipeline: each autorandr modeset wipes it.
+# Builds one metamode covering every active output; off outputs have no geometry
+# so awk skips them. No-op on non-nvidia hosts.
+if command -v nvidia-settings >/dev/null 2>&1; then
+  META=$(xrandr --query | awk '
+    / connected/ {
+      for (i = 1; i <= NF; i++)
+        if ($i ~ /^[0-9]+x[0-9]+\+[0-9]+\+[0-9]+$/) {
+          split($i, a, "+")
+          printf "%s%s: %s +%s+%s {ForceFullCompositionPipeline=On}", sep, $1, a[1], a[2], a[3]
+          sep = ", "
+        }
+    }')
+  [ -n "$META" ] && nvidia-settings --assign CurrentMetaMode="$META" >/dev/null 2>&1 || true
+fi
+
+i3-msg restart >/dev/null 2>&1 || true

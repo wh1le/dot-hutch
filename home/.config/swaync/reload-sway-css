@@ -1,0 +1,11 @@
+reload_swaync() {
+  local is_eink=$1
+
+  if $is_eink; then
+    swaync-client --reload-css --config ~/.config/swaync/config-eink.json
+  else
+    swaync-client --reload-css --config ~/.config/swaync/config.json
+  fi
+}
+
+# swaync -s ~/.config/swaync/style-eink.css

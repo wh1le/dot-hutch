@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+# Play nested audio under $1 (a dir) or the current dir, in a detached mpv window.
+source ${0:h}/../../zsh/modules/media.zsh 2>/dev/null
+[[ -d $1 ]] && cd -- $1 && shift
+args=("$@"); (( $#args )) || args=(--shuffle --loop-playlist)
+media-audio-play --force-window $args

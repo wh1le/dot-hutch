@@ -1,0 +1,94 @@
+colourful: true
+
+filekinds:
+  normal: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  directory: {{foreground: "{color4.darken(9)}", is_bold: false}}
+  symlink: {{foreground: "{color4.darken(9)}", is_bold: false}}
+  pipe: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  block_device: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  char_device: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  socket: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  special: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  executable: {{foreground: "{color2.darken(22)}", is_bold: false}}
+  mount_point: {{foreground: "{color4.darken(9)}", is_bold: false}}
+
+perms:
+  user_read: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  user_write: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  user_execute_file: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  user_execute_other: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  group_read: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  group_write: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  group_execute: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  other_read: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  other_write: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  other_execute: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  special_user_file: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  special_other: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  attribute: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+
+size:
+  major: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  minor: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  number_byte: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  number_kilo: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  number_mega: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  number_giga: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  number_huge: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  unit_byte: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  unit_kilo: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  unit_mega: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  unit_giga: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  unit_huge: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+
+users:
+  user_you: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  user_root: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  user_other: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  group_yours: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  group_other: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  group_root: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+
+links:
+  normal: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  multi_link_file: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+
+git:
+  new: {{foreground: "{color2.darken(22)}", is_bold: false}}
+  modified: {{foreground: "{color3.darken(35)}", is_bold: false}}
+  deleted: {{foreground: "{color1.darken(35)}", is_bold: false}}
+  renamed: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  typechange: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  ignored: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  conflicted: {{foreground: "{color1}", is_bold: false}}
+
+git_repo:
+  branch_main: {{foreground: "{color2.darken(22)}", is_bold: false}}
+  branch_other: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  git_clean: {{foreground: "{color2.darken(22)}", is_bold: false}}
+  git_dirty: {{foreground: "{color3.darken(35)}", is_bold: false}}
+
+file_type:
+  image: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  video: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  music: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  lossless: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  crypto: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  document: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  compressed: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  temp: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  compiled: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+  build: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+  source: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+
+punctuation: {{foreground: "{foreground.darken(87)}", is_bold: false}}
+date: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+inode: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+blocks: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+header: {{foreground: "{foreground.darken(48)}", is_bold: false}}
+octal: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+flags: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+symlink_path: {{foreground: "{foreground.darken(80)}", is_bold: false}}
+control_char: {{foreground: "{color1.darken(35)}", is_bold: false}}
+broken_symlink: {{foreground: "{color1}", is_bold: true}}
+broken_path_overlay: {{foreground: "{color1.darken(35)}", is_bold: false}}

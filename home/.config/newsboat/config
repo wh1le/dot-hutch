@@ -1,0 +1,78 @@
+# ---------------------------------------
+# CYBRboat    newsboat theme (part of cybrland)
+# Project:    https://github.com/scherrer-txt/cybrland
+# Author:     scherrer-txt   |   License:     GPL-3
+# Source:     ~/.newsboat/config
+# ---------------------------------------
+
+browser firefox
+max-items 7
+
+# Vim keybindings
+bind-key j down
+bind-key k up
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key g home
+bind-key G end
+bind-key l open
+bind-key h quit
+bind-key n next-unread
+bind-key N prev-unread
+bind-key o open-in-browser
+bind-key O show-urls
+bind-key a toggle-article-read
+bind-key A mark-feed-read
+bind-key r reload
+bind-key R reload-all
+bind-key / open-search
+bind-key ? help
+
+# Fetch full article content with rdrview (press ,r)
+macro r set pager "rdrview -H %u | w3m -T text/html"; open; set pager internal
+
+# Base colors
+color background red default
+color article red default
+color listnormal white default
+color listfocus red black standout bold
+color listnormal_unread red default
+color listfocus_unread red black standout bold
+color title red default bold
+color info black red
+color hint-key black red bold
+color hint-keys-delimiter black red
+color hint-separator black red
+color hint-description black red
+
+# List Style
+feedlist-format "%?T?│  ├── %5u %t &%t ?"
+
+highlight feedlist " .*" red default bold
+highlight feedlist "·+" color9 default
+highlight feedlist "[├──│]" color9
+highlight feedlist "(│  ├──.|├─ )" color9
+
+# EMPTY
+highlight feedlist ".(0/0).*)" color15 default bold
+highlight feedlist ".\\(0/[1-9]+\\).*" white black
+
+# Article highlights
+# HEAD
+highlight article "(^Feed:.*|^Title:.*|^Date:.*|^Link:.*|^Author:.*|^Links:|^Points:.*|^# Comments:.*)" white default
+highlight article "(^Article URL:.*|^Comments URL:.*)" white default
+highlight article ":.*\\(link\\)$" green default
+highlight article ":.*\\(image\\)$" green default
+
+# LINKS
+highlight article "https?://[^ ]+" green default
+highlight article "\\[[0-9][0-9]*\\]" green default
+
+# LEGACY
+highlight article ":.*\\(embedded flash\\)$" magenta default
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" magenta default
+highlight article "\\[image\\ [0-9]+\\]" magenta default
+
+# SEPARATORS
+highlight all "---.*---" color9
+color end-of-text-marker color9 default

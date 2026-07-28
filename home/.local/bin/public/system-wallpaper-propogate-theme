@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+cp ~/.cache/wal/colors-eza.yml ~/.config/eza/theme.yml
+echo "eza reloaded"
+
+cp ~/.cache/wal/colors-yazi.toml ~/.config/yazi/theme.toml
+echo "yazi reloaded"
+
+if [ "$IS_MAC" != true ]; then
+	pkill -USR1 kitty 2>/dev/null
+	echo "kitty reloaded"
+fi
+
+tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true
+echo "tmux reloaded"
+
+reload_i3() {
+  xrdb -merge ~/.cache/wal/colors.Xresources 2>/dev/null
+  i3-msg restart &>/dev/null
+}
+
+restart_xob() {
+  local cfg="$HOME/.cache/wal/colors-xob.cfg"; [ -r "$cfg" ] || cfg="$HOME/.config/xob/styles.cfg"
+  pkill -x xob; pkill -f xob-volume-watcher; pkill -f 'tail -f /tmp/xob-brightness'
+  [ -p /tmp/xob-brightness ] || mkfifo /tmp/xob-brightness
+  setsid -f bash -c "$HOME/.local/bin/public/x11/xob-volume-watcher | xob -s volume -c '$cfg'" &>/dev/null
+  setsid -f bash -c "tail -f /tmp/xob-brightness | xob -s brightness -c '$cfg'" &>/dev/null
+}
+
+if [ "$IS_MAC" != true ]; then
+	reload_i3
+	echo "i3 + i3blocks reloaded"
+
+	restart_xob
+	echo "xob reloaded"
+
+	cp ~/.cache/wal/colors-gtk4.css ~/.config/gtk-4.0/gtk.css
+	cp ~/.cache/wal/colors-gtk4.css ~/.config/gtk-3.0/gtk.css
+	gsettings set org.gnome.desktop.interface gtk-theme "Default"
+	gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
+	echo "gtk reloaded"
+fi
+
+OBSIDIAN_SNIPPETS="$HOME/Documents/self-architect/.obsidian/snippets"
+if [ -d "$OBSIDIAN_SNIPPETS" ]; then
+	ln -sf ~/.cache/wal/colors-obsidian.css "$OBSIDIAN_SNIPPETS/pywal.css"
+	echo "obsidian reloaded"
+fi
+
+# notifications
+if [ "$IS_MAC" != true ]; then
+	dunstctl reload 2>/dev/null || pkill -x dunst
+	echo "notifications reloaded"
+fi
+
+# pywalfox update
+# echo "firefox reloaded"
+
+# qutebrowser --target=auto ':config-source'
+# echo "qutebrowser reloaded"
+
+touch ~/.config/rmpc/config.ron
+echo "rmpc reloaded"

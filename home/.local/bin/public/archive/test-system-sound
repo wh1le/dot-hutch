@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+theme=$(gsettings get org.gnome.desktop.sound theme-name | tr -d "'")
+dir="/run/current-system/sw/share/sounds/$theme/stereo"
+
+if [[ ! -d "$dir" ]]; then
+  echo "Sound theme directory not found: $dir"
+  exit 1
+fi
+
+for f in "$dir"/*.oga "$dir"/*.ogg "$dir"/*.wav; do
+  [[ -f "$f" ]] || continue
+  name=$(basename "$f")
+  name="${name%.*}"
+  echo "▶ canberra-gtk-play -i $name"
+  canberra-gtk-play -i "$name"
+  sleep 1
+done

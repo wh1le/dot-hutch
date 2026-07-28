@@ -1,0 +1,12 @@
+# Wayland-specific environment — sourced by UWSM for Wayland sessions only
+export XDG_SESSION_TYPE=wayland
+export XDG_CURRENT_DESKTOP=Hyprland
+
+export MOZ_ENABLE_WAYLAND=1
+export NIXOS_OZONE_WL=1
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+export CLUTTER_BACKEND=wayland
+
+export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORMTHEME=hyprqt
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1

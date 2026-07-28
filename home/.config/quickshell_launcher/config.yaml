@@ -1,0 +1,251 @@
+directories:
+  walColors: ${HOME}/.cache/wal/colors.json
+  logPath: ${HOME}/.local/state/quickshell.log
+
+appearance:
+  fonts:
+    main: PragmataPro Mono
+    numbers: PragmataPro Mono
+    title: PragmataPro Mono
+    monospace: PragmataPro Mono
+
+# Launcher & menu mode settings
+launcher:
+  windowClass: quickshell_launcher
+  maxItems: 8
+  itemHeight: 40
+  itemWidth: 500
+  fontFamily: PragmataPro Mono
+  fontSize: 15
+  terminal: kitty
+  termFontSize: 13
+  termWidth: 800
+  termHeight: 500
+  cacheDir: ${HOME}/.cache/quickshell_launcher
+
+menuItems:
+  - {
+      icon: "󰖟",
+      label: "Browser Bookmarks",
+      source: "~/.config/quickshell_launcher/scripts/bookmarks.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/bookmarks.sh",
+      previewFormat: "bookmark",
+      cacheTTL: 0,
+    }
+  - {
+      icon: "󰖟",
+      label: "Browser History",
+      source: "~/.config/quickshell_launcher/scripts/history.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/history.sh",
+      previewFormat: "bookmark",
+      cacheTTL: 0,
+    }
+  - {
+      icon: "󰋩",
+      label: "Screenshots",
+      source: "~/.config/quickshell_launcher/scripts/screenshots.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/screenshots.sh",
+      previewFormat: "image",
+      cacheTTL: 0,
+      maxResults: 0,
+    }
+  - { icon: "󰕧", label: "Search Youtube", script: "gophertube" }
+  - {
+      icon: "󰚑",
+      label: "Kill Process",
+      source: "~/.config/quickshell_launcher/scripts/kill-process.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/kill-process.sh",
+      cacheTTL: 0,
+      maxResults: 0,
+    }
+  - {
+      icon: "󰣌",
+      label: "Wallpaper",
+      source: "~/.config/quickshell_launcher/scripts/wallpaper list",
+      handler: "~/.config/quickshell_launcher/scripts/wallpaper",
+      previewFormat: "image",
+      cacheTTL: 0,
+      maxResults: 0,
+    }
+
+  - {
+      icon: "",
+      label: "Systemd",
+      source: "~/.config/quickshell_launcher/scripts/systemd.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/systemd.sh",
+      cacheTTL: 0,
+      maxResults: 0,
+    }
+  - {
+      icon: "󰐥",
+      label: "Power Management",
+      source: "~/.config/quickshell_launcher/scripts/power-management list",
+      handler: "~/.config/quickshell_launcher/scripts/power-management",
+      cacheTTL: 0,
+    }
+  - { icon: "", label: "Audio", script: "wiremix" }
+
+  - { icon: "󱘖", label: "SSH", option: "ssh-connect", w: 400, h: 500, fs: 12 }
+  - {
+      icon: "󰌾",
+      label: "WireGuard VPN",
+      source: "~/.config/quickshell_launcher/scripts/wireguard-connect list",
+      handler: "~/.config/quickshell_launcher/scripts/wireguard-connect",
+      cacheTTL: 0,
+    }
+  - { icon: "󰤨", label: "Wi-Fi connect", option: "wifi-connect" }
+  - { icon: "", label: "Bluetooth", script: "bluetui" }
+
+  - {
+      icon: "",
+      label: "(Nix) Packages",
+      source: "NIX_INDEX=nixpkgs ~/.config/quickshell_launcher/scripts/nix-registry-search list",
+      handler: "NIX_INDEX=nixpkgs ~/.config/quickshell_launcher/scripts/nix-registry-search",
+      preview: "NIX_INDEX=nixpkgs ~/.config/quickshell_launcher/scripts/nix-registry-search preview {}",
+      previewFormat: "nix-json",
+      sourceLabel: "25.11",
+      unstable: true,
+    }
+  - {
+      icon: "",
+      label: "(Nix) Options",
+      source: "NIX_INDEX=nixos ~/.config/quickshell_launcher/scripts/nix-registry-search list",
+      handler: "NIX_INDEX=nixos ~/.config/quickshell_launcher/scripts/nix-registry-search",
+      preview: "NIX_INDEX=nixos ~/.config/quickshell_launcher/scripts/nix-registry-search preview {}",
+      previewFormat: "nix-json",
+      sourceLabel: "25.11",
+      unstable: true,
+    }
+  - {
+      icon: "",
+      label: "(Nix) Home Options",
+      source: "NIX_INDEX=home-manager ~/.config/quickshell_launcher/scripts/nix-registry-search list",
+      handler: "NIX_INDEX=home-manager ~/.config/quickshell_launcher/scripts/nix-registry-search",
+      preview: "NIX_INDEX=home-manager ~/.config/quickshell_launcher/scripts/nix-registry-search preview {}",
+      previewFormat: "nix-json",
+      sourceLabel: "25.11",
+      unstable: true,
+    }
+  - { icon: "", label: "(Nix) Switch", option: "nix-switch" }
+
+  - {
+      icon: "",
+      label: "Passwords",
+      source: "~/.config/quickshell_launcher/scripts/passwords.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/passwords.sh",
+      cacheTTL: 0,
+    }
+  - {
+      icon: "",
+      label: "Passwords (All)",
+      source: "~/.config/quickshell_launcher/scripts/passwords-all.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/passwords-all.sh",
+      cacheTTL: 0,
+    }
+  - {
+      icon: "",
+      label: "2FA OTP",
+      source: "~/.config/quickshell_launcher/scripts/otp.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/otp.sh",
+      cacheTTL: 0,
+    }
+  - { icon: "", label: "Scan OTP", action: "scan-otp" }
+
+  - {
+      icon: "󰅍",
+      label: "Quick Copy",
+      source: "~/.config/quickshell_launcher/scripts/quick-copy.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/quick-copy.sh",
+      cacheTTL: 0,
+    }
+
+  - { icon: "󰣆", label: "Applications", action: "applications" }
+  - {
+      icon: "",
+      label: "Clipboard",
+      source: "~/.config/quickshell_launcher/scripts/clipboard.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/clipboard.sh",
+      preview: "~/.config/quickshell_launcher/scripts/clipboard.sh preview {}",
+      previewFormat: "clipboard",
+      cacheTTL: 0,
+    }
+  - { icon: "󰃢", label: "Clear Clipboard", script: "copyq removeall" }
+  - {
+      icon: "",
+      label: "Color Picker",
+      script: "xcolor | copyq copy -",
+      w: 350,
+      h: 300,
+    }
+  - {
+      icon: "󰞅",
+      label: "Emoji Picker",
+      source: "~/.config/quickshell_launcher/scripts/emoji-picker list",
+      handler: "~/.config/quickshell_launcher/scripts/emoji-picker",
+      cacheTTL: 86400,
+      maxResults: 50,
+    }
+  - {
+      icon: "",
+      label: "Nerd Font Picker",
+      source: "~/.config/quickshell_launcher/scripts/nerd-icon-picker list",
+      handler: "~/.config/quickshell_launcher/scripts/nerd-icon-picker",
+      cacheTTL: 86400,
+      maxResults: 50,
+    }
+  - {
+      icon: "",
+      label: "Fonts",
+      source: "~/.config/quickshell_launcher/scripts/font-preview list",
+      handler: "~/.config/quickshell_launcher/scripts/font-preview",
+      preview: "~/.config/quickshell_launcher/scripts/font-preview preview {}",
+      cacheTTL: 86400,
+      maxResults: 50,
+    }
+  - {
+      icon: "",
+      label: "Manuals",
+      source: "~/.config/quickshell_launcher/scripts/man-browser list",
+      handler: "~/.config/quickshell_launcher/scripts/man-browser",
+      preview: "~/.config/quickshell_launcher/scripts/man-browser preview {}",
+      cacheTTL: 86400,
+      maxResults: 50,
+    }
+  - {
+      icon: "",
+      label: "Aur search",
+      source: "~/.config/quickshell_launcher/scripts/aur-search list {q}",
+      handler: "~/.config/quickshell_launcher/scripts/aur-search",
+      preview: "~/.config/quickshell_launcher/scripts/aur-search preview {}",
+      liveQuery: true,
+      maxResults: 0,
+    }
+  - {
+      icon: "",
+      label: "Ruby Gems",
+      source: "~/.config/quickshell_launcher/scripts/ruby-gems.rb list",
+      handler: "~/.config/quickshell_launcher/scripts/ruby-gems.rb",
+      preview: "~/.config/quickshell_launcher/scripts/ruby-gems.rb preview {}",
+      cacheTTL: 0,
+    }
+  - {
+      icon: "󰍹",
+      label: "Display Profiles | Kanshi",
+      source: "~/.config/quickshell_launcher/scripts/kanshi-profiles.sh list",
+      handler: "~/.config/quickshell_launcher/scripts/kanshi-profiles.sh",
+      cacheTTL: 0,
+    }
+  - {
+      icon: "󰲸",
+      label: "(MPD) Create Playlist",
+      script: "$HOME/.local/bin/public/mpd-create-new-playlist",
+      w: 350,
+      h: 300,
+    }
+  - {
+      icon: "",
+      label: "(MPD) Add to Playlist",
+      script: "$HOME/.local/bin/public/mpd-add-current-song-to-playlist",
+      w: 350,
+      h: 300,
+    }

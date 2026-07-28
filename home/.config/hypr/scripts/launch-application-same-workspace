@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+APP="$1"
+TIMEOUT=5
+LOGFILE="/tmp/launcher.log"
+
+log() { printf '[%s] %s\n' "$(date '+%F %T')" "$*" >>"$LOGFILE"; }
+
+log "[launcher] app=$APP"
+
+WORKSPACE=$(hyprctl activeworkspace -j | jq -r '.id')
+log "[launcher] workspace=$WORKSPACE"
+
+SOCKET="/run/user/$(id -u)/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+
+hyprctl dispatch exec "$APP"
+
+HINT=$(echo "$APP" | awk '{
+    if (index($0, "flatpak run")) { print tolower($NF); next }
+    n = split($1, a, "/"); print tolower(a[n])
+}')
+
+log "[launcher] hint=$HINT"
+
+ADDRESS=""
+while IFS= read -r line; do
+  case "$line" in openwindow\>\>*)
+    data="${line#openwindow>>}"
+    addr="${data%%,*}"
+    rest="${data#*,}"
+    rest="${rest#*,}"
+    class="${rest%%,*}"
+    class_lower=$(echo "$class" | tr '[:upper:]' '[:lower:]')
+    if [ -z "$HINT" ] || echo "$class_lower" | grep -q "$HINT"; then
+      ADDRESS="0x$addr"
+      break
+    fi
+    ;;
+  esac
+done < <(timeout "$TIMEOUT" socat - "UNIX-CONNECT:$SOCKET" 2>/dev/null || true)
+
+log "[launcher] address=$ADDRESS"
+
+if [ -n "$ADDRESS" ]; then
+  hyprctl dispatch movetoworkspacesilent "$WORKSPACE,address:$ADDRESS"
+  log "[launcher] moved $ADDRESS to workspace $WORKSPACE"
+fi

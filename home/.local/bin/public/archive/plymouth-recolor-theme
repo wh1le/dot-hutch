@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Recolor adi1090x plymouth theme frames
+# Uses grayscale frames as luminance mask to blend white dots
+# over a custom background color with smooth antialiased edges
+#
+# Usage: recolor-theme <input-dir> <output-dir> <bg-color>
+# Example: recolor-theme ./pack_2/hexagon_dots ./output "#0E1520"
+
+set -euo pipefail
+
+if [[ $# -ne 3 ]]; then
+  echo "Usage: $0 <input-dir> <output-dir> <bg-color>"
+  echo "Example: $0 ./pack_2/hexagon_dots ./output '#0E1520'"
+  exit 1
+fi
+
+input_dir="$1"
+output_dir="$2"
+bg_color="$3"
+
+if ! command -v magick &>/dev/null; then
+  echo "error: imagemagick not found"
+  exit 1
+fi
+
+if [[ ! -f "$input_dir/progress-0.png" ]]; then
+  echo "error: no progress-*.png frames found in $input_dir"
+  exit 1
+fi
+
+mkdir -p "$output_dir"
+cp "$input_dir"/progress-*.png "$output_dir/"
+
+size=$(magick identify -format "%wx%h" "$output_dir/progress-0.png")
+
+for f in "$output_dir"/progress-*.png; do
+  magick \( -size "$size" xc:"$bg_color" \) \
+    \( -size "$size" xc:white "$f" -alpha off -compose copy-opacity -composite \) \
+    -compose over -composite "$f"
+done
+
+echo "Recolored $(ls "$output_dir"/progress-*.png | wc -l) frames → $output_dir (bg: $bg_color)"

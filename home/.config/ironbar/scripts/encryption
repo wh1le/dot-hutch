@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+update_var() {
+  if mount | grep -qE ' on /mnt/personal_[^ ]* '; then
+    ironbar var set encryption "<span color='#a6e3a1'>󰌋</span>"
+  else
+    ironbar var set encryption "<span alpha='40%'>󰌋</span>"
+  fi
+}
+
+case "${1:-watch}" in
+state)
+  update_var
+  ;;
+watch)
+  update_var
+  inotifywait -m -e create,delete /mnt 2>/dev/null | while read -r; do
+    sleep 0.5
+    update_var
+  done
+  ;;
+*)
+  echo "Usage: $0 [state|watch]"
+  ;;
+esac

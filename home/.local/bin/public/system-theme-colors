@@ -1,0 +1,152 @@
+#!/usr/bin/env python3
+import json
+import math
+import os
+import random
+import sys
+
+
+def js_round(number):
+    return math.floor(number + 0.5)
+
+
+def hsv_to_rgb(hue, saturation, value):
+    hue = max(0, min(360, hue))
+    saturation = max(0, min(100, saturation))
+    value = max(0, min(100, value))
+
+    saturation /= 100
+    value /= 100
+
+    if saturation == 0:
+        red = green = blue = value
+        return [js_round(red * 255), js_round(green * 255), js_round(blue * 255)]
+
+    hue /= 60
+    sector_index = math.floor(hue)
+    fractional = hue - sector_index
+    value_min = value * (1 - saturation)
+    value_falling = value * (1 - saturation * fractional)
+    value_rising = value * (1 - saturation * (1 - fractional))
+
+    if sector_index == 0:
+        red, green, blue = value, value_rising, value_min
+    elif sector_index == 1:
+        red, green, blue = value_falling, value, value_min
+    elif sector_index == 2:
+        red, green, blue = value_min, value, value_rising
+    elif sector_index == 3:
+        red, green, blue = value_min, value_falling, value
+    elif sector_index == 4:
+        red, green, blue = value_rising, value_min, value
+    else:
+        red, green, blue = value, value_min, value_falling
+
+    return [js_round(red * 255), js_round(green * 255), js_round(blue * 255)]
+
+
+def random_int(minimum, maximum):
+    return math.floor(random.random() * (maximum - minimum + 1)) + minimum
+
+
+def generate_color(bright_or_dark, less_or_more_variety, return_format, hue_value=None):
+    if bright_or_dark is True:
+        brightness = random_int(66, 70)
+    else:
+        brightness = random_int(60, 64)
+
+    saturation = random_int(10, 20)
+
+    if hue_value:
+        hue = hue_value
+    elif less_or_more_variety is True:
+        hue = random_int(120, 270)
+    else:
+        hue = random_int(15, 345)
+
+    if return_format in ("hsb", "hsv"):
+        return [hue, saturation, brightness]
+    if return_format == "rgb":
+        return hsv_to_rgb(hue, saturation, brightness)
+    if return_format == "rgba":
+        rgb_color = hsv_to_rgb(hue, saturation, brightness)
+        return "rgba({}, {}, {}, 1)".format(rgb_color[0], rgb_color[1], rgb_color[2])
+    if return_format == "hex":
+        rgb_color = hsv_to_rgb(hue, saturation, brightness)
+        return "#{:02x}{:02x}{:02x}".format(rgb_color[0], rgb_color[1], rgb_color[2])
+
+def rgb_to_hsv(red, green, blue):
+    r, g, b = red / 255, green / 255, blue / 255
+    high, low = max(r, g, b), min(r, g, b)
+    delta = high - low
+    if delta == 0:
+        hue = 0
+    elif high == r:
+        hue = 60 * (((g - b) / delta) % 6)
+    elif high == g:
+        hue = 60 * (((b - r) / delta) + 2)
+    else:
+        hue = 60 * (((r - g) / delta) + 4)
+    saturation = 0 if high == 0 else (delta / high) * 100
+    return [hue, saturation, high * 100]
+
+
+def sensetivity_filter(hex_color, value_low=40, value_high=48, sat_low=10, sat_high=20):
+    red, green, blue = [int(hex_color.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    hue, saturation, value = rgb_to_hsv(red, green, blue)
+    hue = min(max(hue, 120), 270)
+    saturation = min(max(saturation, sat_low), sat_high)
+    value = min(max(value, value_low), value_high)
+    rgb = hsv_to_rgb(hue, saturation, value)
+    return "#{:02x}{:02x}{:02x}".format(rgb[0], rgb[1], rgb[2])
+
+
+def lerp_hex(hex_a, hex_b, ratio):
+    a = [int(hex_a.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    b = [int(hex_b.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    mixed = [js_round(a[i] + (b[i] - a[i]) * ratio) for i in range(3)]
+    return "#{:02x}{:02x}{:02x}".format(mixed[0], mixed[1], mixed[2])
+
+
+def generate_base_16_from_pywal(path="~/.cache/wal/colors.json"):
+    with open(os.path.expanduser(path)) as f:
+        data = json.load(f)
+    c = data["colors"]
+    bg = data["special"]["background"]
+    fg = data["special"]["foreground"]
+    return {
+        "base00": bg,
+        "base01": lerp_hex(bg, fg, 0.08),
+        "base02": lerp_hex(bg, fg, 0.16),
+        "base03": lerp_hex(bg, fg, 0.38),
+        "base04": lerp_hex(bg, fg, 0.55),
+        "base05": lerp_hex(fg, bg, 0.22),
+        "base06": fg,
+        "base07": lerp_hex(fg, "#ffffff", 0.25),
+        "base08": sensetivity_filter(c["color1"]),
+        "base09": sensetivity_filter(c["color2"]),
+        "base0A": sensetivity_filter(c["color3"]),
+        "base0B": sensetivity_filter(c["color4"], 58, 66, 32, 44),
+        "base0C": sensetivity_filter(c["color5"]),
+        "base0D": sensetivity_filter(c["color6"]),
+        "base0E": sensetivity_filter(c["color4"]),
+        "base0F": sensetivity_filter(c["color5"]),
+    }
+
+def save_base_16(name, path="~/.cache/wal/colors.json"):
+    palette = generate_base_16_from_pywal(path)
+    out_dir = os.path.expanduser(os.environ["user_themes_path"])
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, name + ".json")
+    with open(out_path, "w") as f:
+        json.dump(palette, f, indent=2)
+    return out_path
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        print(save_base_16(sys.argv[1]))
+    else:
+        print(generate_color(True, True, "rgb"))
+        print(generate_color(True, False, "hex"))
+        print(generate_color(False, False, "hsb", 180))

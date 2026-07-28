@@ -1,0 +1,82 @@
+// ==UserScript==
+// @name         Whiteout
+// @match        *://*/*
+// @run-at       document-start
+// @grant        none
+// ==/UserScript==
+
+(function () {
+  const css = `
+        *, *::before, *::after {
+            background-color: #fff !important;
+            color: #000 !important;
+            border-color: #ccc !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+        img, video, canvas, svg, picture, [class*="avatar"], [class*="Avatar"] { 
+            background: transparent !important;
+        }
+        a, a:link, a:hover, a:active,
+        a *, a span, a code,
+        [class*="Link"], [class*="link"],
+        .Link, .link, .text-link,
+        .markdown-body a, .feed-item-content a,
+        .Box a, [data-hovercard-type] {
+          color: #00e !important;
+        }
+        a:visited, a:visited * {
+          color: #551a8b !important;
+        }
+        
+        /* GitHub specific */
+        .feed-item-content, .Box, .color-bg-default, .color-bg-subtle,
+        [data-color-mode], [class*="color-bg"], [class*="bgColor"] {
+            background-color: #fff !important;
+        }
+    `;
+
+  const style = document.createElement("style");
+  style.textContent = css;
+
+  if (document.head) {
+    document.head.appendChild(style);
+  } else {
+    document.addEventListener("DOMContentLoaded", () => {
+      document.head.appendChild(style);
+    });
+  }
+
+  // Override CSS variables
+  document.documentElement.style.setProperty(
+    "--bgColor-default",
+    "#fff",
+    "important",
+  );
+  document.documentElement.style.setProperty(
+    "--bgColor-muted",
+    "#fff",
+    "important",
+  );
+  document.documentElement.style.setProperty(
+    "--color-canvas-default",
+    "#fff",
+    "important",
+  );
+  document.documentElement.style.setProperty(
+    "--color-canvas-subtle",
+    "#fff",
+    "important",
+  );
+
+  document.documentElement.style.setProperty(
+    "--fgColor-default",
+    "#000",
+    "important",
+  );
+  document.documentElement.style.setProperty(
+    "--fgColor-muted",
+    "#333",
+    "important",
+  );
+})();

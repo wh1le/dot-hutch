@@ -1,0 +1,80 @@
+# https://yazi-rs.github.io/docs/configuration/yazi
+
+[mgr]
+close_on_quit = false
+sort_by = "alphabetical"
+sort_sensitive = false
+sort_dir_first = true
+linemode = "size_and_mtime"
+show_hidden = true
+show_symlink = true
+ratio = [1, 2, 4]
+linked = true
+
+
+[preview]
+image_filter = "lanczos3"
+wrap = "yes"
+tab_size = 2
+max_width = 1200
+max_height = 1000
+
+
+status.show_hidden = true
+status.show_symlink = true
+
+
+[open]
+prepend_rules = [
+  { url = "*.json", use = "edit" },
+  { url = "*.html", use = [
+    "open",
+    "edit",
+  ] },
+]
+append_rules = [{ url = "*", use = "my-fallback" }]
+
+
+[opener]
+play = [{ run = 'mpv --loop-file "$@"', orphan = true, for = "unix" }]
+edit = [
+  { run = '$EDITOR "$@"', block = true, for = "unix" },
+  { run = "%EDITOR% %*", block = true, for = "windows" },
+]
+open = [{ run = 'xdg-open "$@"', desc = "Open" }]
+extract = [
+  { run = 'ouch d -y "$@"', desc = "Extract here with ouch", for = "unix" },
+]
+
+
+[input]
+offset = "(20, 20, 20, 20)"
+
+[plugin]
+prepend_previewers = [
+  # { url = "*/", run = "eza-preview" },
+  { url = "*.torrent", run = "torrent-preview" },
+  { mime = "application/epub+zip", run = "epub-preview" },
+  { mime = "application/json", run = "my-previewer" },
+  { mime = "video/*", run = "video-strip" },
+  # { mime = "video/*", run = "piper -- exiftool -S -Duration -ImageSize -VideoFrameRate -AudioBitrate -AudioChannels -SampleRate \"$1\" 2>/dev/null" },
+  { mime = "audio/*", run = "piper -- exiftool -S -FileSize -Duration -AudioBitrate -ChannelMode -AudioChannels -SampleRate \"$1\" 2>/dev/null" },
+  { mime = "font/*", run = "font-sample" },
+  { mime = "application/ms-opentype", run = "font-sample" },
+  { url = "*.{otf,ttf,woff,woff2}", run = "font-sample" },
+  { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", run = "ouch" },
+  { url = "*.{csv,tsv,json,parquet,txt,xlsx,db,duckdb}", run = "duckdb" },
+  { mime = "text/*", run = 'piper -- bat -p --color=always --theme=base16 "$1"' },
+]
+
+prepend_preloaders = [
+  { mime = "font/*", run = "font-sample" },
+  { mime = "application/ms-opentype", run = "font-sample" },
+  { url = "*.{otf,ttf,woff,woff2}", run = "font-sample" },
+  { mime = "application/json", run = "my-previewer" },
+  { url = "*.{csv,tsv,json,parquet,txt,xlsx}", run = "duckdb", multi = false },
+  # disable caching
+  { mime = "image/*", run = "noop" },
+  { mime = "video/*", run = "noop" },
+
+]

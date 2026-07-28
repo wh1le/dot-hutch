@@ -1,0 +1,11 @@
+vim.opt_local.wrap = true
+vim.opt_local.linebreak = true
+vim.opt_local.showbreak = "  ↳"
+vim.opt_local.breakindent = true
+vim.opt_local.breakindentopt = "shift:2"
+vim.opt_local.spell = false
+vim.opt_local.cursorline = true
+vim.opt_local.number = true
+vim.opt_local.relativenumber = false
+vim.opt_local.smoothscroll = true
+vim.opt_local.colorcolumn = ""

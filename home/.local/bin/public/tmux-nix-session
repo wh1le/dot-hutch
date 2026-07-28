@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SESSION="nix"
+BASE="$HOME/Code"
+
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+  exit 0
+fi
+
+tmux new-session -d -s "$SESSION" \
+  -n personal \
+  -c "$BASE/dot-personal" \
+  'zsh -l'
+
+tmux send-keys -t "$SESSION:personal" 'nvim .' C-m
+
+tmux new-window -t "$SESSION:" \
+  -n public \
+  -c "$BASE/dot-hutch" \
+  'zsh -l'
+tmux send-keys -t "$SESSION:public" 'nvim .' C-m
+
+tmux new-window -t "$SESSION:" \
+  -n switch \
+  -c "$BASE/dot-hutch" \
+  'zsh -l'
+
+# tmux select-window -t "$SESSION:1"

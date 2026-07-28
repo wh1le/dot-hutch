@@ -1,0 +1,7 @@
+[options]
+overlay = true
+overlay_text = ${imv_current_index}/${imv_file_count}
+
+[binds]
+<Shift+.> = next
+<Shift+,> = prev

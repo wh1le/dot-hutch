@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+list_fonts() {
+  fc-list -f '%{family[0]}\n' | sort -u
+}
+
+strip_nix='sed "s|/nix/store/[^/]*/|.../|g"'
+
+choice=$(list_fonts | fzm --tty --dmenu -p "\
+  --preview='fc-list {} -f \"style: %{style}  file: %{file}\n\" 2>/dev/null | $strip_nix | head -20' \
+  --preview-window=top,30% \
+  --prompt='font> '") || exit 0
+
+[[ -z "$choice" ]] && exit 0
+
+echo -n "$choice" | wl-copy
+notify-send "Font" "Copied: $choice"

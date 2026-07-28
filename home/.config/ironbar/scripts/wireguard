@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+update_var() {
+  if ip link show type wireguard 2>/dev/null | grep -q "UP"; then
+    ironbar var set vpn "<span color='#a6e3a1'>󰖂</span>"
+  else
+    ironbar var set vpn "<span alpha='40%'>󰖂</span>"
+  fi
+}
+
+case "${1:-watch}" in
+  state)
+    update_var
+    ;;
+  watch)
+    update_var
+    ip monitor link | while read -r line; do
+      if echo "$line" | grep -q "wireguard"; then
+        sleep 0.5
+        update_var
+      fi
+    done
+    ;;
+  *)
+    echo "Usage: $0 [state|watch]"
+    ;;
+esac

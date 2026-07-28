@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+start-ironbar() {
+  export HYPRLAND_INSTANCE_SIGNATURE=$(hyprctl instances -j | jq -r '.[0].instance')
+  ironbar --debug &
+  disown
+  sleep 1
+  ~/.config/ironbar/scripts/init &
+}
+
+pkill ironbar
+start-ironbar
+
+inotifywait -mr -e close_write,move,create,delete \
+  --exclude '(scripts/|\.log)' \
+  ~/.config/ironbar |
+  while read -r; do
+    pkill ironbar
+    while pgrep -x ironbar >/dev/null; do sleep 0.05; done
+    start-ironbar
+  done
