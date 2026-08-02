@@ -51,7 +51,6 @@ let
         startup.chime = false;
         defaults = {
           # ".GlobalPreferences".com.apple.sound.beep.sound = "Funk";
-          LaunchServices.LSQuarantine = false;
           SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
           loginwindow.GuestEnabled = false;
           NSGlobalDomain = {
