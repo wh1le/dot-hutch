@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DEVID="0018:06CB:CE67.0001"
+DRIVER="/sys/bus/hid/drivers/hid-multitouch"
+DEVICE_NAME="SYNA8018:00 06CB:CE67 Touchpad"
+
+echo "$DEVID" | sudo tee "$DRIVER/unbind" >/dev/null 2>&1 || true
+sleep 1
+echo "$DEVID" | sudo tee "$DRIVER/bind" >/dev/null 2>&1
+
+for _ in {1..10}; do
+    xinput list --name-only | grep -qxF "$DEVICE_NAME" && break
+    sleep 0.5
+done
+
+xinput set-prop "$DEVICE_NAME" "libinput Natural Scrolling Enabled" 1
+echo "Touchpad reset. Natural scrolling on."

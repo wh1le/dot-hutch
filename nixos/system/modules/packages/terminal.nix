@@ -86,6 +86,7 @@
     pkgs.nix-direnv
 
     pkgs.k9s
+    pkgs.dooit
 
     # pkgs.systemctl-tui
     # pkgs.sysz

@@ -53,7 +53,6 @@ offset = "(20, 20, 20, 20)"
 [plugin]
 prepend_previewers = [
   # { url = "*/", run = "eza-preview" },
-  { url = "*.torrent", run = "torrent-preview" },
   { mime = "application/epub+zip", run = "epub-preview" },
   { mime = "application/json", run = "my-previewer" },
   { mime = "video/*", run = "video-strip" },

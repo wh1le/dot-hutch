@@ -169,7 +169,12 @@ menuItems:
       previewFormat: "clipboard",
       cacheTTL: 0,
     }
-  - { icon: "󰃢", label: "Clear Clipboard", script: "copyq removeall" }
+  - {
+      icon: "󰃢",
+      label: "Clear Clipboard",
+      script: "copyq eval -- 'const n = count(); if (n) { const r = []; for (var i = 0; i < n; ++i) r.push(i); remove.apply(this, r); }' && notify-send -a Clipboard 'Clipboard cleared'",
+      silent: true,
+    }
   - {
       icon: "",
       label: "Color Picker",

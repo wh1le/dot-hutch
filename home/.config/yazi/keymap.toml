@@ -9,7 +9,7 @@ mgr.prepend_keymap = [
   { on = "X", run = 'shell --block -- ouch d -y %h', desc = "Decompress hovered archive with ouch" },
   { on = "T", run = "plugin toggle-pane min-preview", desc = "Show or hide the preview pane" },
   { on = "H", run = "hidden toggle", desc = "Toggle hidden files" },
-  { on = "u", run = 'shell --block -- /home/wh1le/.config/yazi/scripts/personal/send-to-transmission "$@"', desc = "Send torrent(s) to Transmission" },
+  { on = "u", run = 'shell --block -- /home/wh1le/.config/yazi/scripts/personal/send-to-daemon "$@"', desc = "Send selection to daemon" },
 
   # media: nested play under hovered dir (or current dir), as detached mpv windows
   { on = [ "p", "a" ], run = 'shell -- setsid -f /home/wh1le/.config/yazi/scripts/play-all-nested-audios "$1"', desc = "Play nested audio" },

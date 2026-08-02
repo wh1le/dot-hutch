@@ -33,6 +33,7 @@ Singleton {
                 label:   r.label   || "",
                 option:  r.option  || "",
                 script:  r.script  || "",
+                silent:  !!r.silent,
                 handler: r.handler || "",
                 action:  r.action  || "",
                 source:  r.source  || "",
@@ -164,6 +165,12 @@ Singleton {
         } else if (item.script) {
             cmd = item.script;
         } else {
+            return;
+        }
+
+        // Silent scripts run in the background: no terminal, feedback via notify-send.
+        if (item.silent) {
+            Quickshell.execDetached(["bash", "-c", cmd]);
             return;
         }
 
