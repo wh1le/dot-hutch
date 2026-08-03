@@ -39,10 +39,10 @@ let
 
       homebrew = {
         enable = true;
-        brews = [ "codex" ];
         casks = [
-          "hammerspoon"
+          "codex"
           "ghostty"
+          "hammerspoon"
         ];
         global = {
           brewfile = true;
