@@ -19,7 +19,12 @@ inputs.nix-darwin.lib.darwinSystem {
     inputs.home-manager.darwinModules.home-manager
 
     (
-      { config, pkgs, lib, ... }:
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
       let
         supported = lib.filter (p: lib.meta.availableOn pkgs.stdenv.hostPlatform p);
         pkgsOf = module: supported (import module { inherit pkgs; }).environment.systemPackages;
@@ -27,7 +32,7 @@ inputs.nix-darwin.lib.darwinSystem {
       {
         system.stateVersion = 6;
         networking.hostName = "mac";
-        my.username = "nmiloserdov";
+        my.username = "nikita.miloserdov";
         nixpkgs.hostPlatform = lib.mkDefault system;
 
         environment.variables.EDITOR = "nvim";

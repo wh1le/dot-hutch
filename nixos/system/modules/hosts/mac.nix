@@ -7,7 +7,7 @@ let
     }:
     let
       caBundle = "/etc/ssl/certs/nix-corp-bundle.pem";
-      corpCa = "/Users/${config.my.username}/.secrets/corp-ca.pem";
+      corpCa = "${config.users.users.${config.my.username}.home}/.secrets/corp-ca.pem";
     in
     {
       system.primaryUser = config.my.username;
