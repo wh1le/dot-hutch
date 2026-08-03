@@ -34,6 +34,13 @@ nb() {
 	fi
 }
 
+ns-mac() {
+	local target=mac
+	[ "$(uname -m)" = x86_64 ] && target=mac-intel
+	sudo darwin-rebuild switch --flake "$HOME/Code/dot-hutch#${target}" &&
+		zsh-rebuild-cache
+}
+
 ntest() {
 	_nixos_update_public && _nixos_rebuild dry-build
 }
