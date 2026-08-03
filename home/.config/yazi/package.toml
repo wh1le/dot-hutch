@@ -40,8 +40,8 @@ hash = "f5afc904d5106ee368c8aa2ded43bd74"
 
 [[plugin.deps]]
 use = "wh1le/move-to-new-folder"
-rev = "ede9d05"
-hash = "7c4634568a73fd2f925766e3193b77d6"
+rev = "2499481"
+hash = "ef78723cfd06229c9dccba48dbf83d7"
 
 [flavor]
 deps = []
