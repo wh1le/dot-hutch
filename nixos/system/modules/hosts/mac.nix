@@ -39,7 +39,11 @@ let
 
       homebrew = {
         enable = true;
-        casks = [ "hammerspoon" ];
+        brews = [ "codex" ];
+        casks = [
+          "hammerspoon"
+          "ghostty"
+        ];
         global = {
           brewfile = true;
         };
@@ -251,7 +255,7 @@ let
 
         keyboard = {
           enableKeyMapping = true;
-          remapCapsLockToEscape = true;
+          remapCapsLockToControl = true;
         };
       };
     };
