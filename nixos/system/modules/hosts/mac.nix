@@ -5,6 +5,12 @@ let
       pkgs,
       ...
     }:
+    let
+      # Combined trust store for Nix-provided tools under corporate TLS
+      # inspection: Apple roots + the MDM-injected corp CA, extracted live from
+      # the System keychain at activation. Kept out of the repo on purpose.
+      caBundle = "/etc/ssl/certs/nix-corp-bundle.pem";
+    in
     {
       system.primaryUser = config.my.username;
 
@@ -25,6 +31,12 @@ let
         # /usr/bin/git is an xcrun shim and follows xcode-select, which points at Nix's SDK.
         # `xcrun -f git` -> `/run/current-system/sw/bin/git`
         HOMEBREW_GIT_PATH = "/Library/Developer/CommandLineTools/usr/bin/git";
+
+        # Trust the corp TLS-inspection proxy in every Nix-provided tool.
+        NIX_SSL_CERT_FILE = caBundle;
+        SSL_CERT_FILE = caBundle;
+        GIT_SSL_CAINFO = caBundle;
+        CURL_CA_BUNDLE = caBundle;
       };
 
       homebrew = {
@@ -39,13 +51,26 @@ let
           cleanup = "none";
           extraEnv = {
             HOMEBREW_GIT_PATH = "/Library/Developer/CommandLineTools/usr/bin/git";
-            SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-            GIT_SSL_CAINFO = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+            NIX_SSL_CERT_FILE = caBundle;
+            SSL_CERT_FILE = caBundle;
+            GIT_SSL_CAINFO = caBundle;
             HOMEBREW_NO_ANALYTICS = "1";
             HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
           };
         };
       };
+
+      # Export the System keychain (Apple roots + MDM-injected corp CA) into one
+      # bundle so Nix-provided tools work behind TLS inspection. Live-extracted
+      # at activation — nothing corp-internal is ever committed to the repo.
+      system.activationScripts.extraActivation.text = ''
+        umask 022
+        caTmp="$(mktemp)"
+        /usr/bin/security find-certificate -a -p /Library/Keychains/System.keychain > "$caTmp" 2>/dev/null || true
+        /usr/bin/security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >> "$caTmp" 2>/dev/null || true
+        [ -s "$caTmp" ] && /usr/bin/install -m 0644 "$caTmp" ${caBundle}
+        rm -f "$caTmp"
+      '';
 
       system = {
         startup.chime = false;

@@ -8,16 +8,20 @@ if [ "$(uname -m)" = x86_64 ]; then
 else
   TARGET="${TARGET:-mac}"
 fi
-CA="$HOME/.cache/nix/corp-ca.pem"
+CA="/etc/ssl/certs/nix-corp-bundle.pem"
 
 [ "$(uname -s)" = Darwin ] || {
   echo "macOS only"
   exit 1
 }
 
-mkdir -p "$(dirname "$CA")"
-security find-certificate -a -p /Library/Keychains/System.keychain >"$CA" 2>/dev/null || true
-security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >>"$CA" 2>/dev/null || true
+# Seed the corp CA bundle before the first rebuild (activation regenerates it
+# thereafter). Matches caBundle in nixos/system/modules/hosts/mac.nix.
+caTmp="$(mktemp)"
+security find-certificate -a -p /Library/Keychains/System.keychain >"$caTmp" 2>/dev/null || true
+security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >>"$caTmp" 2>/dev/null || true
+[ -s "$caTmp" ] && sudo install -m 0644 "$caTmp" "$CA"
+rm -f "$caTmp"
 
 SUDO_ENV=()
 if [ -s "$CA" ]; then
