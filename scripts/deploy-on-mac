@@ -15,11 +15,13 @@ CA="/etc/ssl/certs/nix-corp-bundle.pem"
   exit 1
 }
 
-# Seed the corp CA bundle before the first rebuild (activation regenerates it
-# thereafter). Matches caBundle in nixos/system/modules/hosts/mac.nix.
 caTmp="$(mktemp)"
-security find-certificate -a -p /Library/Keychains/System.keychain >"$caTmp" 2>/dev/null || true
-security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >>"$caTmp" 2>/dev/null || true
+security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >"$caTmp" 2>/dev/null || true
+if [ -f "$HOME/.secrets/corp-ca.pem" ]; then
+  cat "$HOME/.secrets/corp-ca.pem" >>"$caTmp"
+else
+  security find-certificate -a -p /Library/Keychains/System.keychain >>"$caTmp" 2>/dev/null || true
+fi
 [ -s "$caTmp" ] && sudo install -m 0644 "$caTmp" "$CA"
 rm -f "$caTmp"
 

@@ -6,10 +6,8 @@ let
       ...
     }:
     let
-      # Combined trust store for Nix-provided tools under corporate TLS
-      # inspection: Apple roots + the MDM-injected corp CA, extracted live from
-      # the System keychain at activation. Kept out of the repo on purpose.
       caBundle = "/etc/ssl/certs/nix-corp-bundle.pem";
+      corpCa = "/Users/${config.my.username}/.secrets/corp-ca.pem";
     in
     {
       system.primaryUser = config.my.username;
@@ -32,7 +30,7 @@ let
         # `xcrun -f git` -> `/run/current-system/sw/bin/git`
         HOMEBREW_GIT_PATH = "/Library/Developer/CommandLineTools/usr/bin/git";
 
-        # Trust the corp TLS-inspection proxy in every Nix-provided tool.
+        # Trust the inspecting proxy in every Nix-provided tool.
         NIX_SSL_CERT_FILE = caBundle;
         SSL_CERT_FILE = caBundle;
         GIT_SSL_CAINFO = caBundle;
@@ -60,15 +58,18 @@ let
         };
       };
 
-      # Export the System keychain (Apple roots + MDM-injected corp CA) into one
-      # bundle so Nix-provided tools work behind TLS inspection. Live-extracted
-      # at activation — nothing corp-internal is ever committed to the repo.
+      # nixpkgs CA set plus a local CA from ~/.secrets/corp-ca.pem, falling back
+      # to the System keychain, so Nix-provided tools trust an inspecting proxy.
       system.activationScripts.extraActivation.text = ''
         umask 022
         caTmp="$(mktemp)"
-        /usr/bin/security find-certificate -a -p /Library/Keychains/System.keychain > "$caTmp" 2>/dev/null || true
-        /usr/bin/security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >> "$caTmp" 2>/dev/null || true
-        [ -s "$caTmp" ] && /usr/bin/install -m 0644 "$caTmp" ${caBundle}
+        cat ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt > "$caTmp"
+        if [ -f ${corpCa} ]; then
+          cat ${corpCa} >> "$caTmp"
+        else
+          /usr/bin/security find-certificate -a -p /Library/Keychains/System.keychain >> "$caTmp" 2>/dev/null || true
+        fi
+        /usr/bin/install -m 0644 "$caTmp" ${caBundle}
         rm -f "$caTmp"
       '';
 
