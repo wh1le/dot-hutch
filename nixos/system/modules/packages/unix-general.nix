@@ -37,5 +37,9 @@
 
     pkgs.img2pdf
     pkgs.qpdf
+
+    (pkgs.pass.withExtensions (exts: [
+      exts.pass-otp
+    ]))
   ];
 }

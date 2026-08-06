@@ -178,6 +178,12 @@ return {
 					path = vim.fn.expand("~/Documents/obsidian/self-architect"),
 				},
 			},
+			workspaces = {
+				{
+					name = "Work",
+					path = vim.fn.expand("~/Documents/obsidian/Work"),
+				},
+			},
 			completion = {
 				min_chars = 2,
 			},

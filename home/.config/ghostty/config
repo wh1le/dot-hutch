@@ -33,6 +33,9 @@ keybind = alt+left=esc:b
 keybind = alt+right=esc:f
 keybind = ctrl+shift+h=esc:b
 keybind = ctrl+shift+l=esc:f
+keybind = super+v=paste_from_clipboard
+keybind = performable:ctrl+v=paste_from_clipboard
+keybind = performable:ctrl+shift+v=paste_from_clipboard
 
 working-directory = home
 window-inherit-working-directory = false
@@ -46,6 +49,7 @@ clipboard-read = allow
 clipboard-write = allow
 
 shell-integration = detect
+shell-integration-features = sudo
 mouse-hide-while-typing = true
 
 linux-cgroup = never

@@ -1,5 +1,7 @@
 {
   inputs,
+  nixpkgs,
+  nixpkgs-unstable,
   self,
   system ? "aarch64-darwin",
   extraModules ? [ ],
@@ -34,12 +36,15 @@ inputs.nix-darwin.lib.darwinSystem {
         networking.hostName = "mac";
         my.username = "nikita.miloserdov";
         nixpkgs.hostPlatform = lib.mkDefault system;
+        nixpkgs.config.allowUnfreePredicate = pkg:
+          builtins.elem (lib.getName pkg) [ "obsidian" ];
 
         environment.variables.EDITOR = "nvim";
 
         environment.systemPackages =
           pkgsOf ../modules/packages/terminal.nix
           ++ pkgsOf ../modules/packages/unix-general.nix
+          ++ pkgsOf ../modules/packages/core.nix
           ++ pkgsOf ../modules/packages/neovim.nix;
 
         home-manager = {
