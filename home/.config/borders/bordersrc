@@ -1,0 +1,17 @@
+#!/bin/bash
+
+wal="$HOME/.cache/wal/colors"
+if [ -f "$wal" ]; then
+  accent="0xff$(sed -n '5p' "$wal" | tr -d '#')"
+  bg="0xff$(sed -n '1p' "$wal" | tr -d '#')"
+else
+  accent=0xff5195ac
+  bg=0xff090e15
+fi
+
+/opt/homebrew/bin/borders \
+  style=square \
+  width=3.0 \
+  hidpi=on \
+  active_color="$accent" \
+  inactive_color="$bg"

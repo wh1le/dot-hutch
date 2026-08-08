@@ -13,12 +13,6 @@ local DEFAULT_URL_REDIRECT_DECODERS = {
 	},
 }
 
-local MANAGED_SPOONS = {
-	'EmmyLua',
-	'Caffeine',
-	'URLDispatcher',
-}
-
 local DEFAULT_SETTINGS = {
 	urlDispatcher = {
 		enabled = true,
@@ -33,7 +27,6 @@ local DEFAULT_SETTINGS = {
 }
 
 local M = {
-	install = nil,
 	settings = utils.deepCopy(DEFAULT_SETTINGS),
 	setupComplete = false,
 }
@@ -45,7 +38,7 @@ local function loadSpoon(name)
 		return false
 	end
 
-	if not spoon[name] then
+	if not (spoon and spoon[name]) then
 		log.ef("Spoon '%s' is unavailable after loading", name)
 		return false
 	end
@@ -83,7 +76,7 @@ local function resolveDefaultBrowser()
 		return bundleID
 	end
 
-	return utils.getAppBundleID 'safari'
+	return utils.getAppBundleID 'chrome'
 end
 
 local function buildDispatchRules(rules)
@@ -151,8 +144,12 @@ local function mergeURLDispatcherConfig(base, overrides)
 	return merged
 end
 
+local function getURLDispatcher()
+	return spoon and spoon.URLDispatcher
+end
+
 local function stopURLDispatcherPatternWatchers()
-	if not spoon.URLDispatcher then
+	if not getURLDispatcher() then
 		return
 	end
 
@@ -230,25 +227,27 @@ end
 function M.applyURLDispatcherConfig()
 	local runtime = M.buildURLDispatcherConfig()
 	if not runtime then
-		if spoon.URLDispatcher then
+		if getURLDispatcher() then
 			stopURLDispatcherPatternWatchers()
 			hs.urlevent.httpCallback = nil
 		end
 		return true
 	end
 
-	if not spoon.URLDispatcher and not loadSpoon 'URLDispatcher' then
+	if not getURLDispatcher() and not loadSpoon 'URLDispatcher' then
 		return false
 	end
+
+	local dispatcher = getURLDispatcher()
 
 	stopURLDispatcherPatternWatchers()
 
 	for key, value in pairs(runtime.config) do
-		spoon.URLDispatcher[key] = value
+		dispatcher[key] = value
 	end
 
-	if spoon.URLDispatcher.logger and runtime.log_level then
-		spoon.URLDispatcher.logger.setLogLevel(runtime.log_level)
+	if dispatcher.logger and runtime.log_level then
+		dispatcher.logger.setLogLevel(runtime.log_level)
 	end
 
 	if runtime.start == false then
@@ -256,7 +255,7 @@ function M.applyURLDispatcherConfig()
 		return true
 	end
 
-	spoon.URLDispatcher:start()
+	dispatcher:start()
 	return true
 end
 
@@ -287,42 +286,7 @@ function M.resetURLDispatcherConfig()
 	return M.setURLDispatcherConfig(DEFAULT_SETTINGS.urlDispatcher)
 end
 
-function M.updateSpoons()
-	if not M.install then
-		log.w 'SpoonInstall is not available'
-		return false
-	end
-
-	M.install:updateAllRepos()
-
-	local updated = true
-	for _, spoonName in ipairs(MANAGED_SPOONS) do
-		local ok = M.install:installSpoonFromRepo(spoonName)
-		if ok then
-			log.i(string.format("Updated spoon '%s'", spoonName))
-		else
-			updated = false
-			log.wf("Failed to update spoon '%s'", spoonName)
-		end
-	end
-
-	return updated
-end
-
 function M.setup()
-	if not loadSpoon 'SpoonInstall' then
-		return false
-	end
-
-	M.install = spoon.SpoonInstall
-	M.updateSpoons()
-
-	M.install:andUse 'EmmyLua'
-
-	M.install:andUse('Caffeine', {
-		start = true,
-	})
-
 	M.setupComplete = true
 	return M.applyURLDispatcherConfig()
 end

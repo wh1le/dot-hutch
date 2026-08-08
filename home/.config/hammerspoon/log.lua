@@ -2,8 +2,8 @@
 -- Simple logging facility.
 --
 
-local defaultLogLevel = 'info'
-local logger = hs.logger.new('ahmed', defaultLogLevel)
+local defaultLogLevel = "info"
+local logger = hs.logger.new("nikita.miloserdov", defaultLogLevel)
 
 local module = {
 	d = function(...)
@@ -36,27 +36,27 @@ local module = {
 	end,
 
 	debug = function()
-		logger.setLogLevel 'debug'
+		logger.setLogLevel("debug")
 	end,
 	info = function()
-		logger.setLogLevel 'info'
+		logger.setLogLevel("info")
 	end,
 	verbose = function()
-		logger.setLogLevel 'verbose'
+		logger.setLogLevel("verbose")
 	end,
 	warning = function()
-		logger.setLogLevel 'warning'
+		logger.setLogLevel("warning")
 	end,
 	error = function()
-		logger.setLogLevel 'error'
+		logger.setLogLevel("error")
 	end,
 	nothing = function()
-		logger.setLogLevel 'nothing'
+		logger.setLogLevel("nothing")
 	end,
 }
 
-module['if'] = function(...)
-	return logger['if'](...)
+module["if"] = function(...)
+	return logger["if"](...)
 end
 
 return module

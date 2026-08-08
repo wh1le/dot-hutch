@@ -1,76 +1,73 @@
-local log = require 'log'
+local log = require("log")
 
 local APP_SPECS = {
 	chrome = {
 		paths = {
-			'/Applications/Google Chrome.app',
+			"/Applications/Google Chrome.app",
 		},
-		bundleIDs = { 'com.google.Chrome' },
+		bundleIDs = { "com.google.Chrome" },
 	},
 	firefox = {
-		paths = { '/Applications/Firefox.app' },
-		bundleIDs = { 'org.mozilla.firefox' },
+		paths = { "/Applications/Firefox.app" },
+		bundleIDs = { "org.mozilla.firefox" },
 	},
 	helium = {
-		paths = { '/Applications/Helium.app' },
-		bundleIDs = { 'net.imput.helium' },
+		paths = { "/Applications/Helium.app" },
+		bundleIDs = { "net.imput.helium" },
 	},
 	safari = {
 		paths = {
-			'/Applications/Safari.app',
+			"/Applications/Safari.app",
 		},
-		bundleIDs = { 'com.apple.Safari' },
+		bundleIDs = { "com.apple.Safari" },
 	},
 	kitty = {
-		paths = { '/Applications/kitty.app' },
-		bundleIDs = { 'net.kovidgoyal.kitty' },
+		paths = { "/Applications/kitty.app" },
+		bundleIDs = { "net.kovidgoyal.kitty" },
 	},
 	ghostty = {
-		paths = { '/Applications/Ghostty.app' },
-		bundleIDs = { 'com.mitchellh.ghostty' },
+		paths = { "/Applications/Ghostty.app" },
+		bundleIDs = { "com.mitchellh.ghostty" },
 	},
 	x = {
 		paths = {
-			'~/Applications/Chrome Apps.localized/X.app',
-			'/Applications/X.app',
+			"~/Applications/Chrome Apps.localized/X.app",
+			"/Applications/X.app",
 		},
 		bundleIDs = {},
 	},
 	discord = {
-		paths = { '/Applications/Discord.app' },
-		bundleIDs = { 'com.hnc.Discord' },
+		paths = { "/Applications/Discord.app" },
+		bundleIDs = { "com.hnc.Discord" },
 	},
 	slack = {
-		paths = { '/Applications/Slack.app' },
-		bundleIDs = { 'com.tinyspeck.slackmacgap' },
+		paths = { "/Applications/Slack.app" },
+		bundleIDs = { "com.tinyspeck.slackmacgap" },
 	},
 	imessage = {
-		paths = { '/System/Applications/Messages.app' },
-		bundleIDs = { 'com.apple.MobileSMS' },
+		paths = { "/System/Applications/Messages.app" },
+		bundleIDs = { "com.apple.MobileSMS" },
 	},
 	calendar = {
-		paths = { '/Applications/Notion Calendar.app' },
-		bundleIDs = { 'notion.id.calendar' },
+		paths = { "/Applications/Notion Calendar.app" },
+		bundleIDs = { "notion.id.calendar" },
 	},
-	['1password'] = {
-		paths = { '/Applications/1Password.app' },
-		bundleIDs = { 'com.1password.1password' },
+	["1password"] = {
+		paths = { "/Applications/1Password.app" },
+		bundleIDs = { "com.1password.1password" },
 	},
 	zoom = {
-		paths = { '/Applications/zoom.us.app' },
-		bundleIDs = { 'us.zoom.xos' },
+		paths = { "/Applications/zoom.us.app" },
+		bundleIDs = { "us.zoom.xos" },
 	},
 	meet = {
-		paths = { '~/Applications/Chrome Apps.localized/Google Meet.app' },
+		paths = { "~/Applications/Chrome Apps.localized/Google Meet.app" },
 		bundleIDs = {},
 	},
 }
 
 local DEFAULT_BROWSER_PRIORITY = {
-	'helium',
-	'firefox',
-	'safari',
-	'chrome',
+	"chrome",
 }
 
 local M = {
@@ -80,7 +77,7 @@ local M = {
 }
 
 function M.deepCopy(value)
-	if type(value) ~= 'table' then
+	if type(value) ~= "table" then
 		return value
 	end
 
@@ -92,7 +89,7 @@ function M.deepCopy(value)
 end
 
 function M.isArray(value)
-	if type(value) ~= 'table' then
+	if type(value) ~= "table" then
 		return false
 	end
 
@@ -102,7 +99,7 @@ function M.isArray(value)
 
 	local count = 0
 	for key in pairs(value) do
-		if type(key) ~= 'number' or key < 1 or key % 1 ~= 0 then
+		if type(key) ~= "number" or key < 1 or key % 1 ~= 0 then
 			return false
 		end
 		count = count + 1
@@ -126,7 +123,7 @@ function M.deepMerge(base, override)
 		return M.deepCopy(override)
 	end
 
-	if type(base) ~= 'table' or type(override) ~= 'table' then
+	if type(base) ~= "table" or type(override) ~= "table" then
 		return M.deepCopy(override)
 	end
 
@@ -143,16 +140,16 @@ function M.deepMerge(base, override)
 end
 
 function M.expandPath(path)
-	if type(path) ~= 'string' or path == '' then
+	if type(path) ~= "string" or path == "" then
 		return path
 	end
 
-	if path:sub(1, 2) == '~/' then
-		return os.getenv 'HOME' .. path:sub(2)
+	if path:sub(1, 2) == "~/" then
+		return os.getenv("HOME") .. path:sub(2)
 	end
 
-	if path == '~' then
-		return os.getenv 'HOME'
+	if path == "~" then
+		return os.getenv("HOME")
 	end
 
 	return path
@@ -185,11 +182,11 @@ function M.bundleIDForPath(path)
 end
 
 function M.resolveApp(spec)
-	if type(spec) == 'string' then
+	if type(spec) == "string" then
 		return spec
 	end
 
-	if type(spec) ~= 'table' then
+	if type(spec) ~= "table" then
 		return nil
 	end
 
@@ -247,12 +244,9 @@ function M.launchOrFocus(appKey, opts)
 	local bundleID = M.getAppBundleID(appKey)
 
 	if not bundleID then
-		log.wf(
-			"App '%s' is not installed or could not be resolved",
-			tostring(appKey)
-		)
+		log.wf("App '%s' is not installed or could not be resolved", tostring(appKey))
 		if opts.notify ~= false then
-			hs.notify.show('Hammerspoon', 'App not found', tostring(appKey))
+			hs.notify.show("Hammerspoon", "App not found", tostring(appKey))
 		end
 		return false
 	end
@@ -261,7 +255,7 @@ function M.launchOrFocus(appKey, opts)
 	if not ok then
 		log.wf("Unable to launch or focus '%s' (%s)", tostring(appKey), bundleID)
 		if opts.notify ~= false then
-			hs.notify.show('Hammerspoon', 'Unable to open app', tostring(appKey))
+			hs.notify.show("Hammerspoon", "Unable to open app", tostring(appKey))
 		end
 		return false
 	end
@@ -278,10 +272,7 @@ function M.openURL(url, appKey)
 			return true
 		end
 
-		log.wf(
-			"No bundle ID available for '%s'; opening URL with system handler",
-			tostring(appKey)
-		)
+		log.wf("No bundle ID available for '%s'; opening URL with system handler", tostring(appKey))
 	end
 
 	hs.urlevent.openURL(url)
@@ -309,7 +300,7 @@ end
 
 local function shouldReload(files)
 	for _, file in ipairs(files or {}) do
-		if file:match '%.lua$' or file:match '%.json$' or file:match '%.jsonc$' then
+		if file:match("%.lua$") or file:match("%.json$") or file:match("%.jsonc$") then
 			return true
 		end
 	end
@@ -321,14 +312,14 @@ function M.stopConfigWatcher()
 		watcher:stop()
 	end
 	M.fileWatchers = {}
-	M.cancelDebounce 'config.reload'
+	M.cancelDebounce("config.reload")
 end
 
 function M.startConfigWatcher(paths, debounceSeconds)
 	M.stopConfigWatcher()
 
 	local watchPaths = paths or { hs.configdir }
-	if type(watchPaths) == 'string' then
+	if type(watchPaths) == "string" then
 		watchPaths = { watchPaths }
 	end
 
@@ -341,21 +332,18 @@ function M.startConfigWatcher(paths, debounceSeconds)
 					return
 				end
 
-				M.debounce('config.reload', debounceSeconds or 0.5, hs.reload)
+				M.debounce("config.reload", debounceSeconds or 0.5, hs.reload)
 			end)
 			watcher:start()
 			table.insert(M.fileWatchers, watcher)
 			started = true
 		else
-			log.wf(
-				"Skipping missing config watch path '%s'",
-				tostring(expanded or path)
-			)
+			log.wf("Skipping missing config watch path '%s'", tostring(expanded or path))
 		end
 	end
 
 	if not started then
-		log.w 'No config watchers started'
+		log.w("No config watchers started")
 	end
 end
 

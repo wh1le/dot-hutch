@@ -8,11 +8,17 @@
   extraSpecialArgs ? { },
 }:
 
+let
+  unstable = import nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
+in
 inputs.nix-darwin.lib.darwinSystem {
   inherit system;
 
   specialArgs = {
-    inherit inputs self;
+    inherit inputs self unstable;
   }
   // extraSpecialArgs;
 
@@ -29,7 +35,7 @@ inputs.nix-darwin.lib.darwinSystem {
       }:
       let
         supported = lib.filter (p: lib.meta.availableOn pkgs.stdenv.hostPlatform p);
-        pkgsOf = module: supported (import module { inherit pkgs; }).environment.systemPackages;
+        pkgsOf = module: supported (import module { inherit pkgs unstable; }).environment.systemPackages;
       in
       {
         system.stateVersion = 6;
@@ -51,7 +57,7 @@ inputs.nix-darwin.lib.darwinSystem {
           useGlobalPkgs = true;
           useUserPackages = true;
           extraSpecialArgs = {
-            inherit inputs;
+            inherit inputs unstable;
             username = config.my.username;
             publicRepoUrl = config.my.repoUrls.public;
           };

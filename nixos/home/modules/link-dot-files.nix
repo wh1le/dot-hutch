@@ -18,6 +18,12 @@ let
     ".config/yazi"
   ];
 
+  urlDispatcherSpoon = pkgs.fetchzip {
+    url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/URLDispatcher.spoon.zip";
+    sha256 = "sha256-T4t70BBWOjmz68jAn5LwKhXffzZ2BWSM00mGv51tiDk=";
+    stripRoot = false;
+  };
+
   configSet = builtins.concatStringsSep "," (
     builtins.attrNames (builtins.readDir ../../../home/.config)
   );
@@ -74,6 +80,10 @@ in
     mkdir -p "$HOME/.local/share"
 
     ln -sfn "$DOT_PUBLIC/home/.local/bin/public" "$HOME/.local/bin/public"
+
+    mkdir -p "$HOME/.local/share/hammerspoon/site/Spoons"
+    ln -sfn "${urlDispatcherSpoon}/URLDispatcher.spoon" \
+      "$HOME/.local/share/hammerspoon/site/Spoons/URLDispatcher.spoon"
 
     if [ ! -f $HOME/.current_wallpaper ]; then
       ln -sfn $DOT_PUBLIC/assets/wallpapers/forest.jpg $HOME/.current_wallpaper
