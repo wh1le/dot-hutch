@@ -49,3 +49,6 @@
   branch = auto
 [safe]
 	directory = /mnt/secrets/files.git
+[user]
+	name = Nikita M.
+	email = nmiloserdov@proton.me
