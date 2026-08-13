@@ -6,3 +6,4 @@ pdoc/
 **/.claude/settings.local.json
 .playwright-mcp/
 .gems
+**/environment.d/

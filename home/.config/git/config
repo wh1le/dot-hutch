@@ -52,3 +52,5 @@
 [user]
 	name = Nikita M.
 	email = nmiloserdov@proton.me
+[url "git@github.com:"]
+	insteadOf = https://github.com/
