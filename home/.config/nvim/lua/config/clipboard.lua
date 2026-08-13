@@ -57,8 +57,6 @@ if uname == "Linux" then
 			cache_enabled = true,
 		}
 	end
-elseif uname == "Darwin" then
-	vim.opt.clipboard = "unnamedplus"
 end
 
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], {

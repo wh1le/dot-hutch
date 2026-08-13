@@ -27,10 +27,26 @@ _darwin_update_public() {
   fi
 }
 
-ns() {
+_ns_nixos() {
   if _nixos_update_public && _nixos_rebuild switch; then
     local gen=$(readlink /nix/var/nix/profiles/system | sed 's/.*-\([0-9]*\)-link/\1/')
     notify-send -i system-software-update "NixOS Build Number #${gen} Released" "$gen"
+  fi
+}
+
+_ns_darwin() {
+  local target=mac
+  [ "$(uname -m)" = x86_64 ] && target=mac-intel
+  _darwin_update_public &&
+    sudo darwin-rebuild switch --flake "path:$HOME/Code/dot-drm-mac#${target}" &&
+    zsh-rebuild-cache
+}
+
+ns() {
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    _ns_darwin
+  else
+    _ns_nixos
   fi
 }
 
@@ -38,17 +54,6 @@ nb() {
   if _nixos_update_public && _nixos_rebuild boot; then
     local gen=$(readlink /nix/var/nix/profiles/system | sed 's/.*-\([0-9]*\)-link/\1/')
     notify-send -i system-software-update "NixOS Build Number #${gen} (boot)" "$gen"
-  fi
-}
-
-ns-mac() {
-  local target=mac
-
-  if _darwin_update_public; then
-
-    [ "$(uname -m)" = x86_64 ] && target=mac-intel
-    sudo darwin-rebuild switch --flake "path:$HOME/Code/dot-drm-mac#${target}" &&
-      zsh-rebuild-cache
   fi
 }
 
