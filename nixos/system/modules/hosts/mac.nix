@@ -19,6 +19,7 @@ in
   nix.enable = false;
 
   security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local.reattach = true;
 
   nix-homebrew = {
     enable = true;
@@ -71,14 +72,12 @@ in
       "sf-symbols"
     ];
     brews = [
+      "asdf"
+      "mysql"
       "pam-reattach"
       "switchaudio-osx"
       "nowplaying-cli"
-      {
-        name = "FelixKratz/formulae/sketchybar";
-        start_service = true;
-        restart_service = "changed";
-      }
+      "FelixKratz/formulae/sketchybar"
       "FelixKratz/formulae/borders"
       "ccusage"
     ];
