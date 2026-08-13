@@ -52,3 +52,4 @@ home/.config/yazi/scripts/personal
 
 home/.config/nix/corp-ca.pem
 home/.config/yazi/plugins/
+**/environment.d/
