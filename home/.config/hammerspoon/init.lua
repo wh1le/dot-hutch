@@ -44,6 +44,10 @@ lifecycle.setup()
 log.i("Setting up screenshot watcher")
 screenshot.setup()
 
+log.i("Starting borders")
+hs.execute("pkill -f '/opt/homebrew/bin/borders' 2>/dev/null", true)
+hs.task.new("/bin/bash", nil, { os.getenv("HOME") .. "/.config/borders/bordersrc" }):start()
+
 log.i("Starting config watcher")
 utils.startConfigWatcher({ hs.configdir })
 
