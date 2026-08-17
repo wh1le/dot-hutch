@@ -7,3 +7,4 @@ pdoc/
 .playwright-mcp/
 .gems
 **/environment.d/
+**/.zcompdump.*
