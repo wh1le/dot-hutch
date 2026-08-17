@@ -1,7 +1,7 @@
 config-file = ~/.cache/wal/colors-ghostty.conf
 
-font-family = "PragmataPro Nerd Font Mono"
-font-size = 11
+# font-family = "PragmataPro Nerd Font Mono"
+font-size = 12
 font-thicken = true
 font-feature = -calt, -liga, -dlig
 
@@ -29,11 +29,22 @@ auto-update = download
 cursor-style = bar
 cursor-style-blink = false
 
+keybind = clear
+
+keybind = super+shift+,=reload_config
+keybind = super+,=open_config
+keybind = super+c=copy_to_clipboard:mixed
+keybind = super+v=paste_from_clipboard
+keybind = super+==increase_font_size:1
+keybind = super++=increase_font_size:1
+keybind = super+-=decrease_font_size:1
+keybind = super+0=reset_font_size
+keybind = super+q=quit
+
 keybind = alt+left=esc:b
 keybind = alt+right=esc:f
 keybind = ctrl+shift+h=esc:b
 keybind = ctrl+shift+l=esc:f
-keybind = super+v=paste_from_clipboard
 keybind = performable:ctrl+v=paste_from_clipboard
 keybind = performable:ctrl+shift+v=paste_from_clipboard
 
