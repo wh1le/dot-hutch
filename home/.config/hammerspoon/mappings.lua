@@ -1,31 +1,31 @@
-local log = require 'log'
-local utils = require 'utils'
+local log = require("log")
+local utils = require("utils")
 
 local DEFAULT_SETTINGS = {
-	hyper = { 'shift', 'ctrl', 'alt', 'cmd' },
+	hyper = { "shift", "ctrl", "alt", "cmd" },
 	reload = {
-		mods = { 'alt', 'cmd' },
-		key = 'r',
+		mods = { "alt", "cmd" },
+		key = "r",
 	},
 	console = {
 		mods = {},
-		key = 'f10',
+		key = "f10",
 	},
 	meetingMute = {
 		mods = {},
-		key = '§',
+		key = "§",
 		activationDelaySeconds = 0.2,
 		restorePreviousApp = false,
 		bindings = {
-			zoom = { mods = { 'cmd', 'shift' }, key = 'a' },
-			meet = { mods = { 'cmd' }, key = 'd' },
+			zoom = { mods = { "cmd", "shift" }, key = "a" },
+			meet = { mods = { "cmd" }, key = "d" },
 		},
 	},
 }
 
 local OVERLAY_STYLE = {
 	backgroundColor = { white = 0.08, alpha = 0.82 },
-	font = 'PragmataPro Mono',
+	font = "PragmataPro Mono",
 	fontSize = 14,
 	lineHeight = 18,
 	margin = 0,
@@ -39,32 +39,32 @@ local M = {
 	overlayCanvas = nil,
 	layers = {
 		b = {
-			label = 'browse',
+			label = "browse",
 			actions = {
-				m = { label = 'mail', url = 'https://fastmail.com' },
-				r = { label = 'reddit', url = 'https://reddit.com' },
+				m = { label = "mail", url = "https://fastmail.com" },
+				r = { label = "reddit", url = "https://reddit.com" },
 				h = {
-					label = 'hacker news',
-					url = 'raycast://extensions/thomas/hacker-news/frontpage',
+					label = "hacker news",
+					url = "raycast://extensions/thomas/hacker-news/frontpage",
 				},
-				f = { label = 'facebook', url = 'https://facebook.com' },
-				y = { label = 'youtube', url = 'https://youtube.com' },
-				x = { label = 'x', url = 'https://x.com' },
-				c = { label = 'code', url = 'https://github.com' },
+				f = { label = "facebook", url = "https://facebook.com" },
+				y = { label = "youtube", url = "https://youtube.com" },
+				x = { label = "x", url = "https://x.com" },
+				c = { label = "code", url = "https://github.com" },
 			},
 		},
 		o = {
-			label = 'open',
+			label = "open",
 			actions = {
-				['1'] = { label = '1Password', app = '1password' },
-				g = { label = 'Google Chrome', app = 'chrome' },
-				b = { label = 'Helium', app = 'helium' },
-				s = { label = 'Slack', app = 'slack' },
-				m = { label = 'Messages', app = 'imessage' },
-				t = { label = 'Terminal', app = 'ghostty' },
-				c = { label = 'Calendar', app = 'calendar' },
-				z = { label = 'Zoom', app = 'zoom' },
-				d = { label = 'Discord', app = 'discord' },
+				["1"] = { label = "1Password", app = "1password" },
+				g = { label = "Google Chrome", app = "chrome" },
+				b = { label = "Helium", app = "helium" },
+				s = { label = "Slack", app = "slack" },
+				m = { label = "Messages", app = "imessage" },
+				t = { label = "Terminal", app = "ghostty" },
+				c = { label = "Calendar", app = "calendar" },
+				z = { label = "Zoom", app = "zoom" },
+				d = { label = "Discord", app = "discord" },
 			},
 		},
 	},
@@ -117,7 +117,7 @@ local function overlayTargetScreen()
 end
 
 local function overlayRow(key, label, keyWidth)
-	return string.format('%-' .. keyWidth .. 's  %s', key, label)
+	return string.format("%-" .. keyWidth .. "s  %s", key, label)
 end
 
 local function overlayLines(triggerKey, layer)
@@ -129,15 +129,15 @@ local function overlayLines(triggerKey, layer)
 
 	local maxVisibleActions = #actionKeys
 	local visibleActionCount = math.min(#actionKeys, maxVisibleActions)
-	local keyWidth = #'esc'
+	local keyWidth = #"esc"
 
 	for index = 1, visibleActionCount do
 		keyWidth = math.max(keyWidth, #tostring(actionKeys[index]))
 	end
 
 	local lines = {
-		string.format('[%s] %s', triggerKey, layer.label),
-		'',
+		string.format("[%s] %s", triggerKey, layer.label),
+		"",
 	}
 
 	for index = 1, visibleActionCount do
@@ -147,18 +147,11 @@ local function overlayLines(triggerKey, layer)
 	end
 
 	if #actionKeys > visibleActionCount then
-		table.insert(
-			lines,
-			overlayRow(
-				'...',
-				string.format('and %d more', #actionKeys - visibleActionCount),
-				keyWidth
-			)
-		)
+		table.insert(lines, overlayRow("...", string.format("and %d more", #actionKeys - visibleActionCount), keyWidth))
 	end
 
-	table.insert(lines, '')
-	table.insert(lines, overlayRow('esc', 'cancel', keyWidth))
+	table.insert(lines, "")
+	table.insert(lines, overlayRow("esc", "cancel", keyWidth))
 
 	return lines
 end
@@ -169,12 +162,9 @@ local function overlayFrame(lines, screenFrame)
 		longestLine = math.max(longestLine, #line)
 	end
 
-	local estimatedWidth = math.floor(
-		longestLine * (OVERLAY_STYLE.fontSize * 0.62) + OVERLAY_STYLE.padding * 2
-	)
+	local estimatedWidth = math.floor(longestLine * (OVERLAY_STYLE.fontSize * 0.62) + OVERLAY_STYLE.padding * 2)
 	local maxWidth = math.floor(screenFrame.w * OVERLAY_STYLE.maxWidthFraction)
-	local width =
-		math.min(math.max(estimatedWidth, OVERLAY_STYLE.minWidth), maxWidth)
+	local width = math.min(math.max(estimatedWidth, OVERLAY_STYLE.minWidth), maxWidth)
 	local height = OVERLAY_STYLE.padding * 2 + (#lines * OVERLAY_STYLE.lineHeight)
 
 	return {
@@ -203,24 +193,24 @@ local function showLayerOverlay(triggerKey, layer)
 	}
 
 	local canvas = hs.canvas.new(frame)
-	canvas:level 'floating'
-	canvas:behaviorAsLabels { 'moveToActiveSpace', 'transient' }
+	canvas:level("floating")
+	canvas:behaviorAsLabels({ "moveToActiveSpace", "transient" })
 	canvas[1] = {
-		type = 'rectangle',
-		action = 'fill',
+		type = "rectangle",
+		action = "fill",
 		fillColor = OVERLAY_STYLE.backgroundColor,
-		frame = { x = 0, y = 0, w = '100%', h = '100%' },
+		frame = { x = 0, y = 0, w = "100%", h = "100%" },
 		roundedRectRadii = { xRadius = 0, yRadius = 0 },
 	}
 	canvas[2] = {
-		type = 'text',
-		text = table.concat(lines, '\n'),
+		type = "text",
+		text = table.concat(lines, "\n"),
 		frame = textFrame,
 		textColor = OVERLAY_STYLE.textColor,
 		textFont = OVERLAY_STYLE.font,
 		textSize = OVERLAY_STYLE.fontSize,
-		textAlignment = 'left',
-		textLineBreak = 'wordWrap',
+		textAlignment = "left",
+		textLineBreak = "wordWrap",
 		withShadow = false,
 	}
 	canvas:show()
@@ -230,10 +220,10 @@ end
 
 local function bindAction(modal, layerKey, actionKey, action)
 	modal:bind(
-		'',
+		"",
 		actionKey,
 		safeAction(action.label, function()
-			log.i(string.format('%s + %s pressed', layerKey, actionKey))
+			log.i(string.format("%s + %s pressed", layerKey, actionKey))
 			runAction(action)
 			modal:exit()
 		end)
@@ -245,16 +235,16 @@ local function bindLayer(triggerKey, layer)
 	M.modals[triggerKey] = modal
 
 	function modal:entered()
-		log.i(string.format('%s mode on', layer.label))
+		log.i(string.format("%s mode on", layer.label))
 		showLayerOverlay(triggerKey, layer)
 	end
 
 	function modal:exited()
-		log.i(string.format('%s mode off', layer.label))
+		log.i(string.format("%s mode off", layer.label))
 		hideLayerOverlay()
 	end
 
-	modal:bind('', 'escape', function()
+	modal:bind("", "escape", function()
 		modal:exit()
 	end)
 
@@ -297,19 +287,12 @@ local function activateAndSendKeystroke(appKey, app)
 	local previousApp = hs.application.frontmostApplication()
 	app:activate()
 
-	hs.timer.doAfter(
-		M.settings.meetingMute.activationDelaySeconds or 0.2,
-		function()
-			hs.eventtap.keyStroke(binding.mods, binding.key)
-			if
-				M.settings.meetingMute.restorePreviousApp
-				and previousApp
-				and previousApp:bundleID() ~= app:bundleID()
-			then
-				previousApp:activate()
-			end
+	hs.timer.doAfter(M.settings.meetingMute.activationDelaySeconds or 0.2, function()
+		hs.eventtap.keyStroke(binding.mods, binding.key)
+		if M.settings.meetingMute.restorePreviousApp and previousApp and previousApp:bundleID() ~= app:bundleID() then
+			previousApp:activate()
 		end
-	)
+	end)
 
 	return true
 end
@@ -317,12 +300,8 @@ end
 local function toggleMeetingMute()
 	local appKey, app = findMeetingApp()
 	if not appKey or not app then
-		log.w 'No supported meeting app is currently running'
-		hs.notify.show(
-			'Hammerspoon',
-			'Meeting mute',
-			'No Zoom or Meet app is running'
-		)
+		log.w("No supported meeting app is currently running")
+		hs.notify.show("Hammerspoon", "Meeting mute", "No Zoom or Meet app is running")
 		return false
 	end
 
@@ -344,10 +323,15 @@ function M.setup()
 
 	bindHotkey(M.settings.console, hs.openConsole)
 	bindHotkey(M.settings.reload, hs.reload)
-	bindHotkey(
-		M.settings.meetingMute,
-		safeAction('meeting mute', toggleMeetingMute)
-	)
+	bindHotkey(M.settings.meetingMute, safeAction("meeting mute", toggleMeetingMute))
+
+	hs.hotkey.bind({ "cmd" }, "s", function()
+		require("screenshot").capture()
+	end)
+
+	hs.hotkey.bind({ "cmd" }, "d", function()
+		hs.eventtap.keyStroke({ "cmd" }, "space")
+	end)
 end
 
 return M

@@ -3,7 +3,7 @@
 --
 
 local defaultLogLevel = "info"
-local logger = hs.logger.new("nikita.miloserdov", defaultLogLevel)
+local logger = hs.logger.new("wh1le", defaultLogLevel)
 
 local module = {
 	d = function(...)

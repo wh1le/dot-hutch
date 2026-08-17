@@ -68,6 +68,18 @@ local function handleFiles(files, flagTables)
 	end
 end
 
+function M.capture()
+	local dir = M.directory()
+	local filename = os.date("Screenshot %Y-%m-%d at %H.%M.%S") .. ".png"
+	local path = dir .. "/" .. filename
+	os.execute(string.format('/usr/sbin/screencapture -i "%s"', path))
+	if utils.pathExists(path) then
+		hs.timer.doAfter(0, function()
+			M.copyToClipboard(path)
+		end)
+	end
+end
+
 function M.stop()
 	if M.watcher then
 		M.watcher:stop()
