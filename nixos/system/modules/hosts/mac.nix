@@ -75,6 +75,7 @@ in
       "asdf"
       "mysql"
       "pam-reattach"
+      "pi-coding-agent"
       "switchaudio-osx"
       "nowplaying-cli"
       "FelixKratz/formulae/sketchybar"
