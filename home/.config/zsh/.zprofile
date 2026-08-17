@@ -1,7 +1,11 @@
 export EDITOR="nvim"
 export VISUAL=nvim
-export TERMINAL="kitty"
-export BROWSER="firefox"
+export TERMINAL="ghostty"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  export BROWSER="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+else
+  export BROWSER="firefox"
+fi
 
 export PAGER="less"
 export MANPAGER="less"
@@ -29,6 +33,7 @@ _search_dirs=(
   "$HOME/Code"
   "$HOME/Projects"
   "$HOME/Code/tmp"
+  "$HOME/Code/zendesk"
   "$HOME/.local/bin"
   "$HOME/.local/bin/public"
   "$HOME/.local/bin/personal"
