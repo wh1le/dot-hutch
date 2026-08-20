@@ -21,6 +21,14 @@ if handle then
 	handle:close()
 end
 
+table.sort(workspaces, function(a, b)
+	local na = tonumber(a) or 0
+	local nb = tonumber(b) or 0
+	if na == 0 then return false end
+	if nb == 0 then return true end
+	return na < nb
+end)
+
 sbar.add("item", "space.left_padding", {
 	position = "left",
 	width = 4,
