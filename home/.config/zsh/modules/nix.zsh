@@ -23,7 +23,7 @@ _nixos_rebuild() {
 _darwin_update_public() {
   local flake="$HOME/Code/dot-drm-mac"
   if nix flake metadata "path:$flake" --json 2>/dev/null | grep -q '"PUBLIC"'; then
-    nix --extra-experimental-features "nix-command flakes" flake update PUBLIC --flake "path:$flake" >/dev/null 2>&1
+    nix --extra-experimental-features "nix-command flakes" flake update PUBLIC --flake "path:$flake"
   fi
 }
 

@@ -18,7 +18,7 @@
   old = red
   new = green
   frag = cyan
-  meta = bold
+	meta = magenta bold
   plain = white
 
 [push]
@@ -50,7 +50,7 @@
 [safe]
 	directory = /mnt/secrets/files.git
 [user]
-	name = Nikita M.
+	name = Nikita Miloserdov
 	email = nmiloserdov@proton.me
 [url "git@github.com:"]
 	insteadOf = https://github.com/
