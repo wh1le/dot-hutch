@@ -7,6 +7,7 @@ in
 {
   imports = [
     ../software/sketchybar.nix
+    ../homebrew.nix
   ];
 
   system.primaryUser = config.my.username;
@@ -21,83 +22,12 @@ in
   security.pam.services.sudo_local.touchIdAuth = true;
   security.pam.services.sudo_local.reattach = true;
 
-  nix-homebrew = {
-    enable = true;
-    enableRosetta = pkgs.stdenv.hostPlatform.isAarch64;
-    user = config.my.username;
-    autoMigrate = true;
-    trust = {
-      taps = [
-        "nikitabobko/tap"
-        "felixkratz/formulae"
-      ];
-      formulae = [
-        "felixkratz/formulae/sketchybar"
-        "felixkratz/formulae/borders"
-      ];
-      casks = [
-        "nikitabobko/tap/aerospace"
-      ];
-    };
-  };
-
   environment.variables = {
-    # /usr/bin/git is an xcrun shim and follows xcode-select, which points at Nix's SDK.
-    # `xcrun -f git` -> `/run/current-system/sw/bin/git`
-    HOMEBREW_GIT_PATH = "/Library/Developer/CommandLineTools/usr/bin/git";
-
     # Trust the inspecting proxy in every Nix-provided tool.
     NIX_SSL_CERT_FILE = caBundle;
     SSL_CERT_FILE = caBundle;
     GIT_SSL_CAINFO = caBundle;
     CURL_CA_BUNDLE = caBundle;
-  };
-
-  homebrew = {
-    enable = true;
-    taps = [
-      "nikitabobko/tap"
-      "FelixKratz/formulae"
-    ];
-    casks = [
-      "codex"
-      "claude-code"
-      "ghostty"
-      "hammerspoon"
-      "nikitabobko/tap/aerospace"
-      "font-sketchybar-app-font"
-      "font-hack-nerd-font"
-      "font-sf-pro"
-      "font-sf-mono"
-      "sf-symbols"
-    ];
-    brews = [
-      "asdf"
-      "mysql"
-      "pam-reattach"
-      "pi-coding-agent"
-      "switchaudio-osx"
-      "nowplaying-cli"
-      "FelixKratz/formulae/sketchybar"
-      "FelixKratz/formulae/borders"
-      "ccusage"
-    ];
-    global = {
-      brewfile = true;
-    };
-    onActivation = {
-      autoUpdate = true;
-      upgrade = false;
-      cleanup = "none";
-      extraEnv = {
-        HOMEBREW_GIT_PATH = "/Library/Developer/CommandLineTools/usr/bin/git";
-        NIX_SSL_CERT_FILE = caBundle;
-        SSL_CERT_FILE = caBundle;
-        GIT_SSL_CAINFO = caBundle;
-        HOMEBREW_NO_ANALYTICS = "1";
-        HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
-      };
-    };
   };
 
   # nixpkgs CA set plus a local CA from ~/.secrets/corp-ca.pem, falling back
@@ -133,8 +63,8 @@ in
       AppleShowAllExtensions = true;
       AppleShowScrollBars = "Automatic";
       AppleTemperatureUnit = "Celsius";
-      InitialKeyRepeat = 10;
-      KeyRepeat = 1;
+      InitialKeyRepeat = 25;
+      KeyRepeat = 0;
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticDashSubstitutionEnabled = false;
       NSAutomaticQuoteSubstitutionEnabled = false;

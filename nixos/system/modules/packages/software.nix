@@ -20,6 +20,7 @@
 
     pkgs.firefox
     pkgs.file-roller
+    pkgs.yt-dlp
 
     pkgs.xhost
     pkgs.moonlight-qt
