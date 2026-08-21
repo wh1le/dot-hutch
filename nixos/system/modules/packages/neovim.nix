@@ -33,6 +33,7 @@
     pkgs.black
     pkgs.isort
     pkgs.prettierd
+    pkgs.mdformat
     pkgs.eslint
     pkgs.stylua
     pkgs.shfmt

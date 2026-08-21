@@ -12,10 +12,20 @@ return {
 	opts = {
 		backends = {
 			["_"] = { "lsp", "treesitter" },
+			typescript = { "treesitter" },
 			markdown = { "treesitter", "lsp" },
 		},
 		filter_kind = {
-			["_"] = { "Class", "Function", "Method" },
+			["_"] = {
+				"Class",
+				"Function",
+				"Method",
+				"Interface",
+				"Enum",
+				"Struct",
+			},
+			typescript = false,
+			typescriptreact = false,
 			markdown = false,
 		},
 		icons_enabled = true,

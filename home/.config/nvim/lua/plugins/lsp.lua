@@ -115,16 +115,30 @@ return {
 
 		require("config.lsp")
 
+		vim.keymap.set("n", "<leader>lh", "<cmd>checkhealth vim.lsp<cr>", { desc = "LSP health" })
+		vim.keymap.set("n", "<leader>ll", function()
+			vim.cmd("edit " .. vim.lsp.get_log_path())
+		end, { desc = "LSP log" })
+		vim.keymap.set("n", "<leader>lR", function()
+			for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+				vim.lsp.stop_client(client.id)
+			end
+			vim.cmd("edit")
+		end, { desc = "LSP restart" })
+
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 		vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 		vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "References" })
+
 		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
 		vim.keymap.set("n", "<leader>ds", vim.lsp.buf.document_symbol, { desc = "Document symbols" })
-		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+		vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
+
 		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+
 		vim.keymap.set("n", "<leader>de", function()
 			vim.diagnostic.open_float(nil, {
 				focus = false,

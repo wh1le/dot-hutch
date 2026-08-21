@@ -32,7 +32,19 @@ return {
 			vim.g["test#ruby#minitest#executable"] = "ruby"
 			vim.g["test#ruby#minitest#options"] = ""
 
-			vim.g["test#javascript#vitest#options"] = "--inspect-brk --no-file-parallelism"
+			vim.g["test#javascript#runner"] = "jest"
+			vim.g["test#javascript#jest#executable"] = "node --test"
+
+			vim.cmd([[
+				function! NodeTestTransform(cmd) abort
+					let cmd = substitute(a:cmd, '--runTestsByPath\s*', '', '')
+					let cmd = substitute(cmd, '--testNamePattern', '--test-name-pattern', '')
+					let cmd = substitute(cmd, ' -t ', ' --test-name-pattern ', '')
+					return cmd
+				endfunction
+				let g:test#custom_transformations = { 'nodetest': function('NodeTestTransform') }
+				let g:test#transformation = 'nodetest'
+			]])
 
 			vim.g["test#python#pytest#executable"] = "pytest"
 			vim.g["test#python#pytest#options"] = "-s --color=no"

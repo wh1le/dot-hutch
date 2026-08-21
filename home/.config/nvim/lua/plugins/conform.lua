@@ -21,15 +21,16 @@ return {
 				python = { "isort", "black", stop_after_first = true },
 				lua = { "stylua" },
 
-				javascript = { "prettier" },
-				javascriptreact = { "prettier" },
-				typescript = { "prettier" },
-				typescriptreact = { "prettier" },
+				javascript = { "biome", "prettier", stop_after_first = true },
+				javascriptreact = { "biome", "prettier", stop_after_first = true },
+				typescript = { "biome", "prettier", stop_after_first = true },
+				typescriptreact = { "biome", "prettier", stop_after_first = true },
+				graphql = { "biome" },
 
-				json = { "prettierd" },
+				json = { "biome", "prettierd", stop_after_first = true },
 				yaml = { "prettierd" },
-				markdown = { "prettierd" },
-				css = { "prettierd" },
+				markdown = { "mdformat" },
+				css = { "biome", "prettierd", stop_after_first = true },
 				scss = { "prettierd" },
 				html = { "prettierd" },
 				toml = { "taplo" },
@@ -37,6 +38,14 @@ return {
 				ron = { "topiary" },
 			},
 			formatters = {
+				biome = {
+					condition = function(self, ctx)
+						return vim.fs.find(
+							{ "biome.json", "biome.jsonc" },
+							{ path = ctx.filename, upward = true }
+						)[1]
+					end,
+				},
 				["clang-format"] = {
 					prepend_args = { "-style=file", "-fallback-style=LLVM" },
 				},

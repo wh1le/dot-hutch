@@ -6,17 +6,17 @@ local ruby_root_markers = {
 }
 
 vim.lsp.config.ruby_lsp = {
-	cmd = { "bundle", "exec", "ruby-lsp" },
+	cmd = { "ruby-lsp" },
 	filetypes = { "ruby", "spec", "ruby.spec", "rake" },
 	root_markers = ruby_root_markers,
 	single_file_support = true,
 }
 
-vim.lsp.config.rubocop = {
-	cmd = { "bundle", "exec", "rubocop", "--lsp" },
-	filetypes = { "ruby", "spec", "ruby.spec", "rake" },
-	root_markers = ruby_root_markers,
-}
+-- vim.lsp.config.rubocop = {
+-- 	cmd = { "bundle", "exec", "rubocop", "--lsp" },
+-- 	filetypes = { "ruby", "spec", "ruby.spec", "rake" },
+-- 	root_markers = ruby_root_markers,
+-- }
 
 vim.lsp.config.solargraph = {
 	cmd = { "bundle", "exec", "solargraph", "stdio" },
@@ -47,12 +47,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "ruby", "spec", "ruby.spec", "rake" },
 	once = true,
 	callback = function()
-		local bundles = { "ruby-lsp", "solargraph", "rubocop" }
+		vim.lsp.enable("ruby_lsp")
+		local bundles = { "solargraph", "rubocop" }
 		for _, gem in ipairs(bundles) do
 			vim.system({ "bundle", "show", gem }, {}, function(obj)
 				if obj.code == 0 then
 					vim.schedule(function()
-						vim.lsp.enable(gem == "ruby-lsp" and "ruby_lsp" or gem)
+						vim.lsp.enable(gem)
 					end)
 				end
 			end)
