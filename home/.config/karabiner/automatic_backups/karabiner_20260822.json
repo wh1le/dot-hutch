@@ -1,0 +1,242 @@
+{
+    "profiles": [
+        {
+            "name": "Default profile",
+            "selected": true,
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "Caps Lock: hold as Control, tap as Caps Lock",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    { "key_code": "caps_lock" }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Chrome: Ctrl-Shift-J/K move tabs",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
+                                        "mandatory": ["control", "shift"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "page_down",
+                                        "modifiers": ["control", "shift"]
+                                    }
+                                ],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": ["control", "shift"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "page_up",
+                                        "modifiers": ["control", "shift"]
+                                    }
+                                ],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Chrome: Ctrl-D bookmark page",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "d",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "osascript -e 'tell application \"System Events\" to tell process \"Google Chrome\" to click (first menu item of menu \"Bookmarks\" of menu bar item \"Bookmarks\" of menu bar 1 whose name begins with \"Bookmark This Tab\")'"
+                                    }
+                                ],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Chrome: Ctrl-W close tab",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "w",
+                                        "modifiers": ["command"]
+                                    }
+                                ],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Chrome: Ctrl-J/K navigate tabs",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["control"]
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["^com\\.google\\.Chrome$"]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["control", "shift"]
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["^com\\.google\\.Chrome$"]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Chrome: Caps-H/L history and Caps-number tab selection",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "h", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "key_code": "open_bracket", "modifiers": ["command"] }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "l", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "key_code": "close_bracket", "modifiers": ["command"] }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "1", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to 1'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "2", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to 2'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "3", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to 3'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "4", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to 4'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "5", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to 5'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "6", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to 6'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "7", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to 7'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "8", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to 8'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "9", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to 9'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            },
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "0", "modifiers": { "mandatory": ["control"], "optional": ["any"] } },
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Google Chrome\" to set active tab index of front window to (count tabs of front window)'" }],
+                                "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.google\\.Chrome$"] }]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "virtual_hid_keyboard": { "keyboard_type_v2": "iso" }
+        }
+    ]
+}
