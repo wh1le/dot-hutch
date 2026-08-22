@@ -59,7 +59,7 @@ export SOPS_AGE_KEY_FILE="/var/lib/sops-nix/keys.txt"
 export LESSHISTFILE="$HOME/.less_history"
 export PYTHON_HISTORY="$HOME/.python_history"
 
-export PATH="$PATH:$HOME/.local/bin:$HOME/.local/bin/personal:$HOME/.local/bin/public:$HOME/.local/bin/code:$HOME/.local/bin/distrobox:$HOME/.local/share/cargo/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.local/bin/work-zendesk:$HOME/.local/bin/personal:$HOME/.local/bin/public:$HOME/.local/bin/code:$HOME/.local/bin/distrobox:$HOME/.local/share/cargo/bin"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
