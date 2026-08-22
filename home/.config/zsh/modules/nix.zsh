@@ -22,8 +22,8 @@ _nixos_rebuild() {
 
 _darwin_update_public() {
   local flake="$HOME/Code/dot-drm-mac"
-  if nix flake metadata "path:$flake" --json 2>/dev/null | grep -q '"PUBLIC"'; then
-    nix --extra-experimental-features "nix-command flakes" flake update PUBLIC --flake "path:$flake"
+  if nix flake metadata "$flake" --json 2>/dev/null | grep -q '"PUBLIC"'; then
+    nix --extra-experimental-features "nix-command flakes" flake update PUBLIC --flake "$flake"
   fi
 }
 
@@ -38,7 +38,7 @@ _ns_darwin() {
   local target=mac
   [ "$(uname -m)" = x86_64 ] && target=mac-intel
   _darwin_update_public &&
-    sudo darwin-rebuild switch --flake "path:$HOME/Code/dot-drm-mac#${target}" &&
+    sudo darwin-rebuild switch --flake "$HOME/Code/dot-drm-mac#${target}" &&
     zsh-rebuild-cache
 }
 

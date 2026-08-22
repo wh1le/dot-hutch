@@ -2,6 +2,15 @@ open() {
   emulate -L zsh
   setopt localoptions nomonitor # no job table → no [n] pid / done lines
 
+  if [[ "$OSTYPE" == darwin* ]]; then
+    if [ "$#" -eq 0 ]; then
+      command open .
+    else
+      command open "$@"
+    fi
+    return
+  fi
+
   _focus_nautilus() {
     hyprctl dispatch focuswindow class:nautilus >/dev/null 2>&1 || hyprctl dispatch focuswindow class:org.gnome.Nautilus >/dev/null 2>&1
   }

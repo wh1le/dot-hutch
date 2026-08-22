@@ -24,10 +24,11 @@ in
 
   environment.variables = {
     # Trust the inspecting proxy in every Nix-provided tool.
-    NIX_SSL_CERT_FILE = caBundle;
-    SSL_CERT_FILE = caBundle;
-    GIT_SSL_CAINFO = caBundle;
-    CURL_CA_BUNDLE = caBundle;
+
+    # NIX_SSL_CERT_FILE = caBundle;
+    # SSL_CERT_FILE = caBundle;
+    # GIT_SSL_CAINFO = caBundle;
+    # CURL_CA_BUNDLE = caBundle;
   };
 
   # nixpkgs CA set plus a local CA from ~/.secrets/corp-ca.pem, falling back

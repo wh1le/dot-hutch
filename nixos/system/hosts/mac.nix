@@ -42,8 +42,7 @@ inputs.nix-darwin.lib.darwinSystem {
         networking.hostName = "mac";
         my.username = "nikita.miloserdov";
         nixpkgs.hostPlatform = lib.mkDefault system;
-        nixpkgs.config.allowUnfreePredicate = pkg:
-          builtins.elem (lib.getName pkg) [ "obsidian" ];
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "obsidian" ];
 
         environment.variables.EDITOR = "nvim";
 

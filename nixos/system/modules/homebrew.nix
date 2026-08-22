@@ -3,6 +3,10 @@ let
   caBundle = "/etc/ssl/certs/nix-corp-bundle.pem";
 in
 {
+  environment.variables = {
+    HOMEBREW_GIT_PATH = "/Library/Developer/CommandLineTools/usr/bin/git";
+  };
+
   nix-homebrew = {
     enable = true;
     enableRosetta = pkgs.stdenv.hostPlatform.isAarch64;
@@ -16,6 +20,7 @@ in
       formulae = [
         "felixkratz/formulae/sketchybar"
         "felixkratz/formulae/borders"
+        "k1low/tap/tbls"
       ];
       casks = [
         "nikitabobko/tap/aerospace"
@@ -23,21 +28,19 @@ in
     };
   };
 
-  environment.variables = {
-    HOMEBREW_GIT_PATH = "/Library/Developer/CommandLineTools/usr/bin/git";
-  };
-
   homebrew = {
     enable = true;
     taps = [
       "nikitabobko/tap"
-      "FelixKratz/formulae"
+      "felixkratz/formulae"
+      "k1low/tap"
     ];
     casks = [
       "codex"
       "claude-code"
       "ghostty"
       "hammerspoon"
+      "karabiner-elements"
       "nikitabobko/tap/aerospace"
       "font-sketchybar-app-font"
       "font-hack-nerd-font"
@@ -47,15 +50,33 @@ in
     ];
     brews = [
       "asdf"
-      "mysql"
+      {
+        name = "mysql";
+        restart_service = "changed";
+      }
       "pam-reattach"
       "pi-coding-agent"
       "switchaudio-osx"
       "nowplaying-cli"
-      "FelixKratz/formulae/sketchybar"
-      "FelixKratz/formulae/borders"
+      "felixkratz/formulae/sketchybar"
+      "felixkratz/formulae/borders"
       "ccusage"
+      "ca-certificates"
+      "awscli"
+      "docker-credential-helper-ecr"
+      "fswatch"
+      "git-filter-repo"
+      "graphviz"
+      "jq"
+      "libyaml"
+      "logcli"
+      "pnpm"
+      "rover"
+      "rsync"
+      "yarn"
+      "k1low/tap/tbls"
       "git-gui"
+      "opencode"
     ];
     global = {
       brewfile = true;

@@ -75,3 +75,6 @@ test-hibernate() {
 }
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# TODO: fix hack later
+unset NPM_CONFIG_USERCONFIG

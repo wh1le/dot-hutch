@@ -1,4 +1,4 @@
-.PHONY: lint mac mac-check
+.PHONY: lint mac mac-check darwin-check-build darwin-dump-packages
 
 lint:
 	nix run nixpkgs#nixfmt -- --check $(shell git ls-files '*.nix')
@@ -8,5 +8,8 @@ lint:
 mac:
 	./scripts/deploy-on-mac
 
-mac-check:
+darwin-check-build:
 	nix eval .#darwinConfigurations.mac.system.drvPath
+
+darwin-dump-packages:
+  brew bundle dump --file="$PWD/Brewfile" --force
