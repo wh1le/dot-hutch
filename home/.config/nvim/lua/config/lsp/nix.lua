@@ -9,7 +9,8 @@ vim.lsp.config.nix = {
 			},
 			nix = {
 				flake = {
-					autoArchive = true,
+					autoArchive = false,
+					autoEvalInputs = true,
 				},
 			},
 		},

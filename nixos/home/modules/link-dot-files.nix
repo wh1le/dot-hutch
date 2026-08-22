@@ -31,17 +31,17 @@ let
     builtins.attrNames (builtins.readDir ../../../home/.local/share)
   );
 
-  downloadDotFilesScript = ''
-    #!/usr/bin/env bash
-
-    DOT_PUBLIC="$HOME/Code/dot-hutch"
-    PUBLIC_REPO_URL="${publicRepoUrl}"
-
-    git clone --recurse-submodules "$PUBLIC_REPO_URL" "$DOT_PUBLIC"
-    cd "$DOT_PUBLIC"
-    git submodule update --init --recursive
-    echo "Dotfiles cloned. Now run: sudo nixos-rebuild switch --flake ~/Code/dot-hutch#$(hostname)"
-  '';
+  # downloadDotFilesScript = ''
+  #   #!/usr/bin/env bash
+  #
+  #   DOT_PUBLIC="$HOME/Code/dot-hutch"
+  #   PUBLIC_REPO_URL="${publicRepoUrl}"
+  #
+  #   git clone --recurse-submodules "$PUBLIC_REPO_URL" "$DOT_PUBLIC"
+  #   cd "$DOT_PUBLIC"
+  #   git submodule update --init --recursive
+  #   echo "Dotfiles cloned. Now run: sudo nixos-rebuild switch --flake ~/Code/dot-hutch#$(hostname)"
+  # '';
 in
 {
   home.sessionVariables.IS_MAC = if pkgs.stdenv.isDarwin then "true" else "false";
