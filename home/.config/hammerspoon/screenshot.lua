@@ -80,6 +80,17 @@ function M.capture()
 	end
 end
 
+function M.captureFull()
+	local ok = os.execute('/usr/sbin/screencapture -c')
+	if ok then
+		log.df("Copied full-screen screenshot to clipboard")
+		return true
+	end
+
+	log.w "Unable to capture full-screen screenshot"
+	return false
+end
+
 function M.stop()
 	if M.watcher then
 		M.watcher:stop()

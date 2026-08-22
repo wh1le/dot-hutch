@@ -37,37 +37,7 @@ local OVERLAY_STYLE = {
 
 local M = {
 	overlayCanvas = nil,
-	layers = {
-		b = {
-			label = "browse",
-			actions = {
-				m = { label = "mail", url = "https://fastmail.com" },
-				r = { label = "reddit", url = "https://reddit.com" },
-				h = {
-					label = "hacker news",
-					url = "raycast://extensions/thomas/hacker-news/frontpage",
-				},
-				f = { label = "facebook", url = "https://facebook.com" },
-				y = { label = "youtube", url = "https://youtube.com" },
-				x = { label = "x", url = "https://x.com" },
-				c = { label = "code", url = "https://github.com" },
-			},
-		},
-		o = {
-			label = "open",
-			actions = {
-				["1"] = { label = "1Password", app = "1password" },
-				g = { label = "Google Chrome", app = "chrome" },
-				b = { label = "Helium", app = "helium" },
-				s = { label = "Slack", app = "slack" },
-				m = { label = "Messages", app = "imessage" },
-				t = { label = "Terminal", app = "ghostty" },
-				c = { label = "Calendar", app = "calendar" },
-				z = { label = "Zoom", app = "zoom" },
-				d = { label = "Discord", app = "discord" },
-			},
-		},
-	},
+	layers = {},
 	modals = {},
 	settings = utils.deepCopy(DEFAULT_SETTINGS),
 }
@@ -327,6 +297,14 @@ function M.setup()
 
 	hs.hotkey.bind({ "cmd" }, "s", function()
 		require("screenshot").capture()
+	end)
+
+	hs.hotkey.bind({ "cmd", "shift" }, "s", function()
+		require("screenshot").captureFull()
+	end)
+
+	hs.hotkey.bind({ "cmd" }, "e", function()
+		hs.application.launchOrFocusByBundleID("com.apple.finder")
 	end)
 
 	hs.hotkey.bind({ "cmd" }, "d", function()
