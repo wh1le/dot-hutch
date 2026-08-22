@@ -58,11 +58,6 @@
         mac = import ./nixos/system/hosts/mac.nix {
           inherit inputs self;
         };
-
-        mac-intel = import ./nixos/system/hosts/mac.nix {
-          inherit inputs self;
-          system = "x86_64-darwin";
-        };
       };
     };
 

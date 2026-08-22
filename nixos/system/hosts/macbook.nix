@@ -65,7 +65,7 @@ inputs.nix-darwin.lib.darwinSystem {
 
         imports = [
           ../../config.nix
-          ../modules/hosts/mac.nix
+          ../modules/hosts/darwin.nix
         ];
       }
     )
