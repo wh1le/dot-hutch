@@ -47,160 +47,152 @@ export FZF_CTRL_R_OPTS="
 
 # --- helpers --------------------------------------------------------------
 
+function _strip_cwd_prefix() {
+	local line
+	while IFS= read -r line; do
+		if [[ $line == "$PWD" ]]; then
+			print -r -- .
+		elif [[ $line == "$PWD"/* ]]; then
+			print -r -- "${line#"$PWD"/}"
+		else
+			print -r -- "$line"
+		fi
+	done
+}
+
 function _quick_jump_dirs() {
-  local file dir root depth=${1:-3} mount
-  for mount in /mnt/*(N); do
-    [[ -n ${FZF_IGNORE_PATHS[(r)$mount]} ]] && continue
-    file=$mount/.locations
-    [[ -f $file ]] || continue
-    root=$mount
-    while IFS= read -r dir; do
-      [[ -n $dir ]] || continue
-      [[ $dir == /* ]] || dir=$root/$dir
-      dir=${dir//\/.\//\/}
-      [[ -d $dir ]] || continue
-      print -r -- "$dir"
-      ((depth > 0)) && fd -a --type d --max-depth "$depth" -E .git -E .direnv -E __pycache__ . "$dir"
-    done <"$file"
-  done | sort
+	local file dir root depth=${1:-3} mount
+	for mount in /mnt/*(N); do
+		[[ -n ${FZF_IGNORE_PATHS[(r)$mount]} ]] && continue
+		file=$mount/.locations
+		[[ -f $file ]] || continue
+		root=$mount
+		while IFS= read -r dir; do
+			[[ -n $dir ]] || continue
+			[[ $dir == /* ]] || dir=$root/$dir
+			dir=${dir//\/.\//\/}
+			[[ -d $dir ]] || continue
+			print -r -- "$dir"
+			((depth > 0)) && fd -L -a --type d --max-depth "$depth" -E .git -E .direnv -E __pycache__ . "$dir"
+		done <"$file"
+	done | sort
 }
 
 function _dedupe_by_realpath() {
-  local -A seen
-  local line key
-  while IFS= read -r line; do
-    key=${line:A}
-    [[ -n ${seen[$key]} ]] && continue
-    seen[$key]=1
-    print -r -- "$line"
-  done
+	local -A seen
+	local line key
+	while IFS= read -r line; do
+		key=${line:A}
+		[[ -n ${seen[$key]} ]] && continue
+		seen[$key]=1
+		print -r -- "$line"
+	done
 }
 
 function _search_roots() {
-  print -r -- ${(@s/:/)SEARCH_DIRECTORIES_PATHS}
+	print -r -- ${(@s/:/)SEARCH_DIRECTORIES_PATHS}
 }
 
 function _list_project_dirs() {
-  find -L $(_search_roots) -mindepth 1 -maxdepth 1 -type d ! -name .git ! -name .direnv
-  _quick_jump_dirs 1
+	{
+		find -L $(_search_roots) -mindepth 1 -maxdepth 1 -type d ! -name .git ! -name .direnv
+		_quick_jump_dirs 1
+	} | _strip_cwd_prefix
 }
 
-function _list_dirs() {
-  fd -a --type d --max-depth 10 $FZF_EXCLUDES . .
-  fd -a --type d --max-depth 4 $FZF_EXCLUDES . $(_search_roots)
-  _quick_jump_dirs
+function _wh1le_list_dirs() {
+	fd -L --type d --max-depth 10 --strip-cwd-prefix $FZF_EXCLUDES
 }
 
-function _list_files() {
-  fd -a --type f --max-depth 10 $FZF_EXCLUDES . .
-  fd -a --type f --max-depth 4 $FZF_EXCLUDES . $(_search_roots)
+# two walks: [current dir, shadow walk all roots]
+function _wh1le_list_files() {
+	fd -L --type f --max-depth 10 --strip-cwd-prefix $FZF_EXCLUDES
+	# Diabled for now, see how it goes
+	# fd -a --type f --max-depth 4 $FZF_EXCLUDES . $(_search_roots)
 }
 
 function _fzf_pick() {
-  _dedupe_by_realpath | fzf --scheme=path "$@"
+	_dedupe_by_realpath | fzf --scheme=path --sort "$@"
 }
 
 # After cd from a widget: run chpwd/precmd hooks and redraw the prompt
-_zle_after_cd() {
-  local f
-  for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
-    ((${+functions[$f]})) && "$f" &>/dev/null || true
-  done
-  zle .reset-prompt
-  zle -R
+function _zle_after_cd() {
+	local f
+	for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
+		((${+functions[$f]})) && "$f" &>/dev/null || true
+	done
+	zle .reset-prompt
+	zle -R
 }
+
+# --- widgets --------------------------------------------------------------
 
 # Reload history from file before searching so cross-pane commands appear
 function fzf_history_widget_synced() {
-  fc -RI
-  zle fzf-history-widget
+	fc -RI
+	zle fzf-history-widget
 }
 zle -N fzf_history_widget_synced
 bindkey '^r' fzf_history_widget_synced
 
-function quick_edit_directory() {
-  if [[ $# -eq 1 ]]; then
-    selected=$1
-  else
-    selected=$({
-      find -L ${(@s/:/)SEARCH_DIRECTORIES_PATHS} -mindepth 1 -maxdepth 1 -type d ! -name .git ! -name .direnv
-      _quick_jump_dirs 1
-    } 2>/dev/null | _dedupe_by_realpath | fzf --sort)
-  fi
+function open_directories_from_cwd() {
+	local from_zle=0 selected
+	[[ -n $WIDGET ]] && from_zle=1
+	((from_zle)) && zle -I
 
-  if [[ -z $selected ]]; then
-    return
-  fi
+	if [[ $# -eq 1 ]]; then
+		selected=$1
+	else
+		selected=$(_list_project_dirs 2>/dev/null | _fzf_pick) || {
+			((from_zle)) && zle .reset-prompt
+			return 1
+		}
+	fi
+	[[ -z $selected ]] && return 1
 
-  selected_name=$(basename "$selected" | tr . _)
-
-  cd $selected
+	cd -- "$selected" || return 1
+	((from_zle)) && _zle_after_cd
 }
 
-function quick_edit_directory_widget() {
-  zle -I
-  quick_edit_directory || return
-  local f
-  for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
-    [[ "${+functions[$f]}" == 0 ]] || "$f" &>/dev/null || true
-  done
-  zle .reset-prompt
-  zle -R
+zle -N open_directories_from_cwd
+bindkey -M emacs '^O' open_directories_from_cwd
+bindkey -M viins '^O' open_directories_from_cwd
+bindkey -M vicmd '^O' open_directories_from_cwd
+
+function fzf_open_file() {
+	local out key file
+	out=$(_wh1le_list_files 2>/dev/null | _fzf_pick --expect=ctrl-o) || return
+	key=$(print -r -- "$out" | head -1)
+	file=$(print -r -- "$out" | tail -1)
+	[[ -z $file ]] && return
+
+	if [[ $key == ctrl-o || $(file -bL --mime-encoding -- "$file") == binary ]]; then
+		xdg-open "$file" &>/dev/null &|
+	else
+		"${EDITOR:-nvim}" "$file"
+	fi
 }
+bindkey -s ';f' 'fzf_open_file\n'
 
-zle -N quick_edit_directory_widget
-bindkey -M emacs '^O' quick_edit_directory_widget
-bindkey -M viins '^O' quick_edit_directory_widget
-bindkey -M vicmd '^O' quick_edit_directory_widget
-
-function fzf-open() {
-  local out key file
-  out=$({
-    fd -a --type f --max-depth 10 -E .git -E .direnv -E __pycache__ . . | sort
-    fd -a --type f --max-depth 4 -E .git -E .direnv -E __pycache__ . ${(@s.:.)SEARCH_DIRECTORIES_PATHS:#} | sort
-  } 2>/dev/null | _dedupe_by_realpath | fzf --sort --expect=ctrl-o)
-  key=$(head -1 <<<"$out")
-  file=$(tail -1 <<<"$out")
-  [[ -z "$file" ]] && return
-
-  if [[ "$key" == "ctrl-o" || $(file -bL --mime-encoding -- "$file") == binary ]]; then
-    xdg-open "$file" &>/dev/null &|
-  else
-    "${EDITOR:-nvim}" "$file"
-  fi
+function fzf_change_directory_from_cwd() {
+	zle -I
+	local dir
+	dir=$(_wh1le_list_dirs 2>/dev/null | _fzf_pick) || {
+		zle .reset-prompt
+		return
+	}
+	cd -- "$dir"
+	_zle_after_cd
 }
-bindkey -s ';f' 'fzf-open\n'
+zle -N fzf_change_directory_from_cwd
+bindkey -M emacs ';d' fzf_change_directory_from_cwd
+bindkey -M viins ';d' fzf_change_directory_from_cwd
+bindkey -M vicmd ';d' fzf_change_directory_from_cwd
 
-function fzf-change-directory() {
-  zle -I
-  local dir
-  dir=$({
-    fd -a --type d --max-depth 10 -E .git -E .direnv -E __pycache__ . . | sort
-    fd -a --type d --max-depth 4 -E .git -E .direnv -E __pycache__ . ${(@s.:.)SEARCH_DIRECTORIES_PATHS:#} | sort
-    _quick_jump_dirs
-  } 2>/dev/null | _dedupe_by_realpath | fzf --sort) || {
-    zle .reset-prompt
-    return
-  }
-  cd "$dir"
-  local f
-  for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
-    [[ "${+functions[$f]}" == 0 ]] || "$f" &>/dev/null || true
-  done
-  zle .reset-prompt
-  zle -R
+function tmux_sessionizer_widget() {
+	zle -I
+	BUFFER="tmux-sessionizer"
+	zle accept-line
 }
-
-zle -N fzf-change-directory
-bindkey -M emacs ';d' fzf-change-directory
-bindkey -M viins ';d' fzf-change-directory
-bindkey -M vicmd ';d' fzf-change-directory
-
-function tmux-sessionizer-widget() {
-  zle -I
-  BUFFER="tmux-sessionizer"
-  zle accept-line
-}
-
-zle -N tmux-sessionizer-widget
-bindkey '^f' tmux-sessionizer-widget
+zle -N tmux_sessionizer_widget
+bindkey '^f' tmux_sessionizer_widget
