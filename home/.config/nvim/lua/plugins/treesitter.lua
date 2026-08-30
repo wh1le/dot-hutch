@@ -2,6 +2,7 @@ local parsers = {
 	"html",
 	"toml",
 	"bash",
+	"zsh",
 	"gitcommit",
 	"make",
 	"ron",
