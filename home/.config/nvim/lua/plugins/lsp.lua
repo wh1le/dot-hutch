@@ -1,3 +1,27 @@
+NM.color = {}
+NM.color.lighten = function(color, amount)
+	if not color then
+		return nil
+	end
+	local r = bit.rshift(bit.band(color, 0xFF0000), 16)
+	local g = bit.rshift(bit.band(color, 0x00FF00), 8)
+	local b = bit.band(color, 0x0000FF)
+	r = math.min(255, r + amount)
+	g = math.min(255, g + amount)
+	b = math.min(255, b + amount)
+	return bit.bor(bit.lshift(r, 16), bit.lshift(g, 8), b)
+end
+
+NM.cmp = {}
+NM.cmp.set_colors = function()
+	local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+	local pmenu_sel = vim.api.nvim_get_hl(0, { name = "PmenuSel" })
+
+	vim.api.nvim_set_hl(0, "CmpNormal", { bg = NM.color.lighten(normal_bg, 20) })
+	vim.api.nvim_set_hl(0, "CmpDoc", { bg = NM.color.lighten(normal_bg, 15) })
+	vim.api.nvim_set_hl(0, "CmpSel", { bg = pmenu_sel.bg, fg = pmenu_sel.fg })
+end
+
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
@@ -13,44 +37,23 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 		"onsails/lspkind.nvim",
 		"j-hui/fidget.nvim",
-		"zbirenbaum/copilot-cmp",
+		NM.ai_enabled and "zbirenbaum/copilot-cmp" or nil,
 	},
 
 	config = function()
 		vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 		local cmp = require("cmp")
-		local lspkind = require("lspkind")
+		require("lspkind")
 
 		require("fidget").setup({
 			suppress_on_insert = true,
 		})
 
-		local function set_cmp_colors()
-			local function lighten(color, amount)
-				if not color then
-					return nil
-				end
-				local r = bit.rshift(bit.band(color, 0xFF0000), 16)
-				local g = bit.rshift(bit.band(color, 0x00FF00), 8)
-				local b = bit.band(color, 0x0000FF)
-				r = math.min(255, r + amount)
-				g = math.min(255, g + amount)
-				b = math.min(255, b + amount)
-				return bit.bor(bit.lshift(r, 16), bit.lshift(g, 8), b)
-			end
+		NM.cmp.set_colors()
 
-			local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
-			local pmenu_sel = vim.api.nvim_get_hl(0, { name = "PmenuSel" })
-
-			vim.api.nvim_set_hl(0, "CmpNormal", { bg = lighten(normal_bg, 20) })
-			vim.api.nvim_set_hl(0, "CmpDoc", { bg = lighten(normal_bg, 15) })
-			vim.api.nvim_set_hl(0, "CmpSel", { bg = pmenu_sel.bg, fg = pmenu_sel.fg })
-		end
-
-		set_cmp_colors()
 		vim.api.nvim_create_autocmd("ColorScheme", {
-			callback = set_cmp_colors,
+			callback = NM.cmp.set_colors,
 		})
 
 		cmp.setup({

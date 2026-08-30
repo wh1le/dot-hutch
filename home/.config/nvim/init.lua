@@ -1,5 +1,7 @@
 NM = {}
 
+NM.hosts_with_ai = { "mac" }
+
 vim.o.title = true
 vim.o.titlestring = "nvim: %f"
 
