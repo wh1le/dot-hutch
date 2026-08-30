@@ -46,6 +46,7 @@ let
     "org.gitfourchette.gitfourchette"
     "cz.bugsy.roster"
     "io.github.db_mobile.resonance"
+    "rocks.shy.VacuumTube"
   ];
 in
 {
@@ -63,7 +64,10 @@ in
       };
       uninstallUnmanaged = false;
       remotes = [
-        { name = "flathub"; location = "https://flathub.org/repo/flathub.flatpakrepo"; }
+        {
+          name = "flathub";
+          location = "https://flathub.org/repo/flathub.flatpakrepo";
+        }
       ];
       overrides = {
         global = {
@@ -76,8 +80,14 @@ in
               "~/.icons:ro"
               "xdg-config:ro"
             ];
-            sockets = [ "x11" "fallback-x11" ];
-            shared = [ "ipc" "network" ];
+            sockets = [
+              "x11"
+              "fallback-x11"
+            ];
+            shared = [
+              "ipc"
+              "network"
+            ];
           };
           Environment = {
             XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
@@ -95,11 +105,6 @@ in
     };
   };
 
-  services.flatpak.packages = map (pkg: pkg)
-    flatpakPackages ++
-  imageEditing ++
-  dev ++
-  messaging ++
-  utilities ++
-  fun;
+  services.flatpak.packages =
+    map (pkg: pkg) flatpakPackages ++ imageEditing ++ dev ++ messaging ++ utilities ++ fun;
 }
