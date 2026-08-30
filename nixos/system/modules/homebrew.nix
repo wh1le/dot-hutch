@@ -68,6 +68,7 @@ in
       "git-filter-repo"
       "graphviz"
       "jq"
+      "uv"
       "libyaml"
       "logcli"
       "pnpm"

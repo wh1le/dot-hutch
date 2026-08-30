@@ -8,3 +8,4 @@ pdoc/
 .gems
 **/environment.d/
 **/.zcompdump.*
+.pnpm-store/

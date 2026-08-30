@@ -13,10 +13,11 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 		"onsails/lspkind.nvim",
 		"j-hui/fidget.nvim",
+		"zbirenbaum/copilot-cmp",
 	},
 
 	config = function()
-		-- conform is configured in lua/plugins/conform.lua
+		vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
@@ -25,12 +26,44 @@ return {
 			suppress_on_insert = true,
 		})
 
-		vim.api.nvim_set_hl(0, "CmpDoc", { bg = "#1a1b26" })
+		local function set_cmp_colors()
+			local function lighten(color, amount)
+				if not color then
+					return nil
+				end
+				local r = bit.rshift(bit.band(color, 0xFF0000), 16)
+				local g = bit.rshift(bit.band(color, 0x00FF00), 8)
+				local b = bit.band(color, 0x0000FF)
+				r = math.min(255, r + amount)
+				g = math.min(255, g + amount)
+				b = math.min(255, b + amount)
+				return bit.bor(bit.lshift(r, 16), bit.lshift(g, 8), b)
+			end
+
+			local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+			local pmenu_sel = vim.api.nvim_get_hl(0, { name = "PmenuSel" })
+
+			vim.api.nvim_set_hl(0, "CmpNormal", { bg = lighten(normal_bg, 20) })
+			vim.api.nvim_set_hl(0, "CmpDoc", { bg = lighten(normal_bg, 15) })
+			vim.api.nvim_set_hl(0, "CmpSel", { bg = pmenu_sel.bg, fg = pmenu_sel.fg })
+		end
+
+		set_cmp_colors()
+		vim.api.nvim_create_autocmd("ColorScheme", {
+			callback = set_cmp_colors,
+		})
 
 		cmp.setup({
+			experimental = {
+				ghost_text = true,
+			},
 			window = {
-				completion = cmp.config.window.bordered(),
-				documentation = cmp.config.window.bordered(),
+				completion = cmp.config.window.bordered({
+					winhighlight = "Normal:CmpNormal,CursorLine:CmpSel",
+				}),
+				documentation = cmp.config.window.bordered({
+					winhighlight = "Normal:CmpDoc",
+				}),
 			},
 			snippet = {
 				expand = function(args)
@@ -47,8 +80,9 @@ return {
 			}),
 
 			sources = cmp.config.sources({
-				{ name = "luasnip" },
 				{ name = "nvim_lsp" },
+				{ name = "copilot" },
+				{ name = "luasnip" },
 				{ name = "path" },
 				{ name = "buffer" },
 				-- NOTE: possible to use with all opened buffers but craches if open a big one
@@ -58,17 +92,24 @@ return {
 				-- 	end,
 				-- },
 			}),
-			formatting = {
-				fields = { "icon", "abbr", "menu" },
-				-- format = lspkind.cmp_format({
-				-- 	maxwidth = {
-				-- 		menu = 50,
-				-- 		abbr = 50,
-				-- 	},
-				-- 	ellipsis_char = "...",
-				-- 	show_labelDetails = true,
-				-- }),
-			},
+			-- formatting = {
+			-- 	fields = { "abbr", "menu" },
+			-- 	format = function(entry, vim_item)
+			-- 		local source_icons = {
+			-- 			nvim_lsp = "󰒍",
+			-- 			copilot = "󰚩",
+			-- 			luasnip = "󰩫",
+			-- 			buffer = "󰈙",
+			-- 			path = "󰉋",
+			-- 			cmdline = "󰘳",
+			-- 		}
+			--
+			-- 		local source = entry.source.name
+			-- 		vim_item.menu = source_icons[source] or source
+			--
+			-- 		return vim_item
+			-- 	end,
+			-- },
 		})
 
 		cmp.setup.cmdline({ "/", "?" }, {
@@ -125,6 +166,10 @@ return {
 			end
 			vim.cmd("edit")
 		end, { desc = "LSP restart" })
+
+		vim.keymap.set("i", "<C-s>", function()
+			require("cmp").complete()
+		end, { desc = "Trigger completion" })
 
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
