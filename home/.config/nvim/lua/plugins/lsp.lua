@@ -1,4 +1,6 @@
 NM.color = {}
+NM.cmp = {}
+
 NM.color.lighten = function(color, amount)
 	if not color then
 		return nil
@@ -12,7 +14,6 @@ NM.color.lighten = function(color, amount)
 	return bit.bor(bit.lshift(r, 16), bit.lshift(g, 8), b)
 end
 
-NM.cmp = {}
 NM.cmp.set_colors = function()
 	local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
 	local pmenu_sel = vim.api.nvim_get_hl(0, { name = "PmenuSel" })
@@ -88,12 +89,6 @@ return {
 				{ name = "luasnip" },
 				{ name = "path" },
 				{ name = "buffer" },
-				-- NOTE: possible to use with all opened buffers but craches if open a big one
-				-- option = {
-				-- 	get_bufnrs = function()
-				-- 		return vim.api.nvim_list_bufs()
-				-- 	end,
-				-- },
 			}),
 			-- formatting = {
 			-- 	fields = { "abbr", "menu" },
@@ -159,22 +154,17 @@ return {
 
 		require("config.lsp")
 
-		vim.keymap.set("n", "<leader>lh", "<cmd>checkhealth vim.lsp<cr>", { desc = "LSP health" })
+		vim.keymap.set("n", "<leader>ls", "<cmd>checkhealth vim.lsp<cr>", { desc = "LSP health" })
 		vim.keymap.set("n", "<leader>ll", function()
-			vim.cmd("edit " .. vim.lsp.get_log_path())
+			vim.cmd("edit " .. vim.lsp.log.get_filename())
 		end, { desc = "LSP log" })
-		vim.keymap.set("n", "<leader>lR", function()
-			for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
-				vim.lsp.stop_client(client.id)
-			end
-			vim.cmd("edit")
-		end, { desc = "LSP restart" })
-
+		vim.keymap.set("n", "<leader>lr", "<cmd>lsp restart<cr>", { desc = "LSP restart" })
 		vim.keymap.set("i", "<C-s>", function()
 			require("cmp").complete()
 		end, { desc = "Trigger completion" })
 
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 		vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
@@ -184,8 +174,15 @@ return {
 		vim.keymap.set("n", "<leader>ds", vim.lsp.buf.document_symbol, { desc = "Document symbols" })
 		vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
 
-		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
-		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+		-- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+		-- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+		vim.keymap.set("n", "]d", function()
+			vim.diagnostic.jump({ count = 1, float = true })
+		end, { desc = "Next diagnostic" })
+
+		vim.keymap.set("n", "[d", function()
+			vim.diagnostic.jump({ count = -1, float = true })
+		end, { desc = "Previous diagnostic" })
 
 		vim.keymap.set("n", "<leader>de", function()
 			vim.diagnostic.open_float(nil, {
