@@ -59,6 +59,15 @@ return {
 			end,
 			desc = "Live Grep (Global)",
 		},
+		{
+			"<leader>R",
+			function()
+				require("telescope.builtin").registers({
+					layout_config = { height = 0.9 },
+				})
+			end,
+			desc = "Live Grep (Global)",
+		},
 		{ "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
 	},
 	config = function()

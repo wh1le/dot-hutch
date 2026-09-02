@@ -1,3 +1,5 @@
+NM.clipboard = {}
+
 local uname = vim.loop.os_uname().sysname
 
 local function on_path(bin)
