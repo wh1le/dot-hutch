@@ -1,7 +1,10 @@
-export NANOCODER_LOG_LEVEL=error          # or 'warn' / 'fatal' (minimal output)
+export NANOCODER_LOG_LEVEL=error # or 'warn' / 'fatal' (minimal output)
 export NANOCODER_LOG_DISABLE_FILE=true
 export NANOCODER_LOG_TO_FILE=false
 export NANOCODER_CORRELATION_ENABLED=false
+
+export LATITUDE_PI_TELEMETRY_ENABLED=0
+export PI_OTEL_DISABLED=1
 
 # safetensors metadata tools — pure stdlib python, no deps
 # lm-info <file>   detailed: family, rank, triggers
@@ -59,7 +62,8 @@ lm-type() {
     print "● ${1:t}"
     print "  $(_lm_type "$1")"
   else
-    print "usage: lm-type <model.safetensors | dir>"; return 1
+    print "usage: lm-type <model.safetensors | dir>"
+    return 1
   fi
 }
 
@@ -109,7 +113,10 @@ PY
 
 lm-info() {
   emulate -L zsh
-  [[ -f "$1" ]] || { print "usage: lm-info <model.safetensors>"; return 1 }
+  [[ -f "$1" ]] || {
+    print "usage: lm-info <model.safetensors>"
+    return 1
+  }
   print "● ${1:t}"
   _lm_meta "$1" info
 }
