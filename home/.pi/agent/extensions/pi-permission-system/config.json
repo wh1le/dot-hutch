@@ -1,0 +1,26 @@
+{
+  "permission": {
+    "*": "ask",
+    "read": "ask",
+    "ls": "ask",
+    "find": "ask",
+    "grep": "ask",
+    "path_read": { "*": "allow" },
+    "write": "ask",
+    "edit": "ask",
+    "path_write": { "*": "ask" },
+    "path": {
+      "*": "ask",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "~/.ssh/*": "deny"
+    },
+    "external_directory": "ask",
+    "bash": {
+      "*": "ask",
+      "rm -rf *": "deny",
+      "sudo *": "ask"
+    }
+  }
+}

@@ -53,3 +53,16 @@ home/.config/yazi/scripts/personal
 home/.config/nix/corp-ca.pem
 home/.config/yazi/plugins/
 **/environment.d/
+
+home/.pi/agent/auth.json
+home/.pi/agent/trust.json
+home/.pi/agent/sessions/
+home/.pi/agent/models-store.json
+home/.pi/agent/ollama-models-cache.json
+home/.pi/agent/mcp-cache.json
+home/.pi/agent/bin/
+home/.pi/agent/npm/
+home/.pi/agent/git/
+home/.pi/agent/*.log
+home/.pi/agent/extensions/**/logs/
+home/.pi/agent/**/*.jsonl

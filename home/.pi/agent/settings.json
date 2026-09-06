@@ -1,0 +1,17 @@
+{
+  "lastChangelogVersion": "0.84.2",
+  "theme": "dark",
+  "defaultProvider": "litellm",
+  "defaultModel": "smart-router",
+  "defaultThinkingLevel": "medium",
+  "packages": [
+    "git:github.com/v2nic/pi-ollama-provider",
+    "npm:pi-provider-litellm",
+    "npm:@gotgenes/pi-permission-system",
+    "npm:@heyhuynhgiabuu/pi-diff"
+  ],
+  "enableInstallTelemetry": false,
+  "defaultProjectTrust": "never",
+  "tuiMode": "fullscreen",
+  "diffTheme": "midnight"
+}
