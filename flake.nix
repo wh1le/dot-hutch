@@ -45,13 +45,8 @@
       homeConfigurations = {
         deck = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-          home-manager.extraSpecialArgs = {
-            inherit
-              self
-              inputs
-              username
-              publicRepoUrl
-              ;
+          extraSpecialArgs = {
+            inherit self inputs publicRepoUrl;
           };
           modules = [
             ./nixos/home/users/steamdeck.nix
