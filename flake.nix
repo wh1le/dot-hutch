@@ -48,9 +48,6 @@
           extraSpecialArgs = { inherit inputs; };
           modules = [
             ./nixos/home/users/steamdeck.nix
-            {
-              home-manager.backupFileExtension = "backup";
-            }
           ];
         };
       };
