@@ -44,13 +44,14 @@
 
       homeConfigurations = {
         deck = inputs.home-manager.lib.homeManagerConfiguration {
-          useUserPackages = true;
-          backupFileExtension = "backup";
+          pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs; };
           modules = [
             ./nixos/home/users/steamdeck.nix
-            inputs.sops-nix.nixosModules.sops
+            {
+              home-manager.backupFileExtension = "backup";
+            }
           ];
-          extraSpecialArgs = { inherit inputs; };
         };
       };
 
