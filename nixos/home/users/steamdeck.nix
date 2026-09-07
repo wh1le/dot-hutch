@@ -1,7 +1,5 @@
 { pkgs, ... }:
 {
-  description = "Home Manager configuration for Steam Deck";
-
   programs.home-manager.enable = true;
 
   home = {
