@@ -17,6 +17,10 @@
     };
   };
 
+  imports = [
+    ../modules/link-dot-files.nix
+  ];
+
   programs.bash = {
     enableCompletion = true;
     shellAliases = {
