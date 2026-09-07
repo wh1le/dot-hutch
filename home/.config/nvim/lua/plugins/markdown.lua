@@ -53,6 +53,11 @@ return {
 					language_border = "▁",
 					left_pad = 1,
 					right_pad = 1,
+					conceal_delimiters = false,
+				},
+				win_options = {
+					conceallevel = { rendered = 0 },
+					concealcursor = { rendered = "" },
 				},
 				heading = {
 					sign = false,

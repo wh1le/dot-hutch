@@ -1,7 +1,7 @@
 config-file = ~/.cache/wal/colors-ghostty.conf
 
 # font-family = "PragmataPro Nerd Font Mono"
-font-size = 12
+font-size = 12.5
 font-thicken = true
 font-feature = -calt, -liga, -dlig
 

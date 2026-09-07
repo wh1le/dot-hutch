@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.84.2",
   "theme": "dark",
-  "defaultProvider": "litellm",
-  "defaultModel": "smart-router",
+  "defaultProvider": "amazon-bedrock",
+  "defaultModel": "zai.glm-5",
   "defaultThinkingLevel": "medium",
   "packages": [
     "git:github.com/v2nic/pi-ollama-provider",

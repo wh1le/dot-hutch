@@ -75,6 +75,7 @@ in
 
     ln -sfn $DOT_PUBLIC/home/.zshenv $HOME/.zshenv
     ln -sfn $DOT_PUBLIC/home/.Xresources $HOME/.Xresources
+    ln -sfn $DOT_PUBLIC/home/.pi $HOME/.pi
 
     mkdir -p "$HOME/.local/bin"
     mkdir -p "$HOME/.local/share"
