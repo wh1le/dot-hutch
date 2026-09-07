@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   programs.home-manager.enable = true;
 
@@ -10,6 +10,7 @@
     packages = with pkgs; [
       tmux
       neovim
+      inputs.m8c.packages.${pkgs.system}.default
     ];
 
     sessionVariables = {

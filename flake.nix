@@ -103,6 +103,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    m8c.url = "github:laamaa/m8c";
+
     # steam-config-nix = {
     #   url = "github:different-name/steam-config-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
