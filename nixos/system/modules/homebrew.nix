@@ -77,13 +77,14 @@ in
       "yarn"
       "k1low/tap/tbls"
       "git-gui"
+      "nono"
       "opencode"
     ];
     global = {
       brewfile = true;
     };
     onActivation = {
-      autoUpdate = true;
+      autoUpdate = false;
       upgrade = false;
       cleanup = "none";
       extraEnv = {
