@@ -105,7 +105,7 @@ return {
 			require("markdown-plus").setup({
 				filetypes = { "markdown" },
 				features = {
-					list_management = true,
+					list_management = false,
 					text_formatting = true,
 					thematic_break = false,
 					links = false,

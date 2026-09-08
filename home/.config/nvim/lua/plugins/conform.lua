@@ -40,10 +40,7 @@ return {
 			formatters = {
 				biome = {
 					condition = function(self, ctx)
-						return vim.fs.find(
-							{ "biome.json", "biome.jsonc" },
-							{ path = ctx.filename, upward = true }
-						)[1]
+						return vim.fs.find({ "biome.json", "biome.jsonc" }, { path = ctx.filename, upward = true })[1]
 					end,
 				},
 				["clang-format"] = {
