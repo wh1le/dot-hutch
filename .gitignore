@@ -13,7 +13,6 @@ result
 *.gpg
 *.kbx
 
-*.claude
 tmp/*
 
 home/.config/git/secrets

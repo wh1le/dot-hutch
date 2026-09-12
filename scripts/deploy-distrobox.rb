@@ -21,10 +21,6 @@ module Distrobox
         rust
       ],
       run_commands: [
-        { 
-          command: "curl -fsSL https://claude.ai/install.sh | bash",
-          unless: "test -x $HOME/.local/bin/claude" 
-        },
         {
           command: "cargo install cfait",
           unless: "test -x $HOME/.local/share/cargo/bin/cfait"

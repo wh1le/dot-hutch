@@ -3,6 +3,14 @@
 {
   security.rtkit.enable = true;
 
+  users.users.wh1le.extraGroups = [ "dialout" ];
+
+  # m8 headless
+  services.udev.extraRules = ''
+    KERNEL=="ttyACM*", ATTRS{idVendor}=="16c0", MODE="0666", GROUP="dialout"
+    KERNEL=="hidraw*", ATTRS{idVendor}=="16c0", MODE="0666"
+  '';
+
   services.pipewire = {
     enable = true;
     wireplumber.enable = true;
@@ -19,7 +27,10 @@
 
     extraConfig.pipewire-pulse."99-switch-on-connect" = {
       "pulse.cmd" = [
-        { cmd = "load-module"; args = "module-switch-on-connect"; }
+        {
+          cmd = "load-module";
+          args = "module-switch-on-connect";
+        }
       ];
     };
 
