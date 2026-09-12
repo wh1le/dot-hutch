@@ -159,3 +159,5 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # TODO: fix hack later
 unset NPM_CONFIG_USERCONFIG
+
+export PATH='/home/wh1le/.hunk/bin':"$PATH"
