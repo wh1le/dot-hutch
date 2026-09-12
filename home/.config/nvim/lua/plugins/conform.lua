@@ -26,6 +26,7 @@ return {
 				typescript = { "biome", "prettier", stop_after_first = true },
 				typescriptreact = { "biome", "prettier", stop_after_first = true },
 				graphql = { "biome" },
+				make = { "bake" },
 
 				json = { "biome", "prettierd", stop_after_first = true },
 				yaml = { "prettierd" },

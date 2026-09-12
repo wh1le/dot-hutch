@@ -12,6 +12,7 @@
     pkgs.tree-sitter
 
     pkgs.perl
+    pkgs.mbake
 
     pkgs.bash-language-server
     pkgs.vscode-langservers-extracted
@@ -52,5 +53,10 @@
     pkgs.golangci-lint
 
     pkgs.librsvg
+
+    pkgs.autotools-language-server
+    pkgs.mbake
+    # pkgs.checkmake
+    # pkgs.bmake
   ];
 }
