@@ -161,3 +161,9 @@ export PATH="$HOME/.local/bin:$PATH"
 unset NPM_CONFIG_USERCONFIG
 
 export PATH='/home/wh1le/.hunk/bin':"$PATH"
+
+if [ -r "$HOME/.config/environment.d/pi-providers.conf" ]; then
+  set -a
+  . "$HOME/.config/environment.d/pi-providers.conf"
+  set +a
+fi

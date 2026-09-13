@@ -37,6 +37,10 @@ alias gc='git checkout'
 alias gr='git rebase -i'
 alias ghistory='helper-git-history'
 
+# gd() {
+#   git diff --color=always "$@" | $PAGER -R
+# }
+
 gd() {
-  git diff --color=always "$@" | $PAGER -R
+  hunk diff "$@"
 }

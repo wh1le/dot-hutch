@@ -87,7 +87,6 @@
 
     pkgs.k9s
     pkgs.dooit
-    unstable.hunk # diff preview
 
     # pkgs.systemctl-tui
     # pkgs.sysz
