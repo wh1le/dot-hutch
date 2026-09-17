@@ -44,3 +44,7 @@ alias ghistory='helper-git-history'
 gd() {
   hunk diff "$@"
 }
+
+gdc() {
+  hunk diff --cached "$@"
+}
