@@ -127,8 +127,12 @@ return {
 						alternate = "spec/lib/{}_spec.rb",
 						type = "lib",
 					},
+					["lib/*.rb"] = {
+						alternate = "spec/lib/{}_spec.rb",
+						type = "lib",
+					},
 					["spec/lib/*_spec.rb"] = {
-						alternate = "app/lib/{}.rb",
+						alternate = { "lib/{}.rb", "app/lib/{}.rb" },
 						type = "spec",
 						dispatch = "bundle exec rspec {file}",
 					},
