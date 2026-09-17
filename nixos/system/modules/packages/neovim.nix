@@ -56,6 +56,7 @@
 
     pkgs.autotools-language-server
     pkgs.mbake
+    pkgs.cargo # avante extension
     # pkgs.checkmake
     # pkgs.bmake
   ];
