@@ -1,8 +1,9 @@
 export EDITOR="nvim"
 export VISUAL=nvim
 export TERMINAL="ghostty"
+
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  export BROWSER="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  export BROWSER="open"
 else
   export BROWSER="firefox"
 fi
