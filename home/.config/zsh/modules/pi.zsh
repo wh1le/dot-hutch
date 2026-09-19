@@ -1,0 +1,1 @@
+export PI_LENS_CONFIG_PATH="$HOME/.pi/lens-config.json"
