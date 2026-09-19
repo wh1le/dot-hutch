@@ -8,6 +8,7 @@
     ./darwin/packages.nix
 
     ../software/sketchybar.nix
+    ../software/headlamp.nix
     ../homebrew.nix
   ];
 }

@@ -18,6 +18,7 @@
     ../software/quickshell.nix
     ../software/elasticsearch.nix
     ../software/redis-tui.nix
+    ../software/headlamp.nix
 
     ../packages/terminal.nix
     ../packages/neovim.nix
