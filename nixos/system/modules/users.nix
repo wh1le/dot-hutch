@@ -13,14 +13,9 @@
       "wheel"
       "audio"
       "video"
-      "input"
       "tss"
       "plugdev"
-      "video"
       "render"
-      "docker"
-      "kvm"
-      "podman"
       "dbus-monitor"
       "networkmanager"
       "keyd"
@@ -29,6 +24,10 @@
       "ydotool"
       "scanner"
       "lp"
+      # "input"
+      # "docker"
+      # "kvm"
+      # "podman"
     ];
   };
 }

@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   systemd.user.extraConfig = ''
     DefaultEnvironment="PATH=/run/current-system/sw/bin:/run/wrappers/bin:${lib.makeBinPath [ pkgs.bash ]}"
@@ -9,6 +14,10 @@
       enable = true;
       enableOnBoot = false;
       storageDriver = "overlay2";
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
       daemon.settings = {
         experimental = true;
         "features" = {

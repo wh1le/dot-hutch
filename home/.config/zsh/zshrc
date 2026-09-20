@@ -34,6 +34,7 @@ source $HOME/.config/zsh/modules/config.zsh
 source $HOME/.config/zsh/modules/llm.zsh
 source $HOME/.config/zsh/modules/system.zsh
 source $HOME/.config/zsh/modules/distrobox.zsh
+source $HOME/.config/zsh/modules/pi.zsh
 
 if [[ -n "$TMUX" ]]; then
   export TERM="tmux-256color"
@@ -167,3 +168,5 @@ if [ -r "$HOME/.config/environment.d/pi-providers.conf" ]; then
   . "$HOME/.config/environment.d/pi-providers.conf"
   set +a
 fi
+
+alias reload-ghostty="kill -s USR2 $(pgrep ghostty)"

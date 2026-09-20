@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-MAC="$(cat /run/secrets/bluetooth/devices/sony_headphones)"
+# MAC="$(cat /run/secrets/bluetooth/devices/sony_headphones)"
+MAC="4C:87:5D:26:F0:C7"
 NAME="Sony XM6"
 
 TRIES="${1:-3}"

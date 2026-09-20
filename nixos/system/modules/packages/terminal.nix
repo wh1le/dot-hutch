@@ -88,6 +88,7 @@
     pkgs.k9s
     pkgs.dooit
     unstable.rtk # compact bash tools calls
+    pkgs.honcho
 
     # pkgs.systemctl-tui
     # pkgs.sysz
