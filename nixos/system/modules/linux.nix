@@ -1,6 +1,8 @@
-{ pkgs, config, ... }: {
-  services.udev.extraRules = ''
-    KERNEL=="uinput", GROUP="ydotool", MODE="0660"
+{ pkgs, config, lib, ... }: {
+  services.udev.extraRules = lib.mkAfter ''
+    KERNEL=="uinput", GROUP="xremap", MODE="0660", OPTIONS+="static_node=uinput"
+    SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="Apple Inc. Magic Keyboard", GROUP="xremap", MODE="0660", SYMLINK+="xremap-kbd"
+    SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="AT Translated Set 2 keyboard", GROUP="xremap", MODE="0660", SYMLINK+="xremap-kbd"
   '';
 
   programs = {

@@ -3,18 +3,6 @@
 export XDG_SESSION_TYPE=x11
 export XDG_CURRENT_DESKTOP=i3
 
-case "$(hostname)" in
-thinkpad)
-	xremap_dev=(--device "AT Translated Set 2 keyboard")
-	;;
-homepc)
-	xremap_dev=(--ignore "SteelSeries SteelSeries Rival 3 Wireless Keyboard")
-	;;
-*)
-	xremap_dev=()
-	;;
-esac
-
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 
@@ -34,8 +22,6 @@ systemctl --user restart xdg-desktop-portal.service xdg-desktop-portal-gtk.servi
 if [ "$(hostname)" = homepc ]; then
 	"$HOME/.local/bin/public/bluetooth-startup-connect" &
 fi
-
-pgrep -x xremap >/dev/null || xremap "${xremap_dev[@]}" --watch=config,device "$HOME/.config/xremap/config.yml" &
 
 copyq --start-server &
 mpd-mpris -no-instance &

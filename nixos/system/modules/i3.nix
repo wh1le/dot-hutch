@@ -4,10 +4,53 @@
   lib,
   ...
 }:
+let
+  xremap-x11 = pkgs.xremap.overrideAttrs (o: {
+    pname = "xremap-x11";
+    cargoBuildNoDefaultFeatures = true;
+    cargoCheckNoDefaultFeatures = true;
+    cargoBuildFeatures = [ "x11" ];
+    cargoCheckFeatures = [ "x11" ];
+    buildInputs = (o.buildInputs or [ ]) ++ [ pkgs.libX11 ];
+    nativeBuildInputs = (o.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+  });
+
+  home = config.users.users.${config.my.username}.home;
+
+  xremapArgs =
+    if config.networking.hostName == "homepc" then
+      [ "--ignore" "SteelSeries SteelSeries Rival 3 Wireless Keyboard" ]
+    else if config.networking.hostName == "thinkpad" then
+      [ "--device" "AT Translated Set 2 keyboard" ]
+    else
+      [ ];
+in
 {
   console.useXkbConfig = true;
   hardware.uinput.enable = true;
-  users.groups.uinput.members = [ config.my.username ];
+
+  systemd.services.xremap = {
+    description = "xremap key remapper (X11)";
+    wantedBy = [ "graphical.target" ];
+    after = [ "systemd-logind.service" ];
+    serviceConfig = {
+      Type = "simple";
+      User = config.my.username;
+      SupplementaryGroups = [ "xremap" ];
+      Environment = [ "DISPLAY=:0" "XAUTHORITY=${home}/.Xauthority" ];
+      ExecStartPre = "${pkgs.bash}/bin/bash -c 'until [ -S /tmp/.X11-unix/X0 ]; do sleep 0.5; done'";
+      ExecStart = "${xremap-x11}/bin/xremap ${
+        lib.escapeShellArgs (xremapArgs ++ [ "--watch=config,device" "${home}/.config/xremap/config.yml" ])
+      }";
+      Restart = "on-failure";
+      RestartSec = 2;
+      DevicePolicy = "closed";
+      DeviceAllow = [
+        "/dev/xremap-kbd r"
+        "/dev/uinput rw"
+      ];
+    };
+  };
 
   services.rpcbind.enable = lib.mkForce false;
 
@@ -216,15 +259,7 @@
 
     pkgs.kdePackages.ocean-sound-theme
 
-    (pkgs.xremap.overrideAttrs (o: {
-      pname = "xremap-x11";
-      cargoBuildNoDefaultFeatures = true;
-      cargoCheckNoDefaultFeatures = true;
-      cargoBuildFeatures = [ "x11" ];
-      cargoCheckFeatures = [ "x11" ];
-      buildInputs = (o.buildInputs or [ ]) ++ [ pkgs.libX11 ];
-      nativeBuildInputs = (o.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
-    }))
+    xremap-x11
 
     (pkgs.makeDesktopItem {
       name = "Zoom";

@@ -19,6 +19,7 @@
     ../software/elasticsearch.nix
     ../software/redis-tui.nix
     ../software/headlamp.nix
+    ../software/pi-chamber.nix
 
     ../packages/terminal.nix
     ../packages/neovim.nix

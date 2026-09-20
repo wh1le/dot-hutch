@@ -5,6 +5,7 @@
     dbus-monitor = { };
     secrets = { };
     ydotool = { };
+    xremap = { };
   };
 
   users.users.${config.my.username} = {
