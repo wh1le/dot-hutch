@@ -1,0 +1,20 @@
+nerdfont: true
+agent: pi
+
+dashboard:
+  sort_mode: priority
+  close_on_jump: false
+  preview_size: 50
+  agent_columns: [number, status, worktree, git, pr, time, title]
+  worktree_columns: [number, worktree, git, pr, mux, agent]
+
+sidebar:
+  position: top
+  # width: 40
+  layout: tiles
+  dim_stale: true
+  sort: recency
+
+theme:
+  scheme: default
+  mode: dark

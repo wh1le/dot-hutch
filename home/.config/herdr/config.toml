@@ -1,0 +1,26 @@
+onboarding = false
+
+[keys]
+# Mirrors ~/.config/tmux/tmux.conf. tmux's own keys are added alongside
+# Herdr's defaults where the combo differed.
+
+prefix = "ctrl+space"                 # tmux: set -g prefix C-Space
+
+reload_config    = ["prefix+shift+r", "prefix+r"]  # tmux: bind r source-file
+new_tab          = "prefix+c"                      # tmux: bind c new-window
+close_pane       = "prefix+x"                      # tmux: bind x kill-pane
+split_vertical   = "prefix+%"                      # tmux: bind % split-window -h (side by side)
+split_horizontal = ["prefix+minus", "prefix+\""]   # tmux: bind '"' split-window -v (stacked)
+edit_scrollback  = ["prefix+e", "prefix+v"]        # tmux: bind v capture-pane -> nvim
+last_pane        = "prefix+^"                      # tmux: bind -r ^ last-window
+workspace_picker = ["prefix+w", "prefix+j"]        # tmux: bind j choose-tree
+
+# tmux: bind -n C-h/j/k/l select-pane (smart-splits passthrough)
+focus_pane_left  = ["prefix+h", "ctrl+h"]
+focus_pane_down  = "ctrl+j"             # prefix+j is taken by workspace_picker (tmux j = choose-tree)
+focus_pane_up    = ["prefix+k", "ctrl+k"]
+focus_pane_right = ["prefix+l", "ctrl+l"]
+
+# tmux: bind -n M-1..M-0 select-window
+[keys.indexed]
+tabs = "alt"

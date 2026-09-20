@@ -25,6 +25,7 @@
     ../packages/neovim.nix
     ../packages/unix-general.nix
     ../packages/software.nix
+    ../packages/harness.nix
 
     ../linux.nix
   ]

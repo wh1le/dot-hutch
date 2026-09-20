@@ -105,6 +105,11 @@
 
     m8c.url = "github:laamaa/m8c";
 
+    workmux = {
+      url = "github:raine/workmux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # steam-config-nix = {
     #   url = "github:different-name/steam-config-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
