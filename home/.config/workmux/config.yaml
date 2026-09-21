@@ -1,19 +1,32 @@
 nerdfont: true
 agent: pi
 
+# Global-only sandbox inputs. Lima settings remain project-specific.
+sandbox:
+  env:
+    SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
+    CURL_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
+    NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
+  extra_mounts:
+    # Lima mounts directories, so expose a dedicated directory containing only
+    # the public corporate CA bundle at the standard guest trust path.
+    - host_path: ~/.local/state/workmux/ca-bundle
+      guest_path: /etc/ssl/certs
+      writable: false
+
 dashboard:
   sort_mode: priority
   close_on_jump: false
-  preview_size: 50
+  # preview_size: 50
   agent_columns: [number, status, worktree, git, pr, time, title]
   worktree_columns: [number, worktree, git, pr, mux, agent]
 
 sidebar:
-  position: top
-  # width: 40
-  layout: tiles
+  position: left
+  width: 40
+  # layout: tiles
   dim_stale: true
-  sort: recency
+  sort: window
 
 theme:
   scheme: default

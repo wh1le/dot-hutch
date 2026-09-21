@@ -16,6 +16,7 @@ in
       taps = [
         "nikitabobko/tap"
         "felixkratz/formulae"
+        "dondai44423/donsetch"
       ];
       formulae = [
         "felixkratz/formulae/sketchybar"
@@ -34,6 +35,7 @@ in
       "nikitabobko/tap"
       "felixkratz/formulae"
       "k1low/tap"
+      "dondai44423/donsetch"
     ];
     casks = [
       "codex"
@@ -80,6 +82,9 @@ in
       "switchaudio-osx"
       "uv"
       "yarn"
+      "donsetch"
+      "workmux"
+      "lima"
     ];
     global = {
       brewfile = true;

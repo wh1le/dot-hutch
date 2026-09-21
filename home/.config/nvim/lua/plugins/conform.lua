@@ -30,7 +30,7 @@ return {
 
 				json = { "biome", "prettierd", stop_after_first = true },
 				yaml = { "prettierd" },
-				markdown = { "mdformat" },
+				markdown = { "prettier" },
 				css = { "biome", "prettierd", stop_after_first = true },
 				scss = { "prettierd" },
 				html = { "prettierd" },

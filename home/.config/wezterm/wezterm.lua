@@ -55,6 +55,9 @@ config.font = wezterm.font("Iosevka Nerd Font Mono")
 -- }
 
 config.font_size = 10
+if wezterm.target_triple:find("darwin") then
+	config.font_size = 12
+end
 
 if os.getenv("XDG_SESSION_TYPE") == "wayland" then
 	if os.getenv("NVIDIA_CARD_PRIMARY") == "1" then

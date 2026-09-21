@@ -1,23 +1,5 @@
 return {
 	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = "mkdir -p $HOME/.npm-global/lib $HOME/.npm-global/bin && cd app && npx --yes yarn install",
-		init = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-			vim.g.mkdp_auto_close = 1
-			-- vim.g.mkdp_auto_close = 0
-			-- vim.g.mkdp_auto_start = 0
-			-- vim.g.mkdp_refresh_slow = 0
-
-			vim.g.mkdp_theme = "dark"
-		end,
-		keys = {
-			{ "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown: toggle browser preview" },
-		},
-	},
-	{
 		"dhruvasagar/vim-table-mode",
 		ft = { "markdown", "rmd", "txt" },
 		dependencies = { "godlygeek/tabular" },

@@ -32,6 +32,7 @@ export user_themes_path="$HOME/.config/saved_themes/"
 _search_dirs=(
   "$HOME"
   "$HOME/Code"
+  "$HOME/.pi"
   "$HOME/Projects"
   "$HOME/Code/tmp"
   "$HOME/Code/zendesk"
