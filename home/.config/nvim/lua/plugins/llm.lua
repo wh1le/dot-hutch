@@ -6,6 +6,18 @@
 local hostname = vim.fn.hostname()
 
 local plugins = {
+	{
+		"S1M0N38/pibuf.nvim",
+		version = "1.*",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			-- "ibhagwan/fzf-lua",
+			-- "nvim-mini/mini.pick",
+		},
+		opts = {
+			picker = "telescope",
+		},
+	},
 	-- {
 	-- 	"pablopunk/pi.nvim",
 	-- 	init = function()
