@@ -66,6 +66,7 @@ inputs.nix-darwin.lib.darwinSystem {
         imports = [
           ../../config.nix
           ../modules/hosts/darwin.nix
+          ../modules/software/llama-cpp.nix
         ];
       }
     )
