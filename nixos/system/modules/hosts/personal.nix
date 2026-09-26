@@ -19,7 +19,7 @@
     ../software/elasticsearch.nix
     ../software/redis-tui.nix
     ../software/headlamp.nix
-    ../software/pi-chamber.nix
+    # ../software/pi-chamber.nix
     ../software/searx.nix
 
     ../packages/terminal.nix
