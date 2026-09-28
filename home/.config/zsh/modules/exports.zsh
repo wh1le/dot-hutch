@@ -1,5 +1,5 @@
-if which nvim &>/dev/null; then
-  export EDITOR=$(which nvim)
+if (( $+commands[nvim] )); then
+  export EDITOR=$commands[nvim]
 elif [ -x "$HOME/bin/vim" ]; then
   # PATH isn't set yet (.zsh/path depends on this file), so we do this check
   # instead of a simple `export EDITOR=$(which vim)`:
