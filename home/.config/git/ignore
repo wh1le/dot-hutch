@@ -9,3 +9,4 @@ pdoc/
 **/environment.d/
 **/.zcompdump.*
 .pnpm-store/
+.ai
