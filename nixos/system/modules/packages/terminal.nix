@@ -79,9 +79,6 @@
     pkgs.zsh
     pkgs.glab
     pkgs.vivid # check
-
-    pkgs.zsh-powerlevel10k
-
     pkgs.direnv
     pkgs.nix-direnv
 

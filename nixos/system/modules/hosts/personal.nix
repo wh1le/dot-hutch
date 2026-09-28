@@ -41,6 +41,7 @@
     pkgs.conky
     pkgs.linuxPackages.turbostat
     pkgs.lshw
+    pkgs.zsh-powerlevel10k
 
     # test documents preview
     pkgs.zathura

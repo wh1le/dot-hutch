@@ -45,7 +45,7 @@ functions -M _p10k_vcs_dot 2>/dev/null
 	typeset -g POWERLEVEL9K_MODE=nerdfont-v3
 	typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 	typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
-	typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+	typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
 	typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
 
 	typeset -g POWERLEVEL9K_BACKGROUND=''

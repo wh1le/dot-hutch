@@ -55,8 +55,10 @@
       };
 
       darwinConfigurations = {
-        mac = import ./nixos/system/hosts/mac.nix {
+        mac = import ./nixos/system/hosts/macbook.nix {
           inherit inputs self;
+          nixpkgs = inputs.nixpkgs;
+          nixpkgs-unstable = inputs.nixpkgs-unstable;
         };
       };
     };

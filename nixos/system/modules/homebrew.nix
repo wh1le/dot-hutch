@@ -57,6 +57,7 @@ in
         restart_service = "changed";
       }
       "awscli"
+      "powerlevel10k"
       "ca-certificates"
       "ccusage"
       "docker-credential-helper-ecr"
@@ -73,7 +74,6 @@ in
       "logcli"
       "nono"
       "nowplaying-cli"
-      "opencode"
       "pam-reattach"
       "pi-coding-agent"
       "pnpm"
@@ -85,6 +85,7 @@ in
       "donsetch"
       "workmux"
       "lima"
+      "snowflake-cli"
     ];
     global = {
       brewfile = true;
