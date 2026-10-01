@@ -44,7 +44,10 @@ inputs.nix-darwin.lib.darwinSystem {
         nixpkgs.hostPlatform = lib.mkDefault system;
         nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "obsidian" ];
 
-        environment.variables.EDITOR = "nvim";
+        environment.variables = {
+          EDITOR = "nvim";
+          NOSYSZSHRC = "1";
+        };
 
         environment.systemPackages =
           pkgsOf ../modules/packages/terminal.nix

@@ -295,19 +295,19 @@ function M.setup()
 	bindHotkey(M.settings.reload, hs.reload)
 	bindHotkey(M.settings.meetingMute, safeAction("meeting mute", toggleMeetingMute))
 
-	hs.hotkey.bind({ "cmd" }, "s", function()
+	hs.hotkey.bind({ "ctrl", "alt" }, "s", function()
 		require("screenshot").capture()
 	end)
 
-	hs.hotkey.bind({ "cmd", "shift" }, "s", function()
+	hs.hotkey.bind({ "ctrl", "alt", "shift" }, "s", function()
 		require("screenshot").captureFull()
 	end)
 
-	hs.hotkey.bind({ "cmd" }, "e", function()
+	hs.hotkey.bind({ "ctrl", "alt" }, "e", function()
 		hs.application.launchOrFocusByBundleID("com.apple.finder")
 	end)
 
-	hs.hotkey.bind({ "cmd" }, "d", function()
+	hs.hotkey.bind({ "ctrl", "alt" }, "d", function()
 		hs.eventtap.keyStroke({ "cmd" }, "space")
 	end)
 end

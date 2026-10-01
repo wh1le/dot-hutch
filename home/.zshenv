@@ -6,7 +6,7 @@ done
 
 # export NETSKOPE_BUNDLE="$HOME/.secrets/corp-ca.pem"
 if [[ $HOST == mac ]]; then
-  NOSYSZSHRC=1 # ignore global /etc/zshrc
+  export NOSYSZSHRC=1 # ignore global /etc/zshrc
 
   export NETSKOPE_BUNDLE="$HOME/.nscacert_combined.pem"
   export SSL_CERT_FILE="$NETSKOPE_BUNDLE"
