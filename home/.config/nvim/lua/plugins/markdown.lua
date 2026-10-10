@@ -1,3 +1,16 @@
+-- Only enable obsidian workspaces whose directory actually exists here.
+local obsidian_workspaces = {}
+for _, ws in ipairs({
+	{ name = "Personal", path = "~/Documents/obsidian/self-architect" },
+	{ name = "Work", path = "~/Documents/obsidian/Work" },
+}) do
+	local path = vim.fn.expand(ws.path)
+	if vim.fn.isdirectory(path) == 1 then
+		ws.path = path
+		table.insert(obsidian_workspaces, ws)
+	end
+end
+
 return {
 	{
 		"dhruvasagar/vim-table-mode",
@@ -113,7 +126,7 @@ return {
 		"obsidian-nvim/obsidian.nvim",
 		version = "*",
 		lazy = true,
-		enabled = true,
+		enabled = #obsidian_workspaces > 0,
 		ft = "markdown",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -169,18 +182,7 @@ return {
 			picker = {
 				name = "telescope.nvim",
 			},
-			workspaces = {
-				{
-					name = "Personal",
-					path = vim.fn.expand("~/Documents/obsidian/self-architect"),
-				},
-			},
-			workspaces = {
-				{
-					name = "Work",
-					path = vim.fn.expand("~/Documents/obsidian/Work"),
-				},
-			},
+			workspaces = obsidian_workspaces,
 			completion = {
 				min_chars = 2,
 			},

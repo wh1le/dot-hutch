@@ -3,6 +3,16 @@
 
   programs.nix-ld.enable = true;
 
+  # dlssnr-gui (DLSS5VKLayer) is a prebuilt Qt6 binary from a release tarball,
+  # so it needs Qt outside /usr/lib. nix-ld merges this with the module's own
+  # default list rather than replacing it.
+  programs.nix-ld.libraries = with pkgs; [
+    qt6.qtbase
+    qt6.qtwayland
+    libxkbcommon
+    libglvnd
+  ];
+
   nix = {
     registry.nixpkgs.flake = inputs.nixpkgs;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];

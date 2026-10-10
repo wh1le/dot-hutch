@@ -46,7 +46,7 @@ nixpkgs.lib.nixosSystem {
         ../modules/hardware/audio.nix
         ../modules/hardware/bluetooth.nix
         ../modules/software/steam.nix
-        ../modules/llamacpp.nix
+        # ../modules/llamacpp.nix
       ]
       ++ [
         ../modules/hosts/personal.nix

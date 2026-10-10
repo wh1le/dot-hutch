@@ -23,7 +23,7 @@
     pulse.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    jack.enable = false;
+    jack.enable = true;
 
     extraConfig.pipewire-pulse."99-switch-on-connect" = {
       "pulse.cmd" = [
