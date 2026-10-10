@@ -89,3 +89,4 @@ if [ -r "$HOME/.config/environment.d/pi-providers.conf" ]; then
 fi
 
 alias reload-ghostty="kill -s USR2 $(pgrep ghostty)"
+alias fix-keyboard="sudo systemctl restart xremap"

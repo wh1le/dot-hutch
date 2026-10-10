@@ -19,7 +19,6 @@
     ../software/elasticsearch.nix
     ../software/redis-tui.nix
     ../software/headlamp.nix
-    ../software/vcv-rack.nix
     # ../software/pi-chamber.nix
     ../software/searx.nix
     ../software/music.nix

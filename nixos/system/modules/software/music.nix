@@ -1,4 +1,8 @@
-{ pkgs, unstable, ... }: {
+{ pkgs, unstable, ... }:
+let
+  vcv-rack = unstable.callPackage ./vcv-rack.nix { };
+in
+{
   environment.systemPackages = [
     pkgs.surge-xt
     pkgs.sunvox
@@ -12,6 +16,6 @@
 
     pkgs.teensy-loader-cli
     pkgs.m8c
-    unstable.vcv-rack
+    vcv-rack
   ];
 }
