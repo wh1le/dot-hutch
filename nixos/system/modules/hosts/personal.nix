@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  unstable,
+  ...
+}:
 {
   networking.extraHosts = ''
     127.0.0.1 lvh.me app.lvh.me api.lvh.me docs.lvh.me
@@ -51,7 +56,7 @@
 
     # harness
 
-    unstable.rtt
+    unstable.rtk
     unstable.fff
   ];
 }
