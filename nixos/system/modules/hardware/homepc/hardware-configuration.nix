@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   disko.devices = {
     disk.main = {
@@ -65,12 +70,13 @@
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     i2c.enable = true;
+    enableAllHardware = true;
   };
 
   users.users.${config.my.username}.extraGroups = [ "i2c" ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_12;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "8250.nr_uarts=0" ]; # Serial ports (ttyS0-3) taking 4s. So lets disable
     kernelModules = [
       "hid_apple"
@@ -78,9 +84,13 @@
       "btusb"
       "br_netfilter"
       "dm_crypt"
+      "coretemp"
     ];
     blacklistedKernelModules = [ "iwlwifi" ];
-    extraModprobeConfig = ''options hid_apple iso_layout=1 fnmode=2'';
+    extraModprobeConfig = ''
+      options hid_apple iso_layout=1 fnmode=2
+      options snd_hda_intel power_save=0 power_save_controller=N
+    '';
     initrd = {
       enable = true;
       systemd.enable = true;
@@ -108,7 +118,6 @@
     };
     binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
-
 
   environment.systemPackages = [
     pkgs.ddcutil

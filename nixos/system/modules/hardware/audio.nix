@@ -13,17 +13,17 @@
 
   services.pipewire = {
     enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    jack.enable = true;
+
     wireplumber.enable = true;
     wireplumber.extraConfig."99-no-ducking" = {
       "wireplumber.settings" = {
         "linking.role-based.duck-level" = 1.0;
       };
     };
-
-    pulse.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    jack.enable = true;
 
     extraConfig.pipewire-pulse."99-switch-on-connect" = {
       "pulse.cmd" = [

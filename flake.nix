@@ -112,6 +112,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    pi = {
+      url = "github:lukasl-dev/pi.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # steam-config-nix = {
     #   url = "github:different-name/steam-config-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";

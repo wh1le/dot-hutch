@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   networking.extraHosts = ''
     127.0.0.1 lvh.me app.lvh.me api.lvh.me docs.lvh.me
@@ -21,13 +21,12 @@
     ../software/headlamp.nix
     # ../software/pi-chamber.nix
     ../software/searx.nix
-    ../software/music.nix
+    ../software/music/index.nix
 
     ../packages/terminal.nix
     ../packages/neovim.nix
     ../packages/unix-general.nix
     ../packages/software.nix
-    ../packages/harness.nix
 
     ../linux.nix
   ]
@@ -49,5 +48,10 @@
     pkgs.mupdf
 
     pkgs.zenity # file picker
+
+    # harness
+
+    unstable.rtt
+    unstable.fff
   ];
 }
