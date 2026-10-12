@@ -118,6 +118,17 @@ return {
 						mirror = true,
 					},
 				},
+				buffers = {
+					layout_strategy = "vertical",
+					layout_config = {
+						width = 0.99,
+						height = 0.95,
+						preview_cutoff = 0,
+						prompt_position = "bottom",
+						preview_height = 0.3,
+						-- preview_cutoff = 0,
+					},
+				},
 			},
 		})
 
