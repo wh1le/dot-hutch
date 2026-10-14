@@ -59,6 +59,7 @@ let
   # podman then keeps the image's root user, and the entrypoint's root branch
   # runs `chown` — which fails under --cap-drop=ALL. This host's first normal
   # user is 1000:1000.
+
   uid = toString (if user.uid == null then 1000 else user.uid);
   gid =
     let
@@ -69,29 +70,22 @@ let
   stateDir = "${home}/.local/share/pichamber";
   workspacesDir = "${home}/Code";
 
-  # Live-shared Pi agent dir (models, auth, sessions, skills, extensions).
   piAgentDir = "${home}/.pi/agent";
-  # Real target of the models.json/auth.json/settings.json symlinks inside
-  # piAgentDir; mounted at the same absolute path so they resolve in-container.
   dotfilesPiDir = "${home}/Code/dot-personal/home/.pi";
 
   port = 5000;
-  # The image entrypoint hardcodes `serve --port 3000`; the container always
-  # listens on 3000. Only the host-side port is configurable.
   containerPort = 3000;
 
   image = "ghcr.io/ryderasking/pichamber:1.0.2";
   secretName = "pichamber/ui_password";
 in
 {
-  # --- secret: UI password -------------------------------------------------
   sops.secrets.${secretName} = {
     owner = "root";
     group = "root";
     mode = "0400";
   };
 
-  # Rendered to /run (root-only), never to the world-readable Nix store.
   sops.templates."pichamber-env" = {
     owner = "root";
     group = "root";
@@ -102,7 +96,6 @@ in
     '';
   };
 
-  # --- host state dirs -----------------------------------------------------
   systemd.tmpfiles.rules = [
     "d ${stateDir} 0755 ${username} users -"
     "d ${stateDir}/config 0700 ${username} users -"
@@ -110,7 +103,6 @@ in
     "d ${stateDir}/ssh 0700 ${username} users -"
   ];
 
-  # --- container -----------------------------------------------------------
   virtualisation.oci-containers = {
     backend = "podman";
     containers.pichamber = {
@@ -126,26 +118,19 @@ in
         "${stateDir}/local:/home/pichamber/.local"
         "${stateDir}/ssh:/home/pichamber/.ssh"
         "${workspacesDir}:/home/pichamber/workspaces"
-
-        # Host Pi agent state (live). The dotfiles .pi dir is mounted at its
-        # real absolute path only so the symlinked config files resolve.
         "${piAgentDir}:/home/pichamber/.pi/agent"
         "${dotfilesPiDir}:${dotfilesPiDir}"
       ];
 
       extraOptions = [
-        # Unprivileged from the start: the image entrypoint skips its root
-        # branch, so no chown/setpriv and no capabilities are ever needed.
         "--user=${uid}:${gid}"
         "--cap-drop=ALL"
         "--security-opt=no-new-privileges"
 
-        # Immutable rootfs; scratch space is tmpfs only.
         "--read-only"
         "--tmpfs=/tmp:rw,nosuid,nodev,noexec,size=256m"
         "--tmpfs=/home/pichamber/.cache:rw,nosuid,nodev,size=256m"
 
-        # Resource ceilings (a runaway/infected agent cannot fork-bomb the host).
         "--pids-limit=2048"
         "--memory=4g"
         "--cpus=4"

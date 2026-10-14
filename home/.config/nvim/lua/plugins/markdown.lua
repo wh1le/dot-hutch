@@ -32,8 +32,16 @@ return {
 	{
 		"blackhat-7/vellum.nvim",
 		ft = "markdown",
-		keys = { { "<leader>mp", "<cmd>Vellum<cr>", desc = "Markdown preview" } },
-		opts = { max_width = 999 },
+		keys = {
+			{
+				"<leader>mp",
+				"<cmd>Vellum<cr>",
+				desc = "Markdown preview",
+			},
+		},
+		opts = {
+			max_width = 999,
+		},
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",

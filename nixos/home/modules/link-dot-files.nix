@@ -74,6 +74,7 @@ in
        "$HOME/.local/share" "$DOT_PUBLIC/home/.local/share"
 
     ln -sfn $DOT_PUBLIC/home/.zshenv $HOME/.zshenv
+    ln -sfn $DOT_PUBLIC/home/.zshenv $HOME/.config/zsh/.zshenv
     ln -sfn $DOT_PUBLIC/home/.Xresources $HOME/.Xresources
 
     mkdir -p "$HOME/.local/bin"

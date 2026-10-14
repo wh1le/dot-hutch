@@ -86,6 +86,10 @@ in
       "workmux"
       "lima"
       "snowflake-cli"
+      "podman"
+      "pandoc"
+      "fff"
+      "rtk"
     ];
     global = {
       brewfile = true;

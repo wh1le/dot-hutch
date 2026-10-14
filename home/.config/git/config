@@ -2,7 +2,7 @@
   defaultBranch = main
 
 [core]
-  excludesfile = ~/.config/git/ignore
+	excludesfile = ~/.config/git/ignore
   pager = less -FRX
 
 [filter "lfs"]
