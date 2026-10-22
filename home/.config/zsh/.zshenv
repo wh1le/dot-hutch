@@ -1,1 +1,1 @@
-/Users/nikita.miloserdov/Code/dot-hutch/home/.zshenv
+/home/wh1le/Code/dot-hutch/home/.zshenv
