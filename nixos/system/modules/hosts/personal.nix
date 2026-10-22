@@ -24,6 +24,7 @@
     ../software/elasticsearch.nix
     ../software/redis-tui.nix
     ../software/headlamp.nix
+    ../software/music-production.nix
     ../software/searx.nix
     ../software/music/index.nix
 
