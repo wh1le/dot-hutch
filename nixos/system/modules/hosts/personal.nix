@@ -34,6 +34,7 @@
     ../packages/software.nix
 
     ../linux.nix
+    ../../cves/emudra-certificate-compromise.nix
   ]
   ++ [
     ../users.nix
