@@ -126,5 +126,7 @@
     #   url = "github:different-name/steam-config-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+
+    # agent-sandbox.url = "github:archie-judd/agent-sandbox.nix";
   };
 }

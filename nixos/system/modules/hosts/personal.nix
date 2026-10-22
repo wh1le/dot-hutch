@@ -25,6 +25,7 @@
     ../software/redis-tui.nix
     ../software/headlamp.nix
     ../software/music-production.nix
+    # ../software/pi-chamber.nix
     ../software/searx.nix
     ../software/music/index.nix
 
