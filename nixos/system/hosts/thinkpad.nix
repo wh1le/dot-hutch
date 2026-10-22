@@ -24,10 +24,15 @@ nixpkgs.lib.nixosSystem {
     inputs.lanzaboote.nixosModules.lanzaboote
     inputs.disko.nixosModules.disko
 
-    ({ modulesPath, lib, ... }: {
+    ({ modulesPath, lib, pkgs, ... }: {
       system.stateVersion = "25.11";
       networking.hostName = "thinkpad";
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+      programs.steam = {
+        enable = true;
+        extraCompatPackages = [ pkgs.proton-ge-bin ];
+      };
 
       imports = [
         (modulesPath + "/installer/scan/not-detected.nix")
