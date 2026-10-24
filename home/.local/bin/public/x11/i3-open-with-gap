@@ -1,0 +1,255 @@
+#!/usr/bin/env python3
+
+import socket
+import subprocess
+import sys
+import unittest
+from unittest.mock import Mock, call, patch
+
+
+def fill_placeholder(i3, placeholder, timeout=5.0):
+    """i3 never puts a new window inside an empty container made by `open` -
+    it inserts the window as the next sibling. So focus the gap, let ghostty
+    take the slot to its right, then drop the consumed gap."""
+    spawned = []
+
+    def on_new(_i3, event):
+        spawned.append(event.container.id)
+        i3.main_quit()
+
+    i3.on("window::new", on_new)
+    i3.command(f"[con_id={placeholder.id}] focus, exec ghostty")
+    i3.main(timeout=timeout)
+    i3.off(on_new)
+    i3.command(f"[con_id={placeholder.id}] kill")
+    reset_auto_layout(i3, spawned)
+
+
+def reset_auto_layout(i3, spawned):
+    """i3-auto-layout pins split h/v from the focused window's rect and only
+    re-runs on window::focus. Ghostty was re-tiled from a rect that still
+    included the gap, so bounce focus to make it judge the final layout."""
+    if not spawned:
+        return
+    i3.command("focus next")
+    i3.command(f"[con_id={spawned[0]}] focus")
+
+
+def prepare_workspace(i3, workspace):
+    windows = [node for node in workspace.descendants() if node.window is not None]
+    empty = next(
+        (
+            node
+            for node in workspace.nodes
+            if node.type == "con"
+            and node.window is None
+            and not node.nodes
+            and not node.floating_nodes
+        ),
+        None,
+    )
+
+    if not windows:
+        i3.command("split h, open, exec ghostty")
+        return True
+    if empty:
+        fill_placeholder(i3, empty)
+        return True
+    return False
+
+
+def main():
+    if socket.gethostname().split(".", 1)[0] == "homepc":
+        import i3ipc
+
+        i3 = i3ipc.Connection()
+        workspace = i3.get_tree().find_focused().workspace()
+        if prepare_workspace(i3, workspace):
+            return 0
+
+    return subprocess.call(["ghostty"])
+
+
+class WorkspaceBehaviorTests(unittest.TestCase):
+    def setUp(self):
+        self.i3 = Mock()
+        self.workspace = Mock()
+
+    def node(self, window=None, children=(), floating=(), node_id=1):
+        node = Mock()
+        node.window = window
+        node.nodes = list(children)
+        node.floating_nodes = list(floating)
+        node.id = node_id
+        node.type = "con"
+        node.descendants.return_value = [node, *children]
+        return node
+
+    def test_empty_workspace_creates_right_side_placeholder(self):
+        self.workspace.descendants.return_value = []
+        self.workspace.nodes = []
+
+        prepare_workspace(self.i3, self.workspace)
+
+        self.i3.command.assert_called_once_with("split h, open, exec ghostty")
+
+    def test_single_window_focuses_placeholder_to_replace_it(self):
+        window = self.node(window=42)
+        empty = self.node(node_id=9)
+        self.workspace.descendants.return_value = [window]
+        self.workspace.nodes = [window, empty]
+
+        prepare_workspace(self.i3, self.workspace)
+
+        self.i3.command.assert_has_calls(
+            [call("[con_id=9] focus, exec ghostty"), call("[con_id=9] kill")]
+        )
+
+    def test_multiple_windows_spawn_normally(self):
+        self.workspace.descendants.return_value = [self.node(window=42), self.node(window=43)]
+        self.workspace.nodes = []
+
+        prepare_workspace(self.i3, self.workspace)
+
+        self.i3.command.assert_not_called()
+
+    def test_existing_placeholder_is_filled_even_with_multiple_windows(self):
+        window = self.node(window=42)
+        empty = self.node(node_id=9)
+        self.workspace.descendants.return_value = [window, self.node(window=43)]
+        self.workspace.nodes = [window, empty]
+
+        prepare_workspace(self.i3, self.workspace)
+
+        self.i3.command.assert_has_calls(
+            [call("[con_id=9] focus, exec ghostty"), call("[con_id=9] kill")]
+        )
+
+    def test_single_window_without_placeholder_spawns_normally(self):
+        self.workspace.descendants.return_value = [self.node(window=42)]
+        self.workspace.nodes = []
+
+        prepare_workspace(self.i3, self.workspace)
+
+        self.i3.command.assert_not_called()
+
+    def test_filled_window_gets_auto_layout_reevaluated(self):
+        window = self.node(window=42)
+        empty = self.node(node_id=9)
+        self.workspace.descendants.return_value = [window]
+        self.workspace.nodes = [window, empty]
+
+        def fire_window_event(**_kwargs):
+            handler = self.i3.on.call_args[0][1]
+            handler(self.i3, Mock(container=Mock(id=77)))
+
+        self.i3.main.side_effect = fire_window_event
+
+        prepare_workspace(self.i3, self.workspace)
+
+        self.i3.main.assert_called_once_with(timeout=5.0)
+        self.i3.main_quit.assert_called_once()
+        self.i3.command.assert_has_calls(
+            [
+                call("[con_id=9] focus, exec ghostty"),
+                call("[con_id=9] kill"),
+                call("focus next"),
+                call("[con_id=77] focus"),
+            ]
+        )
+
+    def test_handler_is_unsubscribed_so_it_cannot_fire_twice(self):
+        window = self.node(window=42)
+        empty = self.node(node_id=9)
+        self.workspace.descendants.return_value = [window]
+        self.workspace.nodes = [window, empty]
+
+        prepare_workspace(self.i3, self.workspace)
+
+        handler = self.i3.on.call_args[0][1]
+        self.i3.off.assert_called_once_with(handler)
+
+    def test_timeout_keeps_gap_removal_but_skips_focus_bounce(self):
+        window = self.node(window=42)
+        empty = self.node(node_id=9)
+        self.workspace.descendants.return_value = [window]
+        self.workspace.nodes = [window, empty]
+
+        prepare_workspace(self.i3, self.workspace)
+
+        self.assertNotIn(call("focus next"), self.i3.command.call_args_list)
+        self.i3.command.assert_has_calls(
+            [call("[con_id=9] focus, exec ghostty"), call("[con_id=9] kill")]
+        )
+
+    def test_container_with_children_is_not_a_gap(self):
+        window = self.node(window=42)
+        nested = self.node(children=[self.node(window=43, node_id=8)], node_id=7)
+        self.workspace.descendants.return_value = [window, window]
+        self.workspace.nodes = [window, nested]
+
+        prepare_workspace(self.i3, self.workspace)
+
+        self.i3.command.assert_not_called()
+
+    def test_floating_placeholder_is_not_a_gap(self):
+        window = self.node(window=42)
+        floating = self.node(floating=[self.node(window=43, node_id=8)], node_id=7)
+        self.workspace.descendants.return_value = [window]
+        self.workspace.nodes = [window, floating]
+
+        prepare_workspace(self.i3, self.workspace)
+
+        self.i3.command.assert_not_called()
+
+
+class MainTests(unittest.TestCase):
+    def setUp(self):
+        self.i3 = Mock()
+        self.workspace = Mock()
+        self.i3.get_tree.return_value.find_focused.return_value.workspace.return_value = self.workspace
+        i3ipc = Mock()
+        i3ipc.Connection.return_value = self.i3
+        modules = patch.dict(sys.modules, {"i3ipc": i3ipc})
+        modules.start()
+        self.addCleanup(modules.stop)
+        call_patcher = patch("subprocess.call", return_value=0)
+        self.subprocess_call = call_patcher.start()
+        self.addCleanup(call_patcher.stop)
+
+    def test_off_homepc_just_spawns_ghostty(self):
+        with patch("socket.gethostname", return_value="thinkpad"):
+            self.assertEqual(main(), 0)
+
+        self.i3.command.assert_not_called()
+        self.subprocess_call.assert_called_once_with(["ghostty"])
+
+    def test_homepc_without_gap_or_empty_workspace_spawns_ghostty(self):
+        window = Mock(window=42, nodes=[], floating_nodes=[], id=1, type="con")
+        self.workspace.descendants.return_value = [window, window]
+        self.workspace.nodes = [window, window]
+
+        with patch("socket.gethostname", return_value="homepc"):
+            self.assertEqual(main(), 0)
+
+        self.i3.command.assert_not_called()
+        self.subprocess_call.assert_called_once_with(["ghostty"])
+
+    def test_homepc_with_gap_never_falls_through_to_ghostty(self):
+        window = Mock(window=42, nodes=[], floating_nodes=[], id=1, type="con")
+        empty = Mock(window=None, nodes=[], floating_nodes=[], id=9, type="con")
+        self.workspace.descendants.return_value = [window]
+        self.workspace.nodes = [window, empty]
+
+        with patch("socket.gethostname", return_value="homepc"):
+            self.assertEqual(main(), 0)
+
+        self.subprocess_call.assert_not_called()
+        self.i3.command.assert_has_calls([call("[con_id=9] focus, exec ghostty")])
+
+
+if __name__ == "__main__":
+    if sys.argv[1:] == ["--test"]:
+        unittest.main(argv=[sys.argv[0]])
+    else:
+        sys.exit(main())

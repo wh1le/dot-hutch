@@ -13,6 +13,8 @@
 
     (pkgs.python3.withPackages (python: [
       python.requests
+      # i3
+      python.i3ipc
 
       # yazi
       python.numpy

@@ -19,9 +19,15 @@ let
 
   xremapArgs =
     if config.networking.hostName == "homepc" then
-      [ "--ignore" "SteelSeries SteelSeries Rival 3 Wireless Keyboard" ]
+      [
+        "--ignore"
+        "SteelSeries SteelSeries Rival 3 Wireless Keyboard"
+      ]
     else if config.networking.hostName == "thinkpad" then
-      [ "--device" "AT Translated Set 2 keyboard" ]
+      [
+        "--device"
+        "AT Translated Set 2 keyboard"
+      ]
     else
       [ ];
 in
@@ -37,10 +43,19 @@ in
       Type = "simple";
       User = config.my.username;
       SupplementaryGroups = [ "xremap" ];
-      Environment = [ "DISPLAY=:0" "XAUTHORITY=${home}/.Xauthority" ];
+      Environment = [
+        "DISPLAY=:0"
+        "XAUTHORITY=${home}/.Xauthority"
+      ];
       ExecStartPre = "${pkgs.bash}/bin/bash -c 'until [ -S /tmp/.X11-unix/X0 ]; do sleep 0.5; done'";
       ExecStart = "${xremap-x11}/bin/xremap ${
-        lib.escapeShellArgs (xremapArgs ++ [ "--watch=config,device" "${home}/.config/xremap/config.yml" ])
+        lib.escapeShellArgs (
+          xremapArgs
+          ++ [
+            "--watch=config,device"
+            "${home}/.config/xremap/config.yml"
+          ]
+        )
       }";
       Restart = "on-failure";
       RestartSec = 2;
