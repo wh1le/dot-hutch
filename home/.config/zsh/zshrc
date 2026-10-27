@@ -66,11 +66,6 @@ fi
 # asdf shims must override Homebrew node
 export PATH="$HOME/.asdf/shims:$PATH"
 
-# ── Inside Distrobox: strip Nix paths so pacman tools take priority ──
-if [[ -f /run/.containerenv ]]; then
-  PATH=$(echo "$PATH" | tr ':' '\n' | grep -v '/nix/' | tr '\n' ':' | sed 's/:$//')
-fi
-
 test-hibernate() {
   sudo sh -c 'echo test_resume > /sys/power/disk' && sudo systemctl hibernate
 }

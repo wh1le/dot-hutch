@@ -45,7 +45,7 @@ if uname == "Linux" then
 			},
 			cache_enabled = true,
 		}
-	else
+	elseif on_path("xclip") then
 		vim.g.clipboard = {
 			name = "xclip",
 			copy = {
@@ -57,6 +57,31 @@ if uname == "Linux" then
 				["*"] = { "xclip", "-selection", "primary", "-o" },
 			},
 			cache_enabled = true,
+		}
+	elseif on_path("xsel") then
+		vim.g.clipboard = {
+			name = "xsel",
+			copy = {
+				["+"] = { "xsel", "--clipboard", "--input" },
+				["*"] = { "xsel", "--primary", "--input" },
+			},
+			paste = {
+				["+"] = { "xsel", "--clipboard", "--output" },
+				["*"] = { "xsel", "--primary", "--output" },
+			},
+			cache_enabled = true,
+		}
+	else
+		vim.g.clipboard = {
+			name = "OSC 52",
+			copy = {
+				["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+				["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+			},
+			paste = {
+				["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+				["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+			},
 		}
 	end
 end

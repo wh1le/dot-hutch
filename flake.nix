@@ -107,10 +107,10 @@
 
     m8c.url = "github:laamaa/m8c";
 
-    workmux = {
-      url = "github:raine/workmux";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # workmux = {
+    #   url = "github:raine/workmux";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     pi = {
       url = "github:lukasl-dev/pi.nix";

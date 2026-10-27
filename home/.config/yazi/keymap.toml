@@ -7,6 +7,7 @@ mgr.prepend_keymap = [
   { on = "<C-n>", run = "plugin move-to-new-folder", desc = "New folder with selection" },
   { on = "C", run = "plugin ouch", desc = "Compress selection with ouch" },
   { on = "X", run = 'shell --block -- ouch d -y %h', desc = "Decompress hovered archive with ouch" },
+  { on = "E", run = 'shell -- if [ -d "$1" ]; then setsid -f nautilus "$1"; else setsid -f nautilus --select "$1"; fi', desc = "Open in Nautilus" },
   { on = "T", run = "plugin toggle-pane min-preview", desc = "Show or hide the preview pane" },
   { on = "H", run = "hidden toggle", desc = "Toggle hidden files" },
   { on = "u", run = 'shell --block -- /home/wh1le/.config/yazi/scripts/personal/send-to-daemon "$@"', desc = "Send selection to daemon" },

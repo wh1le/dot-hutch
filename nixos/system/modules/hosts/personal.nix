@@ -20,6 +20,7 @@
   ++ [
     ../software/flatpak.nix
     ../software/nautilus.nix
+    ../software/thunar.nix
     ../software/quickshell.nix
     ../software/elasticsearch.nix
     ../software/redis-tui.nix
@@ -28,6 +29,7 @@
     # ../software/pi-chamber.nix
     ../software/searx.nix
     ../software/music/index.nix
+    ../software/difit.nix
 
     ../packages/terminal.nix
     ../packages/neovim.nix
