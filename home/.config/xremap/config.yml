@@ -36,7 +36,27 @@ keymap:
       Ctrl-w: Ctrl-w # close tab
       Ctrl-p: [Ctrl-t, a, b, o, u, t, Shift-Semicolon, l, o, g, i, n, s, enter] # new tab -> about:logins
       Ctrl-Shift-p: Ctrl-Shift-p # private window (explicit passthrough)
-      Ctrl-comma: [Ctrl-t, a, b, o, u, t, Shift-Semicolon, p, r, e, f, e, r, e, n, c, e, s, enter] # new tab -> settings
+      Ctrl-comma: [
+          Ctrl-t,
+          a,
+          b,
+          o,
+          u,
+          t,
+          Shift-Semicolon,
+          p,
+          r,
+          e,
+          f,
+          e,
+          r,
+          e,
+          n,
+          c,
+          e,
+          s,
+          enter,
+        ] # new tab -> settings
       comma:
         remap:
           comma: Ctrl-Alt-Z # ,, -> expand tabs
@@ -56,4 +76,20 @@ keymap:
         remap:
           s: Ctrl-f
           f: Ctrl-s
+        timeout_millis: 300
+
+  - name: Thunar
+    application:
+      only: ["/[Tt]hunar/"]
+    remap:
+      Ctrl-j: Down
+      Ctrl-k: Up
+      Ctrl-h: Left
+      Ctrl-l: Right
+      Ctrl-g: Ctrl-l # edit current path
+      Ctrl-r: F2 # rename file
+      Semicolon:
+        remap:
+          s: Ctrl-f # search for files
+          f: Ctrl-s # select by pattern
         timeout_millis: 300
