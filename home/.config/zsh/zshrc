@@ -35,6 +35,7 @@ source $HOME/.config/zsh/modules/llm.zsh
 source $HOME/.config/zsh/modules/system.zsh
 source $HOME/.config/zsh/modules/distrobox.zsh
 source $HOME/.config/zsh/modules/pi.zsh
+source $HOME/.config/zsh/modules/bindings.zsh
 
 if [[ -n "$TMUX" ]]; then
   export TERM="tmux-256color"
