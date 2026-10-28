@@ -2,7 +2,7 @@
 {
   programs.thunar = {
     enable = true;
-    plugins = with pkgs.xfce; [
+    plugins = with pkgs; [
       thunar-volman
       thunar-archive-plugin
       thunar-media-tags-plugin
@@ -11,7 +11,7 @@
   programs.xfconf.enable = true;
   services.tumbler.enable = false;
 
-  environment.systemPackages = [ pkgs.xfce.exo ]; # exo-open for terminal/browser launching
+  environment.systemPackages = [ pkgs.xfce4-exo ]; # exo-open for terminal/browser launching
 
   # Mount/eject without a password for wheel members.
   security.polkit.extraConfig = ''
