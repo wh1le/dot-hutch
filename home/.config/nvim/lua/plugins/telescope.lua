@@ -87,8 +87,16 @@ return {
 				previewer = true,
 				mappings = {
 					i = {
+						-- Ghostty/Kitty send Alt+arrows as Esc+b / Esc+f.
+						["<M-b>"] = { "<C-Left>", type = "command" },
+						["<M-f>"] = { "<C-Right>", type = "command" },
+						["<M-Left>"] = { "<C-Left>", type = "command" },
+						["<M-Right>"] = { "<C-Right>", type = "command" },
+						["<M-BS>"] = { "<C-S-w>", type = "command" },
 						["<Esc>"] = actions.close,
-						["<C-a>"] = actions.smart_send_to_qflist + actions.open_qflist,
+						["<C-a>"] = { "<Home>", type = "command" },
+						["<C-e>"] = { "<End>", type = "command" },
+						["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 					},
 				},
 			},

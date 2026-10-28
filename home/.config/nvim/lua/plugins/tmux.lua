@@ -9,9 +9,9 @@ return {
 		{ "<C-l>", function() require("smart-splits").move_cursor_right() end },
 		{ "<C-k>", function() require("smart-splits").move_cursor_up() end },
 		{ "<C-j>", function() require("smart-splits").move_cursor_down() end },
-		{ "<M-h>", function() require("smart-splits").resize_left() end },
-		{ "<M-j>", function() require("smart-splits").resize_down() end },
-		{ "<M-k>", function() require("smart-splits").resize_up() end },
-		{ "<M-l>", function() require("smart-splits").resize_right() end },
+		{ "<M-S-h>", function() require("smart-splits").resize_left() end },
+		{ "<M-S-j>", function() require("smart-splits").resize_down() end },
+		{ "<M-S-k>", function() require("smart-splits").resize_up() end },
+		{ "<M-S-l>", function() require("smart-splits").resize_right() end },
 	},
 }

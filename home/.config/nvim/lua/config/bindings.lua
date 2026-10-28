@@ -1,6 +1,6 @@
 vim.g.mapleader = ";"
 
--- TODO: marks 
+-- TODO: marks
 -- vim.keymap.set("n", "m", "m", { desc = "Set mark" })
 -- vim.keymap.set("n", "'", "'", { desc = "Jump to mark line" })
 -- vim.keymap.set("n", "`", "`", { desc = "Jump to mark position" })
