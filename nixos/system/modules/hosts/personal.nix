@@ -35,6 +35,7 @@
     ../packages/neovim.nix
     ../packages/unix-general.nix
     ../packages/software.nix
+    ../software/difit.nix
 
     ../linux.nix
     ../../cves/emudra-certificate-compromise.nix
