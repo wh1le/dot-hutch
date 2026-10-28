@@ -31,9 +31,11 @@
       max-jobs = 2;
       cores = 0;
       warn-dirty = false;
+      sandbox = true;
+      # NOTE: Attack vector: every app has access to root
       trusted-users = [
         "root"
-        config.my.username
+        # config.ny.username
       ];
 
       experimental-features = [

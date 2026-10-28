@@ -39,7 +39,7 @@ in
   ];
 
   boot.kernel.sysctl = {
-    "kernel.perf_event_paranoid" = -1; # Unlock the kernel stats for powertop 
+    "kernel.perf_event_paranoid" = 2; # Restrict unprivileged kernel profiling; run powertop with sudo.
   };
 
   boot.kernelModules = [

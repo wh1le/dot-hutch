@@ -12,7 +12,7 @@
   imports = [
     ../../../config.nix
     ../i3.nix
-    ../security.nix
+    ../security/default.nix
     ../nix-settings.nix
     ../cron.nix
     ../virtualisation.nix
@@ -43,7 +43,6 @@
   ++ [
     ../users.nix
     ../fonts.nix
-    ../security.nix
     ../music-mpd.nix
   ];
 

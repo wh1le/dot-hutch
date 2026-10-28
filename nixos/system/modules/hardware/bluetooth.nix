@@ -16,6 +16,11 @@
     };
   };
 
+  systemd.services.bluetooth.serviceConfig = {
+    ProtectKernelLogs = true;
+    ProtectHostname = true;
+  };
+
   environment.systemPackages = with pkgs; [
     # blueman
     bluez

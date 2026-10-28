@@ -73,12 +73,13 @@ in
         global = {
           Context = {
             filesystems = [
-              "xdg-run/bus"
-              "/run/dbus/system_bus_socket:ro"
+              # NOTE: Atack vector: not epxosing system bus
+              # "xdg-run/bus"
+              # "/run/dbus/system_bus_socket:ro"
+              # "xdg-config:ro"
               "/nix/store:ro"
               "~/.local/share/fonts:ro"
               "~/.icons:ro"
-              "xdg-config:ro"
             ];
             sockets = [
               "x11"
