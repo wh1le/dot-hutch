@@ -93,7 +93,10 @@
     '';
     initrd = {
       enable = true;
-      systemd.enable = true;
+      systemd = {
+        enable = true;
+        settings.Manager.DefaultDeviceTimeoutSec = "infinity";
+      };
       kernelModules = [ "vmd" ];
       availableKernelModules = [
         "xhci_pci" # USB3 controller (keyboards, mice, hubs)
