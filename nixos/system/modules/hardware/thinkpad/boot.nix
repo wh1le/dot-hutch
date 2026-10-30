@@ -1,9 +1,13 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   hasKeys = builtins.pathExists /var/lib/sbctl/keys/db/db.key;
 in
 {
-  # amd_pstate version logic lives in boot-amd.nix (merged across modules)
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.plymouth =
     let
@@ -91,7 +95,9 @@ in
 
   boot.loader.systemd-boot.enable = !config.boot.lanzaboote.enable;
 
-  warnings = lib.optional (!hasKeys) "Secure Boot disabled: sbctl keys not found at /var/lib/sbctl/keys/db/db.key enable after installation or delete";
+  warnings =
+    lib.optional (!hasKeys)
+      "Secure Boot disabled: sbctl keys not found at /var/lib/sbctl/keys/db/db.key enable after installation or delete";
 
   # boot.lanzaboote = {
   #   enable = true;
