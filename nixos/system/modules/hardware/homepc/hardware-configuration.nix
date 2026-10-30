@@ -71,6 +71,8 @@
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     i2c.enable = true;
     enableAllHardware = true;
+
+    bluetooth.settings.General.ControllerMode = "dual";
   };
 
   users.users.${config.my.username}.extraGroups = [ "i2c" ];

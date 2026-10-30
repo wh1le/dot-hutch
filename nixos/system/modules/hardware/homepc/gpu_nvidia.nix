@@ -1,18 +1,19 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
 }:
 let
-  unstable = import inputs.nixpkgs-unstable {
+  nvidiaPkgs = import inputs.nixpkgs-nvidia {
     system = pkgs.stdenv.hostPlatform.system;
     config = pkgs.config;
   };
 in
 {
   nixpkgs.overlays = [ inputs.nvidia-patch.overlays.default ];
+
+  # Steam: gamemoderun  %command% -d3d11
 
   environment.sessionVariables = {
     NVD_BACKEND = "direct";
@@ -45,12 +46,11 @@ in
   # hardware.nvidia.powerManagement.enable = true;
   # hardware.nvidia.powerManagement.finegrained = false;
 
-  hardware.nvidia.package = pkgs.nvidia-patch.auto-patch unstable.linuxPackages_6_12.nvidiaPackages.new_feature;
+  hardware.nvidia.package = pkgs.nvidia-patch.auto-patch (
+    (nvidiaPkgs.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.new_feature
+  );
   hardware.nvidia.nvidiaSettings = true;
-
-  boot.kernelPackages = lib.mkForce unstable.linuxPackages_6_12;
-
-  boot.initrd.kernelModules = [ "nvidia" ];
+  # boot.initrd.kernelModules = [ "nvidia" ];
   boot.kernelParams = [
     "nvidia_drm.modeset=1"
     "nvidia_drm.fbdev=1"
