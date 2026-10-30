@@ -39,6 +39,9 @@ return {
 				ron = { "topiary" },
 			},
 			formatters = {
+				nixfmt = {
+					args = { "-" },
+				},
 				biome = {
 					condition = function(self, ctx)
 						return vim.fs.find({ "biome.json", "biome.jsonc" }, { path = ctx.filename, upward = true })[1]

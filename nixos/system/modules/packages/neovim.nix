@@ -31,6 +31,9 @@
     pkgs.typos-lsp
 
     pkgs.codespell
+    pkgs.clang-tools
+    pkgs.elixir
+    pkgs.topiary
     pkgs.black
     pkgs.isort
     pkgs.prettierd
@@ -41,6 +44,10 @@
     pkgs.shellcheck
     pkgs.nixfmt
     pkgs.nixpkgs-fmt
+
+    pkgs.go
+    pkgs.biome
+    pkgs.rubocop
 
     pkgs.rustfmt
     pkgs.rust-analyzer

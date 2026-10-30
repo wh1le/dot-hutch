@@ -18,6 +18,9 @@ require("config.terminal")
 require("config.ruby_rename")
 require("config.vimgrep")
 
+-- private overrides (gitignored); create lua/config/personal.lua to extend
+pcall(require, "config.personal")
+
 NM.lazy.setup()
 
 vim.cmd("filetype plugin indent on")

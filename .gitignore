@@ -42,14 +42,16 @@ home/.local/share/applications/
 
 home/.config/nvim/lazy-lock.json
 
-# overrides
-home/.config/zsh/personal_modules
-home/.config/zsh/work_modules
-home/.config/i3/personal
-home/.config/i3/work
-home/.config/yazi/scripts/personal
-
 home/.config/nix/corp-ca.pem
 home/.config/yazi/plugins/
 **/environment.d/
 **/__pycache__/**
+
+# overrides
+home/.config/zsh/work_modules
+home/.config/i3/work
+home/.config/i3/personal
+home/.config/zsh/personal_modules
+home/.config/yazi/scripts/personal
+home/.config/nvim/lua/config/personal.lua
+

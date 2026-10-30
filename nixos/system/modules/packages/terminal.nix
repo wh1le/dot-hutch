@@ -87,6 +87,8 @@
     unstable.rtk # compact bash tools calls
     pkgs.honcho
 
+    pkgs.just
+
     # pkgs.systemctl-tui
     # pkgs.sysz
     # pkgs.lazyjournal
