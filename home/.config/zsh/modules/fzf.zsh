@@ -14,6 +14,7 @@ export FZF_DEFAULT_OPTS="
   --ansi
   --margin=1,1,1,1
   --cycle
+  --tiebreak=length
   --height=50%
   --color=fg:8,fg+:7
   --color=hl:7,hl+:7
