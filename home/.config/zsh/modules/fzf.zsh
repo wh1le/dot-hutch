@@ -29,6 +29,7 @@ export FZF_DEFAULT_OPTS="
   --bind ctrl-u:preview-half-page-up
   --bind ctrl-f:preview-page-down
   --bind ctrl-b:preview-page-up
+  --bind 'start,change:transform-search:q=\$FZF_QUERY; case \$q in \"~/\"*) q=\$HOME/\${q#??} ;; esac; printf \"%s\" \"\$q\"'
   --no-sort
 "
 
@@ -86,7 +87,7 @@ function _dedupe_by_realpath() {
     key=${line:A}
     [[ -n ${seen[$key]} ]] && continue
     seen[$key]=1
-    print -r -- "$line"
+    print -r -- "$key"
   done
 }
 
