@@ -25,8 +25,6 @@ NM.lazy.setup()
 
 vim.cmd("filetype plugin indent on")
 
-vim.g.kitty_fast_forwarded_modifiers = true
-
 vim.filetype.add({
 	filename = {
 		[".config/kanshi/config"] = "conf",
