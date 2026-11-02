@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Nix updates + garbage collection can remove Distrobox's bind-mounted tools,
+# preventing containers from starting. Restore their store paths and pin them
+# against future collection; container mounts and contents stay unchanged.
+# Run on the host; optionally pass container names. Defaults to all Distroboxes.
+
+set -euo pipefail
+
+if (($# == 0)); then
+	containers=$(podman ps -aq --filter label=manager=distrobox)
+	[[ -n $containers ]] || exit 0
+	mapfile -t containers <<<"$containers"
+	set -- "${containers[@]}"
+fi
+
+paths=$(podman inspect --type container "$@" | jq -r '
+    [.[].Mounts[]? | select(.Type == "bind") | .Source
+    | select(startswith("/nix/store/")) | split("/")[:4] | join("/")]
+    | unique[]')
+roots="${XDG_STATE_HOME:-$HOME/.local/state}/distrobox/nix-roots"
+mkdir -p "$roots"
+while IFS= read -r path; do
+	[[ -n $path ]] || continue
+	if [[ -e $path && "$roots/${path##*/}" -ef $path ]]; then
+		printf '[skip] Already available and pinned %s\n' "$path"
+		continue
+	fi
+	nix-store --realise "$path" --add-root "$roots/${path##*/}" >/dev/null
+	printf '[ok] Restored and pinned %s\n' "$path"
+done <<<"$paths"
