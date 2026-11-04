@@ -47,7 +47,7 @@
 
     pkgs.go
     pkgs.biome
-    pkgs.rubocop
+    # pkgs.rubocop
 
     pkgs.rustfmt
     pkgs.rust-analyzer

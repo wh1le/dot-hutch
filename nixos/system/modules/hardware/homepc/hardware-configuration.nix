@@ -122,6 +122,13 @@
       };
     };
     binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+    # sudo sysctl -w fs.inotify.max_user_watches=2097152
+    kernel.sysctl = {
+      "fs.inotify.max_user_watches" = 2097152;
+      # "fs.inotify.max_user_instances" = 1024;
+    };
+
   };
 
   environment.systemPackages = [
