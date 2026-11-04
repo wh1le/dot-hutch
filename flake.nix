@@ -109,6 +109,9 @@
 
     m8c.url = "github:laamaa/m8c";
 
+    # Keep Strata's own nixpkgs: its shell requires CUDA 13.0.
+    strata.url = "github:Niko1221/Strata";
+
     # workmux = {
     #   url = "github:raine/workmux";
     #   inputs.nixpkgs.follows = "nixpkgs";
