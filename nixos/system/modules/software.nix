@@ -1,12 +1,11 @@
 { pkgs, unstable, ... }: {
   environment.systemPackages = with pkgs; [
-    blanket
-    vlc
-    gophertube
+    pkgs.blanket
+    pkgs.vlc
+    pkgs.gophertube
 
     # pkgs.nsxiv
 
-    pkgs.mpv
     (pkgs.mpv.override {
       scripts = [ mpvScripts.mpris ];
     })
@@ -58,5 +57,6 @@
     pkgs.kitty
     pkgs.xterm
 
+    pkgs.planify
   ];
 }

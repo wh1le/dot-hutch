@@ -28,7 +28,6 @@ let
     "io.github.diegopvlk.Dosage"
     "io.github.amit9838.mousam"
     "org.gnome.Geary"
-    # "ir.imansalmani.IPlan" # didn't launch
   ];
 
   fun = [

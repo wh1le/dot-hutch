@@ -18,6 +18,7 @@
     ../virtualisation.nix
   ]
   ++ [
+    ../software.nix
     ../software/flatpak.nix
     ../software/nautilus.nix
     ../software/thunar.nix
@@ -34,7 +35,6 @@
     ../packages/terminal.nix
     ../packages/neovim.nix
     ../packages/unix-general.nix
-    ../packages/software.nix
     ../software/difit.nix
 
     ../linux.nix
