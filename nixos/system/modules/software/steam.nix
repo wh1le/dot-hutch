@@ -2,6 +2,10 @@
   # Run it before launch
   # sudo setcap CAP_SYS_NICE=eip ~/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrcompositor-launcher
 
+  # steamvr: VR_DISABLE_FOVEATED_RENDERING=1
+  # vrchat: WINEDLLOVERRIDES="iyuv_32=" __GL_SYNC_TO_VBLANK=0 WINE_GST_DECODER_PLUGIN_RANK="vaapih264dec:MAX" gamemoderun %command%   --enable-hw-video-decoding
+  # arc raiders: gamemoderun  %command% -d3d11
+
   # VRChat launch options
   # WINEDLLOVERRIDES="iyuv_32=" __GL_SYNC_TO_VBLANK=0 WINE_GST_DECODER_PLUGIN_RANK="vaapih264dec:MAX" gamemoderun %command%   --enable-hw-video-decoding
 

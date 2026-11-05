@@ -210,7 +210,7 @@ bar {
 
 exec --no-startup-id sh -c '[ "$(hostname)" = homepc ] && autorandr --change --default vnc --force || autorandr --change --force'
 
-exec_always --no-startup-id sh -c 'pkill -x fastcompmgr; setsid fastcompmgr &'
+exec_always --no-startup-id sh -c 'pkill -x fastcompmgr; pkill -x picom; if [ "$(hostname)" = homepc ]; then picom --config /dev/null --backend glx --vsync --xrender-sync-fence --daemon; else setsid fastcompmgr & fi'
 exec_always --no-startup-id sh -c 'pkill dunst; sleep 0.3; dunst &'
 exec_always --no-startup-id sh -c 'pkill -x i3-auto-layout; i3-auto-layout &'
 exec_always --no-startup-id sh -c 'pkill -x conky; sleep 0.3; conky -c "$HOME/.config/conky/$(hostname).conf" &'
