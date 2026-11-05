@@ -46,9 +46,7 @@ return {
 			char = "▏",
 			track_char = " ",
 		},
-		horizontal = {
-			char = "▁",
-			track_char = " ",
-		},
+		-- Avoid scroll.width's strdisplaywidth scan, which crashes on NUL bytes.
+		horizontal = { enabled = false },
 	},
 }
