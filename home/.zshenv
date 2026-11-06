@@ -1,5 +1,9 @@
 export ZDOTDIR="$HOME/.config/zsh"
 
+# Strata privacy defaults; local hardware metrics and engine logs are unaffected.
+export STRATA_UPDATE_CHECK=0
+export STRATA_BATCH_TELEMETRY=0
+
 for f in "$HOME"/.config/environment.d/*.conf(N); do
   source "$f"
 done
