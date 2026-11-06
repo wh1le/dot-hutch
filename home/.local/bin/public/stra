@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+install="$HOME/.local/share/strata/ffa80d73133ea5c548aefe57889a16e8085a938f"
+# Use the NixOS launcher: it supplies the CUDA runtime environment.
+cli=(strata)
+
+load_models() {
+  local config model
+  models=()
+  shopt -s nullglob
+  for config in "$install"/strata-*.json; do
+    model=${config##*/}
+    model=${model#strata-}
+    models+=("${model%.json}")
+  done
+  if ((${#models[@]} == 0)); then
+    echo "No saved model configs found in $install" >&2
+    exit 1
+  fi
+}
+
+select_model() {
+  local candidate
+  if [[ -z "$model" ]]; then
+    PS3="Model to $action: "
+    select model in "${models[@]}"; do
+      [[ -n "$model" ]] && break
+      echo 'Choose a listed number.' >&2
+    done
+    [[ -n "$model" ]] || exit 1
+  fi
+
+  for candidate in "${models[@]}"; do
+    [[ "$model" != "$candidate" ]] || return 0
+  done
+  printf 'Unknown model: %s\nAvailable: %s\n' "$model" "${models[*]}" >&2
+  exit 2
+}
+
+calibrate() {
+  local answer report
+  if (($#)); then
+    echo 'Usage: stra calibrate [model|list]' >&2
+    exit 2
+  fi
+  echo 'Stop all Strata servers and benchmarks before continuing.' >&2
+  read -r -p 'GPU free for calibration? [y/N] ' answer
+  [[ "$answer" == y || "$answer" == Y ]] || exit 1
+
+  report="$install/calibration-$model-$(date +%Y%m%d-%H%M%S)-$$.json"
+  "${cli[@]}" engine calibrate --profile "$config" --measure --exclusive --out "$report"
+  "${cli[@]}" engine calibrate --profile "$config" --review-result "$report"
+  printf '\nTo apply after review (with all servers stopped):\n'
+  printf 'strata engine calibrate --profile %q --apply-result %q --exclusive\n' "$config" "$report"
+}
+
+main() {
+  # Preserve the upstream CLI for everything except these two shortcuts.
+  case "${1:-}" in
+    run|calibrate) action=$1; shift ;;
+    *) exec "${cli[@]}" "$@" ;;
+  esac
+
+  load_models
+  model=${1:-}
+  if [[ "$model" == list ]]; then
+    printf '%s\n' "${models[@]}"
+    return 0
+  fi
+  if [[ -n "$model" ]]; then
+    shift
+  fi
+  select_model
+  config="$install/strata-$model.json"
+
+  case "$action" in
+    run) exec "${cli[@]}" serve --profile "$config" "$@" ;;
+    calibrate) calibrate "$@" ;;
+  esac
+}
+
+main "$@"

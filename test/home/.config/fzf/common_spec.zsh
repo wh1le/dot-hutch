@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
-# Run: zsh -f test/fzf/common_test.zsh
+# Run: zsh -f test/home/.config/fzf/common_spec.zsh
 set -eu
-source "${0:A:h:h:h}/home/.config/fzf/common.zsh"
+source "${0:A:h:h:h:h:h}/home/.config/fzf/common.zsh"
 
 tmp=$(mktemp -d)
 trap 'rm -rf -- "$tmp"' EXIT
